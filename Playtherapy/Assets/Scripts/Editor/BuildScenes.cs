@@ -39,7 +39,7 @@ public class BuildScenes {
 			Debug.Log("About to build " + sceneName);
 			PlayerSettings.companyName = "ZigFu";
 			PlayerSettings.productName = sceneName + " Sample";
-            string res = BuildPipeline.BuildPlayer(new string[] { scene }, getOutputPath(sceneName), BuildTarget.WebPlayer, BuildOptions.None);
+			string res = "";// BuildPipeline.BuildPlayer(new string[] { scene }, getOutputPath(sceneName), BuildTarget.WebPlayer, BuildOptions.None);
             Debug.Log("result: " + res);
         }
     }

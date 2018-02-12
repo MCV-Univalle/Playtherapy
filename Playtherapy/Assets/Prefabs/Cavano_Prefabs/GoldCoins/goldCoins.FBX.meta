@@ -1,10 +1,15 @@
 fileFormatVersion: 2
-guid: e8449808043a6114eb825a7cbbf749bf
+guid: 2193695fe737bba44b7b522b48e32f9f
 timeCreated: 18446744011573954816
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Object62
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3

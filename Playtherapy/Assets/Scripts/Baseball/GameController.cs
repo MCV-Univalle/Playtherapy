@@ -11,6 +11,11 @@ public class GameController : MonoBehaviour {
 
 	GameObject target;
 
+	public GameObject danceUnityChan;
+	public GameObject danceTaichi;
+	public GameObject Camera;
+
+
 
     public GameObject ParametersPanel;
     public GameObject MainPanel;
@@ -419,6 +424,12 @@ public class GameController : MonoBehaviour {
 
 		}
 
+		danceTaichi.SetActive (false);
+		danceUnityChan.SetActive (false);
+		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+
+		//Camera.transform.position = new Vector3(0f, 31.83f,134.62f);
+
 
 
 		score= 0;
@@ -462,7 +473,10 @@ public class GameController : MonoBehaviour {
 			if (!skeletonManager)
 				Debug.Log("The scene is missing " + typeof(RUISSkeletonManager) + " script!");
 		}
-
+		danceTaichi.SetActive (false);
+		danceUnityChan.SetActive (false);
+		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+		//Camera.transform.Translate(0f, 0.83f,0 - 10.62f);
 		
 		score= 0;
 		UpdateScore();
@@ -556,12 +570,20 @@ public class GameController : MonoBehaviour {
 			if (numberRepetitions.value == 1) {
 				if (currentRepetitions <= 0 && array_balls.transform.childCount==0) {
 
+					danceTaichi.SetActive (true);
+					danceUnityChan.SetActive (true);
+
 					faseFinal ();
+				
 				}
 			} else {
 
 				if (currentTime <= 0  && array_balls.transform.childCount==0) {
+					danceTaichi.SetActive (true);
+					danceUnityChan.SetActive (true);
+
 					faseFinal ();
+
 				}
 			}
 			if (Time.time > shootTime ) {
@@ -585,6 +607,9 @@ public class GameController : MonoBehaviour {
 		
 		MainPanel.SetActive (false);
 		ResultPanel.SetActive (true);
+		danceTaichi.SetActive (false);
+		danceUnityChan.SetActive (false);
+
 		StopAllCoroutines();
 		InGame = false;
 		int result = Mathf.RoundToInt ((score / lanzamiento) * 100);
@@ -601,15 +626,19 @@ public class GameController : MonoBehaviour {
 	}
 
 	void faseFinal(){
+		Camera.transform.position = new Vector3(53f, 70f,30.62f);
 		movimientoLateral = false;
 		RUISSkeletonController [] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController> ();
 		kinectPlayer1[0].updateRootPosition = movimientoLateral;
+
 		StartCoroutine (animacionFinal());
 	}
 
 	IEnumerator animacionFinal(){
+		
 
-		yield return new WaitForSeconds(2.7f);
+		yield return new WaitForSeconds(13f);
+
 
 		EndGame ();
 

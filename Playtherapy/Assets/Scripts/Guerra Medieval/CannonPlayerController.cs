@@ -21,15 +21,22 @@ namespace GuerraMedieval
         public float minAngleVertical = 5f;
         public float maxAngleVertical = 60f;
 
+
+
         public float horizontalSpeed = 10f;                     // Velocity of the horizontal move
         public float tilt = 5f;                                 // Max rotation of the ship
         public float rotateSpeed = 5f;                          // Velocity of the rotation
 
 
+
+        
+
+        //public Vector2 boundary = new Vector2(-6, 6);
+
         private float horizontalMove;                           // Amount of horizontal movement
         private float verticalMove;
 
-        private bool isFireBall;
+        private bool destroyed;
 
         public GameObject canonStructure;
         public GameObject canon;
@@ -41,10 +48,8 @@ namespace GuerraMedieval
         public Vector3 canonBallVelocity = new Vector3(0, 0, 0);
         private Vector3 canonBallPosition;
         private Vector3 relativeCanonBallPosition = new Vector3(0, 0f, 3f);
-        private float trayectoryTime = 0;
+        float trayectoryTime = 0;
 
-		private float pronoSupraDelay = 4;
-		private float pronoSupraLastTime;
 
         private GameObject[] trayectoryBalls;
 
@@ -57,8 +62,6 @@ namespace GuerraMedieval
             }
 
             trayectoryBalls = GameObject.FindGameObjectsWithTag("Airballoon");
-			isFireBall = false;
-			pronoSupraLastTime = Time.time;
         }
 
         // Update is called once per frame
@@ -79,10 +82,6 @@ namespace GuerraMedieval
                         {
                             CalculateShoot();
                         }
-						if (GameManagerMedieval.gmm.WithPronation)
-						{
-							CheckPronation();
-						}
                         CalculateTrayectory();
                     }
                     break;
@@ -240,26 +239,6 @@ namespace GuerraMedieval
             }
         }
 
-		public void CheckPronation(){
-			if (GameManagerMedieval.gmm.withKeyboard) {
-				if ( Input.GetButtonDown("Fire2")) {
-					isFireBall = !isFireBall;
-					GameManagerMedieval.gmm.ChangeBalls(isFireBall);
-				}
-			} else {
-				float angle = (float)new Movements().PronoSupra();
-				if (!new Movements ().IsLeft()) {
-					angle = angle * -1;
-				}
-				if (angle < -60 && Time.time - pronoSupraLastTime > pronoSupraDelay) {
-					isFireBall = !isFireBall;
-					GameManagerMedieval.gmm.ChangeBalls(isFireBall);
-					pronoSupraLastTime = Time.time;
-				}
-				Debug.Log (angle);
-			}
-		}
-
         public void CalculateTrayectory()
         {
             float step;
@@ -274,6 +253,7 @@ namespace GuerraMedieval
                 step = (plane.transform.position.z / canonBallVelocity.magnitude) / (trayectoryBalls.Length - 1);
                 gravity = 0;
             }
+            Debug.Log(step);
 
             if (trayectoryTime < step)
             {
@@ -338,7 +318,7 @@ namespace GuerraMedieval
 
         public void Shoot()
         {
-			cannoballBehavior.GetComponent<CannonballBehavior>().Fire(canonBallVelocity, canonBallPosition, isFireBall);
+            cannoballBehavior.GetComponent<CannonballBehavior>().Fire(canonBallVelocity, canonBallPosition);
         }
     }
 

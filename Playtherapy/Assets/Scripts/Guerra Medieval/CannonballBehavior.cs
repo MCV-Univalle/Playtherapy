@@ -5,11 +5,10 @@ namespace GuerraMedieval
     {
         public static CannonballBehavior bbh;
 
-		public GameObject cannonBall;
-		public GameObject fireBall;
         public float fireRate = 1f;
 
-		private GameObject[] balls;
+        private int currentBullet;
+        private GameObject[] bullets;
         private GameObject player;
         private Rigidbody m_rigidbody;
 
@@ -25,11 +24,12 @@ namespace GuerraMedieval
                 bbh = this.gameObject.GetComponent<CannonballBehavior>();
             }
 
+            // initialice the current bullet with 0
+            currentBullet = 0;
+
             // Find all Bullets in the scene
-			balls = new GameObject[2];
-			balls[0] = cannonBall;
-			balls[1] = fireBall;
-            foreach (GameObject obj in balls)
+            bullets = GameObject.FindGameObjectsWithTag("Ball");
+            foreach (GameObject obj in bullets)
             {
                 obj.SetActive(false); //Inactive all bullets
             }
@@ -56,35 +56,36 @@ namespace GuerraMedieval
             }
             if (GameManagerMedieval.gmm.IsPlaying())
             {
-				foreach (GameObject obj in balls)
-				{
-					obj.GetComponent<Rigidbody>().useGravity = GameManagerMedieval.gmm.WithFlexionExtension;
-				}
+                m_rigidbody.useGravity = GameManagerMedieval.gmm.WithFlexionExtension;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-		public void Fire(Vector3 canonBallVelocity, Vector3 bulletPosition, bool isFireBall)
+        public void Fire(Vector3 canonBallVelocity, Vector3 bulletPosition)
         {
-			int ball = !isFireBall ? 0 : 1;
-
             if (Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
-				if (!balls[ball].activeSelf)
+                if (!bullets[currentBullet].activeSelf)
                 {
-					balls[ball].transform.position = bulletPosition;
-					balls[ball].SetActive(true);
-					balls[ball].GetComponent<Rigidbody>().velocity = canonBallVelocity;
+                    bullets[currentBullet].transform.position = bulletPosition;
+                    bullets[currentBullet].SetActive(true);
+                    bullets[currentBullet].GetComponent<Rigidbody>().velocity = canonBallVelocity;
+                    currentBullet++;
+
+                    if (currentBullet >= bullets.Length)
+                    {
+                        currentBullet = 0;
+                    }
                 }
             }
         }
 
         public void DestroyAll()
         {
-            foreach (GameObject obj in balls)
+            foreach (GameObject obj in bullets)
             {
                 obj.GetComponent<CannonballDestroy>().ResetObject();
             }

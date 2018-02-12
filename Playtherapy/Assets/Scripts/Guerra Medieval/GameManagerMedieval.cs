@@ -15,8 +15,6 @@ namespace GuerraMedieval
         public GameObject resultsPanel;
         public GameObject leapPanel;
         public GameObject pausePanel;
-		public GameObject ballsPanel;
-		public Animator ballsAnimator;
 
         // Used for states of the game
         public enum GameState
@@ -65,7 +63,6 @@ namespace GuerraMedieval
         private bool isRightHand;
         private float flexion;
         private float extension;
-
 
         // Use this for initialization
         void Start()
@@ -181,11 +178,8 @@ namespace GuerraMedieval
             }
 
             mainPanel.SetActive(true);
-			pausePanel.SetActive(true);
             parametersPanel.SetActive(false);
-			if(withPronation){
-				ballsPanel.SetActive (true);
-			}
+            pausePanel.SetActive(true);
             gameState = GameState.PLAYING;
         }
 
@@ -220,7 +214,6 @@ namespace GuerraMedieval
         {
             mainPanel.SetActive(false);
             pausePanel.SetActive(false);
-			ballsPanel.SetActive (false);
             StartCoroutine(EndGameAnimator());
         }
 
@@ -279,14 +272,6 @@ namespace GuerraMedieval
 
             resultsPanel.SetActive(true);
         }
-
-		public  void ChangeBalls(bool isFire){
-			if (isFire) {
-				ballsAnimator.Play ("fireball");
-			} else {
-				ballsAnimator.Play ("cannonball");
-			}
-		}
 
         public GameState GetGameState()
         {

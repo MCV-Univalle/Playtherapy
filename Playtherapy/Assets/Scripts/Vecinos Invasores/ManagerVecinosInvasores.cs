@@ -79,8 +79,8 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 		cam_initial_pos = cam.transform.position;
 		cam_initial_rot = cam.transform.rotation;
 
-		txt_rubies = GameObject.Find ("txt_rubies").GetComponent<Text> ();
-		txt_dodge = GameObject.Find ("txt_dodge").GetComponent<Text> ();
+		//txt_rubies = GameObject.Find ("txt_rubies").GetComponent<Text> ();
+		//txt_dodge = GameObject.Find ("txt_dodge").GetComponent<Text> ();
 		txt_time = GameObject.Find ("txt_timer").GetComponent<Text> ();
         //		tutorial_movements = GameObject.Find ("anim_moves").GetComponent<Animator> ();
 

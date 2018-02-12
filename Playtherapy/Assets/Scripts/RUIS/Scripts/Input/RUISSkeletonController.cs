@@ -619,10 +619,10 @@ public class RUISSkeletonController : MonoBehaviour
 //						else //06to08
 //							oculusRotation = coordinateSystem.ConvertRotation(Quaternion.Inverse(coordinateSystem.GetOculusCameraOrientationRaw()) 
 //								                                                  * coordinateSystem.GetOculusRiftOrientationRaw(), RUISDevice.Oculus_DK2);
-						hmdRotation = coordinateSystem.ConvertRotation(UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head), RUISDevice.OpenVR);
+						hmdRotation = coordinateSystem.ConvertRotation(UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head), RUISDevice.OpenVR);
 					}
 					else
-						hmdRotation = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head);
+						hmdRotation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head);
 //					else if(OVRManager.display != null) //06to08
 //						oculusRotation = OVRManager.display.GetHeadPose().orientation; 
 
@@ -837,7 +837,7 @@ public class RUISSkeletonController : MonoBehaviour
 							skeletonPosition.z = tempPosition.z;
 //							oculusYaw = coordinateSystem.ConvertRotation(Quaternion.Inverse(coordinateSystem.GetOculusCameraOrientationRaw()) * coordinateSystem.GetOculusRiftOrientationRaw(),
 //						                                          	     RUISDevice.Oculus_DK2).eulerAngles.y; //06to08
-							hmdYaw = coordinateSystem.ConvertRotation(UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head), RUISDevice.OpenVR).eulerAngles.y;
+							hmdYaw = coordinateSystem.ConvertRotation(UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head), RUISDevice.OpenVR).eulerAngles.y;
 						}
 					}
 					else
@@ -847,7 +847,7 @@ public class RUISSkeletonController : MonoBehaviour
 						tempPosition = coordinateSystem.GetHmdRawPosition();
 						skeletonPosition.x = tempPosition.x;
 						skeletonPosition.z = tempPosition.z;
-						hmdYaw = UnityEngine.VR.InputTracking.GetLocalRotation(UnityEngine.VR.VRNode.Head).eulerAngles.y;
+						hmdYaw = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head).eulerAngles.y;
 					}
 				}
 
