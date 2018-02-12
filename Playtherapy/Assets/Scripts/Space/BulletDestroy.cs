@@ -5,7 +5,7 @@ namespace GameSpace
     public class BulletDestroy : MonoBehaviour
     {
 
-        public GameObject explosionParticle;
+        //public GameObject explosionParticle;
 
         private Rigidbody m_rigidbody;
 
@@ -21,10 +21,10 @@ namespace GameSpace
         {
             if (other.gameObject.tag == "Enemy")
             {
-                if (explosionParticle != null)
-                {
-                    Instantiate(explosionParticle, transform.position, Quaternion.identity);
-                }
+                //if (explosionParticle != null)
+                //{
+                //    Instantiate(explosionParticle, transform.position, Quaternion.identity);
+                //}
                 ResetObject();
                 GameManagerSpace.gms.UpdateScore(1);
             }

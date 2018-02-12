@@ -4,7 +4,7 @@ namespace GameSpace
 {
     public class AsteroidDestroy : MonoBehaviour
     {
-
+        public GameObject explosionParticle;
         private Rigidbody m_rigidbody;
         public AudioSource explosionSound;
 
@@ -21,6 +21,10 @@ namespace GameSpace
                 other.gameObject.tag == "Ball" ||
                 other.gameObject.name == "ForceField")
             {
+                if (explosionParticle != null)
+                {
+                    Instantiate(explosionParticle, transform.position, Quaternion.identity);
+                }
                 explosionSound.Play();
                 //GameManagerSpace.gms.UpdateScore(1);
                 ResetObject();

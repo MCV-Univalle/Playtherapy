@@ -4,7 +4,7 @@ namespace GameSpace
 {
     public class DroidDestroy : MonoBehaviour
     {
-
+        public GameObject explosionParticle;
         private Rigidbody m_rigidbody;
 
         // Use this for initialization
@@ -17,6 +17,10 @@ namespace GameSpace
         {
             if (other.gameObject.tag == "Ball")
             {
+                if (explosionParticle != null)
+                {
+                    Instantiate(explosionParticle, transform.position, Quaternion.identity);
+                }
                 ResetObject();
             }
         }

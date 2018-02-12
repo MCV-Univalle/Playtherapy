@@ -24,7 +24,7 @@ namespace GameSpace
 
         public Boundary boundary;                               // Boundaries of the ship movement
 
-        public bool withKeyboard = true;                            // If the game is controlled by keyboard
+        //public bool withKeyboard = true;                            // If the game is controlled by keyboard
 
 
         private Rigidbody m_rigidbody;                          // Rigidbody of the Ship
@@ -104,13 +104,13 @@ namespace GameSpace
 
         public void CalculateHorizontalMove()
         {
-            if (withKeyboard)
+            if (GameManagerSpace.gms.withKeyboard)
             {
                 horizontalMove = Input.GetAxis("Horizontal");
             }
             else
             {
-                float angle = (float)new Movements().UlnarRadial();
+                float angle = (float)new Movements().FlexoExtention();
 
                 if (Math.Abs(angle) > minAngle)
                 {
@@ -127,7 +127,7 @@ namespace GameSpace
 
         public void CalculateShoot()
         {
-            if (withKeyboard)
+            if (GameManagerSpace.gms.withKeyboard)
             {
                 if (Input.GetButtonDown("Fire1"))
                 {

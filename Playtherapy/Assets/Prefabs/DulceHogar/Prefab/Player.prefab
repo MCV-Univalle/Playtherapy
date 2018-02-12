@@ -1100,7 +1100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1287885845790320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 162.39, y: 1.31, z: 62.07}
+  m_LocalPosition: {x: 162.39, y: 1.165, z: 62.07}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4035876079538810}
@@ -1545,6 +1545,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.5
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 1.91
@@ -1562,8 +1576,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UsoLeapMotion: 1
   ManoDerecha: 1
-  speed: 4
-  sensitiveRotate: 1.03
+  speed: 7
+  sensitiveRotate: 3
   middle_L: {fileID: 0}
   middle_R: {fileID: 0}
 --- !u!114 &114301793257383736

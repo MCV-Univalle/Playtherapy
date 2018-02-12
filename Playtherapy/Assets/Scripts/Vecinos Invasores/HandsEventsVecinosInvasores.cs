@@ -46,7 +46,7 @@ public class HandsEventsVecinosInvasores : MonoBehaviour {
 			{
 				distance = Mathf.Abs(Vector3.Distance (enemie.transform.position, pos_pinch));
 				//print ("search enemie: "+distance);
-				if (distance < 8) {
+				if (distance < 10) {
 
 
 					if (HoldParametersVecinosInvasores.mode_game == HoldParametersVecinosInvasores.SIMPLE) {

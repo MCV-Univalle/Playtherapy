@@ -17,8 +17,8 @@ namespace GameSpace
         public Boundary boundary;                               // Boundaries of the ship movement
 
         private Rigidbody m_rigidbody;                          // Rigidbody of the Ship
-                                                                //private float moveHorizontal;                           // Amount of horizontal movement
 
+        private bool destroyed;
 
 
         // Use this for initialization
@@ -26,6 +26,8 @@ namespace GameSpace
         {
             m_rigidbody = GetComponent<Rigidbody>();
             ResetMovement();
+
+            destroyed = false;
         }
 
         // Update is called once per frame
@@ -43,6 +45,15 @@ namespace GameSpace
                 }
                 CalculateRotation();
                 CalculateBoundary();
+            }
+            if (GameManagerSpace.gms.IsPlaying() && destroyed)
+            {
+                destroyed = false;
+            }
+            if (GameManagerSpace.gms.IsGameOver() && !destroyed)
+            {
+                GetComponent<AsteroidDestroy>().ResetObject();
+                destroyed = true;
             }
         }
 
@@ -100,7 +111,6 @@ namespace GameSpace
             //    randomMove = -1;
             //}
 
-            Debug.Log("Reset move " + randomMove);
             HorizontalMove(0);
         }
     }

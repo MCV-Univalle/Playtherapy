@@ -123,9 +123,9 @@ public class PutDataResults : MonoBehaviour {
 
 
 		int how_do_it;
-		if (percent < 0.25) {
+		if (percent <= 25) {
 			how_do_it = DEFICIENT;
-		} else if (percent >= 0.25 && percent < 0.75) {
+		} else if (percent > 25 && percent <= 75) {
 			how_do_it = GOOD;
 		} else {
 			how_do_it = EXCELENT;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using LeapAPI;
 
 namespace GuerraMedieval
 {
@@ -10,8 +11,12 @@ namespace GuerraMedieval
 
         // Panels used in the scene
         public GameObject mainPanel;
-        public GameObject parametrersPanel;
+        public GameObject parametersPanel;
         public GameObject resultsPanel;
+        public GameObject leapPanel;
+        public GameObject pausePanel;
+		public GameObject ballsPanel;
+		public Animator ballsAnimator;
 
         // Used for states of the game
         public enum GameState
@@ -23,12 +28,12 @@ namespace GuerraMedieval
         }
         private GameState gameState;
         private bool withTime;                              // If the game is with time or repetitions
+        public bool withKeyboard = false;
 
         // Timers
         private float totalTime;                            //
         private float timeMillis;
         private float currentTime;
-        private float timeBetweenChange;
         public Slider sliderCurrentTime;
         public Text currentTimeText;
         public GameObject timerPanel;
@@ -61,17 +66,6 @@ namespace GuerraMedieval
         private float flexion;
         private float extension;
 
-        private int changes;
-
-        public enum PlayState
-        {
-            NONE,
-            ASTEROIDS,
-            STARS,
-            ENEMIES
-        }
-
-        private PlayState playState;
 
         // Use this for initialization
         void Start()
@@ -85,51 +79,73 @@ namespace GuerraMedieval
 
             gameState = GameState.STARTING;
             score = 0;
-            parametrersPanel.SetActive(true);
         }
 
         // Update is called once per frame
         void Update()
         {
-            switch (gameState)
+            if (LeapService.IsConected() | withKeyboard)
             {
-                case GameState.PLAYING:
-                    {
-                        if (withTime)
-                        {
-                            currentTime -= Time.deltaTime;
+                if (leapPanel.activeSelf)
+                {
+                    leapPanel.SetActive(false);
+                    Time.timeScale = 1;
+                }
 
-                            if (currentTime >= 0)
+                switch (gameState)
+                {
+                    case GameState.PLAYING:
+                        {
+                            if (withTime)
                             {
-                                timeMillis -= Time.deltaTime * 1000f;
-                                if (timeMillis < 0)
+                                currentTime -= Time.deltaTime;
+
+                                if (currentTime >= 0)
                                 {
-                                    timeMillis = 1000f;
+                                    timeMillis -= Time.deltaTime * 1000f;
+                                    if (timeMillis < 0)
+                                    {
+                                        timeMillis = 1000f;
+                                    }
+                                    currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
+                                        + (((int)currentTime) % 60).ToString("00") + ":"
+                                        + ((int)(timeMillis * 60 / 1000)).ToString("00");
+                                    sliderCurrentTime.value = currentTime * 100 / totalTime;
                                 }
-                                currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
-                                    + (((int)currentTime) % 60).ToString("00") + ":"
-                                    + ((int)(timeMillis * 60 / 1000)).ToString("00");
-                                sliderCurrentTime.value = currentTime * 100 / totalTime;
+                                else
+                                {
+                                    gameState = GameState.GAMEOVER;
+                                    currentTimeText.text = "00:00:00";
+                                    //state = PlayState.NONE;
+                                }
                             }
                             else
                             {
-                                gameState = GameState.GAMEOVER;
-                                currentTimeText.text = "00:00:00";
-                                //state = PlayState.NONE;
+                                totalTime += Time.deltaTime;
                             }
                         }
-                        else
+                        break;
+                    case GameState.GAMEOVER:
                         {
-                            totalTime += Time.deltaTime;
+                            EndGame();
                         }
-                    }
-                    break;
-                case GameState.GAMEOVER:
-                    {
-                        EndGame();
-                    }
-                    break;
+                        break;
+                    case GameState.STARTING:
+                        {
+                            if (!parametersPanel.activeSelf)
+                            {
+                                parametersPanel.SetActive(true);
+                            }
+                        }
+                        break;
+                }
             }
+            else if (!leapPanel.activeSelf)
+            {
+                leapPanel.SetActive(true);
+                Time.timeScale = 0;
+            }
+            
         }
 
         public void StartGame(bool withTime, float time, int repetitions, float spawnTime, bool withGrab,
@@ -144,39 +160,32 @@ namespace GuerraMedieval
             remainingRepetitions = totalRepetitions;
             repetitionsText.text = remainingRepetitions.ToString();
             this.spawnTime = spawnTime;
-            this.withGrab = withGrab;
-            this.withFlexionExtension = withFlexionExtension;
-            this.withPronation = withPronation;
-            this.withBothHands = withBothHands;
-            isRightHand = rightHand;
-            this.flexion = flexion;
-            this.extension = extension;
+            this.WithGrab = withGrab;
+            this.WithFlexionExtension = withFlexionExtension;
+            this.WithPronation = withPronation;
+            this.WithBothHands = withBothHands;
+            IsRightHand = rightHand;
+            this.Flexion = flexion;
+            this.Extension = extension;
 
-            changes = 0;
-
-            int numChanges = 0;
-            if (withGrab)
-                numChanges++;
-            if (withFlexionExtension)
-                numChanges++;
-            if (withPronation)
-                numChanges++;
 
             if (withTime)
             {
-                timeBetweenChange = totalTime / numChanges;
                 repetitionsPanel.SetActive(false);
                 timerPanel.SetActive(true);
             }
             else
             {
-                timeBetweenChange = 20f;
                 timerPanel.SetActive(false);
                 repetitionsPanel.SetActive(true);
             }
 
             mainPanel.SetActive(true);
-            parametrersPanel.SetActive(false);
+			pausePanel.SetActive(true);
+            parametersPanel.SetActive(false);
+			if(withPronation){
+				ballsPanel.SetActive (true);
+			}
             gameState = GameState.PLAYING;
         }
 
@@ -204,13 +213,14 @@ namespace GuerraMedieval
             {
                 gameState = GameState.GAMEOVER;
 
-                playState = PlayState.NONE;
             }
         }
 
         public void EndGame()
         {
             mainPanel.SetActive(false);
+            pausePanel.SetActive(false);
+			ballsPanel.SetActive (false);
             StartCoroutine(EndGameAnimator());
         }
 
@@ -270,6 +280,14 @@ namespace GuerraMedieval
             resultsPanel.SetActive(true);
         }
 
+		public  void ChangeBalls(bool isFire){
+			if (isFire) {
+				ballsAnimator.Play ("fireball");
+			} else {
+				ballsAnimator.Play ("cannonball");
+			}
+		}
+
         public GameState GetGameState()
         {
             return gameState;
@@ -290,6 +308,98 @@ namespace GuerraMedieval
                 return true;
             else
                 return false;
+        }
+
+        // Encapsulation
+        public bool WithGrab
+        {
+            get
+            {
+                return withGrab;
+            }
+
+            set
+            {
+                withGrab = value;
+            }
+        }
+
+        public bool WithFlexionExtension
+        {
+            get
+            {
+                return withFlexionExtension;
+            }
+
+            set
+            {
+                withFlexionExtension = value;
+            }
+        }
+
+        public bool WithPronation
+        {
+            get
+            {
+                return withPronation;
+            }
+
+            set
+            {
+                withPronation = value;
+            }
+        }
+
+        public bool WithBothHands
+        {
+            get
+            {
+                return withBothHands;
+            }
+
+            set
+            {
+                withBothHands = value;
+            }
+        }
+
+        public bool IsRightHand
+        {
+            get
+            {
+                return isRightHand;
+            }
+
+            set
+            {
+                isRightHand = value;
+            }
+        }
+
+        public float Flexion
+        {
+            get
+            {
+                return flexion;
+            }
+
+            set
+            {
+                flexion = value;
+            }
+        }
+
+        public float Extension
+        {
+            get
+            {
+                return extension;
+            }
+
+            set
+            {
+                extension = value;
+            }
         }
 
 

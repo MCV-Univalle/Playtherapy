@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using LeapAPI;
 
 namespace GameSpace
 {
@@ -13,13 +14,21 @@ namespace GameSpace
         public GameObject mainPanel;
         public GameObject parametersPanel;
         public GameObject resultsPanel;
+        public GameObject leapPanel;
 
-        //public int currentScene;                            // 
-        public int level;                                   //
+        public enum GameState
+        {
+            PLAYING,
+            GAMEOVER,
+            PAUSE,
+            STARTING
+        }
+        private GameState gameState;
+        public bool withKeyboard = false;
 
         // Used for states of the game
-        private bool playing;                               // Is the player playing
-        private bool gameOver;                              // If the game is over
+        //private bool playing;                               // Is the player playing
+        //private bool gameOver;                              // If the game is over
         private bool withTime;                              // If the game is with time or repetitions
 
         // Timers
@@ -87,7 +96,8 @@ namespace GameSpace
             //scoreText = mainPanel.transform.FindChildByRecursive("Score Text").GetComponent<Text>();
             //mainPanel.transform.FindChildByRecursive("Text").
 
-            playing = false;
+            //playing = false;
+            gameState = GameState.STARTING;
             score = 0;
 
             //state = PlayState.ASTEROIDS;
@@ -101,47 +111,64 @@ namespace GameSpace
         // Update is called once per frame
         void Update()
         {
-            if (playing)
+            if (LeapService.IsConected() | withKeyboard)
             {
-                if (!gameOver)
+                if (leapPanel.activeSelf)
                 {
-                    UpdatePlayState();
-                    if (withTime)
-                    {
-                        currentTime -= Time.deltaTime;
-
-
-                        if (currentTime >= 0)
+                    leapPanel.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                switch (gameState)
+                {
+                    case GameState.PLAYING:
                         {
-                            timeMillis -= Time.deltaTime * 1000f;
-                            if (timeMillis < 0)
+                            UpdatePlayState();
+                            if (withTime)
                             {
-                                timeMillis = 1000f;
+                                currentTime -= Time.deltaTime;
+
+                                if (currentTime >= 0)
+                                {
+                                    timeMillis -= Time.deltaTime * 1000f;
+                                    if (timeMillis < 0)
+                                    {
+                                        timeMillis = 1000f;
+                                    }
+                                    currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
+                                        + (((int)currentTime) % 60).ToString("00") + ":"
+                                        + ((int)(timeMillis * 60 / 1000)).ToString("00");
+                                    sliderCurrentTime.value = currentTime * 100 / totalTime;
+                                }
+                                else
+                                {
+                                    gameState = GameState.GAMEOVER;
+                                    currentTimeText.text = "00:00:00";
+                                    state = PlayState.NONE;
+                                }
                             }
-                            currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
-                                + (((int)currentTime) % 60).ToString("00") + ":"
-                                + ((int)(timeMillis * 60 / 1000)).ToString("00");
-                            sliderCurrentTime.value = currentTime * 100 / totalTime;
                         }
-                        else
+                        break;
+
+                    case GameState.GAMEOVER:
                         {
-                            playing = false;
-                            gameOver = true;
-                            currentTimeText.text = "00:00:00";
-                            state = PlayState.NONE;
+                            EndGame();
+                        }break;
+
+                    case GameState.STARTING:
+                        {
+                            if (!parametersPanel.activeSelf)
+                            {
+                                parametersPanel.SetActive(true);
+                            }
                         }
-                    }
-                    else
-                    {
-                        totalTime += Time.deltaTime;
-                    }
+                        break;
                 }
             }
-            else if (IsGameOver())
+            else if (!leapPanel.activeSelf)
             {
-                EndGame();
+                leapPanel.SetActive(true);
+                Time.timeScale = 0;
             }
-
         }
 
         public void StartGame(bool withTime, float time, int repetitions, float spawnTime, bool withGrab,
@@ -189,7 +216,8 @@ namespace GameSpace
 
             mainPanel.SetActive(true);
             parametersPanel.SetActive(false);
-            playing = true;
+            gameState = GameState.PLAYING;
+            //playing = true;
         }
 
         public void UpdateScore(int points)
@@ -214,8 +242,9 @@ namespace GameSpace
 
             if (remainingRepetitions <= 0)
             {
-                playing = false;
-                gameOver = true;
+                gameState = GameState.GAMEOVER;
+                //playing = false;
+                //gameOver = true;
                 state = PlayState.NONE;
             }
         }
@@ -266,11 +295,11 @@ namespace GameSpace
         {
             TherapySessionObject objTherapy = TherapySessionObject.tso;
 
-            if (objTherapy != null)
-            {
-                objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
-                objTherapy.saveLastGameSession();
-            }
+            //if (objTherapy != null)
+            //{
+            //    objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
+            //    objTherapy.saveLastGameSession();
+            //}
 
             int finalScore;
             if (totalRepetitions == 0)
@@ -315,12 +344,19 @@ namespace GameSpace
         // Getter and Setters
         public bool IsPlaying()
         {
-            return playing;
+            if (gameState == GameState.PLAYING)
+
+                return true;
+            else
+                return false;
         }
 
         public bool IsGameOver()
         {
-            return gameOver;
+            if (gameState == GameState.GAMEOVER)
+                return true;
+            else
+                return false;
         }
 
         public PlayState GetState()

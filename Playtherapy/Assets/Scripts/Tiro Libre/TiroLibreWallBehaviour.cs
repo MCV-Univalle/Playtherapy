@@ -6,10 +6,11 @@ public class TiroLibreWallBehaviour : MonoBehaviour
 {
     public AudioSource hitSound;
     public ScoreFeedbackBehaviour scoreFeedback;
+    public Kick kickScript;
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball")
+        if (kickScript.kicked && other.gameObject.tag == "Ball")
         {
             hitSound.Play();
             ShowFeedback(other.transform.position);

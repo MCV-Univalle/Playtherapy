@@ -68,10 +68,10 @@ namespace CompleteProject
 				/*Uso Con LeapMotion*/
 				if (statusGame.isRight()) {
 					/*Decide que Mano Utilizara*/
-					moveHorizontal = (float)leapMotion.UlnarRadial ();
+					moveHorizontal = InputLeapMotionLeftHorizontal ();
 					moveVertical = InputLeapMotionRightVertical ();
 				} else {
-					moveHorizontal = (float)leapMotion.UlnarRadial ();
+					moveHorizontal = InputLeapMotionLeftHorizontal ();
 					moveVertical = InputLeapMotionLeftVertical ();
 				}
 

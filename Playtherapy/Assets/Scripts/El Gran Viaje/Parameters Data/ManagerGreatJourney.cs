@@ -8,7 +8,7 @@ using DigitalRuby.Tween;
 public class ManagerGreatJourney : MonoBehaviour {
 
 
-	static ManagerGreatJourney gm;
+	public static ManagerGreatJourney gm;
 
 	Animator tutorial_movements;
 	GameObject paramenters_canvas;
@@ -73,7 +73,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 		tutorial_canvas= GameObject.Find ("tutorial_canvas");
 		count_objects_canvas = GameObject.Find ("count_objects_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
-		cam = GameObject.Find("PlayGameCamera");
+        
+        cam = GameObject.Find("PlayGameCamera");
 		cam_initial_pos = cam.transform.parent.transform.position;
 		cam_initial_rot = cam.transform.parent.transform.rotation;
 		txt_rubies = GameObject.Find ("txt_rubies").GetComponent<Text> ();
@@ -88,8 +89,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 		array_arrows.Add(GameObject.Find("down_img"));
 		timeMillis = 1000f;
 
-
-		results_canvas.transform.localScale = Vector3.zero;
+        timeSlider.transform.parent.gameObject.SetActive(false);
+        results_canvas.transform.localScale = Vector3.zero;
 		tutorial_canvas.transform.localScale = Vector3.zero;
 		tutorial_pages_array = new List<GameObject> ();
 
@@ -218,18 +219,6 @@ public class ManagerGreatJourney : MonoBehaviour {
 	public void StartGame(bool use_time= true, int select_jugabilidad=10,int select_movimiento= HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES, int lados_involucrados= HoldParametersGreatJourney.LADO_TODOS,float angle_min=5,float angle_min_frontal=10,float angle_max=20,float sostener = 2,float descanso = 2 )
 	{
 
-		PutValuesInCanvasParameters values = FindObjectOfType<PutValuesInCanvasParameters> ();
-		values.enabled = false;
-		HoldParametersGreatJourney.use_time = use_time;
-		HoldParametersGreatJourney.select_jugabilidad = select_jugabilidad;
-		HoldParametersGreatJourney.select_movimiento = select_movimiento;
-		HoldParametersGreatJourney.lados_involucrados = lados_involucrados;
-		HoldParametersGreatJourney.select_angle_min=angle_min;
-		HoldParametersGreatJourney.select_angle_min_frontal=angle_min_frontal;
-		HoldParametersGreatJourney.select_angle_max=angle_max;
-		HoldParametersGreatJourney.select_descanso = descanso;
-		HoldParametersGreatJourney.select_sostener = sostener;
-
 		StartGame ();
 
 	}
@@ -242,8 +231,6 @@ public class ManagerGreatJourney : MonoBehaviour {
 		score_script.reset ();
 		planeControler.resetData ();
 		planeControler.resetPositionsSpineBase ();
-		//paramenters_canvas.SetActive (false);
-
 
 		foreach (MonoBehaviour behaviour in array_scrips_disabled)
 		{
@@ -349,7 +336,7 @@ public class ManagerGreatJourney : MonoBehaviour {
 		cam.gameObject.Tween("RotateCamera", 0, 100, 2.0f, TweenScaleFunctions.CubicEaseInOut, (t) =>
 			{
 				// progress
-				cam.transform.RotateAround (planeControler.transform.position, Vector3.up, 5*((100-t.CurrentValue)/100));
+				cam.transform.RotateAround (planeControler.transform.position, Vector3.up, 2*((100-t.CurrentValue)/100));
 				//cam.transform.rotation = Quaternion.identity;
 				//cam.transform.Rotate(planeControler.transform.forward, t.CurrentValue);
 			}, (t) =>

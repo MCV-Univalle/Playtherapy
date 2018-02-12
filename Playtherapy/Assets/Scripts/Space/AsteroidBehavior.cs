@@ -24,7 +24,7 @@ namespace GameSpace
         // Use this for initialization
         void Awake()
         {
-            meteors = GameObject.FindGameObjectsWithTag("Enemy");
+            meteors = GameObject.FindGameObjectsWithTag("Asteroid");
             foreach (GameObject obj in meteors)
             {
                 obj.SetActive(false);

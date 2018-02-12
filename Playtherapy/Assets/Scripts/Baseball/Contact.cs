@@ -9,9 +9,11 @@ public class Contact : MonoBehaviour {
 	public int scorevalue;
 	private GameController gameController;
 	public GameObject ball_particles; 
+	private bool pivote;
 
 	void Start()
 	{
+		pivote = false;
 		GameObject gameControllerObject = GameObject.FindWithTag("GameController");
 		if (gameControllerObject != null) {
 
@@ -21,19 +23,40 @@ public class Contact : MonoBehaviour {
 
 			Debug.Log("Cannot find GameController script");
 		}
+		
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Character")
-		{
-			Instantiate (ball_particles, transform.position, transform.rotation);
+		if (other.tag == "RightHand" && GameController.gc.selectArm <= 50) {
+			Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
 			GameController.gc.AddScore (scorevalue);
+			Debug.Log (GameController.gc.selectArm );
+
+
+
+		
+			Destroy (gameObject);
+		}
+		if (other.tag == "LeftHand"&& GameController.gc.selectArm > 50) {
+			Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
+			GameController.gc.AddScore (scorevalue);
+			Debug.Log (GameController.gc.selectArm );
+		
+
+
+
+			Destroy (gameObject);
+		}
+		if (other.tag == "Wall") {
+			
+			
+
 			Destroy (gameObject);
 
+
+
+
 		}
-
-
-
 		//Destroy (gameObject);
 	}
 }

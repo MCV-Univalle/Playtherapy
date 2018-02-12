@@ -30,7 +30,6 @@ public class handDetector : MonoBehaviour {
 		finger_index.Add (Finger.FingerType.TYPE_MIDDLE,1);
 		finger_index.Add (Finger.FingerType.TYPE_RING,2);
 		finger_index.Add (Finger.FingerType.TYPE_PINKY,3);
-		PinchDetector detector;
 	}
 
 

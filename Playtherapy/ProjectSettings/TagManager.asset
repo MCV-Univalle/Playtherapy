@@ -14,10 +14,43 @@ TagManager:
   - HandLeft
   - Katana
   - RLight
-  - Basket
-  - Wall
-  - CountBalls
   - New Tag
+  - Basket
+  - CountBalls
+  - Wall
+  - Foot
+  - Target
+  - Ball
+  - EndWall
+  - Planes
+  - Clouds
+  - Coins
+  - CanonRight
+  - CanonLeft
+  - cubeRight
+  - cubeLeft
+  - Playlist Check
+  - Terrain
+  - Airballoon
+  - AvatarPlatform
+  - Obstacle Rieles
+  - Animals
+  - Enemies
+  - StatusGame
+  - Pickup Rieles
+  - Repetition
+  - FingerTip
+  - Container
+  - BackgroundAudio
+  - Character
+  - Base
+  - GrabPoint
+  - Enemy
+  - Shield
+  - Asteroid
+  - coins
+  - RightHand
+  - LeftHand
   layers:
   - Default
   - TransparentFX

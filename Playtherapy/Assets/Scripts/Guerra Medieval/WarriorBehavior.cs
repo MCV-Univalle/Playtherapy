@@ -6,6 +6,7 @@ namespace GuerraMedieval
     {
         private Animator animator;
         private Rigidbody m_rigidbody;
+        private Renderer render;
 
         public float minWalkTime = 5;
         public float maxWalkTime = 20;
@@ -17,6 +18,7 @@ namespace GuerraMedieval
         // Use this for initialization
         void Start()
         {
+            render = gameObject.transform.GetChild(1).GetComponent<Renderer>();
             m_rigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             walkTime = Random.Range(minWalkTime, maxWalkTime);
@@ -42,6 +44,27 @@ namespace GuerraMedieval
         private void OnEnable()
         {
             savedTime = Time.time;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Airballoon")
+            {
+                if (!GameManagerMedieval.gmm.WithGrab)
+                {
+                    CannonPlayerController.cpc.Shoot();
+                }
+
+                render.material.color = new Color(1f, 0.5f, 0.5f);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.tag == "Airballoon")
+            {
+                render.material.color = Color.white;
+            }
         }
     }
 }

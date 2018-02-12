@@ -5,9 +5,153 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Main Menu/Main Menu.unity
-  - enabled: 1
+    guid: c248fb201d491a840a494697dcf64d66
+  - enabled: 0
     path: Assets/_Scenes/Sushi/Sushi Samurai.unity
-  - enabled: 1
+    guid: 5e1b15313b8a74e94b0c86fd388c10ed
+  - enabled: 0
     path: Assets/_Scenes/Atrapalo/Atrapalo.unity
+    guid: 3fe1735b530dd644eb1d24d1731cd968
+  - enabled: 1
+    path: Assets/_Scenes/Dulce Hogar/Urban.unity
+    guid: 447eb0bb59ad1d341af7b81abfce4548
+  - enabled: 1
+    path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
+    guid: 0e02063ebd6ecff459fc9f295946f2ef
+  - enabled: 1
+    path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+    guid: 75ca71e2d64ad484bbe9d843a7c99123
+  - enabled: 0
+    path: Assets/_Scenes/Tiro Libre/Tiro Libre.unity
+    guid: b6e5291070ba9ff4688e34c0670d7cec
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Urban.unity
+    guid: 447eb0bb59ad1d341af7b81abfce4548
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
+    guid: 0e02063ebd6ecff459fc9f295946f2ef
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+    guid: 75ca71e2d64ad484bbe9d843a7c99123
+  - enabled: 0
+    path: Assets/_Scenes/Main Menu/Main Menu.unity
+    guid: c248fb201d491a840a494697dcf64d66
+  - enabled: 0
+    path: Assets/_Scenes/Sushi/Sushi Samurai.unity
+    guid: 5e1b15313b8a74e94b0c86fd388c10ed
+  - enabled: 0
+    path: Assets/_Scenes/Atrapalo/Atrapalo.unity
+    guid: 3fe1735b530dd644eb1d24d1731cd968
+  - enabled: 0
+    path: Assets/_Scenes/Tiro Libre/Tiro Libre.unity
+    guid: b6e5291070ba9ff4688e34c0670d7cec
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Urban.unity
+    guid: 447eb0bb59ad1d341af7b81abfce4548
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
+    guid: 0e02063ebd6ecff459fc9f295946f2ef
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+    guid: 75ca71e2d64ad484bbe9d843a7c99123
+  - enabled: 0
+    path: Assets/_Scenes/El Gran Viaje/El Gran Viaje.unity
+    guid: 46a62a7f33ffd40bbad000fd61f16c12
+  - enabled: 0
+    path: Assets/_Scenes/Rieles/Rieles.unity
+    guid: 111f6850b616a8445997084bb81346fd
+  - enabled: 0
+    path: Assets/_Scenes/Piano/Piano.unity
+    guid: 43c20c12f113eb24a95b5c8af42ae196
+  - enabled: 0
+    path: Assets/_Scenes/Space/Space.unity
+    guid: 378fa916e7b2bbd41858d37927db7d09
+  - enabled: 0
+    path: Assets/_Scenes/Vecinos Invasores/Vecinos Invasores.unity
+    guid: 1cc76a6b19af3e04785892fb151084ad
+  - enabled: 0
+    path: Assets/_Scenes/Moles/Topos.unity
+    guid: 6f3054fb7738dd0409af56066f7908ca
+  - enabled: 0
+    path: Assets/_Scenes/Cavano/Cavano.unity
+    guid: 6b865ef9adbe52f4fa42fdea4653e700
+  - enabled: 0
+    path: Assets/_Scenes/Rieles/Rieles.unity
+    guid: 111f6850b616a8445997084bb81346fd
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Dulce Hogar.unity
+    guid: d7dd3da9d05299c43aa02ad013b6e2a9
+  - enabled: 0
+    path: Assets/_Scenes/Piano/Piano.unity
+    guid: 43c20c12f113eb24a95b5c8af42ae196
+  - enabled: 0
+    path: Assets/_Scenes/Space/Space.unity
+    guid: 378fa916e7b2bbd41858d37927db7d09
+  - enabled: 0
+    path: Assets/_Scenes/Vecinos Invasores/Vecinos Invasores.unity
+    guid: 1cc76a6b19af3e04785892fb151084ad
+  - enabled: 0
+    path: Assets/_Scenes/Moles/Topos.unity
+    guid: 6f3054fb7738dd0409af56066f7908ca
+  - enabled: 0
+    path: Assets/_Scenes/Figuras Magicas/Figuras Magicas.unity
+    guid: cca0e8bbf14686840a273162d836a221
+  - enabled: 0
+    path: Assets/_Scenes/Futbol Libre/Futbol Libre.unity
+    guid: c0b82afbc71699043ae461c5c0633d8f
+  - enabled: 0
+    path: Assets/_Scenes/Main Menu/Main Menu.unity
+    guid: c248fb201d491a840a494697dcf64d66
+  - enabled: 0
+    path: Assets/_Scenes/Sushi/Sushi Samurai.unity
+    guid: 5e1b15313b8a74e94b0c86fd388c10ed
+  - enabled: 0
+    path: Assets/_Scenes/Atrapalo/Atrapalo.unity
+    guid: 3fe1735b530dd644eb1d24d1731cd968
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Urban.unity
+    guid: 447eb0bb59ad1d341af7b81abfce4548
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
+    guid: 0e02063ebd6ecff459fc9f295946f2ef
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+    guid: 75ca71e2d64ad484bbe9d843a7c99123
+  - enabled: 0
+    path: Assets/_Scenes/Tiro Libre/Tiro Libre.unity
+    guid: b6e5291070ba9ff4688e34c0670d7cec
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Urban.unity
+    guid: 447eb0bb59ad1d341af7b81abfce4548
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
+    guid: 0e02063ebd6ecff459fc9f295946f2ef
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+    guid: 75ca71e2d64ad484bbe9d843a7c99123
+  - enabled: 0
+    path: Assets/_Scenes/El Gran Viaje/El Gran Viaje.unity
+    guid: 46a62a7f33ffd40bbad000fd61f16c12
+  - enabled: 0
+    path: Assets/_Scenes/Rieles/Rieles.unity
+    guid: 111f6850b616a8445997084bb81346fd
+  - enabled: 0
+    path: Assets/_Scenes/Dulce Hogar/Dulce Hogar.unity
+    guid: d7dd3da9d05299c43aa02ad013b6e2a9
+  - enabled: 0
+    path: Assets/_Scenes/Piano/Piano.unity
+    guid: 43c20c12f113eb24a95b5c8af42ae196
+  - enabled: 0
+    path: Assets/_Scenes/Space/Space.unity
+    guid: 378fa916e7b2bbd41858d37927db7d09
+  - enabled: 0
+    path: Assets/_Scenes/Vecinos Invasores/Vecinos Invasores.unity
+    guid: 1cc76a6b19af3e04785892fb151084ad
+  - enabled: 0
+    path: Assets/_Scenes/Moles/Topos.unity
+    guid: 6f3054fb7738dd0409af56066f7908ca
+  - enabled: 1
+    path: Assets/_Scenes/Figuras Magicas/Figuras Magicas.unity
+    guid: cca0e8bbf14686840a273162d836a221

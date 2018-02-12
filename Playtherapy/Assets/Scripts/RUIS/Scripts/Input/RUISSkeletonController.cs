@@ -878,7 +878,7 @@ public class RUISSkeletonController : MonoBehaviour
 			// HACK TODO: in Kinect 1/2 skeletonManager.skeletons[].torso = skeletonManager.skeletons[].root, so lets use filtered version of that (==skeletonPosition)
 			if(jointToGet.jointID == RUISSkeletonManager.Joint.Torso)
 				transformToUpdate.localPosition = Vector3.zero;
-			else
+			else 
 				transformToUpdate.localPosition = jointToGet.position - skeletonPosition;
 		}
 
@@ -888,6 +888,12 @@ public class RUISSkeletonController : MonoBehaviour
 			{
 				Quaternion newRotation = transform.rotation * jointToGet.rotation *
 				                                     (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
+
+				//newRotation.x = newRotation.x * -1f;
+				//newRotation.y = newRotation.y * -1f;
+				//newRotation.z = newRotation.z * -1f;
+				//newRotation.w = newRotation.w * -1f;
+				
 				transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, newRotation, maxAngularVelocity);
 			}
 			else

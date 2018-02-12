@@ -55,7 +55,6 @@ namespace CompleteProject
 		{
 			
 			int salida = (int)tiempoInicial * 10 + scoreGlobal;
-			NGUIDebug.Log ("::::::::::::::::   Cambia de Nivel a :  " + salida);
 			return salida;
 		}
 		//Resive la informacion del Minijuego Para su ejecucion

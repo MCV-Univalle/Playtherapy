@@ -131,9 +131,10 @@ public class GesturesShapeManager : MonoBehaviour {
 
 			img_left = new GameObject ("left_hand");
 			img_left.transform.parent = canvas.transform;
-
+			img_left.transform.localScale= new Vector3(-1,1, 1);
 			Image circle = img_left.AddComponent<Image> ();
 			circle.sprite = open_hand;
+
 
 			img_right = new GameObject ("right_hand");
 			img_right.transform.parent = canvas.transform;

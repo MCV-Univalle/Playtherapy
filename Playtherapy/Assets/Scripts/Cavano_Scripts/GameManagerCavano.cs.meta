@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 03d2c5373954a284bbd2aa7ec8cbec46
+timeCreated: 1510339146
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - scoreUi: {instanceID: 0}
+  - timerSlider: {instanceID: 0}
+  - panelRepeticiones: {instanceID: 0}
+  - MensajeRepeticion: {instanceID: 0}
+  - mainPanel: {instanceID: 0}
+  - parametrersPanel: {instanceID: 0}
+  - resultsPanel: {instanceID: 0}
+  - resultsScoreText: {instanceID: 0}
+  - resultsBestScoreText: {instanceID: 0}
+  - starOn: {fileID: 21300070, guid: bbec5c8aff1525143a914be4c171247c, type: 3}
+  - starOff: {fileID: 21300072, guid: bbec5c8aff1525143a914be4c171247c, type: 3}
+  - star1: {instanceID: 0}
+  - star2: {instanceID: 0}
+  - star3: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

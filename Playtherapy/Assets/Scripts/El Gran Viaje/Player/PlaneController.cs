@@ -40,7 +40,6 @@ public class PlaneController : MonoBehaviour {
 		//prueba.SetActive (false);
 		//txt_prueba = prueba.GetComponent<Text>();
         connectWithSensor();
-		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward);
 		resetData ();
 
     }
@@ -48,7 +47,7 @@ public class PlaneController : MonoBehaviour {
 	{
 		minAngle = HoldParametersGreatJourney.select_angle_min;
 		maxAngle = HoldParametersGreatJourney.select_angle_max;
-
+		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward);
 
 	}
 	public void resetPositionsSpineBase()
@@ -83,130 +82,127 @@ public class PlaneController : MonoBehaviour {
     MovementAxis moveWithKinect(double hAxis,double vAxis)
     {
 		
-		if (sensor != null && sensor.IsOpen)
+		
+        // se actualiza cada parte del cuerpo 
+        for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
         {
+            BodyPointPosition position = adapter.ReturnPosition((BodyParts)i);
+            bodyPointsCollection[(BodyParts)i].setPosition(position);
+        }
+        bodyMovements.setBodyPointsCollection(bodyPointsCollection);
 
-            // se actualiza cada parte del cuerpo 
-            for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
-            {
-                BodyPointPosition position = adapter.ReturnPosition((BodyParts)i);
-                bodyPointsCollection[(BodyParts)i].setPosition(position);
-            }
-            bodyMovements.setBodyPointsCollection(bodyPointsCollection);
+		double angleMovementX=0;
+		double angleMovementY=0;
+        //transform.position += transform.forward * Time.deltaTime * speedForward;
+       // print("select movimiento: "+ HoldParametersGreatJourney.select_movimiento);
+		switch (HoldParametersGreatJourney.select_movimiento)
+		{
 
-			double angleMovementX=0;
-			double angleMovementY=0;
-            //transform.position += transform.forward * Time.deltaTime * speedForward;
-			switch (HoldParametersGreatJourney.select_movimiento)
-			{
+		case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
+			hAxis = 0;
 
-			case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
+
+
+
+			angleMovementX = bodyMovements.hipLeftAbMovement();
+
+			if (angleMovementX >= minAngle) {
+				//print ("movio a la izquierda" + angleMovement);
+				hAxis = -(float)((angleMovementX-minAngle) / (maxAngle - minAngle));
+
+
+			}
+			else {
 				hAxis = 0;
-
-
-
-
-				angleMovementX = bodyMovements.hipLeftAbMovement();
-
+				angleMovementX = bodyMovements.hipRigthAbMovement();
 				if (angleMovementX >= minAngle) {
-					//print ("movio a la izquierda" + angleMovement);
-					hAxis = -(float)((angleMovementX-minAngle) / (maxAngle - minAngle));
-
-
-				}
-				else {
-					hAxis = 0;
-					angleMovementX = bodyMovements.hipRigthAbMovement();
-					if (angleMovementX >= minAngle) {
-						//print("movio a la derecha" + angleMovement);
-						hAxis = (float)((angleMovementX-minAngle) / (maxAngle - minAngle));
+					//print("movio a la derecha" + angleMovement);
+					hAxis = (float)((angleMovementX-minAngle) / (maxAngle - minAngle));
 					
-					}
-					// falta hacia abajo (probar)
+				}
+				// falta hacia abajo (probar)
+
+			}
+
+			if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) 
+			{
+				vAxis = 0;
+				// make a squat to move down;	
+				BodyPointPosition currentSpineBasePos = bodyPointsCollection [BodyParts.SpineBase].getCurrentPosition ();
+
+				if (currentSpineBasePos.y<positionSpineBase_init.y && positionSpineBase_init.y - currentSpineBasePos.y >0.07) {
+					vAxis =- Mathf.Abs ((float)(positionSpineBase_init.y - currentSpineBasePos.y));
+
 
 				}
 
-				if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) 
-				{
-					vAxis = 0;
-					// make a squat to move down;	
-					BodyPointPosition currentSpineBasePos = bodyPointsCollection [BodyParts.SpineBase].getCurrentPosition ();
-
-					if (currentSpineBasePos.y<positionSpineBase_init.y && positionSpineBase_init.y - currentSpineBasePos.y >0.07) {
-						vAxis =- Mathf.Abs ((float)(positionSpineBase_init.y - currentSpineBasePos.y));
-
-
-					}
-
-				}
-
-
-				break;
-			case HoldParametersGreatJourney.MOVIMIENTO_TRONCO:
-
-
-				hAxis = 0;
-				float sign;
-
-				angleMovementX = bodyMovements.spineLatMovement ();
-				minAngle = (double) HoldParametersGreatJourney.select_angle_min;
-
-
-				if (Mathf.Abs((float)angleMovementX)>minAngle) {
-					sign = -Mathf.Sign ((float)angleMovementX);
-					hAxis = (float)(sign * (Mathf.Abs((float)(angleMovementX))-minAngle) / (maxAngle - minAngle));
-					if (Mathf.Abs((float)hAxis)>1) {
-						hAxis = sign * 1;
-					}
-
-				}
-
-
-			
-
-
-				if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) {
-					vAxis = 0;
-					minAngle = (double) HoldParametersGreatJourney.select_angle_min_frontal;
-					// make a an anterior spine flexion to move down;
-					angleMovementY = bodyMovements.spineIncMovement ();
-					//print ("trunck angleY:"+angleMovementY);
-					//if (angleMovementY> minAngle && angleMovementY-minAngle>14) {
-					if (angleMovementY > minAngle + (maxAngle - minAngle) * 0.8) {
-						vAxis = -(float)((angleMovementY - minAngle) / (maxAngle - minAngle));
-
-						sign = Mathf.Sign ((float)vAxis);
-						if (Mathf.Abs ((float)vAxis) > 1) {
-							vAxis = sign * 1;
-						}
-					}
-				}
+			}
 
 
 			break;
+		case HoldParametersGreatJourney.MOVIMIENTO_TRONCO:
+
+
+			hAxis = 0;
+			float sign;
+
+			angleMovementX = bodyMovements.spineLatMovement ();
+			minAngle = (double) HoldParametersGreatJourney.select_angle_min;
+
+
+			if (Mathf.Abs((float)angleMovementX)>minAngle) {
+				sign = -Mathf.Sign ((float)angleMovementX);
+				hAxis = (float)(sign * (Mathf.Abs((float)(angleMovementX))-minAngle) / (maxAngle - minAngle));
+				if (Mathf.Abs((float)hAxis)>1) {
+					hAxis = sign * 1;
+				}
+
+			}
+
+
+
+
+			if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) {
+				vAxis = 0;
+				minAngle = (double) HoldParametersGreatJourney.select_angle_min_frontal;
+				// make a an anterior spine flexion to move down;
+				angleMovementY = bodyMovements.spineIncMovement ();
+				//print ("trunck angleY:"+angleMovementY);
+				////if (angleMovementY> minAngle && angleMovementY-minAngle>14) {
+				if (angleMovementY > minAngle + (maxAngle - minAngle) * 0.8) {
+					vAxis = -(float)((angleMovementY - minAngle) / (maxAngle - minAngle));
+
+					sign = Mathf.Sign ((float)vAxis);
+					if (Mathf.Abs ((float)vAxis) > 1) {
+						vAxis = sign * 1;
+					}
+				}
+			}
+
+
+		break;
 
 //			case HoldParametersGreatJourney.MOVI:
 //				angleMovementX = bodyMovements.spineIncMovement ();
 //				break;
-			default:
-				break;
-			}
+		default:
+			break;
+		}
 
             
             
-			//txt_prueba.text = "angleX: " +Mathf.RoundToInt((float)angleMovementX)+"º"+ " , angleY:"+Mathf.RoundToInt((float)angleMovementY)+"º"+ ", VAxis:"+vAxis;
+		//txt_prueba.text = "angleX: " +Mathf.RoundToInt((float)angleMovementX)+"º"+ " , angleY:"+Mathf.RoundToInt((float)angleMovementY)+"º"+ ", VAxis:"+vAxis;
            
-			switch (HoldParametersGreatJourney.select_movimiento) {
-			case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
-				if (angleMovementX > HoldParametersGreatJourney.best_angle_left) {
-					HoldParametersGreatJourney.best_angle_left = angleMovementX;
-				}
-				break;
-
+		switch (HoldParametersGreatJourney.select_movimiento) {
+		case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
+			if (angleMovementX > HoldParametersGreatJourney.best_angle_left) {
+				HoldParametersGreatJourney.best_angle_left = angleMovementX;
 			}
+			break;
 
+		}
 
-        }
+        
         return new MovementAxis(hAxis,vAxis);
     }
     // Update is called once per frame
@@ -216,16 +212,18 @@ public class PlaneController : MonoBehaviour {
 		bool can_move = true;
 		float vAxis = Input.GetAxis ("Vertical");
 		float hAxis = Input.GetAxis ("Horizontal");
-        
+ 
         // de estar conectado el kinect vera el moviento y retornara lo que ha movido
         // de no ser asi pasara los valores como estan
 		//comentar cuando se prueba sin kinect
-
-		if (sensor.IsOpen) {
-			MovementAxis movement_axis = moveWithKinect (hAxis, vAxis);
-			hAxis = (float)movement_axis.xAxis;
-			vAxis = (float)movement_axis.yAxis;
+		if (sensor!=null) {
+			if (sensor.IsOpen!=null && sensor.IsOpen) {
+				MovementAxis movement_axis = moveWithKinect (hAxis, vAxis);
+				hAxis = (float)movement_axis.xAxis;
+				vAxis = (float)movement_axis.yAxis;
+			}
 		}
+
 
 		//movement = new Vector3 (hAxis, vAxis, 0)*speed;
 		movement = new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
