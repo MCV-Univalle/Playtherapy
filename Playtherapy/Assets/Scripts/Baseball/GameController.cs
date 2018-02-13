@@ -16,8 +16,9 @@ public class GameController : MonoBehaviour {
 	public GameObject Camera;
 
 
-
+    
     public GameObject ParametersPanel;
+    public GameObject TutorialPanel;
     public GameObject MainPanel;
 	public GameObject ResultPanel;
 
@@ -317,6 +318,7 @@ public class GameController : MonoBehaviour {
 	public bool pivote;
 	public bool send;
 	
+   
 	
 	public Dropdown game_mode;
 
@@ -451,7 +453,7 @@ public class GameController : MonoBehaviour {
 
 			_range_game = 25;
 		}
-		toggleX.isOn = false;
+		toggleX.isOn = true;
 		
 		results = ResultPanel.GetComponent<PutDataResults> ();
 
@@ -637,7 +639,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator animacionFinal(){
 		
 
-		yield return new WaitForSeconds(13f);
+		yield return new WaitForSeconds(5f);
 
 
 		EndGame ();
@@ -664,6 +666,18 @@ public class GameController : MonoBehaviour {
 		//Debug.Log(sliderCurrentTime.value);
 	}
 
+
+    public void TutorialPhase() {
+
+        ParametersPanel.SetActive(false);
+        TutorialPanel.SetActive(true);
+
+    }
+
+    public void EndTutorial() {
+        ParametersPanel.SetActive(true);
+        TutorialPanel.SetActive(false);
+    }
 
 	public void StartGame()
 	{
@@ -862,10 +876,10 @@ public class GameController : MonoBehaviour {
 
 				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
 				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-				posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+4);
-				posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *((radius/10)+4);
+                posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
+                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
 
-				selectArm = 70;
+                selectArm = 70;
 			
 				Destroy (Instantiate (rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
 				//virtual rehab revisar 
@@ -887,10 +901,10 @@ public class GameController : MonoBehaviour {
 
 				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
 				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-				posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+4);
-				posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *((radius/10)+4);
+                posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
+                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
 
-				var vector = new Vector3 ((float)(PhantomLeft.transform.position.x - posX), (float)(PhantomLeft.transform.position.y - posY), (float)PhantomLeft.transform.position.z).normalized * force;//force
+                var vector = new Vector3 ((float)(PhantomLeft.transform.position.x - posX), (float)(PhantomLeft.transform.position.y - posY), (float)PhantomLeft.transform.position.z).normalized * force;//force
 				particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y-posYpart), (float)RealPlayerRight.transform.position.z), Quaternion.identity) as GameObject;
 				//Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 				Destroy(particulas,4.0f);
@@ -933,8 +947,8 @@ public class GameController : MonoBehaviour {
 				//angleRandom = 0;
 				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
 				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-				posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+4);
-				posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *((radius/10)+4);
+				posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*(radius/4);
+				posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *(radius/4);
 
 				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity), 2.0f);
 				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity);
