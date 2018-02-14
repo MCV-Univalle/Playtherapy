@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour {
     public GameObject TutorialPanel;
     public GameObject MainPanel;
 	public GameObject ResultPanel;
+    public GameObject pausa;
 
 	public Button boton;
 
@@ -440,7 +441,8 @@ public class GameController : MonoBehaviour {
 		UpdateScore();
         InGame = false;
         MainPanel.SetActive(false);
-		ResultPanel.SetActive (false);
+        pausa.SetActive(false);
+        ResultPanel.SetActive (false);
 		movimientoLateral = false;
 		force = 20;
 		if(_angleMinLeft == 0){
@@ -487,7 +489,8 @@ public class GameController : MonoBehaviour {
 		UpdateScore();
 		InGame = false;
 		MainPanel.SetActive(false);
-		ResultPanel.SetActive (false);
+        pausa.SetActive(false);
+        ResultPanel.SetActive (false);
 		ParametersPanel.SetActive (true);
 		movimientoLateral = false;
 		force = 20;
@@ -599,7 +602,11 @@ public class GameController : MonoBehaviour {
 			}
 
 
-		} else {
+             
+                
+
+
+            } else {
 
 			Time.timeScale = 0;
 		}
@@ -611,7 +618,8 @@ public class GameController : MonoBehaviour {
 	{
 		
 		MainPanel.SetActive (false);
-		ResultPanel.SetActive (true);
+        pausa.SetActive(false);
+        ResultPanel.SetActive (true);
 		danceTaichi.SetActive (false);
 		danceUnityChan.SetActive (false);
 
@@ -677,6 +685,24 @@ public class GameController : MonoBehaviour {
 
     }
 
+    public void PauseOn()
+    {
+        InGame = false;
+
+    }
+
+    public void StartAgain() {
+
+        pausa.SetActive(false);
+        retry();
+    }
+    public void PauseOff() {
+
+        InGame = true;
+
+    }
+
+
     public void EndTutorial() {
         ParametersPanel.SetActive(true);
         TutorialPanel.SetActive(false);
@@ -691,7 +717,8 @@ public class GameController : MonoBehaviour {
 		movimientoLateral = toggleX.isOn;
 		GameOver = false;
 		MainPanel.SetActive (true);
-		ParametersPanel.SetActive (false);
+        pausa.SetActive(true);
+        ParametersPanel.SetActive (false);
 
 
 		if (numberRepetitions.value == 0) {
