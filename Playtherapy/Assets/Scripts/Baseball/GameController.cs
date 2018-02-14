@@ -411,8 +411,10 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
+        kinectPlayer1[0].updateRootPosition = true;
 
-		initialposition = kinectPlayer.transform.position;
+        initialposition = kinectPlayer.transform.position;
 
 		gc = gameObject.GetComponent<GameController> ();
 
@@ -467,9 +469,10 @@ public class GameController : MonoBehaviour {
 	public void retry(){
 	
 		gc = gameObject.GetComponent<GameController> ();
+        RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
+        kinectPlayer1[0].updateRootPosition = true;
 
-
-		if (skeletonManager == null)
+        if (skeletonManager == null)
 		{
 			skeletonManager = FindObjectOfType(typeof(RUISSkeletonManager)) as RUISSkeletonManager;
 			if (!skeletonManager)
@@ -502,7 +505,7 @@ public class GameController : MonoBehaviour {
 		}
 		results = ResultPanel.GetComponent<PutDataResults> ();
 		lanzamiento = 0;
-		toggleX.isOn = false;
+		toggleX.isOn = true;
 		//results = FindObjectOfType<PutDataResults> ();
 		//Button btn = boton.GetComponent<Button> ();
 		//btn.onClick.AddListener(StartGame);
@@ -685,7 +688,6 @@ public class GameController : MonoBehaviour {
 		force = _velocity_game;
 		_range_game = range ;
 
-		Debug.Log(_range_game);
 		movimientoLateral = toggleX.isOn;
 		GameOver = false;
 		MainPanel.SetActive (true);
