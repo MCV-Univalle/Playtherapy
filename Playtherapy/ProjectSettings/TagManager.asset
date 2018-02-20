@@ -51,6 +51,11 @@ TagManager:
   - coins
   - RightHand
   - LeftHand
+  - FxTemporaire
+  - RobotHand
+  - Building
+  - Robot
+  - Proyectile
   layers:
   - Default
   - TransparentFX

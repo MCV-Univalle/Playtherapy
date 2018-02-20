@@ -7,185 +7,227 @@ public class ShaderMaterialsEditor : ShaderGUI
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
         bool bEnableCutOut = false;
+        bool bEnableDisTex = false;
         bool bEnableUVRotation = false;
         bool bEnableUVScroll = false;
 		bool bEnableUVMirror = false;
 		bool bEnableBloom = false;
+        bool bRange01 = false;
+        bool bRange02 = false;
+        bool bRange03 = false;
+        bool bRange04 = false;
         Material targetMat = materialEditor.target as Material;
         foreach (MaterialProperty property in properties)
         {
+			materialEditor.ShaderProperty (property, property.displayName);
+
+
             if (property.type == MaterialProperty.PropType.Texture)
             {
-                if (property.name.Equals(EffectShaderPropertyStr.CutTexStr))
+                if (property.name.Equals("_CutTex"))
                 {
                     if (property.textureValue != null)
                     {
                         bEnableCutOut = true;
                     }
                 }
-                materialEditor.TextureProperty(property, GetPropertyChineseName(property.name));
+
+                if (property.name.Equals("_DisTex"))
+                {
+                    if (property.textureValue != null)
+                    {
+                        bEnableDisTex = true;
+                    }
+                }
+
             }
-            else if (property.type == MaterialProperty.PropType.Color)
-            {
-                materialEditor.ColorProperty(property, GetPropertyChineseName(property.name));
-            }
+         //   else if (property.type == MaterialProperty.PropType.Color)
+         //   {
+
+         //   }
             else if (property.type == MaterialProperty.PropType.Range)
             {
-                materialEditor.RangeProperty(property, GetPropertyChineseName(property.name));
-				if (property.name.Equals(EffectShaderPropertyStr.UVMirrorX)
-					&& property.floatValue != 0.0f)
-				{
-					bEnableUVMirror = true;
-				}
-				else if (property.name.Equals(EffectShaderPropertyStr.UVMirrorY)
-					&& property.floatValue != 0.0f)
-				{
-					bEnableUVMirror = true;
-				}
-				else if(property.name.Equals(EffectShaderPropertyStr.EmissionGain)
-					&& property.floatValue != 0.0f)
-				{
-					bEnableBloom = true;
-				}
-            }
-            else if (property.type == MaterialProperty.PropType.Float)
-            {
-                if (property.name.Equals(EffectShaderPropertyStr.MainRotationStr)
+
+
+                if (property.name.Equals("_UVMirrorX")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableUVMirror = true;
+                }
+                else if (property.name.Equals("_UVMirrorY")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableUVMirror = true;
+                }
+                else if (property.name.Equals("_EmissionGain")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableBloom = true;
+                }
+                else if (property.name.Equals("_MainRotation")
                     && property.floatValue != 0.0f)
                 {
                     bEnableUVRotation = true;
                 }
-                else if (property.name.Equals(EffectShaderPropertyStr.UVScrollX)
+                else if (property.name.Equals("_Range01")
                     && property.floatValue != 0.0f)
                 {
-                    bEnableUVScroll = true;
+                    bRange01 = true;
                 }
-                else if (property.name.Equals(EffectShaderPropertyStr.UVScrollY)
+                else if (property.name.Equals("_Range02")
                     && property.floatValue != 0.0f)
                 {
-                    bEnableUVScroll = true;
+                    bRange02 = true;
                 }
+                else if (property.name.Equals("_Range03")
+                    && property.floatValue != 0.0f)
+                {
+                    bRange03 = true;
+                }
+                else if (property.name.Equals("_Range04")
+                     && property.floatValue != 0.0f)
+                {
+                    bRange04 = true;
+                }
+
+
                 if (bEnableCutOut)
                 {
-                    if (property.name.Equals(EffectShaderPropertyStr.CutRotationStr)
+                    if (property.name.Equals("_CutRotation")
                         && property.floatValue != 0.0f)
                     {
                         bEnableUVRotation = true;
                     }
-                    else if (property.name.Equals(EffectShaderPropertyStr.UVCutScrollX)
+                }
+
+            }
+            else if (property.type == MaterialProperty.PropType.Float)            
+            {
+                if (property.name.Equals("_MainRotation")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableUVRotation = true;
+                }
+                else if (property.name.Equals("_UVScrollX")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableUVScroll = true;
+                }
+                else if (property.name.Equals("_UVScrollY")
+                    && property.floatValue != 0.0f)
+                {
+                    bEnableUVScroll = true;
+                }
+
+                if (bEnableCutOut)
+                {
+                    if (property.name.Equals("_CutRotation")
+                        && property.floatValue != 0.0f)
+                    {
+                        bEnableUVRotation = true;
+                    }
+                    else if (property.name.Equals("_UVCutScrollX")
                         && property.floatValue != 0.0f)
                     {
                         bEnableUVScroll = true;
                     }
-                    else if (property.name.Equals(EffectShaderPropertyStr.UVCutScrollY)
+                    else if (property.name.Equals("_UVCutScrollY")
                         && property.floatValue != 0.0f)
                     {
                         bEnableUVScroll = true;
                     }
                 }
-
-                materialEditor.FloatProperty(property, GetPropertyChineseName(property.name));
+                
             }
         }
         if (bEnableCutOut)
         {
-            targetMat.EnableKeyword(EffectShaderPropertyStr.EnableAlphaMaskStr);
+            targetMat.EnableKeyword("Enable_AlphaMask");
         }
         else
         {
-            targetMat.DisableKeyword(EffectShaderPropertyStr.EnableAlphaMaskStr);
+            targetMat.DisableKeyword("Enable_AlphaMask");
         }
+
+        if (bEnableDisTex)
+        {
+            targetMat.EnableKeyword("Enable_DisTex");
+        }
+        else
+        {
+            targetMat.DisableKeyword("Enable_DisTex");
+        }
+
         if (bEnableUVRotation)
         {
-            targetMat.EnableKeyword(EffectShaderPropertyStr.EnableUVRotationStr);
+            targetMat.EnableKeyword("Enable_UVRotation");
         }
         else
         {
-            targetMat.DisableKeyword(EffectShaderPropertyStr.EnableUVRotationStr);
+            targetMat.DisableKeyword("Enable_UVRotation");
         }
-        if (bEnableUVScroll)
+       
+		if (bEnableUVScroll)
         {
-            targetMat.EnableKeyword(EffectShaderPropertyStr.EnableUVScrollStr);
+            targetMat.EnableKeyword("Enable_UVScroll");
         }
         else
         {
-            targetMat.DisableKeyword(EffectShaderPropertyStr.EnableUVScrollStr);
+            targetMat.DisableKeyword("Enable_UVScroll");
         }
+
 		if (bEnableUVMirror)        
 		{
-			targetMat.EnableKeyword(EffectShaderPropertyStr.EnableUVMirror);
+			targetMat.EnableKeyword("Enable_UVMirror");
 		}
 		else
 		{
-			targetMat.DisableKeyword(EffectShaderPropertyStr.EnableUVMirror);
+			targetMat.DisableKeyword("Enable_UVMirror");
 		}
+
 		if (bEnableBloom) {
-			targetMat.EnableKeyword(EffectShaderPropertyStr.EnableBloom);
+			targetMat.EnableKeyword("Enable_Bloom");
 		} 
 		else {
-			targetMat.DisableKeyword(EffectShaderPropertyStr.EnableBloom);
+			targetMat.DisableKeyword("Enable_Bloom");
 		}
+
+        if (bRange01)
+        {
+            targetMat.EnableKeyword("Enable_Range01");
+        }
+        else
+        {
+            targetMat.DisableKeyword("Enable_Range01");
+        }
+
+        if (bRange02)
+        {
+            targetMat.EnableKeyword("Enable_Range02");
+        }
+        else
+        {
+            targetMat.DisableKeyword("Enable_Range02");
+        }
+
+        if (bRange03)
+        {
+            targetMat.EnableKeyword("Enable_Range03");
+        }
+        else
+        {
+            targetMat.DisableKeyword("Enable_Range03");
+        }
+
+        if (bRange04)
+        {
+            targetMat.EnableKeyword("Enable_Range04");
+        }
+        else
+        {
+            targetMat.DisableKeyword("Enable_Range04");
+        }
+
     }
 
-    string GetPropertyChineseName(string propertyName)
-    {
-		if (propertyName.Equals (EffectShaderPropertyStr.MainTexStr)) {
-			return "Main Texture";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.CutTexStr)) {
-			return "CutOut Texture";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.ColorStr)) {
-			return "Color";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.CutOffStr)) {
-			return "CutOut Alpha";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.MainRotationStr)) {
-			return "Main Texture UV Rotation";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.CutRotationStr)) {
-			return "CutOut UV Rotation";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVScrollX)) {
-			return "Main Texture UV Scroll X";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVScrollY)) {
-			return "Main Texture UV Scroll Y";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVCutScrollX)) {
-			return "CutOut UV Scroll X";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVCutScrollY)) {
-			return "CutOut UV Scroll Y";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVMirrorX)) {
-			return "X Mirror";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.UVMirrorY)) {
-			return "Y Mirror";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.CutParticleSoftValue)) {
-			return "Soft Particles Factor";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.DissolveSrc)) {
-			return "Dissov Texture";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.SpecColor)) {
-			return "Light Color";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.Shininess)) {
-			return "Sjomomess";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.Amount)) {
-			return "Amount";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.StartAmount)) {
-			return "StartAmount";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.DissColor)) {
-			return "DissColor";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.Illuminate)) {
-			return "Illuminate";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.EmissionGain)) {
-			return "EmissionGain";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.ShadowColor)) {
-			return "ShadowColor";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.SpecularPower)) {
-			return "SpecularPower";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.EdgeThickness)) {
-			return "EdgeThickness";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.EdgeSaturtion)) {
-			return "EdgeSaturtion";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.EdgeBrightness)) {
-			return "EdgeBrightness";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.RimLightSampler)) {
-			return "RimLightSampler";
-		} else if (propertyName.Equals (EffectShaderPropertyStr.FalloffSampler)) {
-			return "FalloffSampler";
-		}
-        return "";
-    }
 }
