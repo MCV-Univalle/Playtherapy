@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 0b742504ede698f4fa38be7e253c52bd
+guid: f22b0fcc75c5d254b9d1dbc2630d5c70
 timeCreated: 1454211133
 licenseType: Store
 TrueTypeFontImporter:
-  serializedVersion: 4
+  serializedVersion: 2
   fontSize: 16
   forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
+  characterSpacing: 1
+  characterPadding: 0
   includeFontData: 1
-  fontName: Exo
-  fontNames:
-  - Exo
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 0854d2c173c395d4582ddc388aac4408, type: 3}
-  - {fileID: 12800000, guid: 0452c1228a229f24ebd84273e8229fd2, type: 3}
-  - {fileID: 12800000, guid: 0431a7e4dd6a71f42ab66d19609a8bc3, type: 3}
-  - {fileID: 12800000, guid: 06acfda64c627c74cb312e6611b813d6, type: 3}
+  use2xBehaviour: 0
+  fontNames: []
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
-  ascentCalculationMode: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
