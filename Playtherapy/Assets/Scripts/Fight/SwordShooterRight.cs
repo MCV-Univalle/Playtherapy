@@ -8,6 +8,8 @@ public class SwordShooterRight : MonoBehaviour {
     public GameObject Proyectile;
     public GameObject[] array;
     public GameObject Objective;
+    public GameObject mark;
+    GameObject Right;
 
 
     // Use this for initialization
@@ -17,6 +19,9 @@ public class SwordShooterRight : MonoBehaviour {
 
         array = GameObject.FindGameObjectsWithTag("Robot");
         Objective = array[0];
+        Right = GameObject.FindGameObjectsWithTag("RightHand")[0];
+
+        Destroy(Instantiate(mark, Right.transform.position, Right.transform.rotation) as GameObject, 1.0f);
 
     }
 

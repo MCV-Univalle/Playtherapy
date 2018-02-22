@@ -6266,6 +6266,10 @@ MonoBehaviour:
     type: 2}
   ParticlePunchLeft: {fileID: 1156508977559596, guid: 2825dcb3765938a47967acf78f8b9687,
     type: 2}
+  ParticleSwordRight: {fileID: 1551087821128822, guid: 8c7570b795ce22848a16fb64398191bc,
+    type: 2}
+  ParticleSwordLeft: {fileID: 1799376111854742, guid: 4f609879189c75d4f99877fa9771caac,
+    type: 2}
   PlayerCenter: {fileID: 1704211391}
 --- !u!4 &678383401
 Transform:
