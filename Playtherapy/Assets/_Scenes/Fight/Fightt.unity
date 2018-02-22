@@ -6261,6 +6261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ce0b9c96cc80a48b44f59e166d266d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticlesParent: {fileID: 2008052390}
   ParticlePunchRight: {fileID: 1727096101226674, guid: dfd6f5ed4d8817241a8555812d5c0f6b,
     type: 2}
   ParticlePunchLeft: {fileID: 1156508977559596, guid: 2825dcb3765938a47967acf78f8b9687,
@@ -32257,6 +32258,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1166024970}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2008052390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2008052391}
+  m_Layer: 0
+  m_Name: Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2008052391
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2008052390}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 223.54958, y: 0, z: 223.1662}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020027408
 GameObject:

@@ -73,6 +73,7 @@ MonoBehaviour:
   Proyectile: {fileID: 1524172387407726, guid: 299d56893858a0d4e81b2e0dfaecf4c3, type: 2}
   array: []
   Objective: {fileID: 0}
+  mark: {fileID: 1088606498199842, guid: 5082954cf4457774c8b0a1bada6adc59, type: 2}
 --- !u!136 &136742451944368794
 CapsuleCollider:
   m_ObjectHideFlags: 1
