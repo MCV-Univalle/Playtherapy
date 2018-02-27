@@ -58,6 +58,7 @@ TagManager:
   - Proyectile
   - LeftSword
   - RightSword
+  - GameControllerFight
   layers:
   - Default
   - TransparentFX
