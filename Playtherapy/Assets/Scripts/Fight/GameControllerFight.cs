@@ -17,6 +17,8 @@ public class GameControllerFight : MonoBehaviour {
     public GameObject ParticleSwordLeft;
 
     public GameObject PlayerCenter;
+    public int score;
+    PutDataResults results;
 
     private float Minangle;
     private float Maxangle;
@@ -33,7 +35,7 @@ public class GameControllerFight : MonoBehaviour {
     //Game
 
 
-    float appearTime = 4.0f;
+    float appearTime =0.5f ;
     float rate = 4;
 
     float currentTime;
@@ -45,9 +47,16 @@ public class GameControllerFight : MonoBehaviour {
     public Text textCurrentTime;
     public GameObject MainPanel;
     public bool InGame;
+
+
+    public Text ScoreText;
     // Giant Robot
 
     public Animator GiantRobot;
+
+    //EndGame
+
+    public GameObject ResultPanel;
 
 
 
@@ -57,10 +66,12 @@ public class GameControllerFight : MonoBehaviour {
         
         gc = gameObject.GetComponent<GameControllerFight>();
         MainPanel.SetActive(false);
+        results = ResultPanel.GetComponent<PutDataResults>();
+        ResultPanel.SetActive(false);
 
         InGame = false;
 
-        //InvokeRepeating("ShowObjective", 0f, 0f);
+      
 
     }
 
@@ -104,6 +115,27 @@ public class GameControllerFight : MonoBehaviour {
 
             }
 
+            if (GameType == 1)
+            {
+                if (currentRepetitions <= 0 && ParticlesParent.transform.childCount == 0)
+                {
+
+
+                    EndGame();
+
+
+                }
+            }
+            else
+            {
+
+                if (currentTime <= 0 && ParticlesParent.transform.childCount == 0)
+                {
+                    EndGame();
+
+                }
+            }
+
             Time.timeScale = 1;
             if (Time.time > appearTime && ParticlesParent.transform.childCount < 1)
             {
@@ -111,7 +143,7 @@ public class GameControllerFight : MonoBehaviour {
                 InvokeRepeating("ShowObjective", 0f, 0f);
 
 
-                appearTime = Time.time + appearTime;
+                appearTime = Time.time + 2;
 
 
 
@@ -124,7 +156,7 @@ public class GameControllerFight : MonoBehaviour {
 
         }
 
-        
+
 
     }
 
@@ -165,7 +197,28 @@ public class GameControllerFight : MonoBehaviour {
         
 
     }
+    public void EndGame()
+    {
 
+        MainPanel.SetActive(false);
+        //pausa.SetActive(false);
+        ResultPanel.SetActive(true);
+
+
+        StopAllCoroutines();
+        GiantRobot.enabled = false;
+        InGame = false;
+        int result = Mathf.RoundToInt((score / score) * 100);
+        results = ResultPanel.GetComponent<PutDataResults> ();
+        results.updateData(result, 0);
+
+
+
+
+
+
+
+    }
 
     void ShowObjective() {
 
@@ -217,6 +270,7 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                ModifyRepetitions();
 
             }
             else
@@ -239,6 +293,7 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                ModifyRepetitions();
 
             }
 
@@ -277,8 +332,9 @@ public class GameControllerFight : MonoBehaviour {
 
                    Temporary_Bullet_Handler = Instantiate(ParticleSwordLeft, vector, PlayerCenter.transform.rotation) as GameObject;
                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                ModifyRepetitions();
 
-               }
+            }
                else {
                    //RIGHT SWORD
                    double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle- Minangle)));
@@ -298,6 +354,7 @@ public class GameControllerFight : MonoBehaviour {
 
                    Temporary_Bullet_Handler = Instantiate(ParticleSwordRight, vector, PlayerCenter.transform.rotation) as GameObject;
                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                ModifyRepetitions();
 
                }
 
@@ -309,4 +366,27 @@ public class GameControllerFight : MonoBehaviour {
         }
 
     }
+
+
+    public void ChangeScore (int ScoreObject)
+    {
+        score += ScoreObject;
+        UpdateScore();
+    }
+    void UpdateScore()
+    {
+
+        ScoreText.text = "" + score;
+    }
+
+
+
+    public void ModifyRepetitions() {
+
+        currentRepetitions = currentRepetitions - 1;
+
+    }
 }
+
+
+

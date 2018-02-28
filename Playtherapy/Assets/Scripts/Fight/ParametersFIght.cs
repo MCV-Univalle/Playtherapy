@@ -81,7 +81,7 @@ public class ParametersFIght : MonoBehaviour {
       
         }
 
-        print(gameController.name);
+        
         if (gameController == null)
             
         {
