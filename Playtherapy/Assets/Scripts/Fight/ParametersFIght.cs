@@ -8,6 +8,7 @@ public class ParametersFIght : MonoBehaviour {
 
     private GameControllerFight gameController;
     public GameObject ParametersPanel;
+    public GameObject ResultsPanel;
 
     float angleMin;
 	public float AngleMin {
@@ -89,6 +90,12 @@ public class ParametersFIght : MonoBehaviour {
             Debug.Log("Cannot find GameController script");
         }
 
+    }
+    public void StartAgain() {
+
+        Start();
+        ParametersPanel.SetActive(true);
+        ResultsPanel.SetActive(false);
     }
 
 

@@ -163,8 +163,9 @@ public class GameControllerFight : MonoBehaviour {
 
     public void StartGame(float minimo, float maximo,int number_repetitions,float count) {
 
-       
-
+        GiantRobot.enabled = true;
+        score = 0;
+        UpdateScore();
         MainPanel.SetActive(true);
         InGame = true;
 
@@ -210,6 +211,7 @@ public class GameControllerFight : MonoBehaviour {
         InGame = false;
         int result = Mathf.RoundToInt((score / score) * 100);
         results = ResultPanel.GetComponent<PutDataResults> ();
+        print(result);
         results.updateData(result, 0);
 
 
