@@ -9,6 +9,7 @@ public class ParametersFIght : MonoBehaviour {
     private GameControllerFight gameController;
     public GameObject ParametersPanel;
     public GameObject ResultsPanel;
+    public GameObject Eraser;
 
     float angleMin;
 	public float AngleMin {
@@ -91,12 +92,20 @@ public class ParametersFIght : MonoBehaviour {
         }
 
     }
-    public void StartAgain() {
+    public void StartAgain()
+    {
 
+        GameObject ParticlesParent;
         Start();
         ParametersPanel.SetActive(true);
         ResultsPanel.SetActive(false);
+        Eraser.SetActive(true);
+    
+     
+        
+        
     }
+    
 
 
     public Text textCurrentTime;

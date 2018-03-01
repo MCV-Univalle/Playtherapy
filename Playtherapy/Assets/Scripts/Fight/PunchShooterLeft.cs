@@ -61,10 +61,14 @@ public class PunchShooterLeft : MonoBehaviour {
 
             Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector;
         gameController.ChangeScore(1);
-        Destroy(gameObject);
+            DestroyImmediate(gameObject);
+        }
+        if (other.tag == "eraser")
+        {
+
+            Destroy(gameObject);
         }
 
-       
 
 
 

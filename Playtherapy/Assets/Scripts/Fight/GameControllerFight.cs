@@ -17,7 +17,8 @@ public class GameControllerFight : MonoBehaviour {
     public GameObject ParticleSwordLeft;
 
     public GameObject PlayerCenter;
-    public int score;
+    public float score;
+    public float total;
     PutDataResults results;
 
     private float Minangle;
@@ -25,7 +26,7 @@ public class GameControllerFight : MonoBehaviour {
 
 
     // TEST
-
+    public bool clean;
 
 
     public string name = "si lo muestra prro";
@@ -46,8 +47,10 @@ public class GameControllerFight : MonoBehaviour {
     float currentRepetitions;
     public Text textCurrentTime;
     public GameObject MainPanel;
+    public GameObject PauseButton;
+    public GameObject Retry;
     public bool InGame;
-
+    public GameObject Eraser;
 
     public Text ScoreText;
     // Giant Robot
@@ -66,9 +69,10 @@ public class GameControllerFight : MonoBehaviour {
         
         gc = gameObject.GetComponent<GameControllerFight>();
         MainPanel.SetActive(false);
+        PauseButton.SetActive(false);
         results = ResultPanel.GetComponent<PutDataResults>();
         ResultPanel.SetActive(false);
-
+        clean = true;
         InGame = false;
 
       
@@ -137,7 +141,7 @@ public class GameControllerFight : MonoBehaviour {
             }
 
             Time.timeScale = 1;
-            if (Time.time > appearTime && ParticlesParent.transform.childCount < 1)
+            if (Time.time > appearTime && ParticlesParent.transform.childCount < 1 &&(currentRepetitions > 0||currentTime > 0))
             {
 
                 InvokeRepeating("ShowObjective", 0f, 0f);
@@ -149,6 +153,9 @@ public class GameControllerFight : MonoBehaviour {
 
             }
 
+
+           
+
         }
         else {
 
@@ -156,17 +163,24 @@ public class GameControllerFight : MonoBehaviour {
 
         }
 
+       
+
 
 
     }
 
 
+    
+
     public void StartGame(float minimo, float maximo,int number_repetitions,float count) {
 
+
+        Eraser.SetActive(false);
         GiantRobot.enabled = true;
         score = 0;
         UpdateScore();
         MainPanel.SetActive(true);
+        PauseButton.SetActive(true);
         InGame = true;
 
         Maxangle = maximo;
@@ -198,20 +212,42 @@ public class GameControllerFight : MonoBehaviour {
         
 
     }
+
+    public void PauseOn()
+    {
+        InGame = false;
+
+    }
+
+    public void StartAgain()
+    {
+        
+        //GameObject retry = GameObject.FindGameObjectWithTag("Parameters");
+        Retry.GetComponent<ParametersFIght>().StartAgain();
+        GiantRobot.enabled = false;
+        MainPanel.SetActive(false);
+        PauseButton.SetActive(false);
+        
+    }
+    public void PauseOff()
+    {
+
+        InGame = true;
+
+    }
     public void EndGame()
     {
 
         MainPanel.SetActive(false);
-        //pausa.SetActive(false);
+        PauseButton.SetActive(false);
         ResultPanel.SetActive(true);
 
-
+        print("puntos, " + total + " totales " + score +" deberia ser "+((score/total)*100));
         StopAllCoroutines();
         GiantRobot.enabled = false;
         InGame = false;
-        int result = Mathf.RoundToInt((score / score) * 100);
+        int result = Mathf.RoundToInt((score / total) * 100);
         results = ResultPanel.GetComponent<PutDataResults> ();
-        print(result);
         results.updateData(result, 0);
 
 
@@ -272,6 +308,8 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                Destroy(Temporary_Bullet_Handler,5.0f);
+                total = total + 1;
                 ModifyRepetitions();
 
             }
@@ -295,6 +333,10 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+
+            
+                Destroy(Temporary_Bullet_Handler, 5.0f);
+                total = total + 1;
                 ModifyRepetitions();
 
             }
@@ -334,6 +376,8 @@ public class GameControllerFight : MonoBehaviour {
 
                    Temporary_Bullet_Handler = Instantiate(ParticleSwordLeft, vector, PlayerCenter.transform.rotation) as GameObject;
                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                Destroy(Temporary_Bullet_Handler, 6.0f);
+                total = total + 1;
                 ModifyRepetitions();
 
             }
@@ -356,6 +400,8 @@ public class GameControllerFight : MonoBehaviour {
 
                    Temporary_Bullet_Handler = Instantiate(ParticleSwordRight, vector, PlayerCenter.transform.rotation) as GameObject;
                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                Destroy(Temporary_Bullet_Handler, 6.0f);
+                total = total+1;
                 ModifyRepetitions();
 
                }

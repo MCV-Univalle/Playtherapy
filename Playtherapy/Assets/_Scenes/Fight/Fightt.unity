@@ -9490,11 +9490,16 @@ MonoBehaviour:
     type: 2}
   PlayerCenter: {fileID: 1704211391}
   score: 0
+  total: 0
+  clean: 0
   name: si lo muestra prro
   totalTime: 0
   textCurrentTime: {fileID: 1077128494}
   MainPanel: {fileID: 1621671032}
+  PauseButton: {fileID: 1940738491}
+  Retry: {fileID: 1433493775}
   InGame: 0
+  Eraser: {fileID: 1059745850}
   ScoreText: {fileID: 684119430}
   GiantRobot: {fileID: 1378317062}
   ResultPanel: {fileID: 252970423}
@@ -18437,6 +18442,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1166024970}
   m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1059745850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1059745854}
+  - component: {fileID: 1059745853}
+  - component: {fileID: 1059745852}
+  - component: {fileID: 1059745851}
+  m_Layer: 0
+  m_Name: Eraser
+  m_TagString: eraser
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1059745851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059745850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3eabfe1c6c42d4184283a947964064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &1059745852
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059745850}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1059745853
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059745850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 20, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1059745854
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1059745850}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 149.4853, y: 75.92, z: 247.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074006804
 GameObject:
@@ -30595,7 +30669,7 @@ GameObject:
   - component: {fileID: 1433493777}
   m_Layer: 0
   m_Name: Parameters
-  m_TagString: Untagged
+  m_TagString: Parameters
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30626,6 +30700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParametersPanel: {fileID: 1126046955}
   ResultsPanel: {fileID: 252970423}
+  Eraser: {fileID: 1059745850}
   angleMinSlider: {fileID: 914473317}
   angleMin_Text: {fileID: 1708195289}
   angleMaxSlider: {fileID: 2045385210}
@@ -37695,7 +37770,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 678383400}
     - target: {fileID: 114153157315561560, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -37710,7 +37785,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 678383400}
     - target: {fileID: 114822865363238558, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -37720,7 +37795,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 678383400}
     - target: {fileID: 114125041805879556, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -42471,6 +42546,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1932123450}
+--- !u!1 &1940738491 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679782306}
 --- !u!1 &1942718223
 GameObject:
   m_ObjectHideFlags: 0

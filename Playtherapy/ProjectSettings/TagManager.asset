@@ -59,6 +59,10 @@ TagManager:
   - LeftSword
   - RightSword
   - GameControllerFight
+  - Parameters
+  - SwordParticle
+  - PunchParticle
+  - eraser
   layers:
   - Default
   - TransparentFX

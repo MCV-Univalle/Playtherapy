@@ -55,13 +55,17 @@ public class SwordShooterRight : MonoBehaviour {
             gameController.ChangeScore(1);
             Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector;
 
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
 
 
         }
 
-       
 
+        if (other.tag == "eraser")
+        {
+
+            Destroy(gameObject);
+        }
 
 
     }
