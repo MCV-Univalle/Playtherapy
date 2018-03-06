@@ -5,6 +5,12 @@ using System;
 using UnityEngine.UI;
 
 public class GameControllerFight : MonoBehaviour {
+    //Camara 
+
+    public GameObject Camera;
+
+    
+    
     //Personaje 
 
     public static GameControllerFight gc;
@@ -72,6 +78,7 @@ public class GameControllerFight : MonoBehaviour {
         PauseButton.SetActive(false);
         results = ResultPanel.GetComponent<PutDataResults>();
         ResultPanel.SetActive(false);
+        Camera.transform.position = new Vector3(149f,84.38f,259.68f);
         clean = true;
         InGame = false;
 
@@ -124,8 +131,9 @@ public class GameControllerFight : MonoBehaviour {
                 if (currentRepetitions <= 0 && ParticlesParent.transform.childCount == 0)
                 {
 
+                    Camera.transform.position = new Vector3(149f, 74.38f, 245.68f);
 
-                    EndGame();
+                    InvoqueGameOver();
 
 
                 }
@@ -135,13 +143,15 @@ public class GameControllerFight : MonoBehaviour {
 
                 if (currentTime <= 0 && ParticlesParent.transform.childCount == 0)
                 {
-                    EndGame();
+                    Camera.transform.position = new Vector3(149f, 74.38f, 245.68f);
+                    InvoqueGameOver();
+                    
 
                 }
             }
 
             Time.timeScale = 1;
-            if (Time.time > appearTime && ParticlesParent.transform.childCount < 1 &&(currentRepetitions > 0||currentTime > 0))
+            if (Time.time > appearTime && ParticlesParent.transform.childCount < 1 &&(currentRepetitions > 0||currentTime > 0)&& InGame)
             {
 
                 InvokeRepeating("ShowObjective", 0f, 0f);
@@ -174,10 +184,11 @@ public class GameControllerFight : MonoBehaviour {
 
     public void StartGame(float minimo, float maximo,int number_repetitions,float count) {
 
-
+        Camera.transform.position = new Vector3(149f, 84.38f, 259.68f);
         Eraser.SetActive(false);
         GiantRobot.enabled = true;
         score = 0;
+        total = 0;
         UpdateScore();
         MainPanel.SetActive(true);
         PauseButton.SetActive(true);
@@ -255,6 +266,19 @@ public class GameControllerFight : MonoBehaviour {
 
 
 
+
+    }
+
+    void InvoqueGameOver() {
+
+        StartCoroutine(GameOver());
+    }
+
+    IEnumerator GameOver() {
+        InGame = false;
+        GiantRobot.Play("back_fall");
+        yield return new WaitForSeconds(4);
+        EndGame();
 
     }
 

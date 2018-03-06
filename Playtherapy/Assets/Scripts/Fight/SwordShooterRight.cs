@@ -11,12 +11,13 @@ public class SwordShooterRight : MonoBehaviour {
     public GameObject mark;
     GameObject Right;
     private GameControllerFight gameController;
+    private AudioSource source;
 
 
     // Use this for initialization
     void Start()
     {
-
+        source = GetComponent<AudioSource>();
 
         array = GameObject.FindGameObjectsWithTag("Robot");
         Objective = array[0];
@@ -49,13 +50,15 @@ public class SwordShooterRight : MonoBehaviour {
 
         if (other.tag == "RightSword")
         {
+            source = GetComponent<AudioSource>();
+            source.Play();
             GameObject Temporary_Bullet_Handler;
             Temporary_Bullet_Handler = Instantiate(Proyectile, this.transform.position, new Quaternion(0f, -1f, 0f, 1f)) as GameObject;
             var vector = new Vector3(-(float)(other.transform.position.x - Objective.transform.position.x), -(float)(other.transform.position.y - Objective.transform.position.y), (float)(-Objective.transform.position.z)).normalized * 50;//force
             gameController.ChangeScore(1);
             Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector;
 
-            DestroyImmediate(gameObject);
+            Destroy(gameObject);
 
 
         }

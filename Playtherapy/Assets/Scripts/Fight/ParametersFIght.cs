@@ -12,33 +12,33 @@ public class ParametersFIght : MonoBehaviour {
     public GameObject Eraser;
 
     float angleMin;
-	public float AngleMin {
+    public float AngleMin {
 
-		get
-		{
-			return angleMin ;
-		}
-		set
-		{
-			angleMin = value;
+        get
+        {
+            return angleMin;
+        }
+        set
+        {
+            angleMin = value;
 
-			if (angleMin_Text!=null) {
+            if (angleMin_Text != null) {
 
 
 
-				angleMin_Text.text = ((int)angleMin).ToString("");
+                angleMin_Text.text = ((int)angleMin).ToString("")+"°";
 
 
 
             }
-		}
+        }
 
 
-	}
+    }
 
 
-	public Slider angleMinSlider;
-	public Text angleMin_Text;
+    public Slider angleMinSlider;
+    public Text angleMin_Text;
     float angleMax;
     public float AngleMax
     {
@@ -56,7 +56,7 @@ public class ParametersFIght : MonoBehaviour {
 
 
 
-                angleMax_Text.text = ((int)angleMax).ToString("");
+                angleMax_Text.text = ((int)angleMax).ToString("")+"°";
 
 
 
@@ -70,9 +70,42 @@ public class ParametersFIght : MonoBehaviour {
     public Slider angleMaxSlider;
     public Text angleMax_Text;
 
+    public Slider slider_velocity;
+    public Text current_velocity;
+
+    float _velocity_game;
+    public float velocity
+    {
+
+        get
+        {
+            return _velocity_game;
+        }
+        set
+        {
+            _velocity_game = slider_velocity.value;
+
+            if (current_velocity != null)
+            {
+
+
+
+                current_velocity.text = ((float)_velocity_game / 10 * 100).ToString("0") + "%";
+
+
+
+            }
+        }
+
+
+    }
+
     // Use this for initialization
     void Start() {
 
+        toggleF.isOn = false;
+        toggleFA.isOn = true;
+        _velocity_game = 0;
 
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameControllerFight");
         if (gameControllerObject != null)
@@ -80,12 +113,12 @@ public class ParametersFIght : MonoBehaviour {
 
             gameController = gameControllerObject.GetComponent<GameControllerFight>();
 
-      
+
         }
 
-        
+
         if (gameController == null)
-            
+
         {
 
             Debug.Log("Cannot find GameController script");
@@ -100,12 +133,23 @@ public class ParametersFIght : MonoBehaviour {
         ParametersPanel.SetActive(true);
         ResultsPanel.SetActive(false);
         Eraser.SetActive(true);
-    
-     
-        
-        
+        gameController.InGame = false;
+
+
+
+
     }
+
     
+
+
+    public Toggle toggleFA;
+    public Text FlexionAbduction;
+    public bool FelxionAb;
+
+    public Toggle toggleF;
+    public Text Flexion;
+    public bool FelxionOnly;
 
 
     public Text textCurrentTime;
@@ -193,7 +237,7 @@ public class ParametersFIght : MonoBehaviour {
     public void StartGameButton() {
 
 
-        
+
 
         if (angleMin == 0) {
 
@@ -215,7 +259,7 @@ public class ParametersFIght : MonoBehaviour {
             {
                 gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions);
             }
-            
+
         }
         else {
 
@@ -226,24 +270,74 @@ public class ParametersFIght : MonoBehaviour {
             }
             else
             {
-                gameController.StartGame(angleMin, angleMax,numberRepetitions.value, _repetitions);
+                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions);
             }
-            
+
 
         }
 
+
+
+        ParametersPanel.SetActive(false);
+
+
+    }
+
+    public bool status;
+    public bool GameModeChange {
+
+        get {
             
 
-            ParametersPanel.SetActive(false);
-        
-        
+            return status;
+        }
+        set
+        {
+
+            if (toggleF.isOn == true)
+            {
+
+                toggleFA.isOn = false;
+            }
+            else
+            {
+
+                toggleFA.isOn = true;
+            }
         }
 
-   
+
+    }
+    public bool statusFA;
+    public bool GameModeChangeFA
+    {
+
+        get
+        {
+
+
+            return statusFA;
+        }
+        set
+        {
+
+            if (toggleFA.isOn == true)
+            {
+
+                toggleF.isOn = false;
+            }
+            else
+            {
+
+                toggleF.isOn = true;
+            }
+        }
+
+
+    }
 
 
 
-    
-	
-	
+
+
 }
