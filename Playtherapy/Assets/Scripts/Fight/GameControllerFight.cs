@@ -9,8 +9,8 @@ public class GameControllerFight : MonoBehaviour {
 
     public GameObject Camera;
 
-    
-    
+
+
     //Personaje 
 
     public static GameControllerFight gc;
@@ -26,9 +26,15 @@ public class GameControllerFight : MonoBehaviour {
     public float score;
     public float total;
     PutDataResults results;
+    //Parameters
 
     private float Minangle;
     private float Maxangle;
+    private float spawnTime; 
+    private bool IsFlexion;
+    private bool IsExtension;
+    private bool IsCombined;
+
 
 
     // TEST
@@ -37,10 +43,12 @@ public class GameControllerFight : MonoBehaviour {
 
     public string name = "si lo muestra prro";
 
+    
 
+    
 
     //Game
-
+    
 
     float appearTime =0.5f ;
     float rate = 4;
@@ -68,7 +76,8 @@ public class GameControllerFight : MonoBehaviour {
     public GameObject ResultPanel;
 
 
-
+    //righthand(139.95,75.04,727.75)
+    //lefthand(157.11,64.81,231.29)
 
 	// Use this for initialization
 	void Start () {
@@ -182,10 +191,17 @@ public class GameControllerFight : MonoBehaviour {
 
     
 
-    public void StartGame(float minimo, float maximo,int number_repetitions,float count) {
+    public void StartGame(float minimo, float maximo,int number_repetitions,float count,float time,bool flexion,bool Extension,bool comb) {
+
+            
 
         Camera.transform.position = new Vector3(149f, 84.38f, 259.68f);
+        
         Eraser.SetActive(false);
+        spawnTime = time;
+        IsFlexion = flexion;
+        IsExtension = Extension;
+        IsCombined = comb;
         GiantRobot.enabled = true;
         score = 0;
         total = 0;
@@ -253,7 +269,7 @@ public class GameControllerFight : MonoBehaviour {
         PauseButton.SetActive(false);
         ResultPanel.SetActive(true);
 
-        print("puntos, " + total + " totales " + score +" deberia ser "+((score/total)*100));
+        //print("puntos, " + total + " totales " + score +" deberia ser "+((score/total)*100));
         StopAllCoroutines();
         GiantRobot.enabled = false;
         InGame = false;
@@ -303,26 +319,162 @@ public class GameControllerFight : MonoBehaviour {
 
         yield return new WaitForSeconds(0f);
 
+        
+
+        if (IsCombined) { 
+
         int type = typeSelection.Next(0, 100);
 
-        if (type < 50)
+            if (type < 50)
+            {
+                System.Random positionZ = new System.Random();
+                System.Random Angulo = new System.Random();
+                System.Random handPunchSelection = new System.Random();
+                int hand_selected = handPunchSelection.Next(0, 100);
+
+
+                if (hand_selected < 50)
+                {
+                    //LEFT
+                    double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
+
+
+                    double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                    double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+
+                    double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                    // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                    //posX debe variar de 25-180 y negativo 
+
+
+                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                    Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
+                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                    Destroy(Temporary_Bullet_Handler, spawnTime);
+                    total = total + 1;
+                    ModifyRepetitions();
+
+                }
+                else
+                {
+                    //RIGHT
+                    double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
+
+
+                    double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                    double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+
+                    double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+
+                    // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                    //posX debe variar de 25-180 y negativo 
+
+
+                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                    Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
+                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+
+
+                    Destroy(Temporary_Bullet_Handler, spawnTime);
+                    total = total + 1;
+                    ModifyRepetitions();
+
+                }
+
+
+
+
+
+
+            }
+            else
+            {
+                System.Random positionZ = new System.Random();
+                System.Random Angulo = new System.Random();
+                System.Random handSwordSelection = new System.Random();
+
+
+                int hand_selected = handSwordSelection.Next(0, 100);
+
+
+                if (hand_selected < 50)
+                {
+                    //LEFT SWORD
+                    double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
+
+
+                    double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                    double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+
+                    double posZ = 4;
+                    // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                    //posX debe variar de 25-180 y negativo 
+
+
+
+                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                    Temporary_Bullet_Handler = Instantiate(ParticleSwordLeft, vector, PlayerCenter.transform.rotation) as GameObject;
+                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                    Destroy(Temporary_Bullet_Handler, spawnTime);
+                    total = total + 1;
+                    ModifyRepetitions();
+
+                }
+                else
+                {
+                    //RIGHT SWORD
+                    double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
+
+
+                    double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                    double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+
+                    double posZ = 4;
+
+                    // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                    //posX debe variar de 25-180 y negativo 
+
+
+                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                    Temporary_Bullet_Handler = Instantiate(ParticleSwordRight, vector, PlayerCenter.transform.rotation) as GameObject;
+                    Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                    Destroy(Temporary_Bullet_Handler, spawnTime);
+                    total = total + 1;
+                    ModifyRepetitions();
+
+                }
+
+            }
+            
+        }
+
+        if (IsFlexion)
         {
+            int selection = typeSelection.Next(0, 100);
             System.Random positionZ = new System.Random();
             System.Random Angulo = new System.Random();
-            System.Random handPunchSelection = new System.Random();
-            int hand_selected = handPunchSelection.Next(0, 100);
+            System.Random handSwordSelection = new System.Random();
 
-
-            if (hand_selected < 50)
+            if (selection < 50)
             {
-                //LEFT
+
+                //LEFT FLEXION
                 double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
 
 
-                double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                double posX = Math.Cos((25 + 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                double posZ = 1.6 ;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
@@ -332,22 +484,23 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
-                Destroy(Temporary_Bullet_Handler,5.0f);
+                Destroy(Temporary_Bullet_Handler, spawnTime);
                 total = total + 1;
                 ModifyRepetitions();
 
             }
             else
             {
-                //RIGHT
+
+                //RIGHT  FLEXION
                 double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
 
 
-                double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
+                double posX = Math.Cos((-25 + 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
-                
+                double posZ = 1.6;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
@@ -357,85 +510,76 @@ public class GameControllerFight : MonoBehaviour {
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
                 Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
-
-            
-                Destroy(Temporary_Bullet_Handler, 5.0f);
+                Destroy(Temporary_Bullet_Handler, spawnTime);
                 total = total + 1;
                 ModifyRepetitions();
 
             }
 
 
-
-
-
-
         }
-        else {
+        if (IsExtension) {
+
+            int selection = typeSelection.Next(0, 100);
             System.Random positionZ = new System.Random();
             System.Random Angulo = new System.Random();
             System.Random handSwordSelection = new System.Random();
 
+            if (selection < 50)
+            {
 
-            int hand_selected = handSwordSelection.Next(0, 100);
-
-
-               if (hand_selected < 50)
-               {
-                   //LEFT SWORD
-                   double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
+                //LEFT EXTENSION
+                double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
 
 
-                   double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
-                   double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+                double posX = Math.Cos((25 + 90) * Math.PI / 180) * 2;
+                double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                   double posZ = 4;
-                   // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
-                   //posX debe variar de 25-180 y negativo 
-                   
+                double posZ = -1.6; //Math.Sin(( + 90) * Math.PI / 180) * 2; ;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
-
-                   var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                //posX debe variar de 25-180 y negativo 
 
 
-                   Temporary_Bullet_Handler = Instantiate(ParticleSwordLeft, vector, PlayerCenter.transform.rotation) as GameObject;
-                   Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
-                Destroy(Temporary_Bullet_Handler, 6.0f);
+                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
+                Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                Destroy(Temporary_Bullet_Handler, spawnTime);
                 total = total + 1;
                 ModifyRepetitions();
 
             }
-               else {
-                   //RIGHT SWORD
-                   double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle- Minangle)));
+            else
+            {
+
+                //RIGHT  EXTENSION  
+                double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
 
 
-                   double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
-                   double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
+                double posX = Math.Cos((-25 + 90) * Math.PI / 180) * 2;
+                double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                   double posZ = 4;
-                   
-                   // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
-                   //posX debe variar de 25-180 y negativo 
+                double posZ = -1.6;//Math.Sin(( + 90) * Math.PI / 180) * 2;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
-
-                   var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
+                //posX debe variar de 25-180 y negativo 
 
 
-                   Temporary_Bullet_Handler = Instantiate(ParticleSwordRight, vector, PlayerCenter.transform.rotation) as GameObject;
-                   Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
-                Destroy(Temporary_Bullet_Handler, 6.0f);
-                total = total+1;
+                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+
+
+                Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
+                Temporary_Bullet_Handler.transform.parent = ParticlesParent.transform;
+                Destroy(Temporary_Bullet_Handler, spawnTime);
+                total = total + 1;
                 ModifyRepetitions();
 
-               }
-
-
-
-           
-
+            }
 
         }
+
 
     }
 

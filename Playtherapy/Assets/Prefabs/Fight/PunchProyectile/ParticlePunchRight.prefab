@@ -154,7 +154,7 @@ MonoBehaviour:
   Proyectile: {fileID: 1524172387407726, guid: 299d56893858a0d4e81b2e0dfaecf4c3, type: 2}
   array: []
   Objective: {fileID: 0}
-  mark: {fileID: 1088606498199842, guid: 5082954cf4457774c8b0a1bada6adc59, type: 2}
+  mark: {fileID: 1938622520400646, guid: 32faab7228d76ed459fcd9c2066cebc5, type: 2}
 --- !u!136 &136890873781861486
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -294,7 +294,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.47058824, g: 0.6901961, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.01492216, b: 0.035607174, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

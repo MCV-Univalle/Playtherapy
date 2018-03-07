@@ -20,7 +20,7 @@ public class SwordShooterLeft : MonoBehaviour {
 
         array = GameObject.FindGameObjectsWithTag("Robot");
         Objective = array[0];
-        Left = GameObject.FindGameObjectsWithTag("LeftHand")[0];
+        Left = GameObject.FindGameObjectsWithTag("ShowSwordLeft")[0];
 
         Destroy(Instantiate(mark, Left.transform.position, Left.transform.rotation) as GameObject, 1.0f);
 

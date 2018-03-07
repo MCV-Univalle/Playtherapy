@@ -105,7 +105,9 @@ public class ParametersFIght : MonoBehaviour {
 
         toggleF.isOn = false;
         toggleFA.isOn = true;
-        _velocity_game = 0;
+        toggleEX.isOn = false;
+        _velocity_game = slider_velocity.minValue;
+        ResultsPanel.SetActive(false);
 
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameControllerFight");
         if (gameControllerObject != null)
@@ -150,6 +152,9 @@ public class ParametersFIght : MonoBehaviour {
     public Toggle toggleF;
     public Text Flexion;
     public bool FelxionOnly;
+
+    public Toggle toggleEX;
+    public Text Extension;
 
 
     public Text textCurrentTime;
@@ -236,7 +241,9 @@ public class ParametersFIght : MonoBehaviour {
 
     public void StartGameButton() {
 
-
+        status = toggleF.isOn;
+        statusEX = toggleEX.isOn;
+        statusFA = toggleFA.isOn;
 
 
         if (angleMin == 0) {
@@ -253,11 +260,11 @@ public class ParametersFIght : MonoBehaviour {
             if (numberRepetitions.value == 0)
             {
 
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60);
+                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA);
             }
             else
             {
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions);
+                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA);
             }
 
         }
@@ -266,18 +273,18 @@ public class ParametersFIght : MonoBehaviour {
             if (numberRepetitions.value == 0)
             {
 
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60);
+                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA);
             }
             else
             {
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions);
+                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA);
             }
 
 
         }
 
 
-
+        //print(status + "," + statusEX + "," + statusFA);
         ParametersPanel.SetActive(false);
 
 
@@ -287,7 +294,8 @@ public class ParametersFIght : MonoBehaviour {
     public bool GameModeChange {
 
         get {
-            
+
+            status = toggleF.isOn;
 
             return status;
         }
@@ -298,12 +306,11 @@ public class ParametersFIght : MonoBehaviour {
             {
 
                 toggleFA.isOn = false;
+                toggleEX.isOn = false;
+                angleMinSlider.maxValue = 180;
+                angleMaxSlider.maxValue = 180;
             }
-            else
-            {
-
-                toggleFA.isOn = true;
-            }
+            
         }
 
 
@@ -314,7 +321,7 @@ public class ParametersFIght : MonoBehaviour {
 
         get
         {
-
+            statusFA = toggleFA.isOn;
 
             return statusFA;
         }
@@ -325,12 +332,38 @@ public class ParametersFIght : MonoBehaviour {
             {
 
                 toggleF.isOn = false;
+                toggleEX.isOn = false;
+                angleMinSlider.maxValue = 180;
+                angleMaxSlider.maxValue = 180;
+
             }
-            else
+            
+        }
+
+
+    }
+    public bool statusEX;
+    public bool GameModeChangeEX
+    {
+
+        get
+        {
+            statusEX = toggleEX.isOn;
+
+            return statusEX;
+        }
+        set
+        {
+
+            if (toggleEX.isOn == true)
             {
 
-                toggleF.isOn = true;
+                toggleF.isOn = false;
+                toggleFA.isOn = false;
+                angleMinSlider.maxValue = 50;
+                angleMaxSlider.maxValue = 50;
             }
+            
         }
 
 
