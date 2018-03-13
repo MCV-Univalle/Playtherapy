@@ -5,344 +5,347 @@ using System;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-	GameObject particulas;
-	public static GameController gc;
-	Vector3 initialposition;
+    GameObject particulas;
+    public static GameController gc;
+    Vector3 initialposition;
 
-	GameObject target;
+    GameObject target;
 
-	public GameObject danceUnityChan;
-	public GameObject danceTaichi;
-	public GameObject Camera;
+    public GameObject danceUnityChan;
+    public GameObject danceTaichi;
+    public GameObject Camera;
 
 
-    
+
     public GameObject ParametersPanel;
     public GameObject TutorialPanel;
     public GameObject MainPanel;
-	public GameObject ResultPanel;
+    public GameObject ResultPanel;
     public GameObject pausa;
 
-	public Button boton;
+    public Button boton;
 
-    public  bool InGame;
-	public  bool GameOver;
+    public bool InGame;
+    public bool GameOver;
 
     public GameObject Cannon;
 
-	public GameObject Ball;
+    public GameObject Ball;
 
     public Animator pitcher;
 
-	public GameObject test;
+    public GameObject test;
 
-	public GameObject catcher;
+    public GameObject catcher;
 
-	public GameObject PlayerCenter;
-	public GameObject RealPlayerCenter;
-	public GameObject RealPlayerLeft;
-	public GameObject RealPlayerRight;
+    public GameObject PlayerCenter;
+    public GameObject RealPlayerCenter;
+    public GameObject RealPlayerLeft;
+    public GameObject RealPlayerRight;
 
-	public GameObject PhantomRight;
-	public GameObject PhantomLeft;
-	public GameObject catcherLefthand;
-	public GameObject catcherRighthand;
+    public GameObject PhantomRight;
+    public GameObject PhantomLeft;
+    public GameObject catcherLefthand;
+    public GameObject catcherRighthand;
 
-	private RUISSkeletonManager skeletonManager;
+    private RUISSkeletonManager skeletonManager;
 
-	public float rate = 0f;
+    public float rate = 0f;
 
-	float force = 50;
+    float force = 50;
 
-	float shootTime=5.2f;
+    float shootTime = 5.2f;
 
-	float _time_game;
+    float _time_game;
 
-	float _repetitions;
+    float _repetitions;
 
-	public Text textCurrentTime;
-	public Slider sliderCurrentTime;
-	public Text sliderText;
-	public Dropdown numberRepetitions;
-	public float currentRepetitions;
-	public GameObject array_balls; 
+    public Text textCurrentTime;
+    public Slider sliderCurrentTime;
+    public Text sliderText;
 
-	
+    public Dropdown ArmSelection;
+    
 
+    public Dropdown numberRepetitions;
+    public float currentRepetitions;
+    public GameObject array_balls;
 
-	public float time_default {
 
-		get
-		{
-			if (numberRepetitions.value == 0) {
-				return _time_game;
 
-			}
-			else {
-			
-				return _repetitions; 
 
-			}
+    public float time_default {
 
-		}
-		set
-		{
+        get
+        {
+            if (numberRepetitions.value == 0) {
+                return _time_game;
 
-			if (numberRepetitions.value == 0) {
-				
-				_time_game = value;
+            }
+            else {
 
+                return _repetitions;
 
+            }
 
+        }
+        set
+        {
 
-				if (sliderText!=null) {
-					sliderText.text = ( ((int)_time_game % 60).ToString("00") + ":" + ((int)_time_game / 60).ToString("00") + " mins");
+            if (numberRepetitions.value == 0) {
 
-				}
-			}
-			else {
+                _time_game = value;
 
-				_repetitions = value;
 
-				if (sliderText!=null) {
-					sliderText.text = ("" +(int)_repetitions);
 
-				}
-			}
 
-		}
-		}
+                if (sliderText != null) {
+                    sliderText.text = (((int)_time_game % 60).ToString("00") + ":" + ((int)_time_game / 60).ToString("00") + " mins");
 
+                }
+            }
+            else {
 
+                _repetitions = value;
 
+                if (sliderText != null) {
+                    sliderText.text = ("" + (int)_repetitions);
 
-	float _velocity_game;
-	public float velocity {
+                }
+            }
 
-		get
-		{
-			return _velocity_game ;
-		}
-		set
-		{
-			_velocity_game = value;
+        }
+    }
 
-			if (current_velocity!=null) {
 
 
 
-				current_velocity.text = (((float)_velocity_game-20)/30 *100).ToString("0")+ "%" ;
-		
+    float _velocity_game;
+    public float velocity {
 
+        get
+        {
+            return _velocity_game;
+        }
+        set
+        {
+            _velocity_game = value;
 
-			}
-		}
+            if (current_velocity != null) {
 
 
-	}
 
+                current_velocity.text = (((float)_velocity_game - 20) / 140 * 100).ToString("0") + "%";
 
-	public Slider slider_velocity;
-	public Text current_velocity;
 
 
+            }
+        }
 
-	public Slider slider_range;
-	public Text current_range;
 
-	public Slider sliderLeft;
-	public Text angleLeft;
+    }
 
-	public Slider sliderRight;
-	public Text angleRight;
 
-	public Slider sliderMinLeft;
-	public Text angleMinLeft;
+    public Slider slider_velocity;
+    public Text current_velocity;
 
-	public Slider sliderMinRight;
-	public Text angleMinRight;
 
-	public GameObject rightHandPraticles;
-	public GameObject positionParticles;
-	public int selectArm;
 
-	float _range_game;
+    public Slider slider_range;
+    public Text current_range;
 
-	float _angleMinRight;
-	float _angleMinLeft;
-	float radius;
+    public Slider sliderLeft;
+    public Text angleLeft;
 
+    public Slider sliderRight;
+    public Text angleRight;
 
-	public float range {
+    public Slider sliderMinLeft;
+    public Text angleMinLeft;
 
-		get
-		{
-			return _range_game ;
-		}
-		set
-		{
-			_range_game = value;
+    public Slider sliderMinRight;
+    public Text angleMinRight;
 
-			if (current_range!=null) {
+    public GameObject rightHandPraticles;
+    public GameObject positionParticles;
+    public int selectArm;
 
-				current_range.text = ((int)_range_game).ToString("");
+    float _range_game;
 
+    float _angleMinRight;
+    float _angleMinLeft;
+    float radius;
 
-			}
-		}
 
+    public float range {
 
-	}
+        get
+        {
+            return _range_game;
+        }
+        set
+        {
+            _range_game = value;
 
+            if (current_range != null) {
 
-	
-	public float MinRight {
+                current_range.text = ((int)_range_game).ToString("");
 
-		get
-		{
-			return _angleMinRight ;
-		}
-		set
-		{
-			_angleMinRight = value;
 
-			if (angleMinRight!=null) {
+            }
+        }
 
-				angleMinRight.text = ((int)_angleMinRight).ToString("") + "°";
 
+    }
 
-			}
-		}
 
 
-	}
+    public float MinRight {
 
-	public float MinLeft {
+        get
+        {
+            return _angleMinRight;
+        }
+        set
+        {
+            _angleMinRight = value;
 
-		get
-		{
-			return _angleMinLeft;
-		}
-		set
-		{
-			_angleMinLeft = value;
+            if (angleMinRight != null) {
 
-			if (angleMinLeft!=null) {
+                angleMinRight.text = ((int)_angleMinRight).ToString("") + "°";
 
-				angleMinLeft.text = ((int)_angleMinLeft).ToString("") + "°";
 
+            }
+        }
 
-			}
-		}
 
+    }
 
-	}
+    public float MinLeft {
 
+        get
+        {
+            return _angleMinLeft;
+        }
+        set
+        {
+            _angleMinLeft = value;
 
+            if (angleMinLeft != null) {
 
-	float _angleRight;
-	float _angleLeft;
+                angleMinLeft.text = ((int)_angleMinLeft).ToString("") + "°";
 
 
+            }
+        }
 
 
-	public float Right {
+    }
 
-		get
-		{
-			return _angleRight ;
-		}
-		set
-		{
-			_angleRight = value;
 
-			if (angleRight!=null) {
 
-				angleRight.text = ((int)_angleRight).ToString("") + "°";
+    float _angleRight;
+    float _angleLeft;
 
 
-			}
-		}
 
 
-	}
+    public float Right {
 
-	public float Left {
+        get
+        {
+            return _angleRight;
+        }
+        set
+        {
+            _angleRight = value;
 
-		get
-		{
-			return _angleLeft;
-		}
-		set
-		{
-			_angleLeft = value;
+            if (angleRight != null) {
 
-			if (angleLeft!=null) {
+                angleRight.text = ((int)_angleRight).ToString("") + "°";
 
-				angleLeft.text = ((int)_angleLeft).ToString("") + "°";
 
+            }
+        }
 
-			}
-		}
 
+    }
 
-	}
+    public float Left {
 
+        get
+        {
+            return _angleLeft;
+        }
+        set
+        {
+            _angleLeft = value;
 
+            if (angleLeft != null) {
 
+                angleLeft.text = ((int)_angleLeft).ToString("") + "°";
 
-	public Toggle toggleX;
-	public Text movlattext;
-	public bool movimientoLateral;
 
-	private float time;
+            }
+        }
 
 
-	private float currentTime;
-	private float timeMillis;
-	public float totalTime;
+    }
 
-	PutDataResults results;
-	public Text finalResult;
-	public float lanzamiento;
-	public Text total;
 
-	public AudioClip catcher_sound;
 
 
-	float maxTime = 2;
+    public Toggle toggleX;
+    public Text movlattext;
+    public bool movimientoLateral;
 
-	public Text scoretext;
+    private float time;
 
-	private int score;
 
-	public bool pivote;
-	public bool send;
-	
-   
-	
-	public Dropdown game_mode;
+    private float currentTime;
+    private float timeMillis;
+    public float totalTime;
 
-	public GameObject kinectPlayer;
-	public bool left = false;
-	public bool right = false;
+    PutDataResults results;
+    public Text finalResult;
+    public float lanzamiento;
+    public Text total;
+
+    public AudioClip catcher_sound;
+
+
+    float maxTime = 2;
+
+    public Text scoretext;
+
+    private int score;
+
+    public bool pivote;
+    public bool send;
+
+
+
+    public Dropdown game_mode;
+
+    public GameObject kinectPlayer;
+    public bool left = false;
+    public bool right = false;
+
+    public void OnArmChanged() { 
+
+
+
+}
 	public void OnGameModeChanged()
 	{
 		
 
 		if(game_mode.value == 1){
 			
-			if(right){
-				kinectPlayer.transform.Rotate(0,-180,0);
-				right = false;
-				left = true;
-			}else{
-					kinectPlayer.transform.Rotate(0,-90,0);
-					left = true;
-			}
+			
 
-			sliderMinLeft.maxValue = 75;
-			sliderLeft.maxValue = 75;
+			sliderMinLeft.maxValue =50 ;
+			sliderLeft.maxValue = 50;
 			current_range.text = "No Disponible";
 			toggleX.enabled = false;
 			toggleX.isOn = false;
@@ -352,38 +355,10 @@ public class GameController : MonoBehaviour {
 
 			
 		}
-		if(game_mode.value == 2){
-
-			if(left){
-				kinectPlayer.transform.Rotate(0,180,0);
-				right = true;
-				left = false;
-			}else{
-					kinectPlayer.transform.Rotate(0,90,0);
-					right = true;
-			}
-
-			sliderMinLeft.maxValue = 75;
-			sliderLeft.maxValue = 75;
-			current_range.text = "No Disponible";
-			toggleX.enabled = false;
-			toggleX.isOn = false;
-			movlattext.text = "No Disponible";
-			movimientoLateral = false;
-			slider_range.enabled = false;
-
-		}
+		
 		if (game_mode.value == 0){
 			
-			if(right){
-				kinectPlayer.transform.Rotate(0,-90,0);
-				right = false;
-			}
-			if(left){
-				kinectPlayer.transform.Rotate(0,90,0);
-				left = false;
-			}
-
+			
 			sliderMinLeft.maxValue = 180;
 			sliderLeft.maxValue = 180;
 			current_range.text = ((int)_range_game).ToString("");
@@ -445,14 +420,14 @@ public class GameController : MonoBehaviour {
         ResultPanel.SetActive (false);
 		movimientoLateral = false;
 		force = 20;
-		if(_angleMinLeft == 0){
+		/*if(_angleMinLeft == 0){
 
 			_angleMinLeft = 25;
 		}
 		if(_angleLeft == 0){
 
 			_angleLeft = 25;
-		}
+		}*/
 		if(_range_game == 0){
 
 			_range_game = 25;
@@ -513,6 +488,12 @@ public class GameController : MonoBehaviour {
 		//Button btn = boton.GetComponent<Button> ();
 		//btn.onClick.AddListener(StartGame);
 	}
+
+
+
+
+
+
 	public void OnGameTypeChanged()
 	{
 		if (numberRepetitions.value == 0)
@@ -532,10 +513,10 @@ public class GameController : MonoBehaviour {
 		time_default = time_default;
 	}
 
-	public void OnGameTypeGameChanged()
+	public void OnGameArmChanged()
 	{
-		
-	}
+        
+    }
 
 
 	// Update is called once per frame
@@ -800,34 +781,88 @@ public class GameController : MonoBehaviour {
 		Temporary_Bullet_Handler.transform.Rotate (Vector3.left * 90);
 		System.Random rany = new System.Random();
 		System.Random ranx = new System.Random();
+        
 
-		//int pivy = rany.Next(80.0, 80.23);
+        //int pivy = rany.Next(80.0, 80.23);
 
-		if(game_mode.value == 1){
+        if (game_mode.value == 1){
+
+
 
 			double posX = 0;
 			double posY = 0;
-			double posXpart = 0;
+            double posZ = 0;
+            double posXpart = 0;
 			double posYpart = 0;
+            double posZpart = 0;
+            double angleRandom = 0;
+            System.Random ranz = new System.Random();
+            System.Random ranxy = new System.Random();
 
-			double angleRandom = 0;
+            selectArm = ranz.Next(1, 100);
+
+
+
+            if (selectArm <= 50)
+            {
+
+                //angleRandom = (115+ _angleMinRight) + ranyy.NextDouble ()*((_angleRight+115) - (115+_angleMinRight));
+
+
+
+
+
+
+                //angleRandom = -(_angleMinLeft + ranxy.NextDouble() * (_angleLeft - _angleMinLeft));
+
+
+                Destroy(Instantiate(rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
+                posZpart = Math.Cos((-25 + 90) * Math.PI / 180) * ((radius / 10) + 7);
+                posZ = Math.Cos((-25 + 90) * Math.PI / 180) * 35;//RealPlayerCenter.transform.position.z
+
+
+            }
+            else
+            {
+
+
+
+
+
+
+                //angleRandom = _angleMinLeft + ranxy.NextDouble() * (_angleLeft - _angleMinLeft);
+
+
+
+                Destroy(Instantiate(rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
+
+
+                posZpart = Math.Cos((25 + 90) * Math.PI / 180) * ((radius / 10) + 7);
+                posZ = Math.Cos((25 + 90) * Math.PI / 180) * 35;//RealPlayerCenter.transform.position.z
+
+            }
+
+            
 			System.Random ranxx = new System.Random ();
 
-			angleRandom = -(_angleMinLeft + ranxx.NextDouble () * (_angleLeft - _angleMinLeft));
+			angleRandom = (_angleMinLeft + ranxx.NextDouble () * (_angleLeft - _angleMinLeft));
 
 			posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * 35;
 			posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * 35;
-			posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+7);
+            
+
+            posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+7);
 			posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *((radius/10)+7);
 
-			selectArm = 40;
+            print(_angleMinLeft);
+            //selectArm = 40;
 
-			Destroy (Instantiate (rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
+			//Destroy (Instantiate (rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
 			//virtual rehab revisar 
-			particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity) as GameObject;
+			particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posZpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)(RealPlayerCenter.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
 			//Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 			Destroy(particulas,4.0f);
-			var vector = new Vector3 ((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)PlayerCenter.transform.position.z).normalized * force;//force
+			var vector = new Vector3 ((float)(PlayerCenter.transform.position.x - posZ), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posX)).normalized * force;//force
 
 			Temporary_Bullet_Handler.GetComponent<Rigidbody> ().velocity = vector;
 
@@ -835,38 +870,7 @@ public class GameController : MonoBehaviour {
 			DecrementRepetitions ();
 		}
 
-		if(game_mode.value == 2){
-
-			double posX = 0;
-			double posY = 0;
-			double posXpart = 0;
-			double posYpart = 0;
-
-			double angleRandom = 0;
-			System.Random ranyy = new System.Random ();
-
-			angleRandom = _angleMinLeft + ranyy.NextDouble () * (_angleLeft - _angleMinLeft);
-
-			posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * 35;
-			posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * 35;
-			posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*((radius/10)+7);
-			posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *((radius/10)+7);
-
-			selectArm = 70;
-
-			Destroy (Instantiate (rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
-			//virtual rehab revisar 
-			particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity) as GameObject;
-			//Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-			Destroy(particulas,4.0f);
-			var vector = new Vector3 ((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)PlayerCenter.transform.position.z).normalized * force;//force
-
-			Temporary_Bullet_Handler.GetComponent<Rigidbody> ().velocity = vector;
-
-			lanzamiento = lanzamiento + 1;
-			DecrementRepetitions ();
-
-		}
+		
 
 
 
@@ -903,10 +907,10 @@ public class GameController : MonoBehaviour {
 
 				angleRandom = _angleMinLeft + ranyy.NextDouble () * (_angleLeft - _angleMinLeft);
 
-				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
-				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-                posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
-                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
+				posX = Math.Cos ((angleRandom + 115) * Math.PI / 180) * radius;
+				posY = Math.Sin ((angleRandom + 115) * Math.PI / 180) * radius;
+                posXpart = Math.Cos((angleRandom + 115) * Math.PI / 180) * (radius / 3);
+                posYpart = Math.Sin((angleRandom + 115) * Math.PI / 180) * (radius / 3);
 
                 selectArm = 70;
 			
@@ -920,7 +924,7 @@ public class GameController : MonoBehaviour {
 				lanzamiento = lanzamiento + 1;
 
 			}
-			if (pos == 1) {
+			if (pos == 1) {//desplazamiento hacia la izquierda
 				System.Random ranxx = new System.Random ();
 				angleRandom = -(_angleMinLeft + ranxx.NextDouble () * (_angleLeft - _angleMinLeft));
 
@@ -928,10 +932,10 @@ public class GameController : MonoBehaviour {
 
 				Destroy (Instantiate (rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
 
-				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
-				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-                posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
-                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
+				posX = Math.Cos ((angleRandom + 65) * Math.PI / 180) * radius;
+				posY = Math.Sin ((angleRandom + 65) * Math.PI / 180) * radius;
+                posXpart = Math.Cos((angleRandom + 65) * Math.PI / 180) * (radius / 3);
+                posYpart = Math.Sin((angleRandom + 65) * Math.PI / 180) * (radius/3 );
 
                 var vector = new Vector3 ((float)(PhantomLeft.transform.position.x - posX), (float)(PhantomLeft.transform.position.y - posY), (float)PhantomLeft.transform.position.z).normalized * force;//force
 				particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y-posYpart), (float)RealPlayerRight.transform.position.z), Quaternion.identity) as GameObject;
@@ -941,43 +945,57 @@ public class GameController : MonoBehaviour {
 				lanzamiento = lanzamiento + 1;
 			}
 			if (pos == 2) {//tirar al centro
-
+                System.Random selection = new System.Random ();
 				System.Random ranyy = new System.Random ();
 				System.Random ranxy = new System.Random ();
 				System.Random ranz = new System.Random ();
 
-				selectArm = ranz.Next (1, 100);
+				int select = ranz.Next (1, 100);
 		
 
 
-				if (selectArm <= 50) {
+				if (select <= 50) {
 
-					//angleRandom = (115+ _angleMinRight) + ranyy.NextDouble ()*((_angleRight+115) - (115+_angleMinRight));
+                    //angleRandom = (115+ _angleMinRight) + ranyy.NextDouble ()*((_angleRight+115) - (115+_angleMinRight));
+
+                    
+
+                 
+                    
 
 					angleRandom = -(_angleMinLeft + ranxy.NextDouble () * (_angleLeft - _angleMinLeft));
 			
 
 					Destroy (Instantiate (rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
-				
+                    posX = Math.Cos((angleRandom + 65) * Math.PI / 180) * radius;
+                    posY = Math.Sin((angleRandom + 65) * Math.PI / 180) * radius;
+                    posXpart = Math.Cos((angleRandom +65) * Math.PI / 180) * (radius / 4);
+                    posYpart = Math.Sin((angleRandom +65) * Math.PI / 180) * (radius / 4);
 
-				}
-				if (selectArm > 50) {
 
-					angleRandom = _angleMinLeft + ranxy.NextDouble () * (_angleLeft - _angleMinLeft);
+                }
+				else {
+
+
+                    
+                    
+                    
+
+                    angleRandom = (_angleMinLeft + ranxy.NextDouble () * (_angleLeft - _angleMinLeft));
 
 		
 			
 					Destroy (Instantiate (rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
 
-				
 
+                    posX = Math.Cos((angleRandom +115) * Math.PI / 180) * radius;
+                    posY = Math.Sin((angleRandom + 115) * Math.PI / 180) * radius;
+                    posXpart = Math.Cos((angleRandom + 115) * Math.PI / 180) * (radius / 4);
+                    posYpart = Math.Sin((angleRandom + 115) * Math.PI / 180) * (radius / 4);
 
-				}
+                }
 				//angleRandom = 0;
-				posX = Math.Cos ((angleRandom + 90) * Math.PI / 180) * radius;
-				posY = Math.Sin ((angleRandom + 90) * Math.PI / 180) * radius;
-				posXpart = Math.Cos ((angleRandom + 90) * Math.PI / 180)*(radius/4);
-				posYpart = Math.Sin ((angleRandom + 90) * Math.PI / 180) *(radius/4);
+				
 
 				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity), 2.0f);
 				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity);

@@ -294,6 +294,7 @@ public class GameControllerFight : MonoBehaviour {
         InGame = false;
         GiantRobot.Play("back_fall");
         yield return new WaitForSeconds(4);
+        ResultPanel.SetActive(true);
         EndGame();
 
     }

@@ -9,6 +9,7 @@ public class ParametersFIght : MonoBehaviour {
     private GameControllerFight gameController;
     public GameObject ParametersPanel;
     public GameObject ResultsPanel;
+    public GameObject TutorialPanel;
     public GameObject Eraser;
 
     float angleMin;
@@ -100,6 +101,8 @@ public class ParametersFIght : MonoBehaviour {
 
     }
 
+   
+
     // Use this for initialization
     void Start() {
 
@@ -107,7 +110,7 @@ public class ParametersFIght : MonoBehaviour {
         toggleFA.isOn = true;
         toggleEX.isOn = false;
         _velocity_game = slider_velocity.minValue;
-        ResultsPanel.SetActive(false);
+        ResultsPanel.SetActive(true);
 
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameControllerFight");
         if (gameControllerObject != null)
@@ -125,6 +128,7 @@ public class ParametersFIght : MonoBehaviour {
 
             Debug.Log("Cannot find GameController script");
         }
+        ResultsPanel.SetActive(false);
 
     }
     public void StartAgain()
@@ -235,6 +239,20 @@ public class ParametersFIght : MonoBehaviour {
             }
 
         }
+    }
+
+    public void TutorialButton() {
+
+        ParametersPanel.SetActive(false);
+        TutorialPanel.SetActive(true);
+
+
+    }
+    public void ExitTutorialButton() {
+
+        ParametersPanel.SetActive(true);
+        TutorialPanel.SetActive(false);
+
     }
 
 

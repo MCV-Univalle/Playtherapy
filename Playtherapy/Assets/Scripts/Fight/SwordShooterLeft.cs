@@ -10,7 +10,7 @@ public class SwordShooterLeft : MonoBehaviour {
     public GameObject mark;
     GameObject Left;
     private GameControllerFight gameController;
-    private AudioSource source;
+    
 
 
     // Use this for initialization
@@ -54,8 +54,7 @@ public class SwordShooterLeft : MonoBehaviour {
         if (other.tag == "LeftSword")
         {
 
-            source = GetComponent<AudioSource>();
-            source.Play();
+            
             GameObject Temporary_Bullet_Handler;
             Temporary_Bullet_Handler = Instantiate(Proyectile, this.transform.position, new Quaternion(0f, -1f, 0f, 1f)) as GameObject;
             var vector = new Vector3(-(float)(other.transform.position.x - Objective.transform.position.x), -(float)(other.transform.position.y - Objective.transform.position.y), (float)(-Objective.transform.position.z)).normalized * 50;//force
