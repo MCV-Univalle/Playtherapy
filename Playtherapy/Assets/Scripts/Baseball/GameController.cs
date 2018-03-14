@@ -420,7 +420,7 @@ public class GameController : MonoBehaviour {
         ResultPanel.SetActive (false);
 		movimientoLateral = false;
 		force = 20;
-		/*if(_angleMinLeft == 0){
+        /*if(_angleMinLeft == 0){
 
 			_angleMinLeft = 25;
 		}
@@ -432,7 +432,7 @@ public class GameController : MonoBehaviour {
 
 			_range_game = 25;
 		}
-		toggleX.isOn = true;
+        toggleX.isOn = true;
 		
 		results = ResultPanel.GetComponent<PutDataResults> ();
 
@@ -469,19 +469,19 @@ public class GameController : MonoBehaviour {
 		ParametersPanel.SetActive (true);
 		movimientoLateral = false;
 		force = 20;
-		if(_angleMinLeft == 0){
+        /*if(_angleMinLeft == 0){
 
 			_angleMinLeft = 25;
 		}
 		if(_angleLeft == 0){
 
 			_angleLeft = 25;
-		}
+		}*/
 		if(_range_game == 0){
 
 			_range_game = 25;
 		}
-		results = ResultPanel.GetComponent<PutDataResults> ();
+        results = ResultPanel.GetComponent<PutDataResults> ();
 		lanzamiento = 0;
 		toggleX.isOn = true;
 		//results = FindObjectOfType<PutDataResults> ();
@@ -597,7 +597,11 @@ public class GameController : MonoBehaviour {
 	}
 	public void EndGame()
 	{
-		
+        /*_angleMinLeft = 0;
+        sliderMinLeft.value = 0;
+        sliderLeft.value = 0;
+        _angleLeft = 0;*/
+        
 		MainPanel.SetActive (false);
         pausa.SetActive(false);
         ResultPanel.SetActive (true);
@@ -669,12 +673,19 @@ public class GameController : MonoBehaviour {
     public void PauseOn()
     {
         InGame = false;
+        
 
     }
 
     public void StartAgain() {
 
         pausa.SetActive(false);
+
+        _angleLeft = 0;
+        _angleMinLeft = 0;
+        sliderMinLeft.value = 0;
+        sliderLeft.value = 0;
+
         retry();
     }
     public void PauseOff() {
@@ -951,7 +962,19 @@ public class GameController : MonoBehaviour {
 				System.Random ranz = new System.Random ();
 
 				int select = ranz.Next (1, 100);
-		
+
+
+                if (ArmSelection.value == 1) {
+
+                    //Derecho
+                    select = 30;
+
+                }
+                if (ArmSelection.value == 2) {
+                    //Izquierdo
+                    select = 80;
+                   
+                }
 
 
 				if (select <= 50) {
@@ -976,9 +999,6 @@ public class GameController : MonoBehaviour {
                 }
 				else {
 
-
-                    
-                    
                     
 
                     angleRandom = (_angleMinLeft + ranxy.NextDouble () * (_angleLeft - _angleMinLeft));
