@@ -67,6 +67,7 @@ TagManager:
   - ShowHandRight
   - ShowSwordLeft
   - ShowSwordRIght
+  - Help
   layers:
   - Default
   - TransparentFX
