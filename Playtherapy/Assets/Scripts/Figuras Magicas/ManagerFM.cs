@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using DigitalRuby.Tween;
 public class ManagerFM : MonoBehaviour {
 
+
+
+    public static ManagerFM gm;
 	public List<int> list_gestures_index;
 	public List<Toggle> list_gestures_used;
 
@@ -41,7 +44,7 @@ public class ManagerFM : MonoBehaviour {
 	GameObject gestureManager;
 	ScoreHandlerFM score_script;
 	PutDataResults results_script;
-	GesturesShapeManager managerShapes;
+	public GesturesShapeManager managerShapes;
 
 	bool _change_togle=true;
 	public bool changeAnyToggle{
@@ -101,13 +104,24 @@ public class ManagerFM : MonoBehaviour {
 		jugabilidad_number = 1;
 		_timeBetweenEnemies = 1;
 
+
+
+
+
 	}
 
 
 	void Start () {
-		gestureManager = GameObject.Find ("GesturesManager");
+        if (gm == null)
+        {
+            gm = this;
+        }
+        gestureManager = GameObject.Find ("GesturesManager");
 		gestureManager.SetActive (false);
-		TweenShowParameters ();
+
+        TweenShowParameters ();
+       
+
 	}
 
 
@@ -197,7 +211,7 @@ public class ManagerFM : MonoBehaviour {
 	}
 	public void StartGame()
 	{
-
+        /*
 		list_gestures_index= new List<int>();
 
 		for (int i = 0; i < list_gestures_used.Count; i++) {
@@ -206,11 +220,12 @@ public class ManagerFM : MonoBehaviour {
 				list_gestures_index.Add (i);
 			}
 		}
+      
+		
+        */
+        spawnnerEnemies.gestures_index_used = list_gestures_index;
 
-
-		managerShapes.loadGestures(list_gestures_index);
-		spawnnerEnemies.gestures_index_used = list_gestures_index;
-		timer_game = -1;
+        timer_game = -1;
 		score_script.reset ();
 
 
