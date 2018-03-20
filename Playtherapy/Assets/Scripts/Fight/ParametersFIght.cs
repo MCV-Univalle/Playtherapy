@@ -11,6 +11,7 @@ public class ParametersFIght : MonoBehaviour {
     public GameObject ResultsPanel;
     public GameObject TutorialPanel;
     public GameObject Eraser;
+    public Dropdown Shoulder;
 
     float angleMin;
     public float AngleMin {
@@ -189,7 +190,10 @@ public class ParametersFIght : MonoBehaviour {
         time_default = time_default;
     }
 
-
+    public void OnGameSelectionChanged()
+    {
+        
+    }
 
     public float time_default
     {
@@ -264,25 +268,16 @@ public class ParametersFIght : MonoBehaviour {
         statusFA = toggleFA.isOn;
 
 
-        if (angleMin == 0) {
-
-            angleMin = 25;
-        }
-        if (angleMax == 0) {
-
-            angleMax = 25;
-        }
-
         if (angleMin > angleMax) {
 
             if (numberRepetitions.value == 0)
             {
 
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA);
+                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA,Shoulder.value);
             }
             else
             {
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA);
+                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA,Shoulder.value);
             }
 
         }
@@ -291,11 +286,11 @@ public class ParametersFIght : MonoBehaviour {
             if (numberRepetitions.value == 0)
             {
 
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA);
+                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA,Shoulder.value);
             }
             else
             {
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA);
+                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA,Shoulder.value);
             }
 
 

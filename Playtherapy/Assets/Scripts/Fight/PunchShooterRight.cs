@@ -24,8 +24,9 @@ public class PunchShooterRight : MonoBehaviour {
         Objective = array[0];
 
         Right = GameObject.FindGameObjectsWithTag("ShowHandRight")[0];
-
+   
         Destroy(Instantiate(mark, Right.transform.position, Right.transform.rotation) as GameObject, 1.0f);
+     
         GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameControllerFight");
         if (gameControllerObject != null)
         {

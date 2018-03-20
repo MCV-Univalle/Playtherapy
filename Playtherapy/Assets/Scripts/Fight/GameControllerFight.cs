@@ -34,6 +34,7 @@ public class GameControllerFight : MonoBehaviour {
     private bool IsFlexion;
     private bool IsExtension;
     private bool IsCombined;
+    private float ShoulderSelection;
 
 
 
@@ -60,13 +61,17 @@ public class GameControllerFight : MonoBehaviour {
     float GameType;
     float currentRepetitions;
     public Text textCurrentTime;
+    public Slider Robot;
     public GameObject MainPanel;
     public GameObject PauseButton;
     public GameObject Retry;
     public bool InGame;
     public GameObject Eraser;
+    public GameObject RightShoulder;
+    public GameObject LeftShoulder;
 
     public Text ScoreText;
+    public float TotalRepetitions;
     // Giant Robot
 
     public Animator GiantRobot;
@@ -115,7 +120,7 @@ public class GameControllerFight : MonoBehaviour {
                     textCurrentTime.text = (((int)currentTime) / 60).ToString("00") + ":"
                         + (((int)currentTime) % 60).ToString("00") + ":"
                         + ((int)(timeMillis * 60 / 1000)).ToString("00");
-                   // sliderCurrentTime.value = currentTime * 100 / totalTime;
+                    Robot.value = currentTime * 100 / TotalRepetitions;
 
 
                 }
@@ -124,6 +129,7 @@ public class GameControllerFight : MonoBehaviour {
 
 
                     textCurrentTime.text = "00:00:00";
+
                 }
             }
 
@@ -131,6 +137,7 @@ public class GameControllerFight : MonoBehaviour {
             {
 
                 textCurrentTime.text = currentRepetitions + " Restante";
+                Robot.value = currentRepetitions * 100 / TotalRepetitions;
 
 
             }
@@ -188,10 +195,29 @@ public class GameControllerFight : MonoBehaviour {
 
     }
 
+    public float life;
+    public float LifeControl
+    {
 
-    
+        get
+        {
+            return life;
+        }
+        set
+        {
+            life = value;
 
-    public void StartGame(float minimo, float maximo,int number_repetitions,float count,float time,bool flexion,bool Extension,bool comb) {
+            
+        }
+
+
+    }
+
+
+
+
+
+    public void StartGame(float minimo, float maximo,int number_repetitions,float count,float time,bool flexion,bool Extension,bool comb,float shoulder) {
 
             
 
@@ -202,6 +228,7 @@ public class GameControllerFight : MonoBehaviour {
         IsFlexion = flexion;
         IsExtension = Extension;
         IsCombined = comb;
+        ShoulderSelection = shoulder;
         GiantRobot.enabled = true;
         score = 0;
         total = 0;
@@ -224,6 +251,9 @@ public class GameControllerFight : MonoBehaviour {
             }
             currentTime = count;
             GameType = number_repetitions;
+            totalTime = count;
+            TotalRepetitions = count;
+
         }
         else {
 
@@ -235,6 +265,7 @@ public class GameControllerFight : MonoBehaviour {
 
             currentRepetitions = count;
             GameType = number_repetitions;
+            TotalRepetitions = count;
         }
         
 
@@ -333,6 +364,13 @@ public class GameControllerFight : MonoBehaviour {
                 System.Random handPunchSelection = new System.Random();
                 int hand_selected = handPunchSelection.Next(0, 100);
 
+                if (ShoulderSelection == 1) {
+                    hand_selected = 70;
+                }
+                if (ShoulderSelection == 2) {
+                    hand_selected = 30;
+                }
+
 
                 if (hand_selected < 50)
                 {
@@ -343,12 +381,12 @@ public class GameControllerFight : MonoBehaviour {
                     double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
                     double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                    double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                    double posZ = 0;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
                     // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                     //posX debe variar de 25-180 y negativo 
 
 
-                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                    var vector = new Vector3((float)(LeftShoulder.transform.position.x - posX), (float)(LeftShoulder.transform.position.y - posY), (float)(LeftShoulder.transform.position.z - posZ));//force-
 
 
                     Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
@@ -367,13 +405,13 @@ public class GameControllerFight : MonoBehaviour {
                     double posX = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;
                     double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                    double posZ = positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                    double posZ = 0;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
                     // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                     //posX debe variar de 25-180 y negativo 
 
 
-                    var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                    var vector = new Vector3((float)(RightShoulder.transform.position.x - posX), (float)(RightShoulder.transform.position.y - posY), (float)(RightShoulder.transform.position.z - posZ));//force-
 
 
                     Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
@@ -400,6 +438,14 @@ public class GameControllerFight : MonoBehaviour {
 
 
                 int hand_selected = handSwordSelection.Next(0, 100);
+                if (ShoulderSelection == 1)
+                {
+                    hand_selected = 70;
+                }
+                if (ShoulderSelection == 2)
+                {
+                    hand_selected = 30;
+                }
 
 
                 if (hand_selected < 50)
@@ -464,6 +510,15 @@ public class GameControllerFight : MonoBehaviour {
             System.Random Angulo = new System.Random();
             System.Random handSwordSelection = new System.Random();
 
+            if (ShoulderSelection == 1)
+            {
+                selection = 70;
+            }
+            if (ShoulderSelection == 2)
+            {
+                selection = 30;
+            }
+
             if (selection < 50)
             {
 
@@ -471,16 +526,16 @@ public class GameControllerFight : MonoBehaviour {
                 double RandomAngle = (Minangle + Angulo.NextDouble() * (Maxangle - Minangle));
 
 
-                double posX = Math.Cos((25 + 90) * Math.PI / 180) * 2;
+                double posX = Math.Cos(( 25+ 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = 1.6 ;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                double posZ = Math.Cos((-RandomAngle + 90) * Math.PI / 180) * 2;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
 
-                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                var vector = new Vector3((float)(LeftShoulder.transform.position.x), (float)(LeftShoulder.transform.position.y - posY), (float)(LeftShoulder.transform.position.z - posZ));//force-
 
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
@@ -494,19 +549,19 @@ public class GameControllerFight : MonoBehaviour {
             {
 
                 //RIGHT  FLEXION
-                double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
+                double RandomAngle = ((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
 
 
                 double posX = Math.Cos((-25 + 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = 1.6;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                double posZ = Math.Cos((-RandomAngle + 90) * Math.PI / 180) * 2;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
 
-                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                var vector = new Vector3((float)(RightShoulder.transform.position.x ), (float)(RightShoulder.transform.position.y - posY), (float)(RightShoulder.transform.position.z - posZ));//force-
 
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
@@ -519,12 +574,22 @@ public class GameControllerFight : MonoBehaviour {
 
 
         }
-        if (IsExtension) {
+        if (IsExtension)
+        {
 
             int selection = typeSelection.Next(0, 100);
             System.Random positionZ = new System.Random();
             System.Random Angulo = new System.Random();
-            System.Random handSwordSelection = new System.Random();
+            System.Random handSelection = new System.Random();
+
+            if (ShoulderSelection == 1)
+            {
+                selection = 70;
+            }
+            if (ShoulderSelection == 2)
+            {
+                selection = 30;
+            }
 
             if (selection < 50)
             {
@@ -536,13 +601,13 @@ public class GameControllerFight : MonoBehaviour {
                 double posX = Math.Cos((25 + 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = -1.6; //Math.Sin(( + 90) * Math.PI / 180) * 2; ;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                double posZ = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2; //Math.Sin(( + 90) * Math.PI / 180) * 2; ;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
 
-                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                var vector = new Vector3((float)(LeftShoulder.transform.position.x ), (float)(LeftShoulder.transform.position.y - posY), (float)(LeftShoulder.transform.position.z - posZ));//force-
 
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchLeft, vector, PlayerCenter.transform.rotation) as GameObject;
@@ -556,19 +621,19 @@ public class GameControllerFight : MonoBehaviour {
             {
 
                 //RIGHT  EXTENSION  
-                double RandomAngle = -((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
+                double RandomAngle = ((Minangle + Angulo.NextDouble() * (Maxangle - Minangle)));
 
 
                 double posX = Math.Cos((-25 + 90) * Math.PI / 180) * 2;
                 double posY = Math.Sin((RandomAngle + 90) * Math.PI / 180) * 2;
 
-                double posZ = -1.6;//Math.Sin(( + 90) * Math.PI / 180) * 2;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
+                double posZ = Math.Cos((RandomAngle + 90) * Math.PI / 180) * 2;//Math.Sin(( + 90) * Math.PI / 180) * 2;//positionZ.NextDouble() * (1.6 - 0.7) + 0.7;
 
                 // posZ debe variar de 0.7-1.7 para estar a distancia del jugador 
                 //posX debe variar de 25-180 y negativo 
 
 
-                var vector = new Vector3((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)(PlayerCenter.transform.position.z - posZ));//force-
+                var vector = new Vector3((float)(RightShoulder.transform.position.x), (float)(RightShoulder.transform.position.y - posY), (float)(RightShoulder.transform.position.z - posZ));//force-
 
 
                 Temporary_Bullet_Handler = Instantiate(ParticlePunchRight, vector, PlayerCenter.transform.rotation) as GameObject;
