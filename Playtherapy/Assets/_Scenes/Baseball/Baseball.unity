@@ -57982,8 +57982,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cada vez que se quiera reiniciar el juego es necesario que personaje este
-    posicionado encima del rectangulo blanco ubicado en el centro de la platalla
+  m_Text: Cada vez que se quiera reiniciar el juego es necesario que el personaje
+    este posicionado encima del rectangulo blanco ubicado en el centro de la platalla
 --- !u!222 &2106166472
 CanvasRenderer:
   m_ObjectHideFlags: 0
