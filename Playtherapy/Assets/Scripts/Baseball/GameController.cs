@@ -578,13 +578,9 @@ public class GameController : MonoBehaviour {
 
 				}
 			}
-			if (Time.time > shootTime  ) {
+			if (Time.time > shootTime ) {
 
-                if (array_balls.transform.childCount == 0) {
-
-                    InvokeRepeating("Lanzar", 0f, 0f);
-                }
-                    
+				InvokeRepeating ("Lanzar", 0f, 0f);
 				shootTime = shootTime + rate;
 
 			}
@@ -1082,7 +1078,7 @@ public class GameController : MonoBehaviour {
 
                     particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                    //yield return new WaitForSeconds(0.5f);
+                    
                     Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
                     Destroy(particulas, 4);
                     
