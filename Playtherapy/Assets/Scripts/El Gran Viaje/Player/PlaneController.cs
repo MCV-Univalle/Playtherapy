@@ -239,11 +239,12 @@ public class PlaneController : MonoBehaviour {
 			movement = new Vector3 (hAxis, vAxis, 0)*speed;
 
 		}
-
+		Debug.Log (movement);
 		//if (can_move) {
-		rig.MovePosition (transform.position + movement);
+		//rig.MovePosition (transform.position + movement);
+		rig.transform.position = transform.position + movement;
 		//}
-
+	
 		//rig.AddForce ( movement);
 		//rig.velo
 
