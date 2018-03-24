@@ -329,3 +329,11 @@ build/
 # End of https://www.gitignore.io/api/unity,visualstudio,monodevelop
 
 *.info
+Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
+Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
+Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_Corner_01.obj.meta
+Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_Corner_Green_Top_01.obj.meta
+Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
+*.meta
+*.meta
+*.meta

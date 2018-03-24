@@ -51,6 +51,23 @@ TagManager:
   - coins
   - RightHand
   - LeftHand
+  - FxTemporaire
+  - RobotHand
+  - Building
+  - Robot
+  - Proyectile
+  - LeftSword
+  - RightSword
+  - GameControllerFight
+  - Parameters
+  - SwordParticle
+  - PunchParticle
+  - eraser
+  - ShowHandLeft
+  - ShowHandRight
+  - ShowSwordLeft
+  - ShowSwordRIght
+  - Help
   layers:
   - Default
   - TransparentFX
