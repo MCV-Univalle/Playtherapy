@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: set_range
         m_Mode: 0
         m_Arguments:
@@ -4372,7 +4372,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: set_time_default
         m_Mode: 0
         m_Arguments:
@@ -6117,7 +6117,7 @@ RectTransform:
   m_GameObject: {fileID: 249399176}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children:
   - {fileID: 881336767}
   - {fileID: 189061292}
@@ -6181,7 +6181,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: OnGameTypeChanged
         m_Mode: 1
         m_Arguments:
@@ -12111,10 +12111,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089e6ee79569ff41a2b75d155de8048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parametersPanel: {fileID: 1378587258}
-  dropdownGameType: {fileID: 249399178}
-  sliderGameType: {fileID: 118586088}
-  textGameType: {fileID: 782999380}
+  ParametersPanel: {fileID: 1378587258}
+  TutorialPanel: {fileID: 1707390588}
+  ResultPanel: {fileID: 748655214}
+  textCurrentTime: {fileID: 782999380}
+  sliderCurrentTime: {fileID: 118586088}
+  sliderText: {fileID: 782999380}
+  ArmSelection: {fileID: 106131491}
+  numberRepetitions: {fileID: 249399178}
+  currentRepetitions: 0
+  array_balls: {fileID: 0}
+  slider_velocity: {fileID: 1002055637}
+  current_velocity: {fileID: 1961125502}
+  slider_range: {fileID: 62270108}
+  current_range: {fileID: 1432945822}
+  sliderLeft: {fileID: 1899309980}
+  angleLeft: {fileID: 102517846}
+  sliderRight: {fileID: 0}
+  angleRight: {fileID: 0}
+  sliderMinLeft: {fileID: 1054966084}
+  angleMinLeft: {fileID: 1329825148}
+  sliderMinRight: {fileID: 0}
+  angleMinRight: {fileID: 0}
+  toggleX: {fileID: 1611022626}
+  movlattext: {fileID: 2116399356}
+  movimientoLateral: 0
+  game_mode: {fileID: 1753914696}
 --- !u!4 &518210013
 Transform:
   m_ObjectHideFlags: 0
@@ -18816,7 +18838,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -19206,6 +19228,9 @@ MonoBehaviour:
   danceUnityChan: {fileID: 1297545508}
   danceTaichi: {fileID: 491093715}
   Camera: {fileID: 99206886}
+  textCurrentTime: {fileID: 1816851858}
+  sliderCurrentTime: {fileID: 118586088}
+  sliderText: {fileID: 782999380}
   ParametersPanel: {fileID: 1378587258}
   TutorialPanel: {fileID: 1707390588}
   MainPanel: {fileID: 703995942}
@@ -19214,6 +19239,7 @@ MonoBehaviour:
   boton: {fileID: 932610577}
   InGame: 0
   GameOver: 0
+  progress: 0
   Cannon: {fileID: 1639074225}
   Ball: {fileID: 1494217027487058, guid: ae179903cb0ec440a93dabbf0367f1fb, type: 2}
   pitcher: {fileID: 293697442}
@@ -19228,31 +19254,12 @@ MonoBehaviour:
   catcherLefthand: {fileID: 1265733032}
   catcherRighthand: {fileID: 1803151913}
   rate: 5.2
-  textCurrentTime: {fileID: 1816851858}
-  sliderCurrentTime: {fileID: 118586088}
-  sliderText: {fileID: 782999380}
-  ArmSelection: {fileID: 106131491}
-  numberRepetitions: {fileID: 249399178}
   currentRepetitions: 0
   array_balls: {fileID: 1702025220}
-  slider_velocity: {fileID: 1002055637}
-  current_velocity: {fileID: 1961125502}
-  slider_range: {fileID: 62270108}
-  current_range: {fileID: 1432945822}
-  sliderLeft: {fileID: 1899309980}
-  angleLeft: {fileID: 102517846}
-  sliderRight: {fileID: 429552482}
-  angleRight: {fileID: 1667778522}
-  sliderMinLeft: {fileID: 1054966084}
-  angleMinLeft: {fileID: 1329825148}
-  sliderMinRight: {fileID: 0}
-  angleMinRight: {fileID: 0}
   rightHandPraticles: {fileID: 144344, guid: d157fcfc73457ea44b9a125e5be375ca, type: 2}
   positionParticles: {fileID: 1589654915796664, guid: c08d5235900895c428520fe53bdfee82,
     type: 2}
   selectArm: 0
-  toggleX: {fileID: 1611022626}
-  movlattext: {fileID: 2116399356}
   movimientoLateral: 0
   totalTime: 1800
   finalResult: {fileID: 0}
@@ -19262,7 +19269,6 @@ MonoBehaviour:
   scoretext: {fileID: 1089137035}
   pivote: 0
   send: 0
-  game_mode: {fileID: 1753914696}
   kinectPlayer: {fileID: 1803350089}
   left: 0
   right: 0
@@ -20656,7 +20662,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: set_velocity
         m_Mode: 0
         m_Arguments:
@@ -21994,7 +22000,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: set_MinLeft
         m_Mode: 0
         m_Arguments:
@@ -35539,7 +35545,7 @@ RectTransform:
   m_GameObject: {fileID: 1378587258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.82, z: 0}
   m_Children:
   - {fileID: 660329215}
   - {fileID: 184009356}
@@ -35566,7 +35572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -13}
   m_SizeDelta: {x: 533.40454, y: 237.26477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1378587260
@@ -35580,10 +35586,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089e6ee79569ff41a2b75d155de8048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parametersPanel: {fileID: 0}
-  dropdownGameType: {fileID: 0}
-  sliderGameType: {fileID: 0}
-  textGameType: {fileID: 0}
+  ParametersPanel: {fileID: 0}
+  TutorialPanel: {fileID: 0}
+  ResultPanel: {fileID: 0}
+  textCurrentTime: {fileID: 0}
+  sliderCurrentTime: {fileID: 0}
+  sliderText: {fileID: 0}
+  ArmSelection: {fileID: 0}
+  numberRepetitions: {fileID: 0}
+  currentRepetitions: 0
+  array_balls: {fileID: 0}
+  slider_velocity: {fileID: 0}
+  current_velocity: {fileID: 0}
+  slider_range: {fileID: 0}
+  current_range: {fileID: 0}
+  sliderLeft: {fileID: 0}
+  angleLeft: {fileID: 0}
+  sliderRight: {fileID: 0}
+  angleRight: {fileID: 0}
+  sliderMinLeft: {fileID: 0}
+  angleMinLeft: {fileID: 0}
+  sliderMinRight: {fileID: 0}
+  angleMinRight: {fileID: 0}
+  toggleX: {fileID: 0}
+  movlattext: {fileID: 0}
+  movimientoLateral: 0
+  game_mode: {fileID: 0}
 --- !u!1 &1380469971
 GameObject:
   m_ObjectHideFlags: 0
@@ -40922,8 +40950,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Para Obtener un punto se debe colocar la mano en el indicador que dice
-    donde llegar\xE1 la bola y esperar que esta toque la mano\n"
+  m_Text: 'Para Obtener un punto debes colocar la mano que brilla en el indicador  y
+    esperar que la bola toque la mano
+
+'
 --- !u!222 &1479342856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50807,7 +50837,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: OnGameModeChanged
         m_Mode: 1
         m_Arguments:
@@ -51686,7 +51716,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1799560260}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004371139}
-  m_LocalPosition: {x: 1.486, y: 2.7007687, z: -0.015}
+  m_LocalPosition: {x: 1.712, y: 2.7007687, z: -0.015}
   m_LocalScale: {x: 0.07692307, y: 0.07692307, z: 0.07692307}
   m_Children: []
   m_Father: {fileID: 1251657291}
@@ -54693,7 +54723,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954662357}
+      - m_Target: {fileID: 518210012}
         m_MethodName: set_Left
         m_Mode: 0
         m_Arguments:
@@ -54813,7 +54843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 266, y: -225}
+  m_AnchoredPosition: {x: 244, y: -225}
   m_SizeDelta: {x: -15, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907673096
@@ -54990,7 +55020,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1916702414}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004371139}
-  m_LocalPosition: {x: -7.74, y: 2.7007687, z: -0.015}
+  m_LocalPosition: {x: -7.929, y: 2.7007687, z: -0.015}
   m_LocalScale: {x: 0.07692307, y: 0.07692307, z: 0.07692307}
   m_Children: []
   m_Father: {fileID: 1058599645}
@@ -56681,8 +56711,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "El juego consiste en atrapar bolas de baseball con las manos, dichas bolas
-    ser\xE1n lanzadas hacia el jugador y el o ella deber\xE1 atraparla con la mano
-    que se le indique     \n\n"
+    ser\xE1n lanzadas hacia ti y deber\xE1s atraparlas con la mano que se te indique
+    \    \n\n"
 --- !u!222 &2022260779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -57982,9 +58012,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cada vez que se quiera reiniciar el juego es necesario que el personaje
-    que representa el paciente este posicionado en medio del rectangulo blanco ubicado
-    en el centro de la platalla
+  m_Text: "Cada vez que se quieras reiniciar el juego es necesario que te posiciones
+    en medio del rect\xE1ngulo blanco ubicado en el centro de la platalla"
 --- !u!222 &2106166472
 CanvasRenderer:
   m_ObjectHideFlags: 0

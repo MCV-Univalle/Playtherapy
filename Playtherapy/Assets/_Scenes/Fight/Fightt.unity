@@ -1660,6 +1660,102 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 93661049}
+--- !u!1 &93729838 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1403123481911664, guid: 512b653bcf9daa5459a2a22a0bd3276e,
+    type: 2}
+  m_PrefabInternal: {fileID: 976545509}
+--- !u!114 &93729842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 93729838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ebb40760f219f4caf1a6622d518fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &93729843
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 93729838}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 89e0f69e3ad999a4aa99111f0765d6b7, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 23
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &98705537
 GameObject:
   m_ObjectHideFlags: 0
@@ -18154,7 +18250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 0}
+  m_AnchoredPosition: {x: 350, y: 18}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &925922892
@@ -18176,7 +18272,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8998b7a35e2e9a94f94f16387d9dacaf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 828f970845bf88b44b27df7a638c43ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18229,9 +18325,10 @@ GameObject:
   - component: {fileID: 927572261}
   - component: {fileID: 927572260}
   - component: {fileID: 927572259}
+  - component: {fileID: 927572262}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -18290,6 +18387,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &927572262
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927572258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
 --- !u!1 &933891108
 GameObject:
   m_ObjectHideFlags: 0
@@ -21100,7 +21211,7 @@ RectTransform:
   m_GameObject: {fileID: 1126046955}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalScale: {x: 0.78, y: 0.82, z: 0}
   m_Children:
   - {fileID: 1561052276}
   - {fileID: 1247171176}
@@ -21135,10 +21246,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9089e6ee79569ff41a2b75d155de8048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parametersPanel: {fileID: 0}
-  dropdownGameType: {fileID: 0}
-  sliderGameType: {fileID: 0}
-  textGameType: {fileID: 0}
+  ParametersPanel: {fileID: 0}
+  TutorialPanel: {fileID: 0}
+  ResultPanel: {fileID: 0}
+  textCurrentTime: {fileID: 0}
+  sliderCurrentTime: {fileID: 0}
+  sliderText: {fileID: 0}
+  ArmSelection: {fileID: 0}
+  numberRepetitions: {fileID: 0}
+  currentRepetitions: 0
+  array_balls: {fileID: 0}
+  slider_velocity: {fileID: 0}
+  current_velocity: {fileID: 0}
+  slider_range: {fileID: 0}
+  current_range: {fileID: 0}
+  sliderLeft: {fileID: 0}
+  angleLeft: {fileID: 0}
+  sliderRight: {fileID: 0}
+  angleRight: {fileID: 0}
+  sliderMinLeft: {fileID: 0}
+  angleMinLeft: {fileID: 0}
+  sliderMinRight: {fileID: 0}
+  angleMinRight: {fileID: 0}
+  toggleX: {fileID: 0}
+  movlattext: {fileID: 0}
+  movimientoLateral: 0
+  game_mode: {fileID: 0}
 --- !u!1001 &1132048088
 Prefab:
   m_ObjectHideFlags: 0
@@ -32370,7 +32503,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 0}
+  m_AnchoredPosition: {x: -350, y: 28}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1417341457
@@ -32392,7 +32525,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: df7a6949c31412b4b8a8eca32eddd66b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 113d5d189a50ae74da85063ac1dc9249, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

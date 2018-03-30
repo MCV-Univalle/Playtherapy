@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour {
 
     GameObject target;
     //
+    float numberRepetitions;
+    float game_mode;
+    float ArmSelection;
     public GameObject LeftShoulder;
     public GameObject RightShoulder;
 
@@ -18,6 +21,9 @@ public class GameController : MonoBehaviour {
     public GameObject danceTaichi;
     public GameObject Camera;
 
+    public Text textCurrentTime;
+    public Slider sliderCurrentTime;
+    public Text sliderText;
 
 
     public GameObject ParametersPanel;
@@ -30,6 +36,7 @@ public class GameController : MonoBehaviour {
 
     public bool InGame;
     public bool GameOver;
+    public bool progress;
 
     public GameObject Cannon;
 
@@ -63,111 +70,21 @@ public class GameController : MonoBehaviour {
 
     float _repetitions;
 
-    public Text textCurrentTime;
-    public Slider sliderCurrentTime;
-    public Text sliderText;
-
-    public Dropdown ArmSelection;
-    
-
-    public Dropdown numberRepetitions;
     public float currentRepetitions;
     public GameObject array_balls;
 
 
 
 
-    public float time_default {
-
-        get
-        {
-            if (numberRepetitions.value == 0) {
-                return _time_game;
-
-            }
-            else {
-
-                return _repetitions;
-
-            }
-
-        }
-        set
-        {
-
-            if (numberRepetitions.value == 0) {
-
-                _time_game = value;
-
-
-
-
-                if (sliderText != null) {
-                    sliderText.text = (((int)_time_game % 60).ToString("00") + ":" + ((int)_time_game / 60).ToString("00") + " mins");
-
-                }
-            }
-            else {
-
-                _repetitions = value;
-
-                if (sliderText != null) {
-                    sliderText.text = ("" + (int)_repetitions);
-
-                }
-            }
-
-        }
-    }
+    
 
 
 
 
     float _velocity_game;
-    public float velocity {
+    
 
-        get
-        {
-            return _velocity_game;
-        }
-        set
-        {
-            _velocity_game = value;
-
-            if (current_velocity != null) {
-
-
-
-                current_velocity.text = (((float)_velocity_game - 20) / 140 * 100).ToString("0") + "%";
-
-
-
-            }
-        }
-
-
-    }
-
-
-    public Slider slider_velocity;
-    public Text current_velocity;
-
-
-
-    public Slider slider_range;
-    public Text current_range;
-
-    public Slider sliderLeft;
-    public Text angleLeft;
-
-    public Slider sliderRight;
-    public Text angleRight;
-
-    public Slider sliderMinLeft;
-    public Text angleMinLeft;
-
-    public Slider sliderMinRight;
-    public Text angleMinRight;
+    
 
     public GameObject rightHandPraticles;
     public GameObject positionParticles;
@@ -180,70 +97,7 @@ public class GameController : MonoBehaviour {
     float radius;
 
 
-    public float range {
-
-        get
-        {
-            return _range_game;
-        }
-        set
-        {
-            _range_game = value;
-
-            if (current_range != null) {
-
-                current_range.text = ((int)_range_game).ToString("");
-
-
-            }
-        }
-
-
-    }
-
-
-
-    public float MinRight {
-
-        get
-        {
-            return _angleMinRight;
-        }
-        set
-        {
-            _angleMinRight = value;
-
-            if (angleMinRight != null) {
-
-                angleMinRight.text = ((int)_angleMinRight).ToString("") + "°";
-
-
-            }
-        }
-
-
-    }
-
-    public float MinLeft {
-
-        get
-        {
-            return _angleMinLeft;
-        }
-        set
-        {
-            _angleMinLeft = value;
-
-            if (angleMinLeft != null) {
-
-                angleMinLeft.text = ((int)_angleMinLeft).ToString("") + "°";
-
-
-            }
-        }
-
-
-    }
+   
 
 
 
@@ -253,53 +107,12 @@ public class GameController : MonoBehaviour {
 
 
 
-    public float Right {
-
-        get
-        {
-            return _angleRight;
-        }
-        set
-        {
-            _angleRight = value;
-
-            if (angleRight != null) {
-
-                angleRight.text = ((int)_angleRight).ToString("") + "°";
-
-
-            }
-        }
-
-
-    }
-
-    public float Left {
-
-        get
-        {
-            return _angleLeft;
-        }
-        set
-        {
-            _angleLeft = value;
-
-            if (angleLeft != null) {
-
-                angleLeft.text = ((int)_angleLeft).ToString("") + "°";
-
-
-            }
-        }
-
-
-    }
+    
 
 
 
 
-    public Toggle toggleX;
-    public Text movlattext;
+    
     public bool movimientoLateral;
 
     private float time;
@@ -328,52 +141,13 @@ public class GameController : MonoBehaviour {
 
 
 
-    public Dropdown game_mode;
+    
 
     public GameObject kinectPlayer;
     public bool left = false;
     public bool right = false;
 
-    public void OnArmChanged() { 
-
-
-
-}
-	public void OnGameModeChanged()
-	{
-		
-
-		if(game_mode.value == 1){
-			
-			
-
-			sliderMinLeft.maxValue =50 ;
-			sliderLeft.maxValue = 50;
-			current_range.text = "No Disponible";
-			toggleX.enabled = false;
-			toggleX.isOn = false;
-			movlattext.text = "No Disponible";
-			movimientoLateral = false;
-			slider_range.enabled = false;
-
-			
-		}
-		
-		if (game_mode.value == 0){
-			
-			
-			sliderMinLeft.maxValue = 180;
-			sliderLeft.maxValue = 180;
-			current_range.text = ((int)_range_game).ToString("");
-			toggleX.enabled = true;
-			toggleX.isOn = true;
-			movlattext.text = "Movimiento Lateral";
-
-			slider_range.enabled = true;
-
-
-		}
-	}
+    
 
 	void Reset(){
 
@@ -435,7 +209,7 @@ public class GameController : MonoBehaviour {
 
 			_range_game = 25;
 		}
-        toggleX.isOn = true;
+        movimientoLateral = true;
 		
 		results = ResultPanel.GetComponent<PutDataResults> ();
 
@@ -486,7 +260,7 @@ public class GameController : MonoBehaviour {
 		}
         results = ResultPanel.GetComponent<PutDataResults> ();
 		lanzamiento = 0;
-		toggleX.isOn = true;
+		movimientoLateral = true;
 		//results = FindObjectOfType<PutDataResults> ();
 		//Button btn = boton.GetComponent<Button> ();
 		//btn.onClick.AddListener(StartGame);
@@ -497,30 +271,7 @@ public class GameController : MonoBehaviour {
 
 
 
-	public void OnGameTypeChanged()
-	{
-		if (numberRepetitions.value == 0)
-		{
-			sliderCurrentTime.minValue = 1;
-			sliderCurrentTime.maxValue = 30;
-
-		}
-		else
-		{
-			sliderCurrentTime.minValue = 1;
-			sliderCurrentTime.maxValue = 30;
-
-		}
-
-		sliderCurrentTime.value = sliderCurrentTime.minValue;
-		time_default = time_default;
-	}
-
-	public void OnGameArmChanged()
-	{
-        
-    }
-
+	
 
 	// Update is called once per frame
 	void Update () {
@@ -528,10 +279,10 @@ public class GameController : MonoBehaviour {
 		if (InGame)
 		{
 
-			if (numberRepetitions.value == 0) {
+			if (numberRepetitions == 0) {
 
 				currentTime -= Time.deltaTime;
-				if (currentTime > 0 && numberRepetitions.value == 0) {
+				if (currentTime > 0 && numberRepetitions == 0) {
 					timeMillis -= Time.deltaTime * 1000;
 					if (timeMillis < 0)
 						timeMillis = 1000f;
@@ -548,7 +299,7 @@ public class GameController : MonoBehaviour {
 				}
 			}
 
-			if (numberRepetitions.value == 1) {
+			if (numberRepetitions == 1) {
 
 				textCurrentTime.text = currentRepetitions +" Restante";
 
@@ -559,28 +310,34 @@ public class GameController : MonoBehaviour {
 
 
 			Time.timeScale = 1;
-			if (numberRepetitions.value == 1) {
-				if (currentRepetitions <= 0 && array_balls.transform.childCount==0) {
+			if (numberRepetitions == 1) {
+				if (currentRepetitions <= 0 && array_balls.transform.childCount==0 && !progress) {
 
 					danceTaichi.SetActive (true);
 					danceUnityChan.SetActive (true);
+                    GameOver = true;
 
 					faseFinal ();
+                    
 				
 				}
 			} else {
 
-				if (currentTime <= 0  && array_balls.transform.childCount==0) {
+				if (currentTime <= 0  && array_balls.transform.childCount==0 && !progress) {
 					danceTaichi.SetActive (true);
 					danceUnityChan.SetActive (true);
-
-					faseFinal ();
+                    GameOver = true;
+                    faseFinal ();
+                   
 
 				}
 			}
-			if (Time.time > shootTime ) {
+			if (Time.time > shootTime  && !GameOver && !progress) {
 
-				InvokeRepeating ("Lanzar", 0f, 0f);
+                if (array_balls.transform.childCount == 0) {
+                    InvokeRepeating("Lanzar", 0f, 0f);
+                }
+				
 				shootTime = shootTime + rate;
 
 			}
@@ -646,19 +403,7 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	public void SlideTime(){
-		if (numberRepetitions.value == 0) {
-
-			time = sliderCurrentTime.value * 30f;
-
-		}
-		if (numberRepetitions.value == 1) {
-
-		}
-
-
-		UpdateSlide ();
-	}
+	
 
 	public void UpdateSlide(){
 		
@@ -684,18 +429,7 @@ public class GameController : MonoBehaviour {
 
         pausa.SetActive(false);
 
-        sliderCurrentTime.value = 0;
-        _time_game = 0;
-        currentRepetitions = 0;
-        slider_velocity.value = 0;
-        _velocity_game = 0;
-        slider_range.value = 0;
-        radius = 0;
-
-        _angleLeft = 0;
-        _angleMinLeft = 0;
-        sliderMinLeft.value = 0;
-        sliderLeft.value = 0;
+     
 
         retry();
     }
@@ -711,47 +445,59 @@ public class GameController : MonoBehaviour {
         TutorialPanel.SetActive(false);
     }
 
-	public void StartGame()
+	public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions,float timegame,float repetitions, float forces ,float anglemin,float anglemax,float gamemode,float armselection)
 	{
 		InGame = true;
-		force = _velocity_game;
-		_range_game = range ;
+        GameOver = false;
+		force = Velocity;
+		_range_game = rangeParam;
+        game_mode = gamemode;
+        ArmSelection = armselection;
 
-		movimientoLateral = toggleX.isOn;
+		movimientoLateral = lateralmovement;
 		GameOver = false;
 		MainPanel.SetActive (true);
         pausa.SetActive(true);
         ParametersPanel.SetActive (false);
+        numberRepetitions = numberrepetitions;
 
 
-		if (numberRepetitions.value == 0) {
+		if (numberrepetitions == 0) {
 
-			currentTime = _time_game * 60;
+			currentTime = timegame * 60;
 			
 		}
-		if(numberRepetitions.value == 1){
+		if(numberrepetitions == 1){
 		
-			currentRepetitions = _repetitions;
+			currentRepetitions = repetitions;
+            
 		}
 
-		if (force == 0) {
+		if (forces == 0) {
 		
 			force = 20;
 		}
-
-		if (numberRepetitions.value == 0 && currentTime == 0) {
+        //if (numberRepetitions.value == 0 
+        if (numberrepetitions == 0 && currentTime == 0) {
 		
 			currentTime = 60;
 			
 			//currentRepetitions = 1;
 		}  
-		if (numberRepetitions.value == 1 && currentRepetitions == 0) {
+		if (numberrepetitions == 1 && currentRepetitions == 0) {
 
 			currentRepetitions = 1;
 			//currentTime = 90000000000;
 		}
 
-		if (_angleMinLeft > _angleLeft) {
+        _angleMinLeft = anglemin;
+
+        _angleLeft = anglemax;
+
+
+
+
+        if (_angleMinLeft > _angleLeft) {
 
 			_angleLeft = _angleMinLeft + 1;
 		}
@@ -771,7 +517,7 @@ public class GameController : MonoBehaviour {
 		if (InGame) {
 			
 		}
-		if (numberRepetitions.value == 0) {
+		if (numberRepetitions == 0) {
 
 			if (currentTime > 0) {
 				StartCoroutine (Disparo ());
@@ -793,7 +539,7 @@ public class GameController : MonoBehaviour {
     }
 
 	IEnumerator Disparo(){
-
+        progress = true;
         pitcher.Play("Throw");
         yield return new WaitForSeconds(2.7f);
 
@@ -807,7 +553,7 @@ public class GameController : MonoBehaviour {
 
         //int pivy = rany.Next(80.0, 80.23);
 
-        if (game_mode.value == 1){
+        if (game_mode == 1){
 
 
 
@@ -825,14 +571,14 @@ public class GameController : MonoBehaviour {
 
             selectArm = ranz.Next(1, 100);
 
-            if (ArmSelection.value == 1)
+            if (ArmSelection == 1)
             {
 
                 //Derecho
                 selectArm = 30;
 
             }
-            if (ArmSelection.value == 2)
+            if (ArmSelection == 2)
             {
                 //Izquierdo
                 selectArm = 80;
@@ -915,7 +661,7 @@ public class GameController : MonoBehaviour {
 
 
 
-		if (game_mode.value == 0) {
+		if (game_mode == 0) {
 			radius = _range_game;
 
 			double posX = 0;
@@ -933,17 +679,19 @@ public class GameController : MonoBehaviour {
 
                 pos = rand.Next(0, 2);
 
-                if (ArmSelection.value == 2)
+                if (ArmSelection == 2)
                 {
 
                     //Derecho
                     pos = 0;
+                    selectArm = 30;
 
                 }
-                if (ArmSelection.value == 1)
+                if (ArmSelection == 1)
                 {
                     //Izquierdo
                     pos = 1;
+                    selectArm = 80;
 
                 }
                 
@@ -959,8 +707,9 @@ public class GameController : MonoBehaviour {
 			double angleRandom = 0;
 
 			if (pos == 0) {
+                selectArm = 30;
 
-				System.Random ranyy = new System.Random ();
+                System.Random ranyy = new System.Random ();
 
 				angleRandom = _angleMinLeft + ranyy.NextDouble () * (_angleLeft - _angleMinLeft);
 
@@ -983,6 +732,7 @@ public class GameController : MonoBehaviour {
 
 			}
             if (pos == 1) {//desplaz
+                selectArm = 80;
                 System.Random ranxx = new System.Random();
                 angleRandom = -(_angleMinLeft + ranxx.NextDouble() * (_angleLeft - _angleMinLeft));
 
@@ -1016,16 +766,18 @@ public class GameController : MonoBehaviour {
 				int select = ranz.Next (1, 100);
 
 
-                if (ArmSelection.value == 1) {
+                if (ArmSelection == 1) {
 
                     //Derecho
                     select = 30;
+                    selectArm = 30;
 
                 }
-                if (ArmSelection.value == 2) {
+                if (ArmSelection  == 2) {
                     //Izquierdo
                     select = 80;
-                   
+                    selectArm = 80;
+
                 }
 
 
@@ -1034,7 +786,7 @@ public class GameController : MonoBehaviour {
                     //angleRandom = (115+ _angleMinRight) + ranyy.NextDouble ()*((_angleRight+115) - (115+_angleMinRight));
 
 
-
+                    selectArm = select;
 
 
 
@@ -1059,7 +811,7 @@ public class GameController : MonoBehaviour {
                 }
                 else {
 
-
+                    selectArm = select;
 
                     angleRandom = (_angleMinLeft + ranxy.NextDouble() * (_angleLeft - _angleMinLeft));
 
@@ -1105,6 +857,7 @@ public class GameController : MonoBehaviour {
 
 		}
 
+        progress = false;
 
 	}
 
