@@ -36,7 +36,7 @@ public class Contact : MonoBehaviour {
           
             Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
 			GameController.gc.AddScore (scorevalue);
-			Debug.Log (GameController.gc.selectArm );
+			//Debug.Log (GameController.gc.selectArm );
 
             
 
@@ -47,7 +47,7 @@ public class Contact : MonoBehaviour {
     
             Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
 			GameController.gc.AddScore (scorevalue);
-			Debug.Log (GameController.gc.selectArm );
+			//Debug.Log (GameController.gc.selectArm );
             
 
 

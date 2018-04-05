@@ -1646,10 +1646,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 812023077}
   m_HandleRect: {fileID: 1731228899}
   m_Direction: 0
-  m_MinValue: 25
-  m_MaxValue: 35
+  m_MinValue: 15
+  m_MaxValue: 30
   m_WholeNumbers: 1
-  m_Value: 25
+  m_Value: 15
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -5667,6 +5667,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 213262244}
+--- !u!1 &214966512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 214966513}
+  m_Layer: 0
+  m_Name: ExtensionShoulderRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &214966513
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 214966512}
+  m_LocalRotation: {x: -0, y: 1.3552527e-20, z: -0, w: 1}
+  m_LocalPosition: {x: 31.39, y: 18.16, z: 405.2482}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220384118
 GameObject:
   m_ObjectHideFlags: 0
@@ -19223,6 +19251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d882b4d99025487c981c9a4bffa2ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExtensionShoulderLeft: {fileID: 1737693186}
+  ExtensionShoulderRight: {fileID: 214966512}
   LeftShoulder: {fileID: 1600254159}
   RightShoulder: {fileID: 494845652}
   danceUnityChan: {fileID: 1297545508}
@@ -20656,7 +20686,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 167635274}
   m_Direction: 0
   m_MinValue: 20
-  m_MaxValue: 160
+  m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 20
   m_OnValueChanged:
@@ -40226,7 +40256,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 25
+  m_Text: 0%
 --- !u!222 &1432945823
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50367,6 +50397,34 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 400054, guid: 2e9c08ddb30614e5a8c1be3d5e482d97, type: 3}
   m_PrefabInternal: {fileID: 1172511432}
+--- !u!1 &1737693186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1737693187}
+  m_Layer: 0
+  m_Name: ExtensionShoulderLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1737693187
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1737693186}
+  m_LocalRotation: {x: -0.00000004371139, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 38.14, y: 18.23, z: 405.2482}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739133978
 GameObject:
   m_ObjectHideFlags: 0
@@ -51716,7 +51774,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1799560260}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004371139}
-  m_LocalPosition: {x: 1.712, y: 2.7007687, z: -0.015}
+  m_LocalPosition: {x: 2.062, y: 2.7007687, z: -0.015}
   m_LocalScale: {x: 0.07692307, y: 0.07692307, z: 0.07692307}
   m_Children: []
   m_Father: {fileID: 1251657291}
@@ -55020,7 +55078,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1916702414}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004371139}
-  m_LocalPosition: {x: -7.929, y: 2.7007687, z: -0.015}
+  m_LocalPosition: {x: -8.401, y: 2.7007687, z: -0.015}
   m_LocalScale: {x: 0.07692307, y: 0.07692307, z: 0.07692307}
   m_Children: []
   m_Father: {fileID: 1058599645}
@@ -58012,8 +58070,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cada vez que se quieras reiniciar el juego es necesario que te posiciones
-    en medio del rect\xE1ngulo blanco ubicado en el centro de la platalla"
+  m_Text: "Cada vez que se quieras reiniciar el juego es necesario que te ubiques
+    en medio del rect\xE1ngulo blanco localizado en el centro de la platalla"
 --- !u!222 &2106166472
 CanvasRenderer:
   m_ObjectHideFlags: 0

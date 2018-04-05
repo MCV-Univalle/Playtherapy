@@ -104,7 +104,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
 
 
 
-                current_velocity.text = (((float)_velocity_game - 20) / 140 * 100).ToString("0") + "%";
+                current_velocity.text = (((float)_velocity_game - 20) / 70 * 100).ToString("0") + "%";
 
 
 
@@ -157,7 +157,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
             if (current_range != null)
             {
 
-                current_range.text = ((int)_range_game).ToString("");
+                current_range.text = (((float)_range_game - 15) / 15 * 100).ToString("0") + "%";
 
 
             }
@@ -400,7 +400,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
 
          gameController.StartGame(_velocity_game,_range_game,toggleX.isOn,numberRepetitions.value,time,_repetitions,_range_game,_angleMinLeft,_angleLeft,game_mode.value,ArmSelection.value);
 
-        print(_angleLeft +","+_angleMinLeft + "," + _velocity_game + "," + _range_game);
+       // print(_angleLeft +","+_angleMinLeft + "," + _velocity_game + "," + _range_game);
 
     }
 

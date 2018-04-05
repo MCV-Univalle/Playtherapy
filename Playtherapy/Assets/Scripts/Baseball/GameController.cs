@@ -5,6 +5,14 @@ using System;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
+
+    private Vector3 vector;
+    private Vector3 vectortest;
+
+    public GameObject ExtensionShoulderLeft;
+    public GameObject ExtensionShoulderRight;
+
+
     GameObject particulas;
     public static GameController gc;
     Vector3 initialposition;
@@ -185,11 +193,12 @@ public class GameController : MonoBehaviour {
 		danceUnityChan.SetActive (false);
 		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
 
-		//Camera.transform.position = new Vector3(0f, 31.83f,134.62f);
+        //Camera.transform.position = new Vector3(0f, 31.83f,134.62f);
 
+        vector = new Vector3(0, 0, 0);
+        vectortest = new Vector3(0, 0, 0);
 
-
-		score= 0;
+        score = 0;
 		UpdateScore();
         InGame = false;
         MainPanel.SetActive(false);
@@ -235,9 +244,12 @@ public class GameController : MonoBehaviour {
 		danceTaichi.SetActive (false);
 		danceUnityChan.SetActive (false);
 		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
-		//Camera.transform.Translate(0f, 0.83f,0 - 10.62f);
-		
-		score= 0;
+        //Camera.transform.Translate(0f, 0.83f,0 - 10.62f
+        vector = new Vector3(0, 0, 0);
+        vectortest = new Vector3(0, 0, 0);
+
+
+        score = 0;
 		UpdateScore();
 		InGame = false;
 		MainPanel.SetActive(false);
@@ -371,6 +383,7 @@ public class GameController : MonoBehaviour {
 		StopAllCoroutines();
 		InGame = false;
 		int result = Mathf.RoundToInt ((score / lanzamiento) * 100);
+        //print(lanzamiento);
 		movimientoLateral = false;
 		results = ResultPanel.GetComponent<PutDataResults> ();
 		results.updateData (result, 0);
@@ -541,33 +554,29 @@ public class GameController : MonoBehaviour {
 	IEnumerator Disparo(){
         progress = true;
         pitcher.Play("Throw");
-        yield return new WaitForSeconds(2.7f);
+        lanzamiento = lanzamiento + 1;
 
-        GameObject Temporary_Bullet_Handler;
-		Temporary_Bullet_Handler = Instantiate (Ball, Cannon.transform.position, Cannon.transform.rotation) as GameObject;
-		Temporary_Bullet_Handler.transform.parent = array_balls.transform;
-		Temporary_Bullet_Handler.transform.Rotate (Vector3.left * 90);
-		System.Random rany = new System.Random();
-		System.Random ranx = new System.Random();
+
         
 
-        //int pivy = rany.Next(80.0, 80.23);
-
-        if (game_mode == 1){
 
 
+        if (game_mode == 1)
+        {
 
-			double posX = 0;
-			double posY = 0;
+
+
+            double posX = 0;
+            double posY = 0;
             double posZ = 0;
             double posXpart = 0;
-			double posYpart = 0;
+            double posYpart = 0;
             double posZpart = 0;
             double angleRandom = 0;
             System.Random ranz = new System.Random();
             System.Random ranxy = new System.Random();
-            System.Random ranxx = new System.Random();
-            angleRandom = (_angleMinLeft + ranxx.NextDouble () * (_angleLeft - _angleMinLeft));
+            System.Random ranxx = new System.Random(DateTime.Now.Millisecond);
+            angleRandom = (_angleMinLeft + ranxx.NextDouble() * (_angleLeft - _angleMinLeft));
 
             selectArm = ranz.Next(1, 100);
 
@@ -604,13 +613,13 @@ public class GameController : MonoBehaviour {
                 posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
                 posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
 
-                var vectortest = new Vector3((float)RightShoulder.transform.position.x, (float)(RightShoulder.transform.position.y - posYpart), (float)(RightShoulder.transform.position.z -posX ));
-                var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
+                vectortest = new Vector3((float)ExtensionShoulderRight.transform.position.x, (float)(ExtensionShoulderRight.transform.position.y - posYpart), (float)(ExtensionShoulderRight.transform.position.z - posX));
+                vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
 
-                particulas = Instantiate(positionParticles, new Vector3((float)RightShoulder.transform.position.x, (float)(RightShoulder.transform.position.y - posYpart), (float)(RightShoulder.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
+                particulas = Instantiate(positionParticles, new Vector3((float)ExtensionShoulderRight.transform.position.x, (float)(ExtensionShoulderRight.transform.position.y - posYpart), (float)(ExtensionShoulderRight.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
+                
                 Destroy(particulas, 4);
 
 
@@ -631,51 +640,53 @@ public class GameController : MonoBehaviour {
                 posX = Math.Cos((angleRandom + 90) * Math.PI / 180) * 35;
                 posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * 35;
                 posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
-                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) *  ((radius / 10) + 7);
+                posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
 
-                var vectortest = new Vector3((float)LeftShoulder.transform.position.x, (float)(LeftShoulder.transform.position.y - posYpart), (float)(LeftShoulder.transform.position.z-posX));
-                var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
+                 vectortest = new Vector3((float)ExtensionShoulderLeft.transform.position.x, (float)(ExtensionShoulderLeft.transform.position.y - posYpart), (float)(ExtensionShoulderLeft.transform.position.z - posX));
+                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
 
-                particulas = Instantiate(positionParticles, new Vector3((float)LeftShoulder.transform.position.x, (float)(LeftShoulder.transform.position.y - posYpart), (float)(LeftShoulder.transform.position.z- posXpart)), Quaternion.identity) as GameObject;
+                particulas = Instantiate(positionParticles, new Vector3((float)ExtensionShoulderLeft.transform.position.x, (float)(ExtensionShoulderLeft.transform.position.y - posYpart), (float)(ExtensionShoulderLeft.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
+                
                 Destroy(particulas, 4);
 
             }
 
-            
-			
-
-			
-
-			
-
-            
-
-			lanzamiento = lanzamiento + 1;
-			DecrementRepetitions ();
-		}
-
-		
 
 
 
-		if (game_mode == 0) {
-			radius = _range_game;
 
-			double posX = 0;
-			double posY = 0;
-			double posXpart = 0;
-			double posYpart = 0;
- 			float posZ = 0;
 
-			System.Random sel = new System.Random ();
 
-			int pos = 0;
 
-			if (movimientoLateral) {
-				System.Random rand = new System.Random ();
+
+
+            //lanzamiento = lanzamiento + 1;
+            DecrementRepetitions();
+        }
+
+
+
+
+
+        if (game_mode == 0)
+        {
+            radius = _range_game;
+
+            double posX = 0;
+            double posY = 0;
+            double posXpart = 0;
+            double posYpart = 0;
+            float posZ = 0;
+
+            System.Random sel = new System.Random();
+
+            int pos = 0;
+
+            if (movimientoLateral)
+            {
+                System.Random rand = new System.Random();
 
                 pos = rand.Next(0, 2);
 
@@ -694,24 +705,27 @@ public class GameController : MonoBehaviour {
                     selectArm = 80;
 
                 }
-                
 
 
-            } else {
-				pos = 2;
-			}
-			
+
+            }
+            else
+            {
+                pos = 2;
+            }
 
 
-	
-			double angleRandom = 0;
 
-			if (pos == 0) {
+
+            double angleRandom = 0;
+
+            if (pos == 0)
+            {
                 selectArm = 30;
 
-                System.Random ranyy = new System.Random ();
+                System.Random ranyy = new System.Random(DateTime.Now.Millisecond);
 
-				angleRandom = _angleMinLeft + ranyy.NextDouble () * (_angleLeft - _angleMinLeft);
+                angleRandom = _angleMinLeft + ranyy.NextDouble() * (_angleLeft - _angleMinLeft);
 
                 posX = Math.Cos((angleRandom + 90) * Math.PI / 180) * radius;
                 posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * radius;
@@ -719,21 +733,22 @@ public class GameController : MonoBehaviour {
                 posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                 particulas = Instantiate(positionParticles, new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z), Quaternion.identity) as GameObject;
                 selectArm = 70;
-                Destroy (Instantiate (rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
+                Destroy(Instantiate(rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
                 //virtual rehab revisar 
-                var vectortest = new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z);
-                var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                 vectortest = new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z);
+                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
+
+                //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
+                Destroy(particulas, 4.0f);
                 
-				//Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-				Destroy(particulas,4.0f);
-				Temporary_Bullet_Handler.GetComponent<Rigidbody> ().velocity = vector * force;
-				lanzamiento = lanzamiento + 1;
+                //lanzamiento = lanzamiento + 1;
 
-			}
-            if (pos == 1) {//desplaz
+            }
+            if (pos == 1)
+            {//desplaz
                 selectArm = 80;
-                System.Random ranxx = new System.Random();
+                System.Random ranxx = new System.Random(DateTime.Now.Millisecond);
                 angleRandom = -(_angleMinLeft + ranxx.NextDouble() * (_angleLeft - _angleMinLeft));
 
                 selectArm = 25;
@@ -744,36 +759,39 @@ public class GameController : MonoBehaviour {
                 posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * radius;
                 posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                 posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
-                particulas = Instantiate(positionParticles, new Vector3((float)(RealPlayerRight.transform.position.x -posXpart), (float)(RealPlayerRight.transform.position.y - posYpart), (float)RealPlayerRight.transform.position.z), Quaternion.identity) as GameObject;
+                particulas = Instantiate(positionParticles, new Vector3((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y - posYpart), (float)RealPlayerRight.transform.position.z), Quaternion.identity) as GameObject;
 
                 //var vectortest = new Vector3((float)(RightShoulder.transform.position.x ), (float)(RightShoulder.transform.position.y ), (float)RightShoulder.transform.position.z);
-               // var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)vectortest.z).normalized * force;//force
+                // var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)vectortest.z).normalized * force;//force
 
-                var vectortest = new Vector3((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y -posYpart ), (float)RealPlayerRight.transform.position.z);
-                var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                 vectortest = new Vector3((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y - posYpart), (float)RealPlayerRight.transform.position.z);
+                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                Destroy(particulas,4.0f);
-				Temporary_Bullet_Handler.GetComponent<Rigidbody> ().velocity = vector *force;
-				lanzamiento = lanzamiento + 1;
-			}
-			if (pos == 2) {//tirar al centro
-                System.Random selection = new System.Random ();
-				System.Random ranyy = new System.Random ();
-				System.Random ranxy = new System.Random ();
-				System.Random ranz = new System.Random ();
+                Destroy(particulas, 4.0f);
+                
+                //lanzamiento = lanzamiento + 1;
+            }
+            if (pos == 2)
+            {//tirar al centro
+                System.Random selection = new System.Random();
+                System.Random ranyy = new System.Random();
+                System.Random ranxy = new System.Random();
+                System.Random ranz = new System.Random();
 
-				int select = ranz.Next (1, 100);
+                int select = ranz.Next(1, 100);
 
 
-                if (ArmSelection == 1) {
+                if (ArmSelection == 1)
+                {
 
                     //Derecho
                     select = 30;
                     selectArm = 30;
 
                 }
-                if (ArmSelection  == 2) {
+                if (ArmSelection == 2)
+                {
                     //Izquierdo
                     select = 80;
                     selectArm = 80;
@@ -781,16 +799,18 @@ public class GameController : MonoBehaviour {
                 }
 
 
-                if (select <= 50) {
+                if (select <= 50)
+                {
 
                     //angleRandom = (115+ _angleMinRight) + ranyy.NextDouble ()*((_angleRight+115) - (115+_angleMinRight));
-
+                    //https://stackoverflow.com/questions/1785744/how-do-i-seed-a-random-class-to-avoid-getting-duplicate-random-values
 
                     selectArm = select;
 
+                    System.Random ranxxy = new System.Random(DateTime.Now.Millisecond);
 
-
-                    angleRandom = -(_angleMinLeft + ranxy.NextDouble() * (_angleLeft - _angleMinLeft));
+                    angleRandom = -(_angleMinLeft + ranxxy.NextDouble() * (_angleLeft - _angleMinLeft));
+                    //print(angleRandom);
 
 
                     Destroy(Instantiate(rightHandPraticles, catcherRighthand.transform.position, Quaternion.identity), 2.0f);
@@ -798,22 +818,25 @@ public class GameController : MonoBehaviour {
                     posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * radius;
                     posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
-                    var vectortest = new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z);
-                    var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RightShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                     vectortest = new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z);
+                     vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RightShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                     particulas = Instantiate(positionParticles, new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                    Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
+                   
                     Destroy(particulas, 4);
 
 
                 }
-                else {
+                else
+                {
 
                     selectArm = select;
+                    System.Random ranxxy = new System.Random(DateTime.Now.Millisecond);
 
-                    angleRandom = (_angleMinLeft + ranxy.NextDouble() * (_angleLeft - _angleMinLeft));
+                    angleRandom = (_angleMinLeft + ranxxy.NextDouble() * (_angleLeft - _angleMinLeft));
+                    //print(angleRandom);
 
 
 
@@ -825,37 +848,52 @@ public class GameController : MonoBehaviour {
                     posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     //particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as gameObject;
-                    var vectortest = new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z);
-                    var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                     vectortest = new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z);
+                     vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                     particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
                     
-                    Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
                     Destroy(particulas, 4);
-                    
+
                 }
-				//angleRandom = 0;
-				
+                //angleRandom = 0;
 
-				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity), 2.0f);
-				//Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity);
 
-				/*var vector = new Vector3 ((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)PlayerCenter.transform.position.z).normalized * force;//force
+                //Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity), 2.0f);
+                //Instantiate (rightHandPraticles, new Vector3 ((float) (RealPlayerCenter.transform.position.x-posX), (float) (RealPlayerCenter.transform.position.y-posY),(float) RealPlayerCenter.transform.position.z), Quaternion.identity);
+
+                /*var vector = new Vector3 ((float)(PlayerCenter.transform.position.x - posX), (float)(PlayerCenter.transform.position.y - posY), (float)PlayerCenter.transform.position.z).normalized * force;//force
 
 				particulas = Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity) as GameObject;
 				//Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 				Destroy(particulas,4.0f);
 				Temporary_Bullet_Handler.GetComponent<Rigidbody> ().velocity = vector;*/
 
-			
 
-			}
-            
-            lanzamiento = lanzamiento + 1;
-			DecrementRepetitions ();
 
-		}
+            }
+
+            //lanzamiento = lanzamiento + 1;
+            DecrementRepetitions();
+
+        }
+
+
+        yield return new WaitForSeconds(2.7f);
+
+        GameObject Temporary_Bullet_Handler;
+		Temporary_Bullet_Handler = Instantiate (Ball, Cannon.transform.position, Cannon.transform.rotation) as GameObject;
+		Temporary_Bullet_Handler.transform.parent = array_balls.transform;
+		Temporary_Bullet_Handler.transform.Rotate (Vector3.left * 90);
+
+        vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;
+        Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector *force;
+
+
+        //int pivy = rany.Next(80.0, 80.23);
+
+
 
         progress = false;
 

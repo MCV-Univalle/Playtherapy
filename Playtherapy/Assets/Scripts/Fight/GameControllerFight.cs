@@ -171,9 +171,9 @@ public class GameControllerFight : MonoBehaviour {
             {
 
                 InvokeRepeating("ShowObjective", 0f, 0f);
+                
 
-
-                appearTime = Time.time + 2;
+                appearTime = Time.time + spawnTime;
 
 
 
@@ -333,6 +333,18 @@ public class GameControllerFight : MonoBehaviour {
     void ShowObjective() {
 
         StartCoroutine(Indicator());
+        StartCoroutine(ObjectivesTime());
+    }
+
+    void InvoqueTIme() {
+
+        StartCoroutine(ObjectivesTime());
+    }
+
+    IEnumerator ObjectivesTime() {
+
+        yield return new WaitForSeconds(4f);
+
     }
 
 
@@ -346,12 +358,12 @@ public class GameControllerFight : MonoBehaviour {
         System.Random typeSelection = new System.Random();
 
         GiantRobot.Play("Punch");
-        
-        
 
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(4f);
 
-        
+
+
+
 
         if (IsCombined) { 
 
@@ -645,6 +657,7 @@ public class GameControllerFight : MonoBehaviour {
             }
 
         }
+       
 
 
     }

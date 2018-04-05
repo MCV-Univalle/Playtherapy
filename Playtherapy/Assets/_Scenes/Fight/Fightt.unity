@@ -19370,7 +19370,7 @@ Prefab:
     - target: {fileID: 136958188503597264, guid: 512b653bcf9daa5459a2a22a0bd3276e,
         type: 2}
       propertyPath: m_Radius
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512b653bcf9daa5459a2a22a0bd3276e, type: 2}
