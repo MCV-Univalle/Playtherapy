@@ -1673,10 +1673,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 93729838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ebb40760f219f4caf1a6622d518fde, type: 3}
+  m_Script: {fileID: 11500000, guid: 47dad737352a4214d8a350d335b8080f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeParticles: {fileID: 1397952832933346, guid: ba1ad2297f15fd248937ae87175e34d9,
+  SmokeParticles: {fileID: 1814193093380268, guid: 5a7359b5386932846b6c999d1936a618,
     type: 2}
   floorParticles: {fileID: 1814193093380268, guid: 5a7359b5386932846b6c999d1936a618,
     type: 2}
@@ -1689,7 +1689,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 89e0f69e3ad999a4aa99111f0765d6b7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 805802ec5b3aeb649821207836e22422, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -10693,6 +10693,7 @@ MonoBehaviour:
   score: 0
   total: 0
   clean: 0
+  GameOverBool: 0
   name: si lo muestra prro
   totalTime: 0
   textCurrentTime: {fileID: 1077128494}
@@ -10719,8 +10720,8 @@ Transform:
   m_LocalPosition: {x: 189.88495, y: 0.709, z: 88.74199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1848943304}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &678383402
 AudioSource:
@@ -42984,7 +42985,6 @@ Transform:
   m_Children:
   - {fileID: 1545789359}
   - {fileID: 1080053091}
-  - {fileID: 678383401}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

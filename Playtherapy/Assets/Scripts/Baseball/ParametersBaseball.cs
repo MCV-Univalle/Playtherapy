@@ -295,6 +295,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
             sliderMinLeft.maxValue = 50;
             sliderLeft.maxValue = 50;
             current_range.text = "No Disponible";
+            _range_game = slider_range.minValue;
             toggleX.enabled = false;
             toggleX.isOn = false;
             movlattext.text = "No Disponible";

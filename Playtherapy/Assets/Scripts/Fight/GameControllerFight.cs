@@ -41,7 +41,7 @@ public class GameControllerFight : MonoBehaviour {
     // TEST
     public bool clean;
 
-
+    public bool GameOverBool;
     public string name = "si lo muestra prro";
 
     
@@ -95,6 +95,9 @@ public class GameControllerFight : MonoBehaviour {
         Camera.transform.position = new Vector3(149f,84.38f,259.68f);
         clean = true;
         InGame = false;
+        GameOverBool = false;
+        currentTime = 0;
+        currentRepetitions = 0;
 
       
 
@@ -146,10 +149,14 @@ public class GameControllerFight : MonoBehaviour {
             {
                 if (currentRepetitions <= 0 && ParticlesParent.transform.childCount == 0)
                 {
+                    InGame = false;
+                    GameOverBool = false;
 
                     Camera.transform.position = new Vector3(149f, 74.38f, 245.68f);
+                    StopAllCoroutines();
 
                     InvoqueGameOver();
+                    
 
 
                 }
@@ -159,16 +166,23 @@ public class GameControllerFight : MonoBehaviour {
 
                 if (currentTime <= 0 && ParticlesParent.transform.childCount == 0)
                 {
+                    InGame = false;
+                    GameOverBool = false;
                     Camera.transform.position = new Vector3(149f, 74.38f, 245.68f);
+                    StopAllCoroutines();
                     InvoqueGameOver();
                     
+                    
+
 
                 }
             }
+            
 
             Time.timeScale = 1;
-            if (Time.time > appearTime && ParticlesParent.transform.childCount < 1 &&(currentRepetitions > 0||currentTime > 0)&& InGame)
+            if (Time.time > appearTime && ParticlesParent.transform.childCount == 0  && (currentRepetitions > 0 || currentTime > 0 ) && GameOverBool )
             {
+                
 
                 InvokeRepeating("ShowObjective", 0f, 0f);
                 
@@ -267,6 +281,7 @@ public class GameControllerFight : MonoBehaviour {
             GameType = number_repetitions;
             TotalRepetitions = count;
         }
+        GameOverBool = true;
         
 
     }
@@ -285,7 +300,10 @@ public class GameControllerFight : MonoBehaviour {
         GiantRobot.enabled = false;
         MainPanel.SetActive(false);
         PauseButton.SetActive(false);
-        
+        GameOverBool = false;
+        currentTime = 0;
+        currentRepetitions = 0;
+
     }
     public void PauseOff()
     {
@@ -317,8 +335,10 @@ public class GameControllerFight : MonoBehaviour {
     }
 
     void InvoqueGameOver() {
-
+        InGame = false;
+        GameOverBool = false;
         StartCoroutine(GameOver());
+
     }
 
     IEnumerator GameOver() {
