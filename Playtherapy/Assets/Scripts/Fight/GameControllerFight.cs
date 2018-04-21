@@ -375,7 +375,7 @@ public class GameControllerFight : MonoBehaviour {
 
         GameObject Temporary_Bullet_Handler;
 
-        System.Random typeSelection = new System.Random();
+        System.Random typeSelection = new System.Random(DateTime.Now.Millisecond);
 
         GiantRobot.Play("Punch");
 
@@ -393,7 +393,7 @@ public class GameControllerFight : MonoBehaviour {
             {
                 System.Random positionZ = new System.Random();
                 System.Random Angulo = new System.Random();
-                System.Random handPunchSelection = new System.Random();
+                System.Random handPunchSelection = new System.Random(DateTime.Now.Millisecond);
                 int hand_selected = handPunchSelection.Next(0, 100);
 
                 if (ShoulderSelection == 1) {
@@ -466,7 +466,7 @@ public class GameControllerFight : MonoBehaviour {
             {
                 System.Random positionZ = new System.Random();
                 System.Random Angulo = new System.Random();
-                System.Random handSwordSelection = new System.Random();
+                System.Random handSwordSelection = new System.Random(DateTime.Now.Millisecond);
 
 
                 int hand_selected = handSwordSelection.Next(0, 100);

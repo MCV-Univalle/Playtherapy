@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour {
     private Vector3 vector;
     private Vector3 vectortest;
 
+    public GameObject positionIndicator;
+
+    public bool HandInPosition;
+
     public GameObject ExtensionShoulderLeft;
     public GameObject ExtensionShoulderRight;
 
@@ -18,6 +22,9 @@ public class GameController : MonoBehaviour {
     Vector3 initialposition;
 
     GameObject target;
+
+    //public GameObject indicator;
+   
     //
     float numberRepetitions;
     float game_mode;
@@ -172,6 +179,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        HandInPosition = false;
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         kinectPlayer1[0].updateRootPosition = true;
 
@@ -192,6 +200,8 @@ public class GameController : MonoBehaviour {
 		danceTaichi.SetActive (false);
 		danceUnityChan.SetActive (false);
 		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+        positionIndicator.SetActive(true);
+        //indicator.SetActive(true);
 
         //Camera.transform.position = new Vector3(0f, 31.83f,134.62f);
 
@@ -230,8 +240,8 @@ public class GameController : MonoBehaviour {
     }
 
 	public void retry(){
-	
-		gc = gameObject.GetComponent<GameController> ();
+        HandInPosition = false;
+        gc = gameObject.GetComponent<GameController> ();
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         kinectPlayer1[0].updateRootPosition = true;
 
@@ -244,10 +254,11 @@ public class GameController : MonoBehaviour {
 		danceTaichi.SetActive (false);
 		danceUnityChan.SetActive (false);
 		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+        //indicator.SetActive(true);
         //Camera.transform.Translate(0f, 0.83f,0 - 10.62f
         vector = new Vector3(0, 0, 0);
         vectortest = new Vector3(0, 0, 0);
-
+        positionIndicator.SetActive(true);
 
         score = 0;
 		UpdateScore();
@@ -287,6 +298,9 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+        //print(HandInPosition);
+
 
 		if (InGame)
 		{
@@ -466,8 +480,10 @@ public class GameController : MonoBehaviour {
 		_range_game = rangeParam;
         game_mode = gamemode;
         ArmSelection = armselection;
+        positionIndicator.SetActive(false);
+        //indicator.SetActive(false);
 
-		movimientoLateral = lateralmovement;
+        movimientoLateral = lateralmovement;
 		GameOver = false;
 		MainPanel.SetActive (true);
         pausa.SetActive(true);
