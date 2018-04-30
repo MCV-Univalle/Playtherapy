@@ -92,7 +92,7 @@ public class ParametersFIght : MonoBehaviour {
 
 
 
-                current_velocity.text = ((float)_velocity_game / 10 * 100).ToString("0") + "%";
+                current_velocity.text = (((float)_velocity_game -4) / 6 * 100).ToString("0") + "%";
 
 
 

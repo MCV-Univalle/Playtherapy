@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Npgsql;
+
 using System;
 
 public class DBConnection : MonoBehaviour
@@ -32,7 +33,10 @@ public class DBConnection : MonoBehaviour
     void Start()
     {
         Connect();
+        
     }
+    
+
 
     public void Connect()
     {
@@ -41,6 +45,8 @@ public class DBConnection : MonoBehaviour
             "Username=" + username + ";" +
             "Password=" + password + ";" +
             "Database=" + database;
+
+       
 
         try
         {
@@ -66,6 +72,7 @@ public class DBConnection : MonoBehaviour
             "Username=" + username + ";" +
             "Password=" + password + ";" +
             "Database=" + database;
+        
 
         try
         {
