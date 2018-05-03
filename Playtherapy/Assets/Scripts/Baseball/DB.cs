@@ -4,19 +4,22 @@ using System.Data;
 using Mono.Data.SqliteClient;
 using UnityEngine;
 
+
+
 public class DB : MonoBehaviour {
 
     private string connection;
     private IDbConnection dbcon  ;
     private IDbCommand dbcmd  ;
     private IDataReader reader;
- 
-    
+    private string route = "D:/Users/Boku Cortes/Downloads/playtherapy-webadmin/workspace/db.sqlite3";
+
+
 
     // Use this for initialization
     void Start () {
 
-        //OpenDB("D:/Users/Boku Cortes/Downloads/playtherapy-webadmin/workspace/db.sqlite3");
+        OpenDB("D:/Users/Boku Cortes/Downloads/playtherapy-webadmin/workspace/db.sqlite3");
         //OnlineDB();
 
     }
@@ -53,7 +56,7 @@ public class DB : MonoBehaviour {
         connection = "URI=file:" + p; // we set the connection to our database
         dbcon = new SqliteConnection(connection);
         dbcon.Open();
-        dbcmd = dbcon.CreateCommand();
+       /* dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = "SELECT * FROM Auth_User WHERE username = 'admin';";
         reader = dbcmd.ExecuteReader();
 
@@ -73,10 +76,28 @@ public class DB : MonoBehaviour {
         }
 
         print(dbcon.State);
+        */
+        
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    void InsertInGameSession(System.DateTime date, int score, int repetitions,int time, int level,string therapy,string minigame,string movements,string performance) {
+
+
+        connection = "URI=file:" + route; // we set the connection to our database
+        dbcon = new SqliteConnection(connection);
+        dbcon.Open();
+
+        dbcmd = dbcon.CreateCommand();
+
+        dbcmd.CommandText = "INSERT INTO GameSession (date, score, repetitions,time,level,therapy,minigame,movements,gameperformance)" +
+            " VALUES (" + date+","+ score + "," + repetitions + "," + time + "," + level + ",'" + therapy + "','" + minigame + "','" + movements + "','" + performance +"');";
+
+        dbcmd.ExecuteNonQuery();
+
+
+    }
+
+
+
+
 }

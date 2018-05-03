@@ -636,7 +636,7 @@ public class GameController : MonoBehaviour {
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                 
-                Destroy(particulas, 4);
+                Destroy(particulas, 7);
 
 
 
@@ -665,7 +665,7 @@ public class GameController : MonoBehaviour {
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                 
-                Destroy(particulas, 4);
+                Destroy(particulas, 7);
 
             }
 
@@ -756,7 +756,7 @@ public class GameController : MonoBehaviour {
 
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                Destroy(particulas, 4.0f);
+                Destroy(particulas, 7.0f);
                 
                 //lanzamiento = lanzamiento + 1;
 
@@ -784,7 +784,7 @@ public class GameController : MonoBehaviour {
                  vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                Destroy(particulas, 4.0f);
+                Destroy(particulas, 7.0f);
                 
                 //lanzamiento = lanzamiento + 1;
             }
@@ -841,7 +841,7 @@ public class GameController : MonoBehaviour {
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                    
-                    Destroy(particulas, 4);
+                    Destroy(particulas, 7);
 
 
                 }
@@ -870,7 +870,7 @@ public class GameController : MonoBehaviour {
                     particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
                     
-                    Destroy(particulas, 4);
+                    Destroy(particulas, 7);
 
                 }
                 //angleRandom = 0;
