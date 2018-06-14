@@ -24,6 +24,8 @@ public class PlaylistScreenManager : MonoBehaviour
         minigames = new List<string>();
 
         minigames.Add("Atrapalo");
+        minigames.Add("Baseball");
+        minigames.Add("Fight");
         minigames.Add("Cavano");
         minigames.Add("Dulce Hogar");
         minigames.Add("El Gran Viaje");

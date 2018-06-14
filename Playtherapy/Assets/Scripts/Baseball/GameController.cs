@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject Camera_inv;
     private Vector3 vector;
     private Vector3 vectortest;
-
+    public bool indicatorplayer;
+    public Text HelpText;
     public GameObject positionIndicator;
 
     public bool HandInPosition;
@@ -179,10 +181,18 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Camera_inv = GameObject.Find("Camera Panel");
+        Camera_inv.SetActive(false);
         HandInPosition = false;
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
-        kinectPlayer1[0].updateRootPosition = true;
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            ParametersPanel.SetActive(true);
+            MainPanel.SetActive(false);
+        }
 
+        kinectPlayer1[0].updateRootPosition = true;
+        indicatorplayer = false;
         initialposition = kinectPlayer.transform.position;
 
 		gc = gameObject.GetComponent<GameController> ();
@@ -240,6 +250,7 @@ public class GameController : MonoBehaviour {
     }
 
 	public void retry(){
+        Camera_inv.SetActive(false);
         HandInPosition = false;
         gc = gameObject.GetComponent<GameController> ();
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
@@ -300,6 +311,19 @@ public class GameController : MonoBehaviour {
 	void Update () {
 
         //print(HandInPosition);
+        //print(indicatorplayer);
+
+        if (indicatorplayer)
+        {
+
+            HelpText.text = "Posición Correcta";
+
+        }
+        else {
+
+
+            HelpText.text = "Posición Incorrecta";
+        }
 
 
 		if (InGame)
@@ -401,14 +425,19 @@ public class GameController : MonoBehaviour {
 		movimientoLateral = false;
 		results = ResultPanel.GetComponent<PutDataResults> ();
 		results.updateData (result, 0);
-	
+
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
 
 
 
 
 
-	}
+
+    }
 
 	void faseFinal(){
 		Camera.transform.position = new Vector3(53f, 70f,30.62f);
@@ -474,7 +503,8 @@ public class GameController : MonoBehaviour {
 
 	public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions,float timegame,float repetitions, float forces ,float anglemin,float anglemax,float gamemode,float armselection)
 	{
-		InGame = true;
+        Camera_inv.SetActive(true);
+        InGame = true;
         GameOver = false;
 		force = Velocity;
 		_range_game = rangeParam;
@@ -636,7 +666,7 @@ public class GameController : MonoBehaviour {
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                 
-                Destroy(particulas, 7);
+                Destroy(particulas, 10);
 
 
 
@@ -665,7 +695,7 @@ public class GameController : MonoBehaviour {
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                 
-                Destroy(particulas, 7);
+                Destroy(particulas, 10);
 
             }
 
@@ -756,7 +786,7 @@ public class GameController : MonoBehaviour {
 
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                Destroy(particulas, 7.0f);
+                Destroy(particulas, 10.0f);
                 
                 //lanzamiento = lanzamiento + 1;
 
@@ -784,7 +814,7 @@ public class GameController : MonoBehaviour {
                  vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                Destroy(particulas, 7.0f);
+                Destroy(particulas, 10.0f);
                 
                 //lanzamiento = lanzamiento + 1;
             }
@@ -841,7 +871,7 @@ public class GameController : MonoBehaviour {
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
                    
-                    Destroy(particulas, 7);
+                    Destroy(particulas, 10);
 
 
                 }
@@ -870,7 +900,7 @@ public class GameController : MonoBehaviour {
                     particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
                     
-                    Destroy(particulas, 7);
+                    Destroy(particulas, 10);
 
                 }
                 //angleRandom = 0;

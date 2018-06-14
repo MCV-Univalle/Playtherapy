@@ -70,6 +70,7 @@ TagManager:
   - Help
   - Floor
   - KinectPlayer
+  - IPosition
   layers:
   - Default
   - TransparentFX

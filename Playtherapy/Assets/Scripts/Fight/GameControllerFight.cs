@@ -35,8 +35,7 @@ public class GameControllerFight : MonoBehaviour {
     private bool IsExtension;
     private bool IsCombined;
     private float ShoulderSelection;
-
-
+    public GameObject Parameters;
 
     // TEST
     public bool clean;
@@ -79,6 +78,7 @@ public class GameControllerFight : MonoBehaviour {
     //EndGame
 
     public GameObject ResultPanel;
+    public GameObject Camera_inv;
 
 
     //righthand(139.95,75.04,727.75)
@@ -86,10 +86,19 @@ public class GameControllerFight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Camera_inv = GameObject.Find("Camera Panel");
+        Camera_inv.SetActive(false);
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            Parameters.SetActive(true);
+            MainPanel.SetActive(false);
+        }
         
+
         gc = gameObject.GetComponent<GameControllerFight>();
         MainPanel.SetActive(false);
         PauseButton.SetActive(false);
+        ResultPanel = GameObject.Find("results_canvas");
         results = ResultPanel.GetComponent<PutDataResults>();
         ResultPanel.SetActive(false);
         Camera.transform.position = new Vector3(149f,84.38f,259.68f);
@@ -233,8 +242,9 @@ public class GameControllerFight : MonoBehaviour {
 
     public void StartGame(float minimo, float maximo,int number_repetitions,float count,float time,bool flexion,bool Extension,bool comb,float shoulder) {
 
-            
 
+        
+        Camera_inv.SetActive(true);
         Camera.transform.position = new Vector3(149f, 84.38f, 259.68f);
         
         Eraser.SetActive(false);
@@ -295,11 +305,13 @@ public class GameControllerFight : MonoBehaviour {
     public void StartAgain()
     {
         
-        //GameObject retry = GameObject.FindGameObjectWithTag("Parameters");
-        Retry.GetComponent<ParametersFIght>().StartAgain();
+        GameObject retry = GameObject.FindGameObjectWithTag("Parameters");
+        Parameters.GetComponent<ParametersFIght>().StartAgain();
+        ResultPanel.SetActive(false);
         GiantRobot.enabled = false;
         MainPanel.SetActive(false);
         PauseButton.SetActive(false);
+        Camera_inv.SetActive(false);
         GameOverBool = false;
         currentTime = 0;
         currentRepetitions = 0;
@@ -325,6 +337,10 @@ public class GameControllerFight : MonoBehaviour {
         int result = Mathf.RoundToInt((score / total) * 100);
         results = ResultPanel.GetComponent<PutDataResults> ();
         results.updateData(result, 0);
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
 
 

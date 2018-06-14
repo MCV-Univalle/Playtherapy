@@ -362,7 +362,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
         _angleMinLeft = 0;
         _range_game = 0;
         _velocity_game = 0;
-
+        /*
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -373,7 +373,7 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
         {
 
             Debug.Log("Cannot find GameController script");
-        }
+        }*/
     }
     public void SlideTime()
     {
@@ -399,9 +399,24 @@ public class ParametersBaseball : MonoBehaviour, IParametersManager
         _angleLeft = sliderLeft.value;
 
 
-         gameController.StartGame(_velocity_game,_range_game,toggleX.isOn,numberRepetitions.value,time,_repetitions,_range_game,_angleMinLeft,_angleLeft,game_mode.value,ArmSelection.value);
 
-       // print(_angleLeft +","+_angleMinLeft + "," + _velocity_game + "," + _range_game);
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+        if (gameController == null)
+        {
+
+            Debug.Log("Cannot find GameController script");
+        }
+
+        if (gameController != null)
+        {
+            gameController.StartGame(_velocity_game, _range_game, toggleX.isOn, numberRepetitions.value, time, _repetitions, _range_game, _angleMinLeft, _angleLeft, game_mode.value, ArmSelection.value);
+        }
+        //print(_angleLeft +","+_angleMinLeft + "," + _velocity_game + "," + _range_game);
 
     }
 
