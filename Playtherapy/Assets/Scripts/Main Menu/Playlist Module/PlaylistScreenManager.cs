@@ -23,19 +23,19 @@ public class PlaylistScreenManager : MonoBehaviour
         playlist = new List<string>();
         minigames = new List<string>();
 
-        minigames.Add("Atrapalo");
+        //minigames.Add("Atrapalo");
         minigames.Add("Baseball");
         minigames.Add("Fight");
-        minigames.Add("Cavano");
-        minigames.Add("Dulce Hogar");
+        //minigames.Add("Cavano");
+        //minigames.Add("Dulce Hogar");
         minigames.Add("El Gran Viaje");
         minigames.Add("Figuras Magicas");
 		minigames.Add("Futbol Libre");
-        minigames.Add("Guerra Medieval");
+        //minigames.Add("Guerra Medieval");
         minigames.Add("Piano");
         minigames.Add("Rieles");
-        minigames.Add("Space");
-        minigames.Add("Sushi Samurai");
+        //minigames.Add("Space");
+        //minigames.Add("Sushi Samurai");
         minigames.Add("Tiro Libre");
         minigames.Add("Topos");
         minigames.Add("Vecinos Invasores");
