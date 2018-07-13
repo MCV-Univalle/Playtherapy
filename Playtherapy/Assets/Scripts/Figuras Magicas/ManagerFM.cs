@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 // for your own scripts make sure to add the following line:
 using DigitalRuby.Tween;
-public class ManagerFM : MonoBehaviour {
+public class ManagerFM : MonoBehaviour{
 
 
 
@@ -71,7 +71,7 @@ public class ManagerFM : MonoBehaviour {
 		txt_jugabilidad = GameObject.Find ("txt_jugabilidadFM").GetComponent<Text>();
 		bt_play =  GameObject.Find ("bt_playFM").GetComponent<Button>();
 		results_canvas = GameObject.Find ("results_canvas");
-		parameters_canvas = GameObject.Find ("parameters_canvasFM");
+		parameters_canvas = GameObject.Find ("Figuras Magicas Parameters Panel");
 		tutorial_canvas = GameObject.Find ("tutorial_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
 		spawnnerEnemies = GameObject.Find ("Spawnner").GetComponent<SpawnnerFM>();
@@ -112,6 +112,11 @@ public class ManagerFM : MonoBehaviour {
 
 
 	void Start () {
+
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            parameters_canvas.SetActive(true);
+        }
         if (gm == null)
         {
             gm = this;
@@ -223,6 +228,7 @@ public class ManagerFM : MonoBehaviour {
       
 		
         */
+        parameters_canvas.SetActive(false);
         spawnnerEnemies.gestures_index_used = list_gestures_index;
 
         timer_game = -1;
@@ -236,14 +242,16 @@ public class ManagerFM : MonoBehaviour {
 
 		}
 
-
-		TweenHideParameters ();
+        
 	}
 
-	public void startGame(int mj= 1,float jugabilidad=3,float time_enemies=3)
+	public void StartGame(int mj= 1,float jugabilidad=3,float time_enemies=3 )
 	{
-		
-		modo_juego = mj;
+        
+       
+
+
+        modo_juego = mj;
 		select_jugabilidad = jugabilidad;
 		timeBetweenEnemies = time_enemies;
 
@@ -254,7 +262,7 @@ public class ManagerFM : MonoBehaviour {
 
 	public void EndGame()
 	{
-		saveData ();
+		//saveData ();
 
 		int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
 		int performance_loaded_BD = 0;
@@ -264,12 +272,17 @@ public class ManagerFM : MonoBehaviour {
 		hasStart = false;
 		//paramenters_canvas.SetActive (true);
 		FinalAnimation ();
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
-	}
+    }
 	public void RetryGame()
 	{
 		TweenHideResults ();
-		TweenShowParameters ();
+        parameters_canvas.SetActive(true);
+        TweenShowParameters ();
 
 
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject Camera_inv;
+    //public GameObject Camera_inv;
     private Vector3 vector;
     private Vector3 vectortest;
     public bool indicatorplayer;
@@ -181,8 +181,8 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Camera_inv = GameObject.Find("Camera Panel");
-        Camera_inv.SetActive(false);
+        //Camera_inv = GameObject.Find("Camera Panel");
+        //Camera_inv.SetActive(false);
         HandInPosition = false;
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
@@ -190,7 +190,6 @@ public class GameController : MonoBehaviour {
             ParametersPanel.SetActive(true);
             MainPanel.SetActive(false);
         }
-
         kinectPlayer1[0].updateRootPosition = true;
         indicatorplayer = false;
         initialposition = kinectPlayer.transform.position;
@@ -250,7 +249,7 @@ public class GameController : MonoBehaviour {
     }
 
 	public void retry(){
-        Camera_inv.SetActive(false);
+        //Camera_inv.SetActive(false);
         HandInPosition = false;
         gc = gameObject.GetComponent<GameController> ();
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
@@ -399,7 +398,7 @@ public class GameController : MonoBehaviour {
 
             } else {
 
-			Time.timeScale = 0;
+			//Time.timeScale = 0;
 		}
 
 
@@ -417,19 +416,22 @@ public class GameController : MonoBehaviour {
         ResultPanel.SetActive (true);
 		danceTaichi.SetActive (false);
 		danceUnityChan.SetActive (false);
-
-		StopAllCoroutines();
+        StopAllCoroutines();
 		InGame = false;
 		int result = Mathf.RoundToInt ((score / lanzamiento) * 100);
         //print(lanzamiento);
 		movimientoLateral = false;
 		results = ResultPanel.GetComponent<PutDataResults> ();
 		results.updateData (result, 0);
-
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+
         {
+          
             PlaylistManager.pm.NextGame();
+
         }
+
+
 
 
 
@@ -503,7 +505,7 @@ public class GameController : MonoBehaviour {
 
 	public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions,float timegame,float repetitions, float forces ,float anglemin,float anglemax,float gamemode,float armselection)
 	{
-        Camera_inv.SetActive(true);
+        //Camera_inv.SetActive(true);
         InGame = true;
         GameOver = false;
 		force = Velocity;
@@ -779,7 +781,7 @@ public class GameController : MonoBehaviour {
                 posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                 particulas = Instantiate(positionParticles, new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z), Quaternion.identity) as GameObject;
                 selectArm = 70;
-                Destroy(Instantiate(rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
+
                 //virtual rehab revisar 
                  vectortest = new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z);
                  vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force

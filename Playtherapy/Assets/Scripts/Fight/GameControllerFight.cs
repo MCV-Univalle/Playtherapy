@@ -36,6 +36,8 @@ public class GameControllerFight : MonoBehaviour {
     private bool IsCombined;
     private float ShoulderSelection;
     public GameObject Parameters;
+    public GameObject TutorialPanel;
+    public GameObject Eraser;
 
     // TEST
     public bool clean;
@@ -65,7 +67,6 @@ public class GameControllerFight : MonoBehaviour {
     public GameObject PauseButton;
     public GameObject Retry;
     public bool InGame;
-    public GameObject Eraser;
     public GameObject RightShoulder;
     public GameObject LeftShoulder;
 
@@ -78,7 +79,7 @@ public class GameControllerFight : MonoBehaviour {
     //EndGame
 
     public GameObject ResultPanel;
-    public GameObject Camera_inv;
+    //public GameObject Camera_inv;
 
 
     //righthand(139.95,75.04,727.75)
@@ -86,15 +87,15 @@ public class GameControllerFight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Camera_inv = GameObject.Find("Camera Panel");
-        Camera_inv.SetActive(false);
+        //Camera_inv = GameObject.Find("Camera Panel");
+        //Camera_inv.SetActive(false);
         if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
         {
             Parameters.SetActive(true);
             MainPanel.SetActive(false);
         }
         
-
+        
         gc = gameObject.GetComponent<GameControllerFight>();
         MainPanel.SetActive(false);
         PauseButton.SetActive(false);
@@ -243,8 +244,9 @@ public class GameControllerFight : MonoBehaviour {
     public void StartGame(float minimo, float maximo,int number_repetitions,float count,float time,bool flexion,bool Extension,bool comb,float shoulder) {
 
 
-        
-        Camera_inv.SetActive(true);
+        Eraser.SetActive(false);
+        Parameters.SetActive(false);
+        //Camera_inv.SetActive(true);
         Camera.transform.position = new Vector3(149f, 84.38f, 259.68f);
         
         Eraser.SetActive(false);
@@ -307,16 +309,36 @@ public class GameControllerFight : MonoBehaviour {
         
         GameObject retry = GameObject.FindGameObjectWithTag("Parameters");
         Parameters.GetComponent<ParametersFIght>().StartAgain();
+
+
+        Eraser.SetActive(true);
         ResultPanel.SetActive(false);
         GiantRobot.enabled = false;
         MainPanel.SetActive(false);
         PauseButton.SetActive(false);
-        Camera_inv.SetActive(false);
+        //Camera_inv.SetActive(false);
         GameOverBool = false;
         currentTime = 0;
         currentRepetitions = 0;
 
     }
+
+    public void TutorialButton()
+    {
+
+        Parameters.SetActive(false);
+        TutorialPanel.SetActive(true);
+
+
+    }
+    public void ExitTutorialButton()
+    {
+
+        Parameters.SetActive(true);
+        TutorialPanel.SetActive(false);
+
+    }
+
     public void PauseOff()
     {
 

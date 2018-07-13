@@ -22,7 +22,8 @@ namespace GuerraMedieval
             PLAYING,
             GAMEOVER,
             PAUSE,
-            STARTING
+            STARTING,
+            END
         }
         private GameState gameState;
         private bool withTime;                              // If the game is with time or repetitions
@@ -67,6 +68,11 @@ namespace GuerraMedieval
         // Use this for initialization
         void Start()
         {
+            if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+            {
+                parametersPanel.SetActive(true);
+                mainPanel.SetActive(false);
+            }
             if (gmm == null)
             {
                 gmm = this.gameObject.GetComponent<GameManagerMedieval>();
@@ -124,6 +130,7 @@ namespace GuerraMedieval
                         break;
                     case GameState.GAMEOVER:
                         {
+                            gameState = GameState.END;
                             EndGame();
                         }
                         break;
@@ -133,6 +140,11 @@ namespace GuerraMedieval
                             {
                                 parametersPanel.SetActive(true);
                             }
+                        }
+                        break;
+                    default:
+                        {
+
                         }
                         break;
                 }
@@ -271,6 +283,10 @@ namespace GuerraMedieval
             }
 
             resultsPanel.SetActive(true);
+            if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+            {
+                PlaylistManager.pm.NextGame();
+            }
         }
 
         public GameState GetGameState()

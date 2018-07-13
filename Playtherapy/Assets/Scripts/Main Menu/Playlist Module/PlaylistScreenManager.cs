@@ -151,7 +151,7 @@ public class PlaylistScreenManager : MonoBehaviour
         for (int i = 0; i < playlist.Count; i++)
         {
             playlistParameters.Add(parametersHolder.transform.GetChild(i).gameObject.GetComponent<MonoBehaviour>());
-            Debug.Log(parametersHolder.transform.GetChild(i).gameObject.GetComponent<MonoBehaviour>().name);
+           Debug.Log(playlistParameters[playlistParameters.Count - 1].name);
         }
 
         return playlistParameters;

@@ -303,6 +303,8 @@ public class GameManagerMoles : MonoBehaviour
 
         //playlist block
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
             PlaylistManager.pm.NextGame();
+        }
     }
 }

@@ -17,10 +17,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 	GameObject count_objects_canvas;
 	GameObject tutorial_page_info;
 	GameObject cam;
-	GameObject timerUI;
+	//GameObject timerUI;
 	Slider timeSlider;
+    public GameObject timerUI;
 
-	Vector3 cam_initial_pos;
+    Vector3 cam_initial_pos;
 	Quaternion cam_initial_rot;
 
 	Text txt_rubies;
@@ -52,8 +53,10 @@ public class ManagerGreatJourney : MonoBehaviour {
 			gm = this;
 		}
 
+        
 
-		hasStart = false;
+
+        hasStart = false;
 		game_over = false;
 
 		spanner = FindObjectOfType<SpannerOfMovements> ();
@@ -71,7 +74,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 		paramenters_canvas = GameObject.Find ("parameters_canvas");
 		results_canvas = GameObject.Find ("results_canvas");
 		tutorial_canvas= GameObject.Find ("tutorial_canvas");
-		count_objects_canvas = GameObject.Find ("count_objects_canvas");
+        timerUI.SetActive(true);
+        count_objects_canvas = GameObject.Find ("count_objects_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
         
         cam = GameObject.Find("PlayGameCamera");
@@ -94,9 +98,15 @@ public class ManagerGreatJourney : MonoBehaviour {
 		tutorial_canvas.transform.localScale = Vector3.zero;
 		tutorial_pages_array = new List<GameObject> ();
 
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            paramenters_canvas.SetActive(true);
+            //MainPanel.SetActive(false);
+        }
 
 
-		int contador=0;
+
+        int contador=0;
 
 
 		do {
@@ -192,7 +202,7 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	public void EndGame()
 	{
-		saveData ();
+		//saveData ();
 
 		int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
 		int performance_loaded_BD = 0;
@@ -206,8 +216,12 @@ public class ManagerGreatJourney : MonoBehaviour {
 			behaviour.enabled = false;   
 		}
 		FinalAnimation ();
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
-	}
+    }
 	public void RetryGame()
 	{
 		TweenHideResults ();
@@ -224,7 +238,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	public void StartGame()
 	{
-		timer_game = -1;
+        timerUI.SetActive(true);
+        timer_game = -1;
 		game_over = false;
 		hasStart = true;
 		timeSlider.value = 100;

@@ -28,9 +28,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 			if ((value==1) == false) {
 				slider_jugabilidad.minValue = HoldParametersGreatJourney.min_repeticiones;
 				slider_jugabilidad.maxValue = HoldParametersGreatJourney.max_repeticiones;
-				if (timerUI!=null) {
+				/*if (timerUI!=null) {
 					timerUI.SetActive (false);
-				}
+				}*/
 
 			}
 
@@ -38,9 +38,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 			{
 				slider_jugabilidad.minValue = HoldParametersGreatJourney.min_tiempo;
 				slider_jugabilidad.maxValue = HoldParametersGreatJourney.max_tiempo;
-				if (timerUI!=null) {
+				/*if (timerUI!=null) {
 					timerUI.SetActive (true);
-				}
+				}*/
 
 			}
 
@@ -216,7 +216,7 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 
 	public Dropdown lados_utilizar;
 	public Dropdown movimientos_posibles;
-	public GameObject timerUI;
+	
 
     public void StartGame()
     {
@@ -305,7 +305,7 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 		angle_min_frontal = 20;
 		angle_min = 15;
 		angle_max = 30;
-        timerUI.SetActive(true);
+        
 
     }
 }

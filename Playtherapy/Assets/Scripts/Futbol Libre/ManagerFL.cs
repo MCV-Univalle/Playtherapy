@@ -88,6 +88,11 @@ public class ManagerFL : MonoBehaviour {
 		if (gm==null) {
 			gm = this;
 		}
+
+
+
+
+
 		putValues = GameObject.FindObjectOfType<PutValuesFL> ();
 		jugador = GameObject.FindObjectOfType<PlayerFL> ();
 		resultados = FindObjectOfType<PutDataResults> ();
@@ -198,23 +203,25 @@ public class ManagerFL : MonoBehaviour {
 				desempenio = (puntos / repeticionesTotales)*100;
 			});
 	}
-	public void StartGame()	{
+	public void StartGame(int modoplayp,bool repeticionesp,float valorplayp,int rodillaopiep,int planop,int ladosp,float angulominp,float angulomaxp,float tiemporebotep, bool rodillap, bool piep, bool izquierdop
+        , bool derechop, bool frontalp, bool sagitalp)	{
 
-		modoPlay = putValues.modoPlay;
-		valorPlay = putValues.valorPlay;
-		rodillaOPie = putValues.rodillaOPie;
-		plano = putValues.plano;
-		lados = putValues.lados;
-		anguloMin = putValues.anguloMin;
-		anguloMax = putValues.anguloMax;
-		tiempoRebote = putValues.tiempoRebote;
-		repeticiones = putValues.repeticiones;
-		rodilla = putValues.rodilla;
-		pie = putValues.pie;
-		izquierdo = putValues.izquierdo;
-		derecho = putValues.derecho;
-		frontal = putValues.frontal;
-		sagital = putValues.sagital;
+       
+        modoPlay = modoplayp;
+		valorPlay = valorplayp;
+		rodillaOPie = rodillaopiep;
+		plano = planop;
+		lados = ladosp;
+		anguloMin = angulominp;
+		anguloMax = angulomaxp;
+		tiempoRebote = tiemporebotep;
+		repeticiones = repeticionesp;
+		rodilla = rodillap;
+		pie = piep;
+		izquierdo = izquierdop;
+		derecho = derechop;
+		frontal = frontalp;
+		sagital = sagitalp;
 		puntos = 0;
 		panelParametros.SetActive (false);
 
@@ -278,17 +285,21 @@ public class ManagerFL : MonoBehaviour {
 	}
 
 	public void finalizarJuego(){
-		guardarDatos ();
+		//guardarDatos ();
 		int performance_loaded_BD = 0;
 		panelResultados.SetActive (true);
 		if (resultados!=null) {
 			resultados.updateData (desempenio, performance_loaded_BD);
 		}
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
-		//hasStart = false;
+        //hasStart = false;
 
 
-	}
+    }
 
 	public void guardarDatos(){
 		string movimiento;
