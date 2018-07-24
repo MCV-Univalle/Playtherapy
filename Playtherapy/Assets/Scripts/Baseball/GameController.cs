@@ -19,6 +19,12 @@ public class GameController : MonoBehaviour {
     public GameObject ExtensionShoulderRight;
 
 
+    public GameObject PausePanel;
+    public GameObject TutorialMenu;
+    public GameObject Eraser;
+
+
+
     GameObject particulas;
     public static GameController gc;
     Vector3 initialposition;
@@ -181,9 +187,12 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
         //Camera_inv = GameObject.Find("Camera Panel");
         //Camera_inv.SetActive(false);
         HandInPosition = false;
+        Eraser.SetActive(false);
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
         {
@@ -250,7 +259,10 @@ public class GameController : MonoBehaviour {
 
 	public void retry(){
         //Camera_inv.SetActive(false);
+        
         HandInPosition = false;
+        Eraser.SetActive(true);
+        pitcher.Play("New State");
         gc = gameObject.GetComponent<GameController> ();
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         kinectPlayer1[0].updateRootPosition = true;
@@ -476,10 +488,26 @@ public class GameController : MonoBehaviour {
 
     }
 
+    public void TutorialPhaseFromMenu()
+    {
+
+        PausePanel.SetActive(false);
+        TutorialMenu.SetActive(true);
+
+    }
+
+    public void EndTutorialFromMenu()
+    {
+        PausePanel.SetActive(true);
+        TutorialMenu.SetActive(false);
+    }
+
     public void PauseOn()
     {
         InGame = false;
+        PausePanel = GameObject.Find("pause_data");
         
+
 
     }
 
@@ -506,6 +534,10 @@ public class GameController : MonoBehaviour {
 	public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions,float timegame,float repetitions, float forces ,float anglemin,float anglemax,float gamemode,float armselection)
 	{
         //Camera_inv.SetActive(true);
+
+        TutorialMenu.SetActive(false);
+        Eraser.SetActive(false);
+
         InGame = true;
         GameOver = false;
 		force = Velocity;
@@ -774,6 +806,7 @@ public class GameController : MonoBehaviour {
                 System.Random ranyy = new System.Random(DateTime.Now.Millisecond);
 
                 angleRandom = _angleMinLeft + ranyy.NextDouble() * (_angleLeft - _angleMinLeft);
+                Destroy(Instantiate(rightHandPraticles, catcherLefthand.transform.position, Quaternion.identity), 2.0f);
 
                 posX = Math.Cos((angleRandom + 90) * Math.PI / 180) * radius;
                 posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * radius;

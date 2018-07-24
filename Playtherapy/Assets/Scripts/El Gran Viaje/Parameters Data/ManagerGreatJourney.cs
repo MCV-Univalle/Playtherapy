@@ -39,6 +39,7 @@ public class ManagerGreatJourney : MonoBehaviour {
 	List<GameObject> tutorial_pages_array;
 	List<GameObject> array_arrows;
 
+    TinyPauseScript pausa;
 
 	bool game_over;
 	bool hasStart;
@@ -53,8 +54,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 			gm = this;
 		}
 
-        
 
+        pausa = FindObjectOfType<TinyPauseScript>();
 
         hasStart = false;
 		game_over = false;
@@ -451,10 +452,16 @@ public class ManagerGreatJourney : MonoBehaviour {
 	{
 		if (tutorial_page==1) {
 
+
+            Debug.Log("lenght:"+ array_arrows.Count);
 			foreach (GameObject obj in array_arrows)
 			{
-				obj.SetActive (false);
-			}
+                if (obj!=null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+				
 
 			List<string> anims = new List<string>();
 
@@ -480,7 +487,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 
 				case HoldParametersGreatJourney.LADO_TODOS:
 					foreach (GameObject obj in array_arrows) {
-						obj.SetActive (true);
+                                if (obj!=null)
+                                {
+	                            obj.SetActive (true);
+                                }
+					
 					}
 					txt_mover.text = GlosarioGreatJourney.MOVER_CON_DISOCIACION_MIEMBROS_INFERIORES;
 					tutorial_movements.SetBool (anims[0], true);
@@ -566,18 +577,37 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	private void CloseTutorial()
 	{
-		TweenHideTutorial ();
-		TweenShowParameters ();
+        if (hasStart==false)
+        {
+            TweenHideTutorial();
+            TweenShowParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.zero;
+            pausa.gameObject.SetActive(true);
+        }
+		
 
 
 	}
 	public void OpenTutorial()
 	{
-		
+        
 		tutorial_page = 0;
 		putPageTutorial ();
-		TweenShowTutorial ();
-		TweenHideParameters ();
+
+        if (hasStart==false)
+        {
+            TweenShowTutorial();
+            TweenHideParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.one;
+            pausa.gameObject.SetActive(false);
+        }
+		
 	}
 	private void TweenShowTutorial()
 	{
@@ -589,6 +619,7 @@ public class ManagerGreatJourney : MonoBehaviour {
 
 			}, (t) =>
 			{
+              
 				//complete
 			});
 

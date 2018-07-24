@@ -160,6 +160,10 @@ public class PutValuesInVecinosInvasores : MonoBehaviour, IParametersManager
             foreach (Toggle t in toggles)
                 t.interactable = true;
         }
+
+
+
+        HoldParametersVecinosInvasores.type_game = tipo_juego.value;
     }
 
     public void ModoJuego()
@@ -182,6 +186,11 @@ public class PutValuesInVecinosInvasores : MonoBehaviour, IParametersManager
 
             setColorFingersMaterials();
         }
+
+
+        HoldParametersVecinosInvasores.mode_game = modo_juego.value;
+
+
     }
 
     public void Jugabilidad()

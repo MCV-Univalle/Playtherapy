@@ -17,8 +17,13 @@ public class HelpDelete : MonoBehaviour {
 
             Destroy(gameObject);
         }
-        
-           
+        if (other.tag == "eraser")
+        {
+
+            Destroy(gameObject);
+        }
+
+
 
 
 

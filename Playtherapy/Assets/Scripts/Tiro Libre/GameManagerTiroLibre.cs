@@ -167,6 +167,21 @@ public class GameManagerTiroLibre : MonoBehaviour
         }
 	}
 
+
+    public void TutorialPause()
+    {
+        isPlaying = false;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        isPlaying = true;
+
+        Time.timeScale = 0;
+    }
+
     public void StartGame()
     {
         if (withTime)

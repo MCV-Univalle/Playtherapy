@@ -53,6 +53,11 @@ public class ManagerFL : MonoBehaviour {
 	public GameObject panelParametros;
 	public GameObject panelResultados;
 	public GameObject panelTutorial;
+
+    public GameObject PauseMenuPanel;
+    public GameObject PanelTutorialPauseMenu;
+
+
 	public GameObject ball;
 	GameObject tutorial_page_info;
 	List<GameObject> array_arrows;
@@ -183,7 +188,13 @@ public class ManagerFL : MonoBehaviour {
 				}
 			}
 		}
+        else {
+
+            
+
+        }
 	}
+
 	private void TweenFinalAnimation()
 	{
 		
@@ -203,7 +214,25 @@ public class ManagerFL : MonoBehaviour {
 				desempenio = (puntos / repeticionesTotales)*100;
 			});
 	}
-	public void StartGame(int modoplayp,bool repeticionesp,float valorplayp,int rodillaopiep,int planop,int ladosp,float angulominp,float angulomaxp,float tiemporebotep, bool rodillap, bool piep, bool izquierdop
+
+
+    public void TutorialPause()
+    {
+        hasStart = false;
+        ball.GetComponent<Rigidbody>().useGravity = false;
+        Physics.gravity = Vector3.down * 0;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        hasStart = true;
+        ball.GetComponent<Rigidbody>().useGravity = true;
+        Physics.gravity = Vector3.down * 5 / tiempoRebote;
+        Time.timeScale = 0;
+    }
+    public void StartGame(int modoplayp,bool repeticionesp,float valorplayp,int rodillaopiep,int planop,int ladosp,float angulominp,float angulomaxp,float tiemporebotep, bool rodillap, bool piep, bool izquierdop
         , bool derechop, bool frontalp, bool sagitalp)	{
 
        
@@ -249,6 +278,13 @@ public class ManagerFL : MonoBehaviour {
 		animationFinal.cleanAnimation ();
 	}
 
+
+
+
+
+
+
+
 	public void iniciarTutorial(){
 		pag_tutorial = 0;
 
@@ -259,13 +295,37 @@ public class ManagerFL : MonoBehaviour {
 
 	}
 
-	public void cerrarTutorial(){
+   
+
+    public void cerrarTutorial(){
 		
 		panelParametros.SetActive (true);
 		panelTutorial.SetActive (false);
 	}
+    public void putPageTutorialFomPauseMenu()
+    {
+        foreach (GameObject obj in tutorial_pages_array)
+        {
+            obj.SetActive(false);
+        }
 
-	public void putPageTutorial(){
+
+        if (pag_tutorial < tutorial_pages_array.Count)
+        {
+            tutorial_page_info = tutorial_pages_array[pag_tutorial];
+            tutorial_page_info.SetActive(true);
+
+            //PutRespectiveTextTutorial ();
+
+        }
+        else
+        {
+            cerrarTutorial();
+        }
+        pag_tutorial++;
+    }
+
+    public void putPageTutorial(){
 		foreach (GameObject obj in tutorial_pages_array)
 		{
 			obj.SetActive (false);

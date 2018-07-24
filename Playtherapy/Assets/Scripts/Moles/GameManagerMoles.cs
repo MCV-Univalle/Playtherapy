@@ -131,6 +131,22 @@ public class GameManagerMoles : MonoBehaviour
         }
     }
 
+    public void TutorialPause()
+    {
+        isPlaying = false;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        isPlaying = true;
+        molesManager.NextMole();
+
+
+        Time.timeScale = 0;
+    }
+
     public void StartGame(bool withTime, float time, int repetitions, List<Finger.FingerType> leftFingers, List<Finger.FingerType> rightFingers,
         float timeBetweenReps, float moleUptime, GameModeMoles gameMode, float minGrabStrenght)
     {

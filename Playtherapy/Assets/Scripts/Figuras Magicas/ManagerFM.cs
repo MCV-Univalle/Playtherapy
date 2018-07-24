@@ -16,9 +16,10 @@ public class ManagerFM : MonoBehaviour{
 	float jugabilidad_number;
 	float _timeBetweenEnemies;
 	float _percentFigureMin;
+    TinyPauseScript pausa;
 
-	//para la pantalla de parametros
-	Text time_enemies;
+    //para la pantalla de parametros
+    Text time_enemies;
 	Text txt_jugabilidad;
 	Text txt_scaleMin;
 	Button bt_play;
@@ -121,6 +122,7 @@ public class ManagerFM : MonoBehaviour{
         {
             gm = this;
         }
+        pausa = FindObjectOfType<TinyPauseScript>();
         gestureManager = GameObject.Find ("GesturesManager");
 		gestureManager.SetActive (false);
 
@@ -287,6 +289,43 @@ public class ManagerFM : MonoBehaviour{
 
 
 	}
+    private void CloseTutorial()
+    {
+        if (hasStart == false)
+        {
+            TweenHideTutorial();
+            TweenShowParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.zero;
+            pausa.gameObject.SetActive(true);
+        }
+
+
+
+    }
+    public void OpenTutorial()
+    {
+
+        tutorial_page = 0;
+        putPageTutorial();
+
+        if (hasStart == false)
+        {
+            TweenShowTutorial();
+            TweenHideParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.one;
+            pausa.gameObject.SetActive(false);
+        }
+
+    }
+
+
+    /*
 	private void CloseTutorial()
 	{
 		TweenHideTutorial ();
@@ -301,8 +340,8 @@ public class ManagerFM : MonoBehaviour{
 		putPageTutorial ();
 		TweenShowTutorial ();
 		TweenHideParameters ();
-	}
-	public void putPageTutorial()
+	}*/
+    public void putPageTutorial()
 	{
 
 		foreach (GameObject obj in tutorial_pages_array)

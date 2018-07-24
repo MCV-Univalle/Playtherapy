@@ -15,12 +15,15 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 	GameObject parameters_canvas;
 	GameObject results_canvas;
 	GameObject tutorial_canvas;
+    GameObject pause_menu;
 	GameObject count_objects_canvas;
 	GameObject tutorial_page_info;
 	GameObject cam;
 	GameObject timerUI;
 
-	Slider timeSlider;
+    TinyPauseScript pausa;
+
+    Slider timeSlider;
 
 	Vector3 cam_initial_pos;
 	Quaternion cam_initial_rot;
@@ -52,7 +55,9 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 			gm = this;
 		}
 
-		hasStart = false;
+        pausa = FindObjectOfType<TinyPauseScript>();
+
+        hasStart = false;
 		game_over = false;
 
 		timeMillis = 1000f;		
@@ -71,6 +76,7 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 		parameters_canvas = GameObject.Find ("parameters_canvas");
 		results_canvas = GameObject.Find ("results_canvas");
 		tutorial_canvas= GameObject.Find ("tutorial_canvas");
+        pause_menu = GameObject.Find("pause_data");
 		count_objects_canvas = GameObject.Find ("count_objects_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
         timerUI = GameObject.Find("timerUI");
@@ -402,7 +408,8 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 		tutorial_page++;
 
 	}
-	private void PutRespectiveTextTutorial()
+    
+    private void PutRespectiveTextTutorial()
 	{
 		if (tutorial_page==1) {
 
@@ -458,6 +465,42 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 		}
 
 	}
+    private void CloseTutorial()
+    {
+        if (hasStart == false)
+        {
+            TweenHideTutorial();
+            TweenShowParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.zero;
+            pausa.gameObject.SetActive(true);
+        }
+
+
+
+    }
+    public void OpenTutorial()
+    {
+
+        tutorial_page = 0;
+        putPageTutorial();
+
+        if (hasStart == false)
+        {
+            TweenShowTutorial();
+            TweenHideParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.one;
+            pausa.gameObject.SetActive(false);
+        }
+
+    }
+
+    /*
 	private void CloseTutorial()
 	{
 		TweenHideTutorial ();
@@ -465,15 +508,21 @@ public class ManagerVecinosInvasores : MonoBehaviour {
 
 
 	}
-	public void OpenTutorial()
+   
+
+
+
+
+
+    public void OpenTutorial()
 	{
 
 		tutorial_page = 0;
 		putPageTutorial ();
 		TweenShowTutorial ();
 		TweenHideParameters ();
-	}
-	private void TweenShowTutorial()
+	}*/
+    private void TweenShowTutorial()
 	{
 		tutorial_canvas.transform.localScale = Vector3.zero;
 		this.gameObject.Tween("ShowTutorial", Vector3.zero, Vector3.one, 0.75f, TweenScaleFunctions.QuadraticEaseOut, (t) =>

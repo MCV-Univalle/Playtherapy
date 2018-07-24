@@ -231,8 +231,11 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 		HoldParametersGreatJourney.select_descanso = select_descanso;
 		HoldParametersGreatJourney.select_sostener = select_sostener;
 
+        HoldParametersGreatJourney.select_movimiento = movimientos_posibles.value;
 
-		if (ManagerGreatJourney.gm != null)
+
+
+        if (ManagerGreatJourney.gm != null)
 		{
 			ManagerGreatJourney.gm.StartGame();
 		}

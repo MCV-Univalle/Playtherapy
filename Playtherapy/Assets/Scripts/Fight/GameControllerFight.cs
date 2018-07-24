@@ -43,14 +43,17 @@ public class GameControllerFight : MonoBehaviour {
     public bool clean;
 
     public bool GameOverBool;
-    public string name = "si lo muestra prro";
+    public string name = "";
 
-    
+    public GameObject PausePanel;
+    public GameObject TutorialMenu;
 
-    
+
+
+
 
     //Game
-    
+
 
     float appearTime =0.5f ;
     float rate = 4;
@@ -301,6 +304,7 @@ public class GameControllerFight : MonoBehaviour {
     public void PauseOn()
     {
         InGame = false;
+        PausePanel = GameObject.Find("pause_data");
 
     }
 
@@ -321,6 +325,20 @@ public class GameControllerFight : MonoBehaviour {
         currentTime = 0;
         currentRepetitions = 0;
 
+    }
+
+    public void TutorialPhaseFromMenu()
+    {
+
+        PausePanel.SetActive(false);
+        TutorialMenu.SetActive(true);
+
+    }
+
+    public void EndTutorialFromMenu()
+    {
+        PausePanel.SetActive(true);
+        TutorialMenu.SetActive(false);
     }
 
     public void TutorialButton()

@@ -65,6 +65,17 @@ public class Contact : MonoBehaviour {
 
 
 		}
-		//Destroy (gameObject);
-	}
+        if (other.tag == "eraser")
+        {
+
+
+
+            Destroy(gameObject);
+
+
+
+
+        }
+        //Destroy (gameObject);
+    }
 }
