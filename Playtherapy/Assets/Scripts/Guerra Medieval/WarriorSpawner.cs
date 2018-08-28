@@ -56,18 +56,40 @@ namespace GuerraMedieval
         {
             if (Time.time - savedTime >= secondsBetweenSpawning && !warriors[warriorCount].activeSelf)
             {
-                warriors[warriorCount].transform.position = new Vector3(Random.Range(-planeSize.x / 2, planeSize.x / 2), 0f, transform.position.z);
-                warriors[warriorCount].SetActive(true);
-                warriors[warriorCount].GetComponent<Rigidbody>().velocity = Vector3.back * velocity;
-
-                warriorCount++;
-                if (warriorCount >= warriors.Length)
+                if (GameManagerMedieval.gmm.WithFlexionExtension && GameManagerMedieval.gmm.WithPronation == false)
                 {
-                    warriorCount = 0;
+                    print("only Center");
+                    warriors[warriorCount].transform.position = new Vector3(0f, 0f, Random.Range(32,50)) ;
+                    warriors[warriorCount].SetActive(true);
+                    warriors[warriorCount].GetComponent<Rigidbody>().velocity = Vector3.back * velocity;
+
+                    warriorCount++;
+                    if (warriorCount >= warriors.Length)
+                    {
+                        warriorCount = 0;
+                    }
+
+                    savedTime = Time.time;
+                    secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
+
+                }
+                else {
+
+                    warriors[warriorCount].transform.position = new Vector3(Random.Range(-planeSize.x / 2, planeSize.x / 2), 0f, transform.position.z);
+                    warriors[warriorCount].SetActive(true);
+                    warriors[warriorCount].GetComponent<Rigidbody>().velocity = Vector3.back * velocity;
+
+                    warriorCount++;
+                    if (warriorCount >= warriors.Length)
+                    {
+                        warriorCount = 0;
+                    }
+
+                    savedTime = Time.time;
+                    secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
                 }
 
-                savedTime = Time.time;
-                secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
+                
             }
         }
 

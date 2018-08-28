@@ -11,6 +11,8 @@ namespace GuerraMedieval
         private GameObject[] bullets;
         private GameObject player;
         private Rigidbody m_rigidbody;
+        private Rigidbody fire_rigidbody;
+
 
         private float nextFire;
 
@@ -36,6 +38,7 @@ namespace GuerraMedieval
 
             player = GameObject.FindGameObjectWithTag("Player");
             m_rigidbody = gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
+            fire_rigidbody = gameObject.transform.GetChild(1).GetComponent<Rigidbody>();
             //m_rigidbody.useGravity = GameManagerMedieval.gmm.WithFlexionExtension;
 
             nextFire = Time.time + fireRate;
@@ -57,6 +60,8 @@ namespace GuerraMedieval
             if (GameManagerMedieval.gmm.IsPlaying())
             {
                 m_rigidbody.useGravity = GameManagerMedieval.gmm.WithFlexionExtension;
+                fire_rigidbody.useGravity = GameManagerMedieval.gmm.WithFlexionExtension;
+
             }
         }
 
