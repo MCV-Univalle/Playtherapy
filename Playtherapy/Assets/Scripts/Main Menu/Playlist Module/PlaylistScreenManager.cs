@@ -31,7 +31,7 @@ public class PlaylistScreenManager : MonoBehaviour
         minigames.Add("El Gran Viaje");
         minigames.Add("Figuras Magicas");
 		minigames.Add("Futbol Libre");
-        //minigames.Add("Guerra Medieval");
+        minigames.Add("Guerra Medieval");
         minigames.Add("Piano");
         minigames.Add("Rieles");
         //minigames.Add("Space");
