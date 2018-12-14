@@ -7,6 +7,16 @@ public class KeysManagerPiano : MonoBehaviour
 {
     public float timeBetween;
     [SerializeField] GameObject[] keys;
+    public int touchIndexL;
+    public int touchePinkL;
+    public int touchRightL;
+    public int touchMiddleL;
+    public int touchIndexR;
+    public int touchePinkR;
+    public int touchRightR;
+    public int touchMiddleR;
+
+
 
     private Dictionary<Finger.FingerType, int> leftKeysDic;
     private Dictionary<Finger.FingerType, int> rightKeysDic;
@@ -34,6 +44,7 @@ public class KeysManagerPiano : MonoBehaviour
 
     public void KeyBehaviour(Hand hand, Finger.FingerType fingerType)
     {
+        Debug.Log(hand);
         if (hand.IsLeft && !GameManagerPiano.gm.leftFingers.Contains(fingerType))
             return;
         else if (hand.IsRight && !GameManagerPiano.gm.rightFingers.Contains(fingerType))
@@ -44,7 +55,7 @@ public class KeysManagerPiano : MonoBehaviour
             index = leftKeysDic[fingerType];
         else if (hand.IsRight)
             index = rightKeysDic[fingerType];
-        
+
         if (keys[index])
         {
             if (keys[index].GetComponent<Animator>().GetBool("Blinking"))
@@ -53,8 +64,9 @@ public class KeysManagerPiano : MonoBehaviour
                 keys[index].GetComponent<Animator>().Play("KeyPressed");
                 keys[index].GetComponent<KeyBehaviourPiano>().PlayGoodSound();
                 keys[index].GetComponentInChildren<ScoreFeedbackPiano>().ShowGreen();
-                GameManagerPiano.gm.UpdateScore(1);
+                OkPinch(hand, fingerType);
 
+                GameManagerPiano.gm.UpdateScore(1);
                 if (GameManagerPiano.gm.useSimultaneous)
                 {
                     if (index < 4)
@@ -167,5 +179,139 @@ public class KeysManagerPiano : MonoBehaviour
         }
 
         isFinalAnimationDone = true;
+    }
+
+    public void OkPinch(Hand hand, Finger.FingerType fingerType)
+    {
+        if (fingerType == Finger.FingerType.TYPE_PINKY && hand.IsLeft == true)
+        {
+            this.FpinchPinkL = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_RING && hand.IsLeft == true)
+        {
+            this.FpinchRingL = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_MIDDLE && hand.IsLeft == true)
+        {
+            this.FpinchMiddleL = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_INDEX && hand.IsLeft == true)
+        {
+            this.FpinchIndexL = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_PINKY && hand.IsRight == true)
+        {
+            this.FpinchPinkL = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_RING && hand.IsRight == true)
+        {
+            this.FpinchRingR = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_MIDDLE && hand.IsRight == true)
+        {
+            this.FpinchMiddleR = 1;
+        }
+        if (fingerType == Finger.FingerType.TYPE_INDEX && hand.IsRight == true)
+        {
+            this.FpinchIndexR = 1;
+        }
+    }
+    public int FpinchIndexL
+    {
+        get
+        {
+            return touchIndexL;
+        }
+
+        set
+        {
+            touchIndexL = touchIndexL + value;
+        }
+    }
+    public int FpinchMiddleL
+    {
+        get
+        {
+            return touchMiddleL;
+        }
+
+        set
+        {
+            touchMiddleL = touchMiddleL + value;
+        }
+    }
+    public int FpinchRingL
+    {
+        get
+        {
+            return touchRightL;
+        }
+
+        set
+        {
+            touchRightL = touchRightL + value;
+        }
+    }
+    public int FpinchPinkL
+    {
+        get
+        {
+            return touchePinkL;
+        }
+
+        set
+        {
+            touchePinkL = touchePinkL + value;
+        }
+    }
+
+    //Hand right
+    public int FpinchIndexR
+    {
+        get
+        {
+            return touchIndexR;
+        }
+
+        set
+        {
+            touchIndexR = touchIndexR + value;
+        }
+    }
+    public int FpinchMiddleR
+    {
+        get
+        {
+            return touchMiddleR;
+        }
+
+        set
+        {
+            touchMiddleR = touchMiddleR + value;
+        }
+    }
+    public int FpinchRingR
+    {
+        get
+        {
+            return touchRightR;
+        }
+
+        set
+        {
+            touchRightR = touchRightR + value;
+        }
+    }
+    public int FpinchPinkR
+    {
+        get
+        {
+            return touchePinkR;
+        }
+
+        set
+        {
+            touchePinkR = touchePinkR + value;
+        }
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     //public GameObject Camera_inv;
     private Vector3 vector;
@@ -12,18 +13,17 @@ public class GameController : MonoBehaviour {
     public bool indicatorplayer;
     public Text HelpText;
     public GameObject positionIndicator;
+    public GameObject ParametersBaseball;
 
     public bool HandInPosition;
 
     public GameObject ExtensionShoulderLeft;
     public GameObject ExtensionShoulderRight;
-
+    public InputField inputObservation;
 
     public GameObject PausePanel;
     public GameObject TutorialMenu;
     public GameObject Eraser;
-
-
 
     GameObject particulas;
     public static GameController gc;
@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
     GameObject target;
 
     //public GameObject indicator;
-   
+
     //
     float numberRepetitions;
     float game_mode;
@@ -54,8 +54,10 @@ public class GameController : MonoBehaviour {
     public GameObject MainPanel;
     public GameObject ResultPanel;
     public GameObject pausa;
+    public GameObject ObservationPanel;
 
     public Button boton;
+    public GameObject btObservation;
 
     public bool InGame;
     public bool GameOver;
@@ -99,15 +101,15 @@ public class GameController : MonoBehaviour {
 
 
 
-    
+
 
 
 
 
     float _velocity_game;
-    
 
-    
+
+
 
     public GameObject rightHandPraticles;
     public GameObject positionParticles;
@@ -120,7 +122,7 @@ public class GameController : MonoBehaviour {
     float radius;
 
 
-   
+
 
 
 
@@ -129,17 +131,18 @@ public class GameController : MonoBehaviour {
 
 
 
-
-    
-
-
+    float finalTotalTime;
+    float finalTotalRepetition;
 
 
-    
+
+
+
+
     public bool movimientoLateral;
 
     private float time;
-
+    public float maxAngle;
 
     private float currentTime;
     private float timeMillis;
@@ -164,29 +167,32 @@ public class GameController : MonoBehaviour {
 
 
 
-    
+
 
     public GameObject kinectPlayer;
     public bool left = false;
     public bool right = false;
+    public string movement;
 
-    
 
-	void Reset(){
+    void Reset()
+    {
 
-		target = catcher;
-	}
+        target = catcher;
+    }
 
-	void realRetry(){
-		
-		Reset ();
-		Start ();
-	}
+    void realRetry()
+    {
 
-	
+        Reset();
+        Start();
+    }
 
-	// Use this for initialization
-	void Start () {
+
+
+    // Use this for initialization
+    void Start()
+    {
 
 
         //Camera_inv = GameObject.Find("Camera Panel");
@@ -203,21 +209,21 @@ public class GameController : MonoBehaviour {
         indicatorplayer = false;
         initialposition = kinectPlayer.transform.position;
 
-		gc = gameObject.GetComponent<GameController> ();
+        gc = gameObject.GetComponent<GameController>();
 
 
-		if (skeletonManager == null)
-		{
-			skeletonManager = FindObjectOfType(typeof(RUISSkeletonManager)) as RUISSkeletonManager;
-			if (!skeletonManager)
-				Debug.Log("The scene is missing " + typeof(RUISSkeletonManager) + " script!");
+        if (skeletonManager == null)
+        {
+            skeletonManager = FindObjectOfType(typeof(RUISSkeletonManager)) as RUISSkeletonManager;
+            if (!skeletonManager)
+                Debug.Log("The scene is missing " + typeof(RUISSkeletonManager) + " script!");
 
 
-		}
+        }
 
-		danceTaichi.SetActive (false);
-		danceUnityChan.SetActive (false);
-		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+        danceTaichi.SetActive(false);
+        danceUnityChan.SetActive(false);
+        Camera.transform.position = new Vector3(35f, 31.83f, 450.62f);
         positionIndicator.SetActive(true);
         //indicator.SetActive(true);
 
@@ -227,13 +233,13 @@ public class GameController : MonoBehaviour {
         vectortest = new Vector3(0, 0, 0);
 
         score = 0;
-		UpdateScore();
+        UpdateScore();
         InGame = false;
         MainPanel.SetActive(false);
         pausa.SetActive(false);
-        ResultPanel.SetActive (false);
-		movimientoLateral = false;
-		force = 20;
+        ResultPanel.SetActive(false);
+        movimientoLateral = false;
+        force = 20;
         /*if(_angleMinLeft == 0){
 
 			_angleMinLeft = 25;
@@ -242,40 +248,42 @@ public class GameController : MonoBehaviour {
 
 			_angleLeft = 25;
 		}*/
-		if(_range_game == 0){
+        if (_range_game == 0)
+        {
 
-			_range_game = 25;
-		}
+            _range_game = 25;
+        }
         movimientoLateral = true;
-		
-		results = ResultPanel.GetComponent<PutDataResults> ();
 
-		//results = FindObjectOfType<PutDataResults> ();
-		//Button btn = boton.GetComponent<Button> ();
-		//btn.onClick.AddListener(StartGame);
-		
-		//sliderCurrentTime.onValueChanged.AddListener(delegate {SlideTime(); });
+        results = ResultPanel.GetComponent<PutDataResults>();
+
+        //results = FindObjectOfType<PutDataResults> ();
+        //Button btn = boton.GetComponent<Button> ();
+        //btn.onClick.AddListener(StartGame);
+
+        //sliderCurrentTime.onValueChanged.AddListener(delegate {SlideTime(); });
     }
 
-	public void retry(){
+    public void retry()
+    {
         //Camera_inv.SetActive(false);
-        
+
         HandInPosition = false;
         Eraser.SetActive(true);
         pitcher.Play("New State");
-        gc = gameObject.GetComponent<GameController> ();
+        gc = gameObject.GetComponent<GameController>();
         RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         kinectPlayer1[0].updateRootPosition = true;
 
         if (skeletonManager == null)
-		{
-			skeletonManager = FindObjectOfType(typeof(RUISSkeletonManager)) as RUISSkeletonManager;
-			if (!skeletonManager)
-				Debug.Log("The scene is missing " + typeof(RUISSkeletonManager) + " script!");
-		}
-		danceTaichi.SetActive (false);
-		danceUnityChan.SetActive (false);
-		Camera.transform.position = new Vector3(35f, 31.83f,450.62f);
+        {
+            skeletonManager = FindObjectOfType(typeof(RUISSkeletonManager)) as RUISSkeletonManager;
+            if (!skeletonManager)
+                Debug.Log("The scene is missing " + typeof(RUISSkeletonManager) + " script!");
+        }
+        danceTaichi.SetActive(false);
+        danceUnityChan.SetActive(false);
+        Camera.transform.position = new Vector3(35f, 31.83f, 450.62f);
         //indicator.SetActive(true);
         //Camera.transform.Translate(0f, 0.83f,0 - 10.62f
         vector = new Vector3(0, 0, 0);
@@ -283,14 +291,14 @@ public class GameController : MonoBehaviour {
         positionIndicator.SetActive(true);
 
         score = 0;
-		UpdateScore();
-		InGame = false;
-		MainPanel.SetActive(false);
+        UpdateScore();
+        InGame = false;
+        MainPanel.SetActive(false);
         pausa.SetActive(false);
-        ResultPanel.SetActive (false);
-		ParametersPanel.SetActive (true);
-		movimientoLateral = false;
-		force = 20;
+        ResultPanel.SetActive(false);
+        ParametersPanel.SetActive(true);
+        movimientoLateral = false;
+        force = 20;
         /*if(_angleMinLeft == 0){
 
 			_angleMinLeft = 25;
@@ -299,27 +307,29 @@ public class GameController : MonoBehaviour {
 
 			_angleLeft = 25;
 		}*/
-		if(_range_game == 0){
+        if (_range_game == 0)
+        {
 
-			_range_game = 25;
-		}
-        results = ResultPanel.GetComponent<PutDataResults> ();
-		lanzamiento = 0;
-		movimientoLateral = true;
-		//results = FindObjectOfType<PutDataResults> ();
-		//Button btn = boton.GetComponent<Button> ();
-		//btn.onClick.AddListener(StartGame);
-	}
-
-
-
+            _range_game = 25;
+        }
+        results = ResultPanel.GetComponent<PutDataResults>();
+        lanzamiento = 0;
+        movimientoLateral = true;
+        //results = FindObjectOfType<PutDataResults> ();
+        //Button btn = boton.GetComponent<Button> ();
+        //btn.onClick.AddListener(StartGame);
+    }
 
 
 
-	
 
-	// Update is called once per frame
-	void Update () {
+
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
 
         //print(HandInPosition);
         //print(indicatorplayer);
@@ -330,158 +340,182 @@ public class GameController : MonoBehaviour {
             HelpText.text = "Posición Correcta";
 
         }
-        else {
+        else
+        {
 
 
             HelpText.text = "Posición Incorrecta";
         }
 
 
-		if (InGame)
-		{
+        if (InGame)
+        {
 
-			if (numberRepetitions == 0) {
+            if (numberRepetitions == 0)
+            {
 
-				currentTime -= Time.deltaTime;
-				if (currentTime > 0 && numberRepetitions == 0) {
-					timeMillis -= Time.deltaTime * 1000;
-					if (timeMillis < 0)
-						timeMillis = 1000f;
-					textCurrentTime.text = (((int)currentTime) / 60).ToString ("00") + ":"
-						+ (((int)currentTime) % 60).ToString ("00") + ":"
-						+ ((int)(timeMillis * 60 / 1000)).ToString ("00");
-					sliderCurrentTime.value = currentTime * 100 / totalTime;
-
-				
-				} else {
-
-
-					textCurrentTime.text = "00:00:00";
-				}
-			}
-
-			if (numberRepetitions == 1) {
-
-				textCurrentTime.text = currentRepetitions +" Restante";
+                currentTime -= Time.deltaTime;
+                if (currentTime > 0 && numberRepetitions == 0)
+                {
+                    timeMillis -= Time.deltaTime * 1000;
+                    if (timeMillis < 0)
+                        timeMillis = 1000f;
+                    textCurrentTime.text = (((int)currentTime) / 60).ToString("00") + ":"
+                        + (((int)currentTime) % 60).ToString("00") + ":"
+                        + ((int)(timeMillis * 60 / 1000)).ToString("00");
+                    sliderCurrentTime.value = currentTime * 100 / totalTime;
 
 
-			}
+                }
+                else
+                {
+
+
+                    textCurrentTime.text = "00:00:00";
+
+                }
+            }
+
+            if (numberRepetitions == 1)
+            {
+
+                textCurrentTime.text = currentRepetitions + " Restante";
+
+
+            }
 
 
 
 
-			Time.timeScale = 1;
-			if (numberRepetitions == 1) {
-				if (currentRepetitions <= 0 && array_balls.transform.childCount==0 && !progress) {
+            Time.timeScale = 1;
+            if (numberRepetitions == 1)
+            {
+                if (currentRepetitions <= 0 && array_balls.transform.childCount == 0 && !progress)
+                {
 
-					danceTaichi.SetActive (true);
-					danceUnityChan.SetActive (true);
+                    danceTaichi.SetActive(true);
+                    danceUnityChan.SetActive(true);
                     GameOver = true;
 
-					faseFinal ();
-                    
-				
-				}
-			} else {
+                    faseFinal();
 
-				if (currentTime <= 0  && array_balls.transform.childCount==0 && !progress) {
-					danceTaichi.SetActive (true);
-					danceUnityChan.SetActive (true);
+
+                }
+            }
+            else
+            {
+
+                if (currentTime <= 0 && array_balls.transform.childCount == 0 && !progress)
+                {
+                    danceTaichi.SetActive(true);
+                    danceUnityChan.SetActive(true);
                     GameOver = true;
-                    faseFinal ();
-                   
+                    faseFinal();
 
-				}
-			}
-			if (Time.time > shootTime  && !GameOver && !progress) {
 
-                if (array_balls.transform.childCount == 0) {
+                }
+            }
+            if (Time.time > shootTime && !GameOver && !progress)
+            {
+
+                if (array_balls.transform.childCount == 0)
+                {
                     InvokeRepeating("Lanzar", 0f, 0f);
                 }
-				
-				shootTime = shootTime + rate;
 
-			}
+                shootTime = shootTime + rate;
 
-
-             
-                
+            }
 
 
-            } else {
-
-			//Time.timeScale = 0;
-		}
 
 
-		
-	}
-	public void EndGame()
-	{
-        /*_angleMinLeft = 0;
-        sliderMinLeft.value = 0;
-        sliderLeft.value = 0;
-        _angleLeft = 0;*/
-        
-		MainPanel.SetActive (false);
-        pausa.SetActive(false);
-        ResultPanel.SetActive (true);
-		danceTaichi.SetActive (false);
-		danceUnityChan.SetActive (false);
-        StopAllCoroutines();
-		InGame = false;
-		int result = Mathf.RoundToInt ((score / lanzamiento) * 100);
-        //print(lanzamiento);
-		movimientoLateral = false;
-		results = ResultPanel.GetComponent<PutDataResults> ();
-		results.updateData (result, 0);
-        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
 
+
+        }
+        else
         {
-          
-            PlaylistManager.pm.NextGame();
 
+            //Time.timeScale = 0;
         }
 
 
 
+    }
+    public void EndGame()
+    {
+        /*_angleMinLeft = 0;
+        sliderMinLeft.value = 0;
+        sliderLeft.value = 0;
+        _angleLeft = 0;*/
 
+        MainPanel.SetActive(false);
+        pausa.SetActive(false);
+        ResultPanel.SetActive(true);
+        danceTaichi.SetActive(false);
+        danceUnityChan.SetActive(false);
+        StopAllCoroutines();
+        InGame = false;
+        int result = Mathf.RoundToInt((score / lanzamiento) * 100);
+        string idMinigame = "1";
+        //print(lanzamiento);
+        movimientoLateral = false;
+        results = ResultPanel.GetComponent<PutDataResults>();
+        results.Minigame = idMinigame;
+        results.updateData(result, 0);
+        int angle = (int)_angleLeft;
+        GameSessionController gameCtrl = new GameSessionController();
+        gameCtrl.addGameSession(score, this.FinalTotalRepetition, this.FinalTotalTime, result, idMinigame);
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance(angle, this.GetMovement());
 
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
 
+        {
+            PlaylistManager.pm.NextGame();
+        }
+        else
 
-
+        {
+            btObservation.SetActive(true);
+        }
 
     }
 
-	void faseFinal(){
-		Camera.transform.position = new Vector3(53f, 70f,30.62f);
-		movimientoLateral = false;
-		RUISSkeletonController [] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController> ();
-		kinectPlayer1[0].updateRootPosition = movimientoLateral;
 
-		StartCoroutine (animacionFinal());
-	}
+    void faseFinal()
+    {
+        Camera.transform.position = new Vector3(53f, 70f, 30.62f);
+        movimientoLateral = false;
+        RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
+        kinectPlayer1[0].updateRootPosition = movimientoLateral;
 
-	IEnumerator animacionFinal(){
-		
+        StartCoroutine(animacionFinal());
+    }
 
-		yield return new WaitForSeconds(5f);
-
-
-		EndGame ();
-
-	}
+    IEnumerator animacionFinal()
+    {
 
 
-	
-
-	public void UpdateSlide(){
-		
-		//Debug.Log(sliderCurrentTime.value);
-	}
+        yield return new WaitForSeconds(5f);
 
 
-    public void TutorialPhase() {
+        EndGame();
+
+    }
+
+
+
+
+    public void UpdateSlide()
+    {
+
+        //Debug.Log(sliderCurrentTime.value);
+    }
+
+
+    public void TutorialPhase()
+    {
 
         ParametersPanel.SetActive(false);
         TutorialPanel.SetActive(true);
@@ -506,82 +540,91 @@ public class GameController : MonoBehaviour {
     {
         InGame = false;
         PausePanel = GameObject.Find("pause_data");
-        
+
 
 
     }
 
-    public void StartAgain() {
+    public void StartAgain()
+    {
 
         pausa.SetActive(false);
 
-     
+
 
         retry();
     }
-    public void PauseOff() {
+    public void PauseOff()
+    {
 
         InGame = true;
 
     }
 
 
-    public void EndTutorial() {
+    public void EndTutorial()
+    {
         ParametersPanel.SetActive(true);
         TutorialPanel.SetActive(false);
     }
 
-	public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions,float timegame,float repetitions, float forces ,float anglemin,float anglemax,float gamemode,float armselection)
-	{
-        //Camera_inv.SetActive(true);
+    public void StartGame(float Velocity, float rangeParam, bool lateralmovement, float numberrepetitions, float timegame, float repetitions, float forces, float anglemin, float anglemax, float gamemode, float armselection)
+    {
 
         TutorialMenu.SetActive(false);
         Eraser.SetActive(false);
 
         InGame = true;
         GameOver = false;
-		force = Velocity;
-		_range_game = rangeParam;
+        force = Velocity;
+        _range_game = rangeParam;
         game_mode = gamemode;
         ArmSelection = armselection;
         positionIndicator.SetActive(false);
         //indicator.SetActive(false);
 
         movimientoLateral = lateralmovement;
-		GameOver = false;
-		MainPanel.SetActive (true);
+        GameOver = false;
+        MainPanel.SetActive(true);
         pausa.SetActive(true);
-        ParametersPanel.SetActive (false);
+        ParametersPanel.SetActive(false);
         numberRepetitions = numberrepetitions;
+        FinalTotalTime = timegame;
+        FinalTotalRepetition = repetitions;
+        SetMovement(gamemode);
 
+        if (numberrepetitions == 0)
+        {
 
-		if (numberrepetitions == 0) {
+            currentTime = timegame * 60;
 
-			currentTime = timegame * 60;
-			
-		}
-		if(numberrepetitions == 1){
-		
-			currentRepetitions = repetitions;
-            
-		}
+        }
+        if (numberrepetitions == 1)
+        {
 
-		if (forces == 0) {
-		
-			force = 20;
-		}
+            currentRepetitions = repetitions;
+
+        }
+
+        if (forces == 0)
+        {
+
+            force = 20;
+        }
         //if (numberRepetitions.value == 0 
-        if (numberrepetitions == 0 && currentTime == 0) {
-		
-			currentTime = 60;
-			
-			//currentRepetitions = 1;
-		}  
-		if (numberrepetitions == 1 && currentRepetitions == 0) {
+        if (numberrepetitions == 0 && currentTime == 0)
+        {
 
-			currentRepetitions = 1;
-			//currentTime = 90000000000;
-		}
+            currentTime = 60;
+
+            //currentRepetitions = 1;
+        }
+        if (numberrepetitions == 1 && currentRepetitions == 0)
+        {
+
+            currentRepetitions = 1;
+            //currentTime = 90000000000;
+        }
 
         _angleMinLeft = anglemin;
 
@@ -590,54 +633,59 @@ public class GameController : MonoBehaviour {
 
 
 
-        if (_angleMinLeft > _angleLeft) {
+        if (_angleMinLeft > _angleLeft)
+        {
 
-			_angleLeft = _angleMinLeft + 1;
-		}
-
-
-		RUISSkeletonController [] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController> ();
-		kinectPlayer1[0].updateRootPosition = movimientoLateral;
+            _angleLeft = _angleMinLeft + 1;
+        }
 
 
+        RUISSkeletonController[] kinectPlayer1 = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
+        kinectPlayer1[0].updateRootPosition = movimientoLateral;
 
-	}
+
+    }
 
     void Lanzar()
     {
 
 
-		if (InGame) {
-			
-		}
-		if (numberRepetitions == 0) {
+        if (InGame)
+        {
 
-			if (currentTime > 0) {
-				StartCoroutine (Disparo ());
-			}
-		} 
-		else 
-		{
-			
-			if (currentRepetitions>0) {
-				
-				StartCoroutine(Disparo());
+        }
+        if (numberRepetitions == 0)
+        {
 
-			}
-		}
+            if (currentTime > 0)
+            {
+                StartCoroutine(Disparo());
+            }
+        }
+        else
+        {
+
+            if (currentRepetitions > 0)
+            {
+
+                StartCoroutine(Disparo());
+
+            }
+        }
 
 
 
-        
+
     }
 
-	IEnumerator Disparo(){
+    IEnumerator Disparo()
+    {
         progress = true;
         pitcher.Play("Throw");
         lanzamiento = lanzamiento + 1;
 
 
-        
+
 
 
 
@@ -665,12 +713,13 @@ public class GameController : MonoBehaviour {
 
                 //Derecho
                 selectArm = 30;
-
+                Debug.Log(selectArm);
             }
             if (ArmSelection == 2)
             {
                 //Izquierdo
                 selectArm = 80;
+                Debug.Log(selectArm);
 
             }
 
@@ -699,7 +748,7 @@ public class GameController : MonoBehaviour {
                 particulas = Instantiate(positionParticles, new Vector3((float)ExtensionShoulderRight.transform.position.x, (float)(ExtensionShoulderRight.transform.position.y - posYpart), (float)(ExtensionShoulderRight.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                
+
                 Destroy(particulas, 10);
 
 
@@ -722,13 +771,13 @@ public class GameController : MonoBehaviour {
                 posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
                 posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * ((radius / 10) + 7);
 
-                 vectortest = new Vector3((float)ExtensionShoulderLeft.transform.position.x, (float)(ExtensionShoulderLeft.transform.position.y - posYpart), (float)(ExtensionShoulderLeft.transform.position.z - posX));
-                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
+                vectortest = new Vector3((float)ExtensionShoulderLeft.transform.position.x, (float)(ExtensionShoulderLeft.transform.position.y - posYpart), (float)(ExtensionShoulderLeft.transform.position.z - posX));
+                vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(vectortest.z - Cannon.transform.position.z)).normalized;//force
 
                 particulas = Instantiate(positionParticles, new Vector3((float)ExtensionShoulderLeft.transform.position.x, (float)(ExtensionShoulderLeft.transform.position.y - posYpart), (float)(ExtensionShoulderLeft.transform.position.z - posXpart)), Quaternion.identity) as GameObject;
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                
+
                 Destroy(particulas, 10);
 
             }
@@ -816,13 +865,13 @@ public class GameController : MonoBehaviour {
                 selectArm = 70;
 
                 //virtual rehab revisar 
-                 vectortest = new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z);
-                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                vectortest = new Vector3((float)(RealPlayerLeft.transform.position.x - posXpart), (float)(RealPlayerLeft.transform.position.y - posYpart), (float)RealPlayerLeft.transform.position.z);
+                vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
                 Destroy(particulas, 10.0f);
-                
+
                 //lanzamiento = lanzamiento + 1;
 
             }
@@ -845,12 +894,12 @@ public class GameController : MonoBehaviour {
                 //var vectortest = new Vector3((float)(RightShoulder.transform.position.x ), (float)(RightShoulder.transform.position.y ), (float)RightShoulder.transform.position.z);
                 // var vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)vectortest.z).normalized * force;//force
 
-                 vectortest = new Vector3((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y - posYpart), (float)RealPlayerRight.transform.position.z);
-                 vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                vectortest = new Vector3((float)(RealPlayerRight.transform.position.x - posXpart), (float)(RealPlayerRight.transform.position.y - posYpart), (float)RealPlayerRight.transform.position.z);
+                vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RealPlayerRight.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                 //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
                 Destroy(particulas, 10.0f);
-                
+
                 //lanzamiento = lanzamiento + 1;
             }
             if (pos == 2)
@@ -865,10 +914,10 @@ public class GameController : MonoBehaviour {
 
                 if (ArmSelection == 1)
                 {
-
                     //Derecho
                     select = 30;
                     selectArm = 30;
+                    Debug.Log("Derecho");
 
                 }
                 if (ArmSelection == 2)
@@ -876,6 +925,7 @@ public class GameController : MonoBehaviour {
                     //Izquierdo
                     select = 80;
                     selectArm = 80;
+                    Debug.Log("Izquierdo");
 
                 }
 
@@ -899,13 +949,13 @@ public class GameController : MonoBehaviour {
                     posY = Math.Sin((angleRandom + 90) * Math.PI / 180) * radius;
                     posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
-                     vectortest = new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z);
-                     vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RightShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                    vectortest = new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z);
+                    vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(RightShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                     particulas = Instantiate(positionParticles, new Vector3((float)(RightShoulder.transform.position.x - posXpart), (float)(RightShoulder.transform.position.y - posYpart), (float)RightShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
 
-                   
+
                     Destroy(particulas, 10);
 
 
@@ -929,12 +979,12 @@ public class GameController : MonoBehaviour {
                     posXpart = Math.Cos((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     posYpart = Math.Sin((angleRandom + 90) * Math.PI / 180) * (radius / 4);
                     //particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as gameObject;
-                     vectortest = new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z);
-                     vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
+                    vectortest = new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z);
+                    vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;//force
 
                     particulas = Instantiate(positionParticles, new Vector3((float)(LeftShoulder.transform.position.x - posXpart), (float)(LeftShoulder.transform.position.y - posYpart), (float)LeftShoulder.transform.position.z), Quaternion.identity) as GameObject;
                     //Destroy (Instantiate (positionParticles,new Vector3 ((float)(RealPlayerCenter.transform.position.x - posXpart), (float)(RealPlayerCenter.transform.position.y-posYpart), (float)RealPlayerCenter.transform.position.z), Quaternion.identity),4.0f);
-                    
+
                     Destroy(particulas, 10);
 
                 }
@@ -964,12 +1014,12 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(2.7f);
 
         GameObject Temporary_Bullet_Handler;
-		Temporary_Bullet_Handler = Instantiate (Ball, Cannon.transform.position, Cannon.transform.rotation) as GameObject;
-		Temporary_Bullet_Handler.transform.parent = array_balls.transform;
-		Temporary_Bullet_Handler.transform.Rotate (Vector3.left * 90);
+        Temporary_Bullet_Handler = Instantiate(Ball, Cannon.transform.position, Cannon.transform.rotation) as GameObject;
+        Temporary_Bullet_Handler.transform.parent = array_balls.transform;
+        Temporary_Bullet_Handler.transform.Rotate(Vector3.left * 90);
 
         vector = new Vector3((float)(vectortest.x - Cannon.transform.position.x), (float)(vectortest.y - Cannon.transform.position.y), (float)(LeftShoulder.transform.position.z - Cannon.transform.position.z)).normalized;
-        Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector *force;
+        Temporary_Bullet_Handler.GetComponent<Rigidbody>().velocity = vector * force;
 
 
         //int pivy = rany.Next(80.0, 80.23);
@@ -978,24 +1028,78 @@ public class GameController : MonoBehaviour {
 
         progress = false;
 
-	}
+    }
 
-
-	public void AddScore(int newscore)
-	{
+    public void AddScore(int newscore)
+    {
         score += newscore;
-		UpdateScore();
-	}
-	void UpdateScore() {
+        UpdateScore();
+    }
+    void UpdateScore()
+    {
 
-        scoretext.text = ""+ score;
-	}
+        scoretext.text = "" + score;
+    }
 
-	public void DecrementRepetitions(){
-	
+    public void DecrementRepetitions()
+    {
 
-			currentRepetitions = currentRepetitions - 1; 
 
-	}
+        currentRepetitions = currentRepetitions - 1;
 
+    }
+    public void ActivateObservation()
+    {
+        ObservationPanel.SetActive(true);
+        ResultPanel.SetActive(false);
+    }
+
+
+    public float FinalTotalTime
+    {
+        get
+        {
+            return finalTotalTime;
+        }
+
+        set
+        {
+            finalTotalTime = value;
+        }
+    }
+
+    public float FinalTotalRepetition
+    {
+        get
+        {
+            return finalTotalRepetition;
+        }
+
+        set
+        {
+            finalTotalRepetition = value;
+        }
+    }
+
+    public string GetMovement()
+    {
+        return movement;
+    }
+    public void SetMovement(float movementX)
+    {
+
+        if (movementX == 0)
+        {
+
+            movement = "3";
+        }
+        if (movementX == 1)
+        {
+            movement = "2";
+        }
+    }
+    public void GetObservation()
+    {
+        // inputObservation.text 
+    }
 }

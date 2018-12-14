@@ -101,6 +101,7 @@ public class HandsEventsVecinosInvasores : MonoBehaviour {
 						} else {
 							EnemyData data = enemie.GetComponent<EnemyData> ();
 							if (data.finger_to_destroy.Equals(type_finger)) {
+                                Debug.Log(type_finger);
 								disableShip (enemie);
 							}
 						}
@@ -119,7 +120,9 @@ public class HandsEventsVecinosInvasores : MonoBehaviour {
 						} else {
 							EnemyData data = enemie.GetComponent<EnemyData> ();
 							if (data.finger_to_destroy.Equals(type_finger)) {
-								disableShip (enemie);
+                                Debug.Log(type_finger);
+
+                                disableShip(enemie);
 							}
 						}
 						break;

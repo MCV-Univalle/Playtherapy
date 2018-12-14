@@ -9990,7 +9990,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
@@ -13028,12 +13028,19 @@ MonoBehaviour:
   textScore: {fileID: 1948830193}
   timerPanel: {fileID: 1977305822}
   repetitionsPanel: {fileID: 693351657}
+  ParametersScreenManagerRieles: {fileID: 0}
   withTime: 1
   totalTime: 180
   textCurrentTime: {fileID: 589429112}
   sliderCurrentTime: {fileID: 1086583636}
   totalRepetitions: 0
   textRepetitions: {fileID: 100197096}
+  JogThreshold: 0
+  JumpThreshold: 0
+  CrouchThreshold: 0
+  JogBool: 0
+  JumpBool: 0
+  CrouchBool: 0
   difficulty: 0
   timerAnimator: {fileID: 589429114}
   singleBeep: {fileID: 979678528}

@@ -3249,6 +3249,7 @@ MonoBehaviour:
   panelParametros: {fileID: 947979861}
   panelResultados: {fileID: 39605997}
   panelTutorial: {fileID: 1625517369}
+  movement: 
   PauseMenuPanel: {fileID: 0}
   PanelTutorialPauseMenu: {fileID: 0}
   ball: {fileID: 1710136003}
@@ -7510,7 +7511,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}

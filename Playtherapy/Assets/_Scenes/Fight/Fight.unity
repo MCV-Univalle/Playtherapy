@@ -12572,6 +12572,10 @@ MonoBehaviour:
   Parameters: {fileID: 1530591021}
   TutorialPanel: {fileID: 81733814}
   Eraser: {fileID: 1059745850}
+  ParametersFIght: {fileID: 0}
+  movement: 
+  finalTotalTime: 0
+  finalTotalRepetition: 0
   clean: 0
   GameOverBool: 0
   name: si lo muestra prro

@@ -154,8 +154,10 @@ namespace GuerraMedieval
                 leapPanel.SetActive(true);
                 Time.timeScale = 0;
             }
-            
+
         }
+
+
 
         public void StartGame(bool withTime, float time, int repetitions, float spawnTime, bool withGrab,
             bool withFlexionExtension, bool withPronation, bool withBothHands, float flexion, float extension,
@@ -165,7 +167,6 @@ namespace GuerraMedieval
 
             totalTime = time;
             currentTime = totalTime;
-            totalRepetitions = repetitions;
             remainingRepetitions = totalRepetitions;
             repetitionsText.text = remainingRepetitions.ToString();
             this.spawnTime = spawnTime;
@@ -245,6 +246,8 @@ namespace GuerraMedieval
             //    objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
             //    objTherapy.saveLastGameSession();
             //}
+            string idMinigame = "10";
+            GameSessionDAO gameDao = new GameSessionDAO();
 
             int finalScore;
             if (totalRepetitions == 0)
@@ -259,6 +262,8 @@ namespace GuerraMedieval
 
             if (objTherapy != null)
                 resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+            else
+                resultsBestScoreText.text = "Mejor: " + gameDao.GetScore(idMinigame) + "%";
 
             if (finalScore <= 60)
             {
@@ -283,10 +288,35 @@ namespace GuerraMedieval
             }
 
             resultsPanel.SetActive(true);
+
+            if (this.withTime == true)
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, 0, this.totalTime, score, idMinigame);
+            }
+            else
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, this.totalRepetitions, 0, score, idMinigame);
+            }
+            SendPerformance();
+
             if (PlaylistManager.pm != null && PlaylistManager.pm.active)
             {
                 PlaylistManager.pm.NextGame();
             }
+        }
+
+        public void SendPerformance()
+        {
+            if (withFlexionExtension == true)
+            {
+                PerformanceController performanceCtrl = new PerformanceController();
+                performanceCtrl.addPerformance((int)this.Flexion, "31");
+                performanceCtrl.addPerformance((int)this.Extension, "32");
+
+            }      
+
         }
 
         public GameState GetGameState()

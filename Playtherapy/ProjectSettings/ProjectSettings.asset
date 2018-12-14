@@ -632,9 +632,9 @@ PlayerSettings:
     WebPlayer: 0
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
-  scriptingRuntimeVersion: 0
+  scriptingRuntimeVersion: 1
   apiCompatibilityLevelPerPlatform:
-    Standalone: 1
+    Standalone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Playtherapy
@@ -720,7 +720,7 @@ PlayerSettings:
     UNet: 1
     Unity_Ads: 0
   facebookSdkVersion: 7.9.1
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 14884284-8d68-4a27-bb04-57d89b5f25a1
   projectName: Playtherapy Univalle
   organizationId: reaperspeeds

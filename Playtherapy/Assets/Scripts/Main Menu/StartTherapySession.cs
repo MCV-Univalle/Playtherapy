@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using System;
 
 public class StartTherapySession : MonoBehaviour
 {
@@ -12,18 +13,27 @@ public class StartTherapySession : MonoBehaviour
     public Text patient_name;
     public Text patient_id;
     public Text therapist_name;
+    public InputField inputObjective;
+    public InputField inputDescription;
+    public InputField inputTherapyId;
+    public InputField inputPatientId;
 
     public TherapySessionObject tso;
 
     // used for transition between menus
     public GameObject loginCanvas;
     public GameObject loginMenu;
+    public GameObject observationAndDescription;
     public GameObject minigamesMenuCanvas;
-
+    public GameObject panelDescription;
+    public GameObject playList;
+    public TherapistDAO therapyDAO;
+    public PatientDAO patientDAO;
+    public TherapySessionDAO therapySessionDAO;
     private List<Minigame> minigames = null;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         minigames = new List<Minigame>();
 
@@ -40,14 +50,45 @@ public class StartTherapySession : MonoBehaviour
         if (tso != null)
         {
             tso.Login();
+            // InsertTherapySession();
             DisplayPatientInfo();
-            DisplayTherapistInfo();            
-            LoadMinigames();
+            DisplayTherapistInfo();
+            LoadMinigames(true, false, false, true, true, false);
         }
         else
         {
             Debug.Log("No therapy session object found");
-            LoadMinigames();
+            LoadMinigames(true, false, false, true, true, false);
+        }
+    }
+
+    public void SaveFullTherapy()
+    {
+        if (tso != null)
+        {
+            tso.Login();
+            InsertTherapySession();
+            LoadMinigames(true, false, false, false, false, true);
+        }
+        else
+        {
+            Debug.Log("No therapy session object found");
+            LoadMinigames(true, false, false, false, false, true);
+        }
+
+    }
+
+    public void StartPlayList()
+    {
+        if (tso != null)
+        {
+            tso.Login();
+            LoadMinigames(true, false, false, false, false, true);
+        }
+        else
+        {
+            Debug.Log("No therapy session object found");
+            LoadMinigames(true, false, false, false, false, true);
         }
     }
 
@@ -76,7 +117,7 @@ public class StartTherapySession : MonoBehaviour
         }
     }
 
-    public void LoadMinigames()
+    public void LoadMinigames(bool mCanvas, bool lMenu, bool lCanvas, bool pDescription, bool oDescription, bool pList)
     {
         if (minigames != null && content != null)
         {
@@ -88,10 +129,34 @@ public class StartTherapySession : MonoBehaviour
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 
-            loginMenu.SetActive(false);
-            minigamesMenuCanvas.SetActive(true);
-            loginCanvas.SetActive(false);
-            loginCanvas.SetActive(true);           
+            minigamesMenuCanvas.SetActive(mCanvas);
+            loginMenu.SetActive(lMenu);
+            loginCanvas.SetActive(lCanvas);
+            panelDescription.SetActive(pDescription);
+            observationAndDescription.SetActive(oDescription);
+            playList.SetActive(pList);
         }
+    }
+
+    public string QueryIdPatient()
+    {
+        PatientDAO patientDAO = new PatientDAO();
+        int idPatient = patientDAO.GetIdPatient(inputPatientId.text);
+        string idPatientStr = idPatient.ToString();
+        return idPatientStr;
+    }
+    public string QueryIdTherapy()
+    {
+        TherapistDAO therapyDAO = new TherapistDAO();
+        int idTherapy = therapyDAO.GetIdTherapy(inputTherapyId.text);
+        string idTherapyStr = idTherapy.ToString();
+        return idTherapyStr;
+    }
+
+    public void InsertTherapySession()
+    {
+        string date = DateTime.Now.ToString("yyyy-MM-dd");
+        TherapySessionController therapySessionCtrl = new TherapySessionController();
+        therapySessionCtrl.AddTherapy(date, inputObjective.text, inputDescription.text, QueryIdPatient(), QueryIdTherapy());
     }
 }

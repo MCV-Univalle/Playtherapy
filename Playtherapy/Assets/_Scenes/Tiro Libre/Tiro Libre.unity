@@ -34952,7 +34952,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
@@ -43690,6 +43690,7 @@ MonoBehaviour:
   toggleLow: {fileID: 1556562430}
   toggleMedium: {fileID: 1485476147}
   toggleHigh: {fileID: 325596069}
+  GameSessionController: {fileID: 0}
 --- !u!4 &1769019027
 Transform:
   m_ObjectHideFlags: 0
@@ -45532,6 +45533,7 @@ MonoBehaviour:
   backRightLegPanel: {fileID: 2015609062}
   shiftLeftPanel: {fileID: 518280698}
   shiftRightPanel: {fileID: 925581830}
+  ParametersScreenManagerTiroLibre: {fileID: 0}
   score: 0
   scoreText: {fileID: 1801642798}
   boardScoreText: {fileID: 905200315}
@@ -45563,6 +45565,12 @@ MonoBehaviour:
   useLow: 0
   useMedium: 0
   useHigh: 0
+  frontsAngle: 0
+  frontsAngle2: 0
+  frontsAngle3: 0
+  backsAngle: 0
+  backsAngle2: 0
+  backsAngle3: 0
   currentMovement: 0
   leftLegParticles1: {fileID: 181462556}
   leftLegParticles2: {fileID: 1667046634}

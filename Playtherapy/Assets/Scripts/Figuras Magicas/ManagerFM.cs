@@ -16,6 +16,7 @@ public class ManagerFM : MonoBehaviour{
 	float jugabilidad_number;
 	float _timeBetweenEnemies;
 	float _percentFigureMin;
+    float range;
     TinyPauseScript pausa;
 
     //para la pantalla de parametros
@@ -249,10 +250,6 @@ public class ManagerFM : MonoBehaviour{
 
 	public void StartGame(int mj= 1,float jugabilidad=3,float time_enemies=3 )
 	{
-        
-       
-
-
         modo_juego = mj;
 		select_jugabilidad = jugabilidad;
 		timeBetweenEnemies = time_enemies;
@@ -268,12 +265,29 @@ public class ManagerFM : MonoBehaviour{
 
 		int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
 		int performance_loaded_BD = 0;
-		results_script.updateData (performance_game, performance_loaded_BD);
+        string idMinigame = "6";
+        results_script.Minigame = idMinigame;
+        GameSessionController gameCtrl = new GameSessionController();
+
+        results_script.updateData (performance_game, performance_loaded_BD);
 		gestureManager.SetActive(false);
 		spawnnerEnemies.can_spawn = false;
 		hasStart = false;
-		//paramenters_canvas.SetActive (true);
-		FinalAnimation ();
+        //paramenters_canvas.SetActive (true);
+        if (modo_juego == 1)
+        {
+            gameCtrl.addGameSession(performance_game, select_jugabilidad, 0, score_script.score_obtain, idMinigame);
+
+        }
+        if (modo_juego == 1)
+        {
+            gameCtrl.addGameSession(performance_game, 0, select_jugabilidad, score_script.score_obtain, idMinigame);
+
+        }
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance((int)Range, "38");
+
+        FinalAnimation();
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
         {
             PlaylistManager.pm.NextGame();
@@ -672,4 +686,17 @@ public class ManagerFM : MonoBehaviour{
 		}
 
 	}
+
+    public float Range
+    {
+        get
+        {
+            return range;
+        }
+
+        set
+        {
+            range = value;
+        }
+    }
 }

@@ -11,12 +11,14 @@ public class ScoreHandlerVecinosInvasores : MonoBehaviour {
 	public int score_obtain;
 	public int score_max;
 	public Text txt_score;
+    public int touchPositive;
 
-	Text desempeno;
+
+    Text desempeno;
 	// Use this for initialization
 	void Start () {
 
-		txt_score = GameObject.Find("txt_score").GetComponent<Text>();
+        txt_score = GameObject.Find("txt_score").GetComponent<Text>();
 		reset ();
 	}
 	public void reset()
@@ -45,7 +47,10 @@ public class ScoreHandlerVecinosInvasores : MonoBehaviour {
 			TweenColorCorrecto ();
 			score_max += pts;
 			score_obtain += pts;
-		}
+            TouchPositive = 1;
+            Debug.Log("Se encontro");
+            
+        }
 		setScore ();
 	}
 	void setScore()
@@ -122,4 +127,16 @@ public class ScoreHandlerVecinosInvasores : MonoBehaviour {
 					});
 			});
 	}
+    public int TouchPositive
+    {
+        get
+        {
+            return touchPositive;
+        }
+
+        set
+        {
+            touchPositive = touchPositive + value;
+        }
+    }
 }

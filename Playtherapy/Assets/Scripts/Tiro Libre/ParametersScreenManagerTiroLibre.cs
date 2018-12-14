@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class ParametersScreenManagerTiroLibre : MonoBehaviour, IParametersManager
 {
@@ -27,6 +28,7 @@ public class ParametersScreenManagerTiroLibre : MonoBehaviour, IParametersManage
     public Toggle toggleLow;
     public Toggle toggleMedium;
     public Toggle toggleHigh;
+    public GameObject GameSessionController;
 
     public void StartGame()
     {
@@ -56,14 +58,14 @@ public class ParametersScreenManagerTiroLibre : MonoBehaviour, IParametersManage
 
         if (GameManagerTiroLibre.gm)
         {
-            GameManagerTiroLibre.gm.StartGame(withTime, time, repetitions, timeBetweenTargets, frontPlane, 
+            GameManagerTiroLibre.gm.StartGame(withTime, time, repetitions, timeBetweenTargets, frontPlane,
                 float.Parse(inputFrontAngle1.text), float.Parse(inputFrontAngle2.text), float.Parse(inputFrontAngle3.text),
-                backPlane, float.Parse(inputBackAngle1.text), float.Parse(inputBackAngle2.text), float.Parse(inputBackAngle3.text), 
+                backPlane, float.Parse(inputBackAngle1.text), float.Parse(inputBackAngle2.text), float.Parse(inputBackAngle3.text),
                 shifts, shiftsFrequency, changeMovement, useLow, useMedium, useHigh);
         }
 
         if (parametersPanel != null)
-		    parametersPanel.SetActive (false);        
+            parametersPanel.SetActive(false);
     }
 
     public void OnGameTypeChanged()
@@ -135,5 +137,16 @@ public class ParametersScreenManagerTiroLibre : MonoBehaviour, IParametersManage
     {
         inputFrontAngle3.interactable = toggleHigh.isOn && toggleFront.isOn;
         inputBackAngle3.interactable = toggleHigh.isOn && toggleBack.isOn;
+    }
+
+    public void SendGame(int result, float time, float repetitions, int score, string minigame)
+    {
+
+        string date = date = DateTime.Now.ToString("yyyy-MM-dd");
+        GameSessionController gameCtrl = new GameSessionController();
+        gameCtrl.addGameSession(result, repetitions, time, score, minigame);
+
+
+
     }
 }

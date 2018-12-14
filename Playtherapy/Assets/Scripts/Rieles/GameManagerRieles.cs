@@ -38,6 +38,8 @@ public class GameManagerRieles : MonoBehaviour
 
     public GameObject timerPanel;
     public GameObject repetitionsPanel;
+    public GameObject ParametersScreenManagerRieles;
+
 
     public bool withTime;
     public float totalTime;
@@ -50,7 +52,12 @@ public class GameManagerRieles : MonoBehaviour
     private int repetitions;
     public int totalRepetitions;
     public Text textRepetitions;
-
+    public float JogThreshold;
+    public float JumpThreshold;
+    public float CrouchThreshold;
+    public bool JogBool;
+    public bool JumpBool;
+    public bool CrouchBool;
     public int difficulty;
     private ArrayList validIndexes;
 
@@ -62,7 +69,7 @@ public class GameManagerRieles : MonoBehaviour
     public FinalAnimationManagerRieles finalAnimation;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         if (gm == null)
             gm = gameObject.GetComponent<GameManagerRieles>();
@@ -74,16 +81,16 @@ public class GameManagerRieles : MonoBehaviour
 
         currentTime = totalTime;
         timeMillis = 1000f;
-        
+
         if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active)) // playlist active check
         {
             parametersPanel.SetActive(true);
             mainPanel.SetActive(false);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (isPlaying)
         {
@@ -145,7 +152,8 @@ public class GameManagerRieles : MonoBehaviour
         }
     }
 
-    public void TutorialPause() {
+    public void TutorialPause()
+    {
 
         isPlaying = false;
         Time.timeScale = 1;
@@ -171,7 +179,12 @@ public class GameManagerRieles : MonoBehaviour
         currentTime = totalTime;
         totalRepetitions = repetitions;
         this.repetitions = totalRepetitions;
-
+        JogThreshold = jogThreshold;
+        CrouchThreshold = crouchThreshold;
+        JumpThreshold = jumpThreshold;
+        JumpBool = useJump;
+        CrouchBool = useCrouch;
+        JogBool = useJog;
         KinectPlayerController kinectPlayer = player.GetComponent<KinectPlayerController>();
         kinectPlayer.SetParameters(useJog, jogThreshold, jogTime, useCrouch, crouchThreshold, useJump, jumpThreshold);
         kinectPlayer.UpdateRootPosition = useShifts;
@@ -246,6 +259,7 @@ public class GameManagerRieles : MonoBehaviour
     {
         player.SetActive(false);
         mainPanel.SetActive(false);
+        string idMiniGame = "7";
 
         TherapySessionObject objTherapy = TherapySessionObject.tso;
 
@@ -257,7 +271,7 @@ public class GameManagerRieles : MonoBehaviour
             //objTherapy.savePerformance((int)kickScript.BestLeftHipFrontAngle, "4");
             //objTherapy.savePerformance((int)kickScript.BestRightHipFrontAngle, "5");
         }
-
+        GameSessionDAO gameDao = new GameSessionDAO();
         int finalScore;
         if (fullScore > 0)
             finalScore = (int)(((float)score / fullScore) * 100.0f);
@@ -268,7 +282,7 @@ public class GameManagerRieles : MonoBehaviour
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
-            resultsBestScoreText.text = "Mejor: --";
+            resultsBestScoreText.text = "Mejor:"+ gameDao.GetScore(idMiniGame) + "%";
 
         if (finalScore <= 60)
         {
@@ -292,6 +306,99 @@ public class GameManagerRieles : MonoBehaviour
             star3.sprite = starOn;
         }
 
+        //int angle = (int)_angleLeft;
+        GameSessionController gameCtrl = new GameSessionController();
+        PerformanceController performanceCtrl = new PerformanceController();
+        if (this.withTime == true)
+        {
+            if (JogBool == true && CrouchBool == true && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+
+            }
+            if (JogBool == false && CrouchBool == true && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == false && CrouchBool == false && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == false && CrouchBool == true && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+            }
+            if (JogBool == true && CrouchBool == false && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+
+            }
+            if (JogBool == true && CrouchBool == true && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+            }
+            if (JogBool == true && CrouchBool == false && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalTime, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+            }
+        }
+        if (this.withTime == false)
+        {
+            if (JogBool == true && CrouchBool == true && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == false && CrouchBool == true && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == false && CrouchBool == false && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == false && CrouchBool == true && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+            }
+            if (JogBool == true && CrouchBool == false && JumpBool == true)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)JumpThreshold, "7");
+            }
+            if (JogBool == true && CrouchBool == true && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+                performanceCtrl.addPerformance((int)CrouchThreshold, "8");
+            }
+            if (JogBool == true && CrouchBool == false && JumpBool == false)
+            {
+                gameCtrl.addGameSession(finalScore, 0, totalRepetitions, score, idMiniGame);
+                performanceCtrl.addPerformance((int)JogThreshold, "16");
+            }
+        }
+
+
         StartCoroutine(DelayedFinalAnimation());
         //resultsPanel.SetActive(true);
     }
@@ -314,7 +421,7 @@ public class GameManagerRieles : MonoBehaviour
     private IEnumerator DelayedFinalAnimation()
     {
         yield return new WaitWhile(IsFinalBeepPlaying);
-        finalAnimation.FinalAnimation(score);        
+        finalAnimation.FinalAnimation(score);
     }
 
     private bool IsFinalBeepPlaying()
@@ -334,4 +441,5 @@ public class GameManagerRieles : MonoBehaviour
             score = value;
         }
     }
+
 }

@@ -7,6 +7,12 @@ using System;
 public class PatientDAO
 {
     // returns null if error
+
+    public PatientDAO()
+    {
+
+    }
+
     public static Patient ConsultPatient(string id_num)
     {
         if (DBConnection.dbconn != null)
@@ -101,6 +107,49 @@ public class PatientDAO
         {
             Debug.Log("Database connection not established");
             return null;
+        }
+    }
+
+    public int GetIdPatient(string idPatient)
+    {
+        if (DBConnection.dbconn != null)
+        {
+            NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+            string sql = ("SELECT id FROM patient_patient WHERE id_num =  '" + idPatient + "';");
+            Debug.Log(sql);
+            dbcmd.CommandText = sql;
+
+            NpgsqlDataReader reader = dbcmd.ExecuteReader();
+            if (reader.Read())
+            {
+                //string numero_doc = (int)reader["id_num"];
+                int id = (int)reader["id"];
+
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                return id;
+            }
+            else
+            {
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                Debug.Log("Error de consulta o elemento no encontrado");
+                return 0;
+            }
+        }
+        else
+        {
+            Debug.Log("Database connection not established");
+            return 0;
         }
     }
 }

@@ -2413,7 +2413,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
@@ -5526,6 +5526,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerUI: {fileID: 1960806851}
+  movement: 
+  finalTotalRepetition: 0
+  finalTotalTime: 0
 --- !u!1 &1360588732
 GameObject:
   m_ObjectHideFlags: 0

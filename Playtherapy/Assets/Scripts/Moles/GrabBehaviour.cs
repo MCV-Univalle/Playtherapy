@@ -9,6 +9,8 @@ public class GrabBehaviour : MonoBehaviour
 {
     public bool isLeftHand;
     public float noGrabValue;
+    public int countTotalGrabR;
+    public int countTotalGrabL;
 
     public Text debugText;
 
@@ -34,6 +36,7 @@ public class GrabBehaviour : MonoBehaviour
                     if (isGrabbing && hand.GrabStrength < noGrabValue)
                     {
                         isGrabbing = false;
+
                     }
                 }
                 else
@@ -60,6 +63,10 @@ public class GrabBehaviour : MonoBehaviour
                     {
                         isGrabbing = true;
                         other.gameObject.GetComponent<MoleBodyBehaviour>().Collision();
+                        this.AllGrabLeft = 1;
+                        Debug.Log(this.AllGrabLeft);
+                        GameManagerMoles.gm.AllGrabLeft = this.AllGrabLeft;
+
                     }
                 }
                 else
@@ -68,9 +75,36 @@ public class GrabBehaviour : MonoBehaviour
                     {
                         isGrabbing = true;
                         other.gameObject.GetComponent<MoleBodyBehaviour>().Collision();
+                        this.AllGrabRigth = 1;
+                        Debug.Log(this.AllGrabRigth);
+                        GameManagerMoles.gm.AllGrabRigth = this.AllGrabRigth;
                     }
                 }
             }
+        }
+    }
+    public int AllGrabRigth
+    {
+        get
+        {
+            return countTotalGrabR;
+        }
+
+        set
+        {
+            countTotalGrabR = countTotalGrabR + value;
+        }
+    }
+    public int AllGrabLeft
+    {
+        get
+        {
+            return countTotalGrabL;
+        }
+
+        set
+        {
+            countTotalGrabL = countTotalGrabL + value;
         }
     }
 }

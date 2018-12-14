@@ -18,6 +18,11 @@ public class TherapySession
         this.patient_id = patient_id;
     }
 
+    public TherapySession()
+    {
+
+    }
+
     public string Date
     {
         get

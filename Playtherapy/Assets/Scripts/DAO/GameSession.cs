@@ -10,12 +10,15 @@ public class GameSession
     private int time;
     private string level;
     private string minigame_id;
+    private string therapy_id;
+    private int level1;
+
 
     public GameSession(string minigame_id)
     {
         date = DateTime.Now.ToString("yyyy-MM-dd");
         this.minigame_id = minigame_id;
-		Debug.Log ("fecha: " + date);
+        Debug.Log("fecha: " + date);
     }
 
     public string Date
@@ -69,7 +72,6 @@ public class GameSession
             time = value;
         }
     }
-
     public string Level
     {
         get
@@ -80,6 +82,19 @@ public class GameSession
         set
         {
             level = value;
+        }
+    }
+
+    public int Level1
+    {
+        get
+        {
+            return level1;
+        }
+
+        set
+        {
+            level1 = value;
         }
     }
 
@@ -95,4 +110,17 @@ public class GameSession
             minigame_id = value;
         }
     }
+    public string Therapy_id
+    {
+        get
+        {
+            return therapy_id;
+        }
+
+        set
+        {
+            therapy_id = value;
+        }
+    }
+
 }
