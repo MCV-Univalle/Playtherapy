@@ -7,7 +7,13 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
-/Assets/AssetStoreTools*
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+#/Assets/AssetStoreTools*
+
+!/[Aa]ssets/**/*.meta
+[Aa]ssets/TextMesh*Pro/
+
 
 /Playtherapy/[Ll]ibrary/
 /Playtherapy/[Tt]emp/
@@ -99,6 +105,7 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
+.gradle/
 
 *_i.c
 *_p.c
@@ -327,6 +334,9 @@ __pycache__/
 build/
 
 # End of https://www.gitignore.io/api/unity,visualstudio,monodevelop
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 
 *.info
 Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
@@ -337,3 +347,11 @@ Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
 *.meta
 *.meta
 *.meta
+sysinfo.txt
+
+# Builds
+*.apk
+*.unitypackage
+
+# Crashlytics generated file
+crashlytics-build.properties
