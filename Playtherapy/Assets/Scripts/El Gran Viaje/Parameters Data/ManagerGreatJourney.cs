@@ -17,10 +17,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 	GameObject count_objects_canvas;
 	GameObject tutorial_page_info;
 	GameObject cam;
-	GameObject timerUI;
+	//GameObject timerUI;
 	Slider timeSlider;
+    public GameObject timerUI;
 
-	Vector3 cam_initial_pos;
+    Vector3 cam_initial_pos;
 	Quaternion cam_initial_rot;
 
 	Text txt_rubies;
@@ -38,8 +39,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 	List<GameObject> tutorial_pages_array;
 	List<GameObject> array_arrows;
 
-
-	bool game_over;
+    TinyPauseScript pausa;
+    public string movement;
+    public float finalTotalRepetition;
+    public float finalTotalTime;
+    bool game_over;
 	bool hasStart;
 	float timer_game=-1;
 	float timeMillis;
@@ -53,7 +57,9 @@ public class ManagerGreatJourney : MonoBehaviour {
 		}
 
 
-		hasStart = false;
+        pausa = FindObjectOfType<TinyPauseScript>();
+
+        hasStart = false;
 		game_over = false;
 
 		spanner = FindObjectOfType<SpannerOfMovements> ();
@@ -71,7 +77,8 @@ public class ManagerGreatJourney : MonoBehaviour {
 		paramenters_canvas = GameObject.Find ("parameters_canvas");
 		results_canvas = GameObject.Find ("results_canvas");
 		tutorial_canvas= GameObject.Find ("tutorial_canvas");
-		count_objects_canvas = GameObject.Find ("count_objects_canvas");
+        timerUI.SetActive(true);
+        count_objects_canvas = GameObject.Find ("count_objects_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
         
         cam = GameObject.Find("PlayGameCamera");
@@ -94,9 +101,15 @@ public class ManagerGreatJourney : MonoBehaviour {
 		tutorial_canvas.transform.localScale = Vector3.zero;
 		tutorial_pages_array = new List<GameObject> ();
 
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            paramenters_canvas.SetActive(true);
+            //MainPanel.SetActive(false);
+        }
 
 
-		int contador=0;
+
+        int contador=0;
 
 
 		do {
@@ -192,12 +205,31 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	public void EndGame()
 	{
-		saveData ();
+        //saveData ();
 
-		int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
+        int angle = (int)HoldParametersGreatJourney.select_angle_max;
+        GameSessionController gameCtrl = new GameSessionController();
+
+        int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
 		int performance_loaded_BD = 0;
-		results_script.updateData (performance_game, performance_loaded_BD);
+        string idMinigame = "3";
 
+        if (HoldParametersGreatJourney.use_time == true)
+        {
+            float repetitionsC = 0;
+            gameCtrl.addGameSession(performance_game, repetitionsC, HoldParametersGreatJourney.select_jugabilidad, score_script.score_obtain, idMinigame);
+
+        }
+        if (HoldParametersGreatJourney.use_time == false)
+        {
+            float repetitionsC = 0;
+            gameCtrl.addGameSession(performance_game, HoldParametersGreatJourney.select_jugabilidad, repetitionsC, score_script.score_obtain, idMinigame);
+
+        }
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance(angle, this.GetMovement());
+        results_script.Minigame = "3";
+        results_script.updateData (performance_game, performance_loaded_BD);
 		
 		hasStart = false;
 		//paramenters_canvas.SetActive (true);
@@ -205,9 +237,17 @@ public class ManagerGreatJourney : MonoBehaviour {
 		{
 			behaviour.enabled = false;   
 		}
-		FinalAnimation ();
+ 
+        FinalAnimation ();
 
-	}
+
+        
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
+
+    }
 	public void RetryGame()
 	{
 		TweenHideResults ();
@@ -224,7 +264,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	public void StartGame()
 	{
-		timer_game = -1;
+        this.SetMovement(HoldParametersGreatJourney.select_movimiento);
+        //FinalTotalRepetition = HoldParametersGreatJourney.select_jugabilidad;
+        //FinalTotalTime = HoldParametersGreatJourney.select_jugabilidad;
+        timerUI.SetActive(true);
+        timer_game = -1;
 		game_over = false;
 		hasStart = true;
 		timeSlider.value = 100;
@@ -436,10 +480,15 @@ public class ManagerGreatJourney : MonoBehaviour {
 	{
 		if (tutorial_page==1) {
 
+
 			foreach (GameObject obj in array_arrows)
 			{
-				obj.SetActive (false);
-			}
+                if (obj!=null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+				
 
 			List<string> anims = new List<string>();
 
@@ -465,7 +514,11 @@ public class ManagerGreatJourney : MonoBehaviour {
 
 				case HoldParametersGreatJourney.LADO_TODOS:
 					foreach (GameObject obj in array_arrows) {
-						obj.SetActive (true);
+                                if (obj!=null)
+                                {
+	                            obj.SetActive (true);
+                                }
+					
 					}
 					txt_mover.text = GlosarioGreatJourney.MOVER_CON_DISOCIACION_MIEMBROS_INFERIORES;
 					tutorial_movements.SetBool (anims[0], true);
@@ -551,18 +604,37 @@ public class ManagerGreatJourney : MonoBehaviour {
 	}
 	private void CloseTutorial()
 	{
-		TweenHideTutorial ();
-		TweenShowParameters ();
+        if (hasStart==false)
+        {
+            TweenHideTutorial();
+            TweenShowParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.zero;
+            pausa.gameObject.SetActive(true);
+        }
+		
 
 
 	}
 	public void OpenTutorial()
 	{
-		
+        
 		tutorial_page = 0;
 		putPageTutorial ();
-		TweenShowTutorial ();
-		TweenHideParameters ();
+
+        if (hasStart==false)
+        {
+            TweenShowTutorial();
+            TweenHideParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.one;
+            pausa.gameObject.SetActive(false);
+        }
+		
 	}
 	private void TweenShowTutorial()
 	{
@@ -574,6 +646,7 @@ public class ManagerGreatJourney : MonoBehaviour {
 
 			}, (t) =>
 			{
+              
 				//complete
 			});
 
@@ -641,6 +714,48 @@ public class ManagerGreatJourney : MonoBehaviour {
 				EndGame();
 			});
 	}
+    public float FinalTotalTime
+    {
+        get
+        {
+            return finalTotalTime;
+        }
 
+        set
+        {
+            finalTotalTime = value;
+        }
+    }
+
+    public float FinalTotalRepetition
+    {
+        get
+        {
+            return finalTotalRepetition;
+        }
+
+        set
+        {
+            finalTotalRepetition = value;
+        }
+    }
+
+    public string GetMovement()
+    {
+        return movement;
+    }
+    public void SetMovement(float movementX)
+    {
+
+        if (movementX == 0)
+        {
+
+            movement = "12";
+        }
+        if (movementX == 1)
+        {
+            movement = "13";
+        }
+    }
 }
 

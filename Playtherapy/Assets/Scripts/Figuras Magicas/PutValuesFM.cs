@@ -54,7 +54,7 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
                 contadorToggleActivos++;
             }
         }
-
+        
         return contadorToggleActivos > 0;
 
     }
@@ -95,7 +95,7 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
 
     }
     // Use this for initialization
-    void Start()
+    /*void Start()
     {
         list_gestures_index = new List<int>();
         changeAnyToggle=false;
@@ -105,7 +105,7 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
     void Update()
     {
 
-    }
+    }*/
 
 
     public void StartGame()
@@ -123,9 +123,11 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
 
         ManagerFM.gm.list_gestures_index = list_gestures_index;
         ManagerFM.gm.managerShapes.loadGestures(list_gestures_index);
-       // ManagerFM.gm.spawnnerEnemies.gestures_index_used = list_gestures_index;
+        // ManagerFM.gm.spawnnerEnemies.gestures_index_used = list_gestures_index;
+        ManagerFM.gm.Range = _percentFigureMin;
+        ManagerFM.gm.StartGame(_modo_juego, jugabilidad_number, _timeBetweenEnemies);
 
-        ManagerFM.gm.startGame(_modo_juego, jugabilidad_number, _timeBetweenEnemies);
+        
 
     }
 

@@ -38,9 +38,24 @@ public class PutValuesFL : MonoBehaviour, IParametersManager {
 
 	public void StartGame()
 	{
-		if (ManagerFL.gm!=null) {
-			ManagerFL.gm.StartGame ();
-		}
+
+        capturarModoPlay();
+        capturarLado();
+        capturarPartecuerpo();
+        capturarPlano();
+        capturarAnguloMin();
+        capturarAnguloMax();
+        capturarValorModoJuego();
+        capturarTiempoRebote();
+        if (ManagerFL.gm!=null) {
+            //StartGame();
+            ManagerFL.gm.StartGame(modoPlay, repeticiones, valorPlay, rodillaOPie, plano, lados, anguloMin, anguloMax, tiempoRebote, rodilla, pie, izquierdo
+        , derecho, frontal, sagital);
+
+        }
+
+
+
 	}
 	// Use this for initialization
 	void Start () {
@@ -58,9 +73,9 @@ public class PutValuesFL : MonoBehaviour, IParametersManager {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 		
-	}
+	}*/
 
 	public void capturarModoPlay(){
 		modoPlay = modo_juego_dropdown.value;

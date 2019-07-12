@@ -39,6 +39,7 @@ namespace GuerraMedieval
         private bool destroyed;
 
         public GameObject canonStructure;
+        public GameObject realCanon;
         public GameObject canon;
         public GameObject cannoballBehavior;
         public GameObject plane;
@@ -49,6 +50,7 @@ namespace GuerraMedieval
         private Vector3 canonBallPosition;
         private Vector3 relativeCanonBallPosition = new Vector3(0, 0f, 3f);
         float trayectoryTime = 0;
+        float temp;
 
 
         private GameObject[] trayectoryBalls;
@@ -62,6 +64,7 @@ namespace GuerraMedieval
             }
 
             trayectoryBalls = GameObject.FindGameObjectsWithTag("Airballoon");
+            temp = 0.1f;
         }
 
         // Update is called once per frame
@@ -102,9 +105,29 @@ namespace GuerraMedieval
             {
                 transform.Rotate(0f, horizontalMove, 0f);
             }
-            else
+            if(GameManagerMedieval.gmm.WithPronation)
             {
                 transform.Translate(horizontalMove / 10f, 0f, 0f);
+            }
+
+            
+            if (!GameManagerMedieval.gmm.WithFlexionExtension && !GameManagerMedieval.gmm.WithPronation) {
+                
+
+                if (realCanon.transform.position.x == 12)
+                {
+                    temp = -0.1f;
+
+
+                }
+                if (realCanon.transform.position.x == -12)
+                {
+                    temp = 0.1f;
+
+                }
+                transform.Translate(temp, 0f, 0f);
+
+
             }
             canon.transform.Rotate(verticalMove, 0f, 0f);
         }
@@ -181,20 +204,26 @@ namespace GuerraMedieval
             }
             else
             {
-                float angle = (float)new Movements().UlnarRadial();
 
-                if (Math.Abs(angle) > minAngleHorizontal)
-                {
-                    angle = Math.Min(Math.Abs(angle), maxAngleHorizontal) * Math.Sign(angle);
-                    horizontalMove = angle / maxAngleHorizontal;
-                    if(canonRecoil && canonRecoil.isPlaying)
-                        canonRecoil.Play();
-                }
+                if (GameManagerMedieval.gmm.WithFlexionExtension && GameManagerMedieval.gmm.WithPronation == false)
+                { }
                 else
                 {
-                    horizontalMove = 0;
-                    if(canonRecoil && !canonRecoil.isPlaying)
-                        canonRecoil.Stop();
+                    float angle = (float)new Movements().UlnarRadial();
+
+                    if (Math.Abs(angle) > minAngleHorizontal)
+                    {
+                        angle = Math.Min(Math.Abs(angle), maxAngleHorizontal) * Math.Sign(angle);
+                        horizontalMove = angle / maxAngleHorizontal;
+                        if (canonRecoil && canonRecoil.isPlaying)
+                            canonRecoil.Play();
+                    }
+                    else
+                    {
+                        horizontalMove = 0;
+                        if (canonRecoil && !canonRecoil.isPlaying)
+                            canonRecoil.Stop();
+                    }
                 }
             }
         }
@@ -253,7 +282,6 @@ namespace GuerraMedieval
                 step = (plane.transform.position.z / canonBallVelocity.magnitude) / (trayectoryBalls.Length - 1);
                 gravity = 0;
             }
-            Debug.Log(step);
 
             if (trayectoryTime < step)
             {

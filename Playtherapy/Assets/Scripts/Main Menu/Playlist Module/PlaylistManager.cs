@@ -44,6 +44,7 @@ public class PlaylistManager : MonoBehaviour
 
     private IEnumerator DelayedNextGameScreen()
     {
+        Debug.Log("crear pantalla");
         yield return new WaitForSeconds(timeToScreen);
         GameObject go = Instantiate(transitionScreen) as GameObject;
         ngsm = go.GetComponent<NextGameScreenManager>();
@@ -85,6 +86,7 @@ public class PlaylistManager : MonoBehaviour
 
     private void LoadParameters()
     {
+        //Debug.Log(playlistParameters[currentIndex]); // que le pasa a esto que no autocompleta reinstala esta monda
         ((IParametersManager)playlistParameters[currentIndex]).StartGame();
     }
 

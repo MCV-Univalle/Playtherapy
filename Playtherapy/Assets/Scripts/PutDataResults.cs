@@ -21,7 +21,7 @@ public class PutDataResults : MonoBehaviour {
 	//para propuesta1
 	string [] names_bands ;
 	string [] names_medals;
-
+    string minigame;
 	Image band_medal;
 	Image type_medal;
 
@@ -46,7 +46,8 @@ public class PutDataResults : MonoBehaviour {
 
 		GameObject propuesta1 = GameObject.Find ("propuesta1");
 		GameObject propuesta2 = GameObject.Find ("propuesta2");
-		if (mostrar_propuesta1==true)
+
+        if (mostrar_propuesta1==true)
 		{
 			propuesta1.SetActive (true);
 			propuesta2.SetActive (false);
@@ -54,7 +55,8 @@ public class PutDataResults : MonoBehaviour {
 		} else {
 
 			propuesta2.SetActive (true);
-			propuesta1.SetActive (false);
+
+            propuesta1.SetActive (false);
 			searchObjects2 ();
 		}
 
@@ -132,9 +134,10 @@ public class PutDataResults : MonoBehaviour {
 		}
 
 
+        GameSessionDAO gameDao = new GameSessionDAO();
 
-		txt_score_results.text = "Desempeño: " + percent+"%";
-		txt_best_score_results.text = "Mejor Desempeño: " + best_percent+"%";
+        txt_score_results.text = "Desempeño: " + percent+"%";
+		txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
 
 
 
@@ -184,4 +187,17 @@ public class PutDataResults : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public string Minigame
+    {
+        get
+        {
+            return minigame;
+        }
+
+        set
+        {
+            minigame = value;
+        }
+    }
 }

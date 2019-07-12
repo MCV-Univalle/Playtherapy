@@ -21,7 +21,8 @@ namespace GameSpace
             PLAYING,
             GAMEOVER,
             PAUSE,
-            STARTING
+            STARTING,
+            END
         }
         private GameState gameState;
         public bool withKeyboard = false;
@@ -151,6 +152,8 @@ namespace GameSpace
 
                     case GameState.GAMEOVER:
                         {
+                            Debug.Log("endgame");
+                            gameState = GameState.END;
                             EndGame();
                         }break;
 
@@ -162,6 +165,10 @@ namespace GameSpace
                             }
                         }
                         break;
+                    default:
+                        {
+
+                        }break;
                 }
             }
             else if (!leapPanel.activeSelf)
@@ -279,6 +286,8 @@ namespace GameSpace
         {
             mainPanel.SetActive(false);
             StartCoroutine(EndGameAnimator());
+
+            
         }
 
         private IEnumerator EndGameAnimator()
@@ -287,13 +296,16 @@ namespace GameSpace
             yield return new WaitForSeconds(8f);
             SaveAndShowResults();
 
+            // playlist block
             if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+            {
                 PlaylistManager.pm.NextGame();
+            }
         }
 
         public void SaveAndShowResults()
         {
-            TherapySessionObject objTherapy = TherapySessionObject.tso;
+            //TherapySessionObject objTherapy = TherapySessionObject.tso;
 
             //if (objTherapy != null)
             //{
@@ -312,9 +324,10 @@ namespace GameSpace
             }
             resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
-            if (objTherapy != null)
-                resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
-
+            //if (objTherapy != null)
+            //{
+            //    resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+            //}
             if (finalScore <= 60)
             {
                 //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 
 
@@ -14,6 +16,7 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 	private float _angle_min;
 	private float _angle_min_frontal;
 	private float _angle_max;
+    public GameObject GameSessionController;
 
 	public int type_game{
 
@@ -28,9 +31,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 			if ((value==1) == false) {
 				slider_jugabilidad.minValue = HoldParametersGreatJourney.min_repeticiones;
 				slider_jugabilidad.maxValue = HoldParametersGreatJourney.max_repeticiones;
-				if (timerUI!=null) {
+				/*if (timerUI!=null) {
 					timerUI.SetActive (false);
-				}
+				}*/
 
 			}
 
@@ -38,9 +41,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 			{
 				slider_jugabilidad.minValue = HoldParametersGreatJourney.min_tiempo;
 				slider_jugabilidad.maxValue = HoldParametersGreatJourney.max_tiempo;
-				if (timerUI!=null) {
+				/*if (timerUI!=null) {
 					timerUI.SetActive (true);
-				}
+				}*/
 
 			}
 
@@ -216,31 +219,42 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 
 	public Dropdown lados_utilizar;
 	public Dropdown movimientos_posibles;
-	public GameObject timerUI;
+	
 
     public void StartGame()
     {
 		HoldParametersGreatJourney.use_time = type_game == 1;
-		HoldParametersGreatJourney.select_jugabilidad = select_jugabilidad;
+        HoldParametersGreatJourney.select_jugabilidad = select_jugabilidad;
 		HoldParametersGreatJourney.select_movimiento = select_movimiento;
-
-		HoldParametersGreatJourney.lados_involucrados = lados_involucrados;
+        HoldParametersGreatJourney.lados_involucrados = lados_involucrados;
 		HoldParametersGreatJourney.select_angle_min_frontal = angle_min_frontal;
 		HoldParametersGreatJourney.select_angle_min = angle_min;
 		HoldParametersGreatJourney.select_angle_max = angle_max;
 		HoldParametersGreatJourney.select_descanso = select_descanso;
 		HoldParametersGreatJourney.select_sostener = select_sostener;
 
+        HoldParametersGreatJourney.select_movimiento = movimientos_posibles.value;
 
-		if (ManagerGreatJourney.gm != null)
+
+
+        if (ManagerGreatJourney.gm != null)
 		{
 			ManagerGreatJourney.gm.StartGame();
 		}
 
     }
 
+    public void SendGame(int result, float time, float repetitions, int score, string minigame)
+    {
 
-	void updateTextTime(int type_game=0)
+        string date = date = DateTime.Now.ToString("yyyy-MM-dd");
+        GameSessionController gameCtrl = new GameSessionController();
+        gameCtrl.addGameSession(result, repetitions, time, score, minigame);
+
+
+    }
+
+    void updateTextTime(int type_game=0)
 	{
 
 
@@ -274,7 +288,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 
 
 			txt_jugabilidad.text = minutos_s + ":" + segundos_s + " min";
-		} else {
+            Debug.Log(txt_jugabilidad.text);
+                
+        } else {
 			txt_jugabilidad.text = select_jugabilidad+" rep";
 		}
 
@@ -305,7 +321,7 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 		angle_min_frontal = 20;
 		angle_min = 15;
 		angle_max = 30;
-        timerUI.SetActive(true);
+        
 
     }
 }

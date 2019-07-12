@@ -24,6 +24,7 @@ public class GameManagerTiroLibre : MonoBehaviour
     public GameObject backRightLegPanel;
     public GameObject shiftLeftPanel;
     public GameObject shiftRightPanel;
+    public GameObject ParametersScreenManagerTiroLibre;
 
     public int score;
     public Text scoreText;
@@ -48,7 +49,7 @@ public class GameManagerTiroLibre : MonoBehaviour
     public GameObject repetitionsPanel;
 
     public int currentTarget;
-    public GameObject[] targets;    
+    public GameObject[] targets;
 
     public bool targetReady;
     public float timeBetweenTargets;
@@ -58,6 +59,12 @@ public class GameManagerTiroLibre : MonoBehaviour
     public bool useHigh;
     private int fromTarget;
     private int toTarget;
+    public float frontsAngle;
+    public float frontsAngle2;
+    public float frontsAngle3;
+    public float backsAngle;
+    public float backsAngle2;
+    public float backsAngle3;
 
     public enum LegMovements { FrontLeftLeg, FrontRightLeg, BackLeftLeg, BackRightLeg };
     private LegMovements[] frontPlane;
@@ -88,11 +95,11 @@ public class GameManagerTiroLibre : MonoBehaviour
     public Sprite starOff;
     public Image star1;
     public Image star2;
-    public Image star3;    
+    public Image star3;
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         if (gm == null)
             gm = gameObject.GetComponent<GameManagerTiroLibre>();
@@ -104,8 +111,8 @@ public class GameManagerTiroLibre : MonoBehaviour
 
         remainingRepetitions = totalRepetitions;
 
-        frontPlane = new LegMovements[] {LegMovements.FrontLeftLeg, LegMovements.FrontRightLeg};
-        backPlane = new LegMovements[] {LegMovements.BackLeftLeg, LegMovements.BackRightLeg};
+        frontPlane = new LegMovements[] { LegMovements.FrontLeftLeg, LegMovements.FrontRightLeg };
+        backPlane = new LegMovements[] { LegMovements.BackLeftLeg, LegMovements.BackRightLeg };
         random = new System.Random();
         lastLegMovement = false;
         lastShiftMovement = false;
@@ -119,9 +126,9 @@ public class GameManagerTiroLibre : MonoBehaviour
 
         //StartGame();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (isPlaying)
         {
@@ -137,10 +144,10 @@ public class GameManagerTiroLibre : MonoBehaviour
                         if (timeMillis < 0)
                             timeMillis = 1000f;
                         //Debug.Log(currentTime);
-                        currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":" 
-                            + (((int)currentTime) % 60).ToString("00") + ":" 
+                        currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
+                            + (((int)currentTime) % 60).ToString("00") + ":"
                             + ((int)(timeMillis * 60 / 1000)).ToString("00");
-                        sliderCurrentTime.value = currentTime * 100 / totalTime;                        
+                        sliderCurrentTime.value = currentTime * 100 / totalTime;
                     }
                     else
                     {
@@ -163,9 +170,24 @@ public class GameManagerTiroLibre : MonoBehaviour
         {
             targetReady = false;
             isGameOver = false;
-            EndGame();            
+            EndGame();
         }
-	}
+    }
+
+
+    public void TutorialPause()
+    {
+        isPlaying = false;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        isPlaying = true;
+
+        Time.timeScale = 0;
+    }
 
     public void StartGame()
     {
@@ -186,8 +208,8 @@ public class GameManagerTiroLibre : MonoBehaviour
         NextMovement();
     }
 
-    public void StartGame(bool withTime, float time, int repetitions, float timeBetweenTargets, bool frontPlane, float frontAngle1, 
-        float frontAngle2, float frontAngle3, bool backPlane, float backAngle1, float backAngle2, float backAngle3, bool shifts, 
+    public void StartGame(bool withTime, float time, int repetitions, float timeBetweenTargets, bool frontPlane, float frontAngle1,
+        float frontAngle2, float frontAngle3, bool backPlane, float backAngle1, float backAngle2, float backAngle3, bool shifts,
         float shiftsFrequency, bool changeMovement, bool useLow, bool useMedium, bool useHigh)
     {
         this.withTime = withTime;
@@ -226,6 +248,14 @@ public class GameManagerTiroLibre : MonoBehaviour
         kickScript.secondBackAngle = backAngle2;
         kickScript.thirdBackAngle = backAngle3;
 
+        FrontAngle1 = frontAngle1;
+        FrontAngle2 = frontAngle2;
+        FrontAngle3 = frontAngle3;
+        BackAngle1 = backAngle1;
+        BackAngle2 = backAngle2;
+        BackAngle3 = backAngle3;
+
+     
         mainPanel.SetActive(true);
         pausePanel.SetActive(true);
 
@@ -272,7 +302,7 @@ public class GameManagerTiroLibre : MonoBehaviour
                 else
                 {
                     NextLegMovement();
-                } 
+                }
             }
             else if (lastShiftMovement)
             {
@@ -318,14 +348,14 @@ public class GameManagerTiroLibre : MonoBehaviour
         else if (lastPlatform == ShiftPlatforms.LeftPlatform)
             shiftRightPanel.SetActive(true);
         else if (lastPlatform == ShiftPlatforms.RightPlatform)
-            shiftLeftPanel.SetActive(true);        
+            shiftLeftPanel.SetActive(true);
 
         avatarPlatform.SetActive(true);
 
         switch (currentPlatform)
         {
             case ShiftPlatforms.LeftPlatform:
-                {                    
+                {
                     leftShiftPlatform.SetActive(true);
                     centerShiftPlatform.SetActive(false);
                     rightShiftPlatform.SetActive(false);
@@ -537,7 +567,7 @@ public class GameManagerTiroLibre : MonoBehaviour
     public void EndGame()
     {
         mainPanel.SetActive(false);
-        StartCoroutine(EndGameAnimation());       
+        StartCoroutine(EndGameAnimation());
     }
 
     private IEnumerator EndGameAnimation()
@@ -560,16 +590,39 @@ public class GameManagerTiroLibre : MonoBehaviour
             objTherapy.savePerformance((int)kickScript.BestLeftHipFrontAngle, "4");
             objTherapy.savePerformance((int)kickScript.BestRightHipFrontAngle, "5");
         }
-        
-        int finalScore;        
+        string idMinigame = "5";
+        GameSessionDAO gameDao = new GameSessionDAO();
+        int finalScore;
         if (totalRepetitions > 0)
             finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
         else
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
+        float totalRepFloat = (float)totalRepetitions;
+        ParametersScreenManagerTiroLibre pmTiroLibre = new ParametersScreenManagerTiroLibre();
+        pmTiroLibre.SendGame(finalScore, totalRepFloat, totalTime, score, idMinigame);
+        if (useFrontPlane == true)
+        {
+            PerformanceController performanceCtrl = new PerformanceController();
+            performanceCtrl.addPerformance((int)this.FrontAngle1, "36");
+            performanceCtrl.addPerformance((int)this.FrontAngle2, "37");
+            performanceCtrl.addPerformance((int)this.FrontAngle3, "38");
+
+        }
+        if (useBackPlane == true)
+        {
+            PerformanceController performanceCtrl = new PerformanceController();
+            performanceCtrl.addPerformance((int)this.BackAngle1, "33");
+            performanceCtrl.addPerformance((int)this.BackAngle2, "34");
+            performanceCtrl.addPerformance((int)this.BackAngle3, "35");
+
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+        else
+            resultsBestScoreText.text = "Mejor:" + gameDao.GetScore(idMinigame) + "%";
 
         if (finalScore <= 60)
         {
@@ -595,9 +648,11 @@ public class GameManagerTiroLibre : MonoBehaviour
 
         resultsPanel.SetActive(true);
 
+      
         //playlist block
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
             PlaylistManager.pm.NextGame();
+
     }
 
     public GameObject[] getCurrentTargets()
@@ -613,5 +668,77 @@ public class GameManagerTiroLibre : MonoBehaviour
     public void EnableTarget(int target, bool enable)
     {
         targets[target].GetComponent<TiroLibreTargetBehaviour>().EnableTarget(enable);
+    }
+    public float FrontAngle1
+    {
+        get
+        {
+            return frontsAngle;
+        }
+
+        set
+        {
+            frontsAngle = value;
+        }
+    }
+    public float FrontAngle2
+    {
+        get
+        {
+            return frontsAngle2;
+        }
+
+        set
+        {
+            frontsAngle2 = value;
+        }
+    }
+    public float FrontAngle3
+    {
+        get
+        {
+            return frontsAngle3;
+        }
+
+        set
+        {
+            frontsAngle3 = value;
+        }
+    }
+    public float BackAngle1
+    {
+        get
+        {
+            return backsAngle;
+        }
+
+        set
+        {
+            backsAngle = value;
+        }
+    }
+    public float BackAngle2
+    {
+        get
+        {
+            return backsAngle2;
+        }
+
+        set
+        {
+            backsAngle2 = value;
+        }
+    }
+    public float BackAngle3
+    {
+        get
+        {
+            return backsAngle3;
+        }
+
+        set
+        {
+            backsAngle3 = value;
+        }
     }
 }

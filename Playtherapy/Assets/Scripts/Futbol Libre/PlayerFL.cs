@@ -41,19 +41,19 @@ public class PlayerFL : MonoBehaviour {
 		if(manager.hasStart == true){
 //			administrarTurno ();
 			if (manager.derecho == true && manager.rodilla == true) {
-				//print ("sensando rodilla derecha");
+				////print ("sensando rodilla derecha");
 				sensarRodillaDer ();
 			}
 			if ( manager.izquierdo == true && manager.rodilla == true) {
-				//print ("sensando rodilla izquierda");
+				////print ("sensando rodilla izquierda");
 				sensarRodillaIzq ();
 			}
 			if ( manager.derecho == true && manager.pie == true) {
-				//print ("sensando pie derecho");
+				////print ("sensando pie derecho");
 				sensarPieDerecho ();
 			}
 			if ( manager.izquierdo == true && manager.pie == true) {
-				//print ("sensando pie izquierdo");
+				////print ("sensando pie izquierdo");
 				sensarPieIzquierdo ();
 			}
 		}
@@ -82,14 +82,14 @@ public class PlayerFL : MonoBehaviour {
 				manager.rodillaIzqParticles2.Stop ();
 				manager.pieDerParticles1.Stop ();
 				manager.pieIzqParticles2.Stop ();
-				print ("sensando rodilla derecha");
+				//print ("sensando rodilla derecha");
 				sensarRodillaDer ();
 			} else {
 				manager.rodillaDerParticles1.Stop ();
 				manager.rodillaIzqParticles2.Play ();
 				manager.pieDerParticles1.Stop ();
 				manager.pieIzqParticles2.Stop ();
-				print ("sensando rodilla izquierda");
+				//print ("sensando rodilla izquierda");
 				sensarRodillaIzq ();
 			}
 		} else if (manager.izquierdo==true) {
@@ -97,14 +97,14 @@ public class PlayerFL : MonoBehaviour {
 			manager.rodillaIzqParticles2.Play ();
 			manager.pieDerParticles1.Stop ();
 			manager.pieIzqParticles2.Stop ();
-			print ("sensando rodilla izquierda");
+			//print ("sensando rodilla izquierda");
 			sensarRodillaIzq ();
 		} else {
 			manager.rodillaDerParticles1.Play ();
 			manager.rodillaIzqParticles2.Stop ();
 			manager.pieDerParticles1.Stop ();
 			manager.pieIzqParticles2.Stop ();
-			print ("sensando rodilla derecha");
+			//print ("sensando rodilla derecha");
 			sensarRodillaDer ();
 		}
 	}
@@ -118,14 +118,14 @@ public class PlayerFL : MonoBehaviour {
 				manager.rodillaIzqParticles2.Stop ();
 				manager.pieDerParticles1.Play ();
 				manager.pieIzqParticles2.Stop ();
-				print ("sensando pie derecho");
+				//print ("sensando pie derecho");
 				sensarPieDerecho ();
 			} else {
 				manager.rodillaDerParticles1.Stop ();
 				manager.rodillaIzqParticles2.Stop ();
 				manager.pieDerParticles1.Stop ();
 				manager.pieIzqParticles2.Play ();
-				print ("sensando pie izquierdo");
+				//print ("sensando pie izquierdo");
 				sensarPieIzquierdo ();
 			}
 		} else if (manager.izquierdo==true) {
@@ -133,28 +133,28 @@ public class PlayerFL : MonoBehaviour {
 			manager.rodillaIzqParticles2.Stop ();
 			manager.pieDerParticles1.Stop ();
 			manager.pieIzqParticles2.Play ();
-			print ("sensando pie izquierdo");
+			////print ("sensando pie izquierdo");
 			sensarPieIzquierdo ();
 		} else {
 			manager.rodillaDerParticles1.Stop ();
 			manager.rodillaIzqParticles2.Stop ();
 			manager.pieDerParticles1.Play ();
 			manager.pieIzqParticles2.Stop ();
-			print ("sensando pie derecho");
+			////print ("sensando pie derecho");
 			sensarPieDerecho ();
 		}
 	}
 
 	public void sensarRodillaDer(){
-		print ("rodilla derecha");
+		////print ("rodilla derecha");
 		manager.debug.text = bodyMovements.kneeRigthMovement().ToString();
 //			//manager.anguloMin.ToString();
 		if (bodyMovements.kneeRigthMovement()<manager.anguloMin) {
 			puede_patear_der = true;
-			print ("aqui no puede:"+controlPelota.puede_levantarse);
+			//print ("aqui no puede:"+controlPelota.puede_levantarse);
 		}
 		if (bodyMovements.kneeRigthMovement()>manager.anguloMax && puede_patear_der==true && controlPelota.puede_levantarse==true) {
-			print ("aqui puede:"+controlPelota.puede_levantarse);
+			//print ("aqui puede:"+controlPelota.puede_levantarse);
 			puede_patear_der = false;
 			manager.repeticionesRestantes++;
 			manager.puntos++;
@@ -165,7 +165,7 @@ public class PlayerFL : MonoBehaviour {
 	}
 
 	public void sensarRodillaIzq(){
-		print ("rodilla izquierda");
+		////print ("rodilla izquierda");
 		manager.debug.text = bodyMovements.kneeRigthMovement().ToString();
 		if (bodyMovements.kneeLeftMovement()<manager.anguloMin) {
 			puede_patear_izq = true;
@@ -181,10 +181,10 @@ public class PlayerFL : MonoBehaviour {
 	}
 
 	public void sensarPieDerecho(){
-		print ("pie derecho");
+		////print ("pie derecho");
 		manager.debug.text = bodyMovements.kneeRigthMovement().ToString();
 		//manager.anguloMin.ToString();
-		//print("angulo: "+bodyMovements.hipRigthFlexMovement());
+		////print("angulo: "+bodyMovements.hipRigthFlexMovement());
 		if (bodyMovements.hipRigthFlexMovement () < manager.anguloMin) {
 			puede_patear_der = true;
 		}
@@ -199,7 +199,7 @@ public class PlayerFL : MonoBehaviour {
 	}
 
 	public void sensarPieIzquierdo(){
-		print ("pie izquierdo");
+		////print ("pie izquierdo");
 		manager.debug.text = bodyMovements.kneeRigthMovement().ToString();
 		if (bodyMovements.hipLeftFlexMovement () < manager.anguloMin) {
 			puede_patear_izq = true;

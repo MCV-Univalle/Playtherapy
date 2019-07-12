@@ -20,7 +20,10 @@ public class HandsManagerPiano : MonoBehaviour
 
     public float pinchThreshold;
     public float minPinchStrength;
-    public float noFingerPinchValue;    
+    public float noFingerPinchValue;
+    public float pinchIndexL;
+
+
 
     private bool leftKeyPressed;
     private bool rightKeyPressed;
@@ -39,7 +42,7 @@ public class HandsManagerPiano : MonoBehaviour
     private Hand rightHand;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         leap = FindObjectOfType<LeapServiceProvider>() as LeapServiceProvider;
         v1 = new Vector2();
@@ -49,9 +52,9 @@ public class HandsManagerPiano : MonoBehaviour
         rightHand = new Hand();
         rightHand.IsLeft = false;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (GameManagerPiano.gm != null && GameManagerPiano.gm.isPlaying)
         {
@@ -242,6 +245,7 @@ public class HandsManagerPiano : MonoBehaviour
             bool pinch3 = true;
             bool pinch4 = true;
 
+
             if (hand.IsLeft && GameManagerPiano.gm.useLeftHand)
             {
                 v1.x = hand.GetThumb().TipPosition.x;
@@ -285,6 +289,7 @@ public class HandsManagerPiano : MonoBehaviour
                 {
                     OnLeftMiddleActivated();
                     isLeftHandPinching = true;
+
                 }
                 else if (distance > noFingerPinchValue)
                     pinch3 = false;
@@ -299,12 +304,15 @@ public class HandsManagerPiano : MonoBehaviour
                 {
                     OnLeftIndexActivated();
                     isLeftHandPinching = true;
+                    pinchIndexL = pinchIndexL++;
+                    Debug.Log(pinchIndexL);
                 }
                 else if (distance > noFingerPinchValue)
                     pinch4 = false;
 
                 if (!pinch1 && !pinch2 && !pinch3 && !pinch4)
                     isLeftHandPinching = false;
+
             }
             else if (hand.IsRight && GameManagerPiano.gm.useRightHand)
             {
@@ -404,6 +412,7 @@ public class HandsManagerPiano : MonoBehaviour
     public void OnLeftMiddleActivated()
     {
         keysManager.KeyBehaviour(leftHand, Finger.FingerType.TYPE_MIDDLE);
+        Debug.Log("Logrado");
     }
 
     public void OnLeftRingActivated()
@@ -435,4 +444,6 @@ public class HandsManagerPiano : MonoBehaviour
     {
         keysManager.KeyBehaviour(rightHand, Finger.FingerType.TYPE_PINKY);
     }
+
+
 }

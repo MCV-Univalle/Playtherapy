@@ -12,8 +12,7 @@ public class EnemyData : MonoBehaviour {
 	public void setMaterialFinger(Material mat,Finger.FingerType finger)
 	{
 		this.transform.GetChild(0).GetComponent<Renderer> ().material = mat;
-		finger_to_destroy = finger;
-
+        finger_to_destroy = finger;
 	}
 
 }

@@ -56,7 +56,7 @@ public class GameManagerPiano : MonoBehaviour
     public List<Finger.FingerType> rightFingers;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         if (gm == null)
             gm = gameObject.GetComponent<GameManagerPiano>();
@@ -73,9 +73,9 @@ public class GameManagerPiano : MonoBehaviour
             mainPanel.SetActive(false);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (isPlaying)
         {
@@ -90,7 +90,6 @@ public class GameManagerPiano : MonoBehaviour
                         timeMillis -= Time.deltaTime * 1000;
                         if (timeMillis < 0)
                             timeMillis = 1000f;
-                        //Debug.Log(currentTime);
                         textCurrentTime.text = (((int)currentTime) / 60).ToString("00") + ":"
                             + (((int)currentTime) % 60).ToString("00") + ":"
                             + ((int)(timeMillis * 60 / 1000)).ToString("00");
@@ -116,7 +115,7 @@ public class GameManagerPiano : MonoBehaviour
             }
             else
             {
-                Debug.Log("not supposed to be seen");
+                //("not supposed to be seen");
             }
         }
         else if (isGameOver)
@@ -126,13 +125,27 @@ public class GameManagerPiano : MonoBehaviour
         }
     }
 
+    public void TutorialPause()
+    {
+        isPlaying = false;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        isPlaying = true;
+        Time.timeScale = 0;
+    }
+
+
     public void StartGame()
     {
         isPlaying = true;
     }
 
-    public void StartGame(bool withTime, float time, int repetitions, List<Finger.FingerType> leftFingers, List<Finger.FingerType> rightFingers, 
-        bool useSimultaneous, float timeBetweenReps, bool useFlexion, float indexAngle, float middleAngle, float ringAngle, float pinkyAngle, 
+    public void StartGame(bool withTime, float time, int repetitions, List<Finger.FingerType> leftFingers, List<Finger.FingerType> rightFingers,
+        bool useSimultaneous, float timeBetweenReps, bool useFlexion, float indexAngle, float middleAngle, float ringAngle, float pinkyAngle,
         float minPinchStrenght)
     {
         this.withTime = withTime;
@@ -152,6 +165,7 @@ public class GameManagerPiano : MonoBehaviour
         handsManager.ringFlexionThreshold = ringAngle;
         handsManager.pinkyFlexionThreshold = pinkyAngle;
         handsManager.minPinchStrength = minPinchStrenght;
+
 
         if (withTime)
         {
@@ -217,18 +231,42 @@ public class GameManagerPiano : MonoBehaviour
             //objTherapy.savePerformance((int)kickScript.BestLeftHipFrontAngle, "4");
             //objTherapy.savePerformance((int)kickScript.BestRightHipFrontAngle, "5");
         }
+        string idMinigame = "11";
 
         int finalScore;
+        GameSessionDAO gameDao = new GameSessionDAO();
+
         if (fullScore > 0)
             finalScore = (int)(((float)score / fullScore) * 100.0f);
         else
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
+        GameSessionController gameCtrl = new GameSessionController();
+
+        int scoreBD = finalScore;
+        if (withTime == true)
+        {
+            gameCtrl.addGameSession(score, 0, totalTime, scoreBD, idMinigame);
+        }
+        if (withTime == false)
+        {
+            gameCtrl.addGameSession(score, totalRepetitions, 0, scoreBD, idMinigame);
+        }
+
+        if (this.useFlexion == true)
+        {
+            sendPerformanceTouch();
+        }
+        else
+        {
+            sendPerformancePinch();
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
-            resultsBestScoreText.text = "Mejor: --";
+            resultsBestScoreText.text = "Mejor:" + gameDao.GetScore(idMinigame) + "%";
 
         if (finalScore <= 60)
         {
@@ -252,9 +290,10 @@ public class GameManagerPiano : MonoBehaviour
             star3.sprite = starOn;
         }
 
-        //StartCoroutine(DelayedFinalAnimation());
-        //resultsPanel.SetActive(true);
+        
+
         StartCoroutine(FinalAnimation());
+
     }
 
     private IEnumerator FinalAnimation()
@@ -268,5 +307,26 @@ public class GameManagerPiano : MonoBehaviour
         //playlist block
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
             PlaylistManager.pm.NextGame();
+    }
+
+    public void sendPerformancePinch()
+    {
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance(keysManager.FpinchMiddleL, "23");
+        performanceCtrl.addPerformance(keysManager.FpinchIndexL, "21");
+        performanceCtrl.addPerformance(keysManager.FpinchRingL, "24");
+        performanceCtrl.addPerformance(keysManager.FpinchPinkL, "22");
+        performanceCtrl.addPerformance(keysManager.FpinchMiddleR, "23");
+        performanceCtrl.addPerformance(keysManager.FpinchIndexR, "21");
+        performanceCtrl.addPerformance(keysManager.FpinchRingR, "24");
+        performanceCtrl.addPerformance(keysManager.FpinchPinkR, "22");
+    }
+    public void sendPerformanceTouch()
+    {
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance((int)handsManager.indexFlexionThreshold, "17");
+        performanceCtrl.addPerformance((int)handsManager.middleFlexionThreshold, "18");
+        performanceCtrl.addPerformance((int)handsManager.pinkyFlexionThreshold, "19");
+        performanceCtrl.addPerformance((int)handsManager.indexFlexionThreshold, "20");
     }
 }

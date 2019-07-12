@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Npgsql;
+
 using System;
 
 public class DBConnection : MonoBehaviour
@@ -32,7 +33,10 @@ public class DBConnection : MonoBehaviour
     void Start()
     {
         Connect();
+        
     }
+    
+
 
     public void Connect()
     {
@@ -42,11 +46,12 @@ public class DBConnection : MonoBehaviour
             "Password=" + password + ";" +
             "Database=" + database;
 
+       
+
         try
         {
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
-            Debug.Log("Succesfully connected to the database");
 
             if (cameraAnimator != null)
                 cameraAnimator.enabled = true;
@@ -66,12 +71,12 @@ public class DBConnection : MonoBehaviour
             "Username=" + username + ";" +
             "Password=" + password + ";" +
             "Database=" + database;
+        
 
         try
         {
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
-            Debug.Log("Succesfully connected to the database");
 
             if (cameraAnimator != null)
                 cameraAnimator.enabled = true;

@@ -68,6 +68,9 @@ TagManager:
   - ShowSwordLeft
   - ShowSwordRIght
   - Help
+  - Floor
+  - KinectPlayer
+  - IPosition
   layers:
   - Default
   - TransparentFX

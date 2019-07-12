@@ -53,12 +53,18 @@ public class GameManagerMoles : MonoBehaviour
     public float timeBetweenMoles;
     public GameModeMoles gameMode;
     public float minGrabStrenght;
-
     private List<Finger.FingerType> leftFingers;
     private List<Finger.FingerType> rightFingers;
     public Collider[] leftFingerTips;
     public Collider[] rightFingerTips;
     public Collider[] grabColliders;
+    public int touchIndexL;
+    public int touchePinkL;
+    public int touchRightL;
+    public int touchMiddleL;
+    public int toucheThumbL;
+    public int countTotalGrabL;
+    public int countTotalGrabR;
 
     // Use this for initialization
     void Start()
@@ -131,9 +137,26 @@ public class GameManagerMoles : MonoBehaviour
         }
     }
 
+    public void TutorialPause()
+    {
+        isPlaying = false;
+
+        Time.timeScale = 1;
+    }
+    public void EndTutorial()
+    {
+
+        isPlaying = true;
+        molesManager.NextMole();
+
+
+        Time.timeScale = 0;
+    }
+
     public void StartGame(bool withTime, float time, int repetitions, List<Finger.FingerType> leftFingers, List<Finger.FingerType> rightFingers,
         float timeBetweenReps, float moleUptime, GameModeMoles gameMode, float minGrabStrenght)
     {
+        Debug.Log(gameMode);
         this.withTime = withTime;
         totalTime = time;
         currentTime = totalTime;
@@ -187,7 +210,7 @@ public class GameManagerMoles : MonoBehaviour
         }
 
         mainPanel.SetActive(true);
-        pausePanel.SetActive(true);        
+        pausePanel.SetActive(true);
 
         music.Play();
         isPlaying = true;
@@ -217,7 +240,7 @@ public class GameManagerMoles : MonoBehaviour
     private void EndGame()
     {
         mainPanel.SetActive(false);
-        
+
         TherapySessionObject objTherapy = TherapySessionObject.tso;
 
         if (objTherapy != null)
@@ -228,6 +251,8 @@ public class GameManagerMoles : MonoBehaviour
             //objTherapy.savePerformance((int)kickScript.BestLeftHipFrontAngle, "4");
             //objTherapy.savePerformance((int)kickScript.BestRightHipFrontAngle, "5");
         }
+        string idMinigame = "8";
+        GameSessionDAO gameDao = new GameSessionDAO();
 
         int finalScore;
         if (fullScore > 0)
@@ -235,12 +260,31 @@ public class GameManagerMoles : MonoBehaviour
         else
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
-        
+
+        GameSessionController gameCtrl = new GameSessionController();
+
+        if (withTime == true)
+        {
+            gameCtrl.addGameSession(finalScore, 0, totalTime, fullScore, idMinigame);
+        }
+        if (withTime == false)
+        {
+            gameCtrl.addGameSession(finalScore, totalRepetitions, 0, fullScore, idMinigame);
+        }
+        if (gameMode == GameModeMoles.Touch)
+        {
+            sendPerformanceTouch();
+        }
+        else
+        {
+            sendPerformancePinch();
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
-            resultsBestScoreText.text = "Mejor: --";
-        
+            resultsBestScoreText.text = "Mejor:" + gameDao.GetScore(idMinigame) + "%";
+
         if (finalScore <= 60)
         {
             //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
@@ -263,9 +307,11 @@ public class GameManagerMoles : MonoBehaviour
             star3.sprite = starOn;
         }
 
-        //StartCoroutine(DelayedFinalAnimation());
-        //resultsPanel.SetActive(true);
+       
+
         StartCoroutine(FinalAnimation());
+
+
     }
 
     private IEnumerator FinalAnimation()
@@ -280,7 +326,7 @@ public class GameManagerMoles : MonoBehaviour
 
         float startPitch = music.pitch;
         float finalPitch = 0.8f;
-        Tween<float> tween = gameObject.Tween("pitch", startPitch, finalPitch, 3f, TweenScaleFunctions.CubicEaseInOut, 
+        Tween<float> tween = gameObject.Tween("pitch", startPitch, finalPitch, 3f, TweenScaleFunctions.CubicEaseInOut,
             (t) =>
             {
                 music.pitch = t.CurrentValue;
@@ -303,6 +349,112 @@ public class GameManagerMoles : MonoBehaviour
 
         //playlist block
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
             PlaylistManager.pm.NextGame();
+        }
+    }
+
+    public void sendPerformancePinch()
+    {
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance(this.AllGrabLeft, "30");
+        performanceCtrl.addPerformance(this.AllGrabRigth, "10");
+
+    }
+    public void sendPerformanceTouch()
+    {
+        MoleBodyBehaviour molesBh = new MoleBodyBehaviour();
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance(this.FpinchMiddleL, "27");
+        performanceCtrl.addPerformance(this.FpinchIndexL, "26");
+        performanceCtrl.addPerformance(this.FpinchRingL, "25");
+        performanceCtrl.addPerformance(this.FpinchPinkL, "28");
+        performanceCtrl.addPerformance(this.FpinchThumbL, "29");
+
+    }
+    public int FpinchIndexL
+    {
+        get
+        {
+            return touchIndexL;
+        }
+
+        set
+        {
+            touchIndexL = value;
+        }
+    }
+    public int FpinchMiddleL
+    {
+        get
+        {
+            return touchMiddleL;
+        }
+
+        set
+        {
+            touchMiddleL = value;
+        }
+    }
+    public int FpinchRingL
+    {
+        get
+        {
+            return touchRightL;
+        }
+
+        set
+        {
+            touchRightL = value;
+        }
+    }
+    public int FpinchPinkL
+    {
+        get
+        {
+            return touchePinkL;
+        }
+
+        set
+        {
+            touchePinkL = value;
+        }
+    }
+
+    public int FpinchThumbL
+    {
+        get
+        {
+            return toucheThumbL;
+        }
+
+        set
+        {
+            toucheThumbL = value;
+        }
+    }
+    public int AllGrabRigth
+    {
+        get
+        {
+            return countTotalGrabR;
+        }
+
+        set
+        {
+            countTotalGrabR = countTotalGrabR + value;
+        }
+    }
+    public int AllGrabLeft
+    {
+        get
+        {
+            return countTotalGrabL;
+        }
+
+        set
+        {
+            countTotalGrabL = countTotalGrabL + value;
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace GuerraMedieval
         public float stepSpawnTime = 0.5f;
     }
 
-    public class ParametersManagerMedieval : MonoBehaviour
+    public class ParametersManagerMedieval : MonoBehaviour, IParametersManager
     {
         public Dropdown dropdownGameType;
         public Slider sliderGameType;
@@ -50,7 +50,7 @@ namespace GuerraMedieval
         }
 
         // Update is called once per frame
-        public void StarGame()
+        public void StartGame()
         {
             bool withTime = false;
             float time = 0;

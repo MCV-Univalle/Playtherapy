@@ -32,7 +32,6 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Name: " + name + " " + lastname);
                 return therapist;
             }
             else
@@ -43,7 +42,6 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return null;
             }
         }
@@ -51,6 +49,47 @@ public class TherapistDAO
         {
             Debug.Log("Database connection not established");
             return null;
+        }
+    }
+
+    public int GetIdTherapy(string idTherapy)
+    {
+        if (DBConnection.dbconn != null)
+        {
+            NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+            string sql = ("SELECT id FROM auth_user WHERE username =  '" + idTherapy + "';");
+            dbcmd.CommandText = sql;
+
+            NpgsqlDataReader reader = dbcmd.ExecuteReader();
+            if (reader.Read())
+            {
+                //string numero_doc = (int)reader["id_num"];
+                int id = (int)reader["id"];
+
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                return id;
+            }
+            else
+            {
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                return 0;
+            }
+        }
+        else
+        {
+            Debug.Log("Database connection not established");
+            return 0;
         }
     }
 }

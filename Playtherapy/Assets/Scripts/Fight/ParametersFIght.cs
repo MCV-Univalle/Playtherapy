@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class ParametersFIght : MonoBehaviour {
+public class ParametersFIght : MonoBehaviour, IParametersManager {
 
     private GameControllerFight gameController;
     public GameObject ParametersPanel;
-    public GameObject ResultsPanel;
+    //public GameObject ResultsPanel;
     public GameObject TutorialPanel;
-    public GameObject Eraser;
     public Dropdown Shoulder;
 
     float angleMin;
@@ -92,7 +91,7 @@ public class ParametersFIght : MonoBehaviour {
 
 
 
-                current_velocity.text = ((float)_velocity_game / 10 * 100).ToString("0") + "%";
+                current_velocity.text = (((float)_velocity_game -4) / 6 * 100).ToString("0") + "%";
 
 
 
@@ -105,42 +104,18 @@ public class ParametersFIght : MonoBehaviour {
    
 
     // Use this for initialization
-    void Start() {
+    //void Start() {
 
-        toggleF.isOn = false;
-        toggleFA.isOn = true;
-        toggleEX.isOn = false;
-        _velocity_game = slider_velocity.minValue;
-        ResultsPanel.SetActive(true);
+        
 
-        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameControllerFight");
-        if (gameControllerObject != null)
-        {
-
-            gameController = gameControllerObject.GetComponent<GameControllerFight>();
-
-
-        }
-
-
-        if (gameController == null)
-
-        {
-
-            Debug.Log("Cannot find GameController script");
-        }
-        ResultsPanel.SetActive(false);
-
-    }
+    //}
     public void StartAgain()
     {
 
         GameObject ParticlesParent;
-        Start();
         ParametersPanel.SetActive(true);
-        ResultsPanel.SetActive(false);
-        Eraser.SetActive(true);
-        gameController.InGame = false;
+        //ResultsPanel.SetActive(false);
+        //Eraser.SetActive(true);
 
 
 
@@ -261,46 +236,51 @@ public class ParametersFIght : MonoBehaviour {
 
 
 
-    public void StartGameButton() {
+    public void StartGame()
+    {
+        // toggleF.isOn = false;
+        //toggleFA.isOn = true;
+        //toggleEX.isOn = false;
+
+        if (_velocity_game == 0) {
+            _velocity_game = slider_velocity.minValue;
+        }
+        
 
         status = toggleF.isOn;
         statusEX = toggleEX.isOn;
         statusFA = toggleFA.isOn;
 
-
-        if (angleMin > angleMax) {
-
-            if (numberRepetitions.value == 0)
+        if (GameControllerFight.gc != null)
+        {
+            if (angleMin > angleMax)
             {
+                if (numberRepetitions.value == 0)
+                {
+                    GameControllerFight.gc.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA, Shoulder.value);
+                }
+                else
+                {
+                    GameControllerFight.gc.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA, Shoulder.value);
+                }
 
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA,Shoulder.value);
             }
             else
             {
-                gameController.StartGame(angleMin, angleMin + 1, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA,Shoulder.value);
+                if (numberRepetitions.value == 0)
+                {
+
+                    GameControllerFight.gc.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA, Shoulder.value);
+                }
+                else
+                {
+                    GameControllerFight.gc.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA, Shoulder.value);
+                }
             }
-
-        }
-        else {
-
-            if (numberRepetitions.value == 0)
-            {
-
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _time_game * 60, _velocity_game, status, statusEX, statusFA,Shoulder.value);
-            }
-            else
-            {
-                gameController.StartGame(angleMin, angleMax, numberRepetitions.value, _repetitions, _velocity_game, status, statusEX, statusFA,Shoulder.value);
-            }
-
-
         }
 
 
         //print(status + "," + statusEX + "," + statusFA);
-        ParametersPanel.SetActive(false);
-
-
     }
 
     public bool status;

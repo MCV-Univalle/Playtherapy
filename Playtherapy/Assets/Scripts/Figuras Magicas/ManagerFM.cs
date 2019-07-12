@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 // for your own scripts make sure to add the following line:
 using DigitalRuby.Tween;
-public class ManagerFM : MonoBehaviour {
+public class ManagerFM : MonoBehaviour{
 
 
 
@@ -16,9 +16,11 @@ public class ManagerFM : MonoBehaviour {
 	float jugabilidad_number;
 	float _timeBetweenEnemies;
 	float _percentFigureMin;
+    float range;
+    TinyPauseScript pausa;
 
-	//para la pantalla de parametros
-	Text time_enemies;
+    //para la pantalla de parametros
+    Text time_enemies;
 	Text txt_jugabilidad;
 	Text txt_scaleMin;
 	Button bt_play;
@@ -71,7 +73,7 @@ public class ManagerFM : MonoBehaviour {
 		txt_jugabilidad = GameObject.Find ("txt_jugabilidadFM").GetComponent<Text>();
 		bt_play =  GameObject.Find ("bt_playFM").GetComponent<Button>();
 		results_canvas = GameObject.Find ("results_canvas");
-		parameters_canvas = GameObject.Find ("parameters_canvasFM");
+		parameters_canvas = GameObject.Find ("Figuras Magicas Parameters Panel");
 		tutorial_canvas = GameObject.Find ("tutorial_canvas");
 		timeSlider = GameObject.Find ("slideTimeUI").GetComponent<Slider>();
 		spawnnerEnemies = GameObject.Find ("Spawnner").GetComponent<SpawnnerFM>();
@@ -112,10 +114,16 @@ public class ManagerFM : MonoBehaviour {
 
 
 	void Start () {
+
+        if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+        {
+            parameters_canvas.SetActive(true);
+        }
         if (gm == null)
         {
             gm = this;
         }
+        pausa = FindObjectOfType<TinyPauseScript>();
         gestureManager = GameObject.Find ("GesturesManager");
 		gestureManager.SetActive (false);
 
@@ -223,6 +231,7 @@ public class ManagerFM : MonoBehaviour {
       
 		
         */
+        parameters_canvas.SetActive(false);
         spawnnerEnemies.gestures_index_used = list_gestures_index;
 
         timer_game = -1;
@@ -236,14 +245,12 @@ public class ManagerFM : MonoBehaviour {
 
 		}
 
-
-		TweenHideParameters ();
+        
 	}
 
-	public void startGame(int mj= 1,float jugabilidad=3,float time_enemies=3)
+	public void StartGame(int mj= 1,float jugabilidad=3,float time_enemies=3 )
 	{
-		
-		modo_juego = mj;
+        modo_juego = mj;
 		select_jugabilidad = jugabilidad;
 		timeBetweenEnemies = time_enemies;
 
@@ -254,26 +261,85 @@ public class ManagerFM : MonoBehaviour {
 
 	public void EndGame()
 	{
-		saveData ();
+		//saveData ();
 
 		int performance_game = Mathf.RoundToInt (((float)score_script.score_obtain / (float)score_script.score_max) * 100);
 		int performance_loaded_BD = 0;
-		results_script.updateData (performance_game, performance_loaded_BD);
+        string idMinigame = "6";
+        results_script.Minigame = idMinigame;
+        GameSessionController gameCtrl = new GameSessionController();
+        if (modo_juego == 1)
+        {
+            gameCtrl.addGameSession(performance_game, select_jugabilidad, 0, score_script.score_obtain, idMinigame);
+
+        }
+        if (modo_juego == 1)
+        {
+            gameCtrl.addGameSession(performance_game, 0, select_jugabilidad, score_script.score_obtain, idMinigame);
+
+        }
+        results_script.updateData (performance_game, performance_loaded_BD);
 		gestureManager.SetActive(false);
 		spawnnerEnemies.can_spawn = false;
 		hasStart = false;
-		//paramenters_canvas.SetActive (true);
-		FinalAnimation ();
+        //paramenters_canvas.SetActive (true);
 
-	}
+        PerformanceController performanceCtrl = new PerformanceController();
+        performanceCtrl.addPerformance((int)Range, "38");
+
+        FinalAnimation();
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+        {
+            PlaylistManager.pm.NextGame();
+        }
+
+    }
 	public void RetryGame()
 	{
 		TweenHideResults ();
-		TweenShowParameters ();
+        parameters_canvas.SetActive(true);
+        TweenShowParameters ();
 
 
 
 	}
+    private void CloseTutorial()
+    {
+        if (hasStart == false)
+        {
+            TweenHideTutorial();
+            TweenShowParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.zero;
+            pausa.gameObject.SetActive(true);
+        }
+
+
+
+    }
+    public void OpenTutorial()
+    {
+
+        tutorial_page = 0;
+        putPageTutorial();
+
+        if (hasStart == false)
+        {
+            TweenShowTutorial();
+            TweenHideParameters();
+        }
+        else
+        {
+            tutorial_canvas.transform.localScale = Vector3.one;
+            pausa.gameObject.SetActive(false);
+        }
+
+    }
+
+
+    /*
 	private void CloseTutorial()
 	{
 		TweenHideTutorial ();
@@ -288,8 +354,8 @@ public class ManagerFM : MonoBehaviour {
 		putPageTutorial ();
 		TweenShowTutorial ();
 		TweenHideParameters ();
-	}
-	public void putPageTutorial()
+	}*/
+    public void putPageTutorial()
 	{
 
 		foreach (GameObject obj in tutorial_pages_array)
@@ -620,4 +686,17 @@ public class ManagerFM : MonoBehaviour {
 		}
 
 	}
+
+    public float Range
+    {
+        get
+        {
+            return range;
+        }
+
+        set
+        {
+            range = value;
+        }
+    }
 }

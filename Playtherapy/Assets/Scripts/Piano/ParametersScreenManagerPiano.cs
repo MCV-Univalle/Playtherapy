@@ -27,6 +27,7 @@ public class ParametersScreenManagerPiano : MonoBehaviour, IParametersManager
     public Slider sliderMinPinchStrenght;
     public Text textMinPinchStrenght;
     public GameObject[] togglesFingers;
+    public GameObject GameSessionController;
 
     private void Start()
     {
@@ -90,7 +91,7 @@ public class ParametersScreenManagerPiano : MonoBehaviour, IParametersManager
 
         if (GameManagerPiano.gm != null)
         {
-            GameManagerPiano.gm.StartGame(withTime, time, repetitions, leftFingers, rightFingers, useSimultaneous, timeBetweenReps, 
+            GameManagerPiano.gm.StartGame(withTime, time, repetitions, leftFingers, rightFingers, useSimultaneous, timeBetweenReps,
                 withFlexion, indexAngle, middleAngle, ringAngle, pinkyAngle, minPinchStrenght);
             if (parametersPanel != null)
                 parametersPanel.SetActive(false);
@@ -182,7 +183,7 @@ public class ParametersScreenManagerPiano : MonoBehaviour, IParametersManager
             if (togglesFingers[i].GetComponent<Toggle>().isOn)
                 counter++;
         }
-        
+
         left = !(counter == 0);
         //toggleLeftHand.isOn = !(counter == 0);
 
@@ -193,7 +194,7 @@ public class ParametersScreenManagerPiano : MonoBehaviour, IParametersManager
             if (togglesFingers[i].GetComponent<Toggle>().isOn)
                 counter++;
         }
-        
+
         right = !(counter == 0);
         //toggleRightHand.isOn = !(counter == 0);
 
@@ -240,4 +241,5 @@ public class ParametersScreenManagerPiano : MonoBehaviour, IParametersManager
             }
         }
     }
+
 }

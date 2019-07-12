@@ -9,6 +9,7 @@ public class Contact : MonoBehaviour {
 	public int scorevalue;
 	private GameController gameController;
 	public GameObject ball_particles;
+
     private AudioSource source;
 	private bool pivote;
 
@@ -31,23 +32,21 @@ public class Contact : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
         
-        if (other.tag == "RightHand" && GameController.gc.selectArm <= 50) {
+        if (other.tag == "RightHand" && GameController.gc.selectArm <= 50 && GameController.gc.HandInPosition) {
             
           
             Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
 			GameController.gc.AddScore (scorevalue);
-			Debug.Log (GameController.gc.selectArm );
 
             
 
 
             Destroy (gameObject);
 		}
-        if (other.tag == "LeftHand" && GameController.gc.selectArm > 50) {
+        if (other.tag == "LeftHand" && GameController.gc.selectArm > 50 && GameController.gc.HandInPosition) {
     
             Destroy(Instantiate (ball_particles, transform.position, transform.rotation),2.0f);
 			GameController.gc.AddScore (scorevalue);
-			Debug.Log (GameController.gc.selectArm );
             
 
 
@@ -64,6 +63,16 @@ public class Contact : MonoBehaviour {
 
 
 		}
-		//Destroy (gameObject);
-	}
+        if (other.tag == "eraser")
+        {
+
+
+
+            Destroy(gameObject);
+
+
+
+
+        }
+    }
 }

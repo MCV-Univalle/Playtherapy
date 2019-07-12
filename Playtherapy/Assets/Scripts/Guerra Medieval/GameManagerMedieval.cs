@@ -22,7 +22,8 @@ namespace GuerraMedieval
             PLAYING,
             GAMEOVER,
             PAUSE,
-            STARTING
+            STARTING,
+            END
         }
         private GameState gameState;
         private bool withTime;                              // If the game is with time or repetitions
@@ -67,6 +68,11 @@ namespace GuerraMedieval
         // Use this for initialization
         void Start()
         {
+            if (PlaylistManager.pm == null || (PlaylistManager.pm != null && !PlaylistManager.pm.active))
+            {
+                parametersPanel.SetActive(true);
+                mainPanel.SetActive(false);
+            }
             if (gmm == null)
             {
                 gmm = this.gameObject.GetComponent<GameManagerMedieval>();
@@ -124,6 +130,7 @@ namespace GuerraMedieval
                         break;
                     case GameState.GAMEOVER:
                         {
+                            gameState = GameState.END;
                             EndGame();
                         }
                         break;
@@ -135,6 +142,11 @@ namespace GuerraMedieval
                             }
                         }
                         break;
+                    default:
+                        {
+
+                        }
+                        break;
                 }
             }
             else if (!leapPanel.activeSelf)
@@ -142,8 +154,10 @@ namespace GuerraMedieval
                 leapPanel.SetActive(true);
                 Time.timeScale = 0;
             }
-            
+
         }
+
+
 
         public void StartGame(bool withTime, float time, int repetitions, float spawnTime, bool withGrab,
             bool withFlexionExtension, bool withPronation, bool withBothHands, float flexion, float extension,
@@ -153,7 +167,6 @@ namespace GuerraMedieval
 
             totalTime = time;
             currentTime = totalTime;
-            totalRepetitions = repetitions;
             remainingRepetitions = totalRepetitions;
             repetitionsText.text = remainingRepetitions.ToString();
             this.spawnTime = spawnTime;
@@ -233,6 +246,8 @@ namespace GuerraMedieval
             //    objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
             //    objTherapy.saveLastGameSession();
             //}
+            string idMinigame = "10";
+            GameSessionDAO gameDao = new GameSessionDAO();
 
             int finalScore;
             if (totalRepetitions == 0)
@@ -244,9 +259,20 @@ namespace GuerraMedieval
                 finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
             }
             resultsScoreText.text = "Desempeño: " + finalScore + "%";
-
+            if (this.withTime == true)
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, 0, this.totalTime, score, idMinigame);
+            }
+            else
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, this.totalRepetitions, 0, score, idMinigame);
+            }
             if (objTherapy != null)
                 resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+            else
+                resultsBestScoreText.text = "Mejor: " + gameDao.GetScore(idMinigame) + "%";
 
             if (finalScore <= 60)
             {
@@ -271,6 +297,26 @@ namespace GuerraMedieval
             }
 
             resultsPanel.SetActive(true);
+
+    
+            SendPerformance();
+
+            if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+            {
+                PlaylistManager.pm.NextGame();
+            }
+        }
+
+        public void SendPerformance()
+        {
+            if (withFlexionExtension == true)
+            {
+                PerformanceController performanceCtrl = new PerformanceController();
+                performanceCtrl.addPerformance((int)this.Flexion, "31");
+                performanceCtrl.addPerformance((int)this.Extension, "32");
+
+            }      
+
         }
 
         public GameState GetGameState()

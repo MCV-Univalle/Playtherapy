@@ -14,6 +14,10 @@ public class Performance
         this.Movement_id = movement_id;
         this.Game_session_id = game_session_id;
     }
+    public Performance()
+    {
+
+    }
 
     public int Angle
     {
