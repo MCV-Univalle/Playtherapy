@@ -389,13 +389,13 @@ public class GameControllerFight : MonoBehaviour
         InGame = false;
         int result = Mathf.RoundToInt((score / total) * 100);
         string idMinigame = "2";
+        GameSessionController gameCtrl = new GameSessionController();
+        gameCtrl.addGameSession(result, this.FinalTotalRepetition, this.FinalTotalTime, score, idMinigame);
         results.Minigame = idMinigame;
         results = ResultPanel.GetComponent<PutDataResults>();
         results.updateData(result, 0);
        
         int angle = (int)Maxangle;
-        GameSessionController gameCtrl = new GameSessionController();
-        gameCtrl.addGameSession(result, this.FinalTotalRepetition, this.FinalTotalTime, score, idMinigame);
         PerformanceController performanceCtrl = new PerformanceController();
         performanceCtrl.addPerformance(angle, this.GetMovement());
 

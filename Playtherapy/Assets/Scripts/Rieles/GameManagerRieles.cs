@@ -279,33 +279,6 @@ public class GameManagerRieles : MonoBehaviour
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
-        if (objTherapy != null)
-            resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
-        else
-            resultsBestScoreText.text = "Mejor:"+ gameDao.GetScore(idMiniGame) + "%";
-
-        if (finalScore <= 60)
-        {
-            //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
-            star1.sprite = starOn;
-            star2.sprite = starOff;
-            star3.sprite = starOff;
-        }
-        else if (finalScore <= 90)
-        {
-            //resultMessage.GetComponent<TextMesh>().text = "¡Grandioso!";
-            star1.sprite = starOn;
-            star2.sprite = starOn;
-            star3.sprite = starOff;
-        }
-        else if (finalScore <= 100)
-        {
-            //resultMessage.GetComponent<TextMesh>().text = "¡Increíble!";
-            star1.sprite = starOn;
-            star2.sprite = starOn;
-            star3.sprite = starOn;
-        }
-
         //int angle = (int)_angleLeft;
         GameSessionController gameCtrl = new GameSessionController();
         PerformanceController performanceCtrl = new PerformanceController();
@@ -398,6 +371,32 @@ public class GameManagerRieles : MonoBehaviour
             }
         }
 
+        if (objTherapy != null)
+            resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+        else
+            resultsBestScoreText.text = "Mejor:"+ gameDao.GetScore(idMiniGame) + "%";
+
+        if (finalScore <= 60)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
+            star1.sprite = starOn;
+            star2.sprite = starOff;
+            star3.sprite = starOff;
+        }
+        else if (finalScore <= 90)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Grandioso!";
+            star1.sprite = starOn;
+            star2.sprite = starOn;
+            star3.sprite = starOff;
+        }
+        else if (finalScore <= 100)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Increíble!";
+            star1.sprite = starOn;
+            star2.sprite = starOn;
+            star3.sprite = starOn;
+        }
 
         StartCoroutine(DelayedFinalAnimation());
         //resultsPanel.SetActive(true);

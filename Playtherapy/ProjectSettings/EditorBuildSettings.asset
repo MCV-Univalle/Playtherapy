@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Main Menu/Main Menu.unity
     guid: c248fb201d491a840a494697dcf64d66
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Futbol Libre/Futbol Libre.unity
     guid: c0b82afbc71699043ae461c5c0633d8f
   - enabled: 1

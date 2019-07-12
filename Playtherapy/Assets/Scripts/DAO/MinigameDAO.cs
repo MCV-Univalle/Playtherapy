@@ -29,7 +29,6 @@ public class MinigameDAO : MonoBehaviour
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Minigame: " + name);
                 return minigame;
             }
             else
@@ -40,7 +39,6 @@ public class MinigameDAO : MonoBehaviour
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return null;
             }
         }
@@ -75,7 +73,6 @@ public class MinigameDAO : MonoBehaviour
                 Minigame minigame = new Minigame(id, name, description);
                 minigames.Add(minigame);
 
-                Debug.Log("Minigame: " + name);
             }
 
             // clean up

@@ -17,7 +17,8 @@ public class StartTherapySession : MonoBehaviour
     public InputField inputDescription;
     public InputField inputTherapyId;
     public InputField inputPatientId;
-
+    public bool statePatient;
+    public bool stateTherapist;
     public TherapySessionObject tso;
 
     // used for transition between menus
@@ -47,20 +48,32 @@ public class StartTherapySession : MonoBehaviour
 
     public void StartTherapy()
     {
-        if (tso != null)
+        QueryIdTherapy();
+        QueryIdPatient();
+
+        if (inputTherapyId.text != "" && inputPatientId.text != "")
         {
-            tso.Login();
-            // InsertTherapySession();
-            DisplayPatientInfo();
-            DisplayTherapistInfo();
-            LoadMinigames(true, false, false, true, true, false);
+            if (statePatient == true && stateTherapist == true)
+            {
+                tso.Login();
+                DisplayPatientInfo();
+                DisplayTherapistInfo();
+                LoadMinigames(true, false, false, true, true, false);
+            }
+            else
+            {
+                Debug.Log("Campos incorrectos");
+            }
         }
-        else
-        {
-            Debug.Log("No therapy session object found");
-            LoadMinigames(true, false, false, true, true, false);
-        }
-    }
+
+            else
+            {
+                Debug.Log("Campos vacios ");
+            }
+
+
+     }
+   
 
     public void SaveFullTherapy()
     {
@@ -141,8 +154,14 @@ public class StartTherapySession : MonoBehaviour
     public string QueryIdPatient()
     {
         PatientDAO patientDAO = new PatientDAO();
+        Debug.Log(inputPatientId.text);
         int idPatient = patientDAO.GetIdPatient(inputPatientId.text);
         string idPatientStr = idPatient.ToString();
+        if(idPatientStr != "0")
+        {
+            statePatient = true;
+            Debug.Log(statePatient);
+        }
         return idPatientStr;
     }
     public string QueryIdTherapy()
@@ -150,6 +169,12 @@ public class StartTherapySession : MonoBehaviour
         TherapistDAO therapyDAO = new TherapistDAO();
         int idTherapy = therapyDAO.GetIdTherapy(inputTherapyId.text);
         string idTherapyStr = idTherapy.ToString();
+        if (idTherapyStr != "0")
+        {
+            stateTherapist = true;
+            Debug.Log(stateTherapist);
+
+        }
         return idTherapyStr;
     }
 
@@ -157,6 +182,8 @@ public class StartTherapySession : MonoBehaviour
     {
         string date = DateTime.Now.ToString("yyyy-MM-dd");
         TherapySessionController therapySessionCtrl = new TherapySessionController();
-        therapySessionCtrl.AddTherapy(date, inputObjective.text, inputDescription.text, QueryIdPatient(), QueryIdTherapy());
+        string patient = QueryIdPatient();
+        string therapist = QueryIdTherapy();
+        therapySessionCtrl.AddTherapy(date, inputObjective.text, inputDescription.text, patient , therapist);
     }
 }

@@ -32,7 +32,6 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Name: " + name + " " + lastname);
                 return therapist;
             }
             else
@@ -43,7 +42,6 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return null;
             }
         }
@@ -85,7 +83,6 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0;
             }
         }

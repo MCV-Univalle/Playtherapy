@@ -52,7 +52,6 @@ public class DBConnection : MonoBehaviour
         {
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
-            Debug.Log("Succesfully connected to the database");
 
             if (cameraAnimator != null)
                 cameraAnimator.enabled = true;
@@ -78,7 +77,6 @@ public class DBConnection : MonoBehaviour
         {
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
-            Debug.Log("Succesfully connected to the database");
 
             if (cameraAnimator != null)
                 cameraAnimator.enabled = true;

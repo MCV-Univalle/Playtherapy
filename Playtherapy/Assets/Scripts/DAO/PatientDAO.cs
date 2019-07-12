@@ -41,7 +41,6 @@ public class PatientDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Name: " + name + " " + lastname);
                 return patient;                
             }
             else
@@ -52,7 +51,6 @@ public class PatientDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return null;
             }            
         }
@@ -92,7 +90,6 @@ public class PatientDAO
                 patients = new List<Patient>();
                 patients.Add(patient);
 
-                Debug.Log("Name: " + name + " " + lastname);                
             }
 
             // clean up
@@ -117,7 +114,6 @@ public class PatientDAO
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
             string sql = ("SELECT id FROM patient_patient WHERE id_num =  '" + idPatient + "';");
-            Debug.Log(sql);
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();
@@ -142,7 +138,6 @@ public class PatientDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0;
             }
         }

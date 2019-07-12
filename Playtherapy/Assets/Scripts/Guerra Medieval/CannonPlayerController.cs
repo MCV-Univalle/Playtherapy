@@ -282,7 +282,6 @@ namespace GuerraMedieval
                 step = (plane.transform.position.z / canonBallVelocity.magnitude) / (trayectoryBalls.Length - 1);
                 gravity = 0;
             }
-            //Debug.Log(step);
 
             if (trayectoryTime < step)
             {

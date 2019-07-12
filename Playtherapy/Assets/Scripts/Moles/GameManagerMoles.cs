@@ -261,6 +261,25 @@ public class GameManagerMoles : MonoBehaviour
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
+        GameSessionController gameCtrl = new GameSessionController();
+
+        if (withTime == true)
+        {
+            gameCtrl.addGameSession(finalScore, 0, totalTime, fullScore, idMinigame);
+        }
+        if (withTime == false)
+        {
+            gameCtrl.addGameSession(finalScore, totalRepetitions, 0, fullScore, idMinigame);
+        }
+        if (gameMode == GameModeMoles.Touch)
+        {
+            sendPerformanceTouch();
+        }
+        else
+        {
+            sendPerformancePinch();
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
@@ -288,24 +307,7 @@ public class GameManagerMoles : MonoBehaviour
             star3.sprite = starOn;
         }
 
-        GameSessionController gameCtrl = new GameSessionController();
-
-        if (withTime == true)
-        {
-            gameCtrl.addGameSession(finalScore, 0, totalTime, fullScore, idMinigame);
-        }
-        if (withTime == false)
-        {
-            gameCtrl.addGameSession(finalScore, totalRepetitions, 0, fullScore, idMinigame);
-        }
-        if (gameMode == GameModeMoles.Touch)
-        {
-            sendPerformanceTouch();
-        }
-        else
-        {
-            sendPerformancePinch();
-        }
+       
 
         StartCoroutine(FinalAnimation());
 

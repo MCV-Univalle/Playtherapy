@@ -10,4 +10,5 @@ public class LoadLevel : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(levelToLoad);
         Time.timeScale = 1;
     }
+
 }

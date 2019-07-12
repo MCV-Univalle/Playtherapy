@@ -268,12 +268,6 @@ public class ManagerFM : MonoBehaviour{
         string idMinigame = "6";
         results_script.Minigame = idMinigame;
         GameSessionController gameCtrl = new GameSessionController();
-
-        results_script.updateData (performance_game, performance_loaded_BD);
-		gestureManager.SetActive(false);
-		spawnnerEnemies.can_spawn = false;
-		hasStart = false;
-        //paramenters_canvas.SetActive (true);
         if (modo_juego == 1)
         {
             gameCtrl.addGameSession(performance_game, select_jugabilidad, 0, score_script.score_obtain, idMinigame);
@@ -284,6 +278,12 @@ public class ManagerFM : MonoBehaviour{
             gameCtrl.addGameSession(performance_game, 0, select_jugabilidad, score_script.score_obtain, idMinigame);
 
         }
+        results_script.updateData (performance_game, performance_loaded_BD);
+		gestureManager.SetActive(false);
+		spawnnerEnemies.can_spawn = false;
+		hasStart = false;
+        //paramenters_canvas.SetActive (true);
+
         PerformanceController performanceCtrl = new PerformanceController();
         performanceCtrl.addPerformance((int)Range, "38");
 

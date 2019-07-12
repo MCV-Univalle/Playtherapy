@@ -460,24 +460,20 @@ public class GameController : MonoBehaviour
         string idMinigame = "1";
         //print(lanzamiento);
         movimientoLateral = false;
-        results = ResultPanel.GetComponent<PutDataResults>();
-        results.Minigame = idMinigame;
-        results.updateData(result, 0);
         int angle = (int)_angleLeft;
         GameSessionController gameCtrl = new GameSessionController();
         gameCtrl.addGameSession(score, this.FinalTotalRepetition, this.FinalTotalTime, result, idMinigame);
         PerformanceController performanceCtrl = new PerformanceController();
         performanceCtrl.addPerformance(angle, this.GetMovement());
+        results = ResultPanel.GetComponent<PutDataResults>();
+        results.Minigame = idMinigame;
+        results.updateData(result, 0);
+
 
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
 
         {
             PlaylistManager.pm.NextGame();
-        }
-        else
-
-        {
-            btObservation.SetActive(true);
         }
 
     }
@@ -713,13 +709,11 @@ public class GameController : MonoBehaviour
 
                 //Derecho
                 selectArm = 30;
-                Debug.Log(selectArm);
             }
             if (ArmSelection == 2)
             {
                 //Izquierdo
                 selectArm = 80;
-                Debug.Log(selectArm);
 
             }
 
@@ -917,7 +911,6 @@ public class GameController : MonoBehaviour
                     //Derecho
                     select = 30;
                     selectArm = 30;
-                    Debug.Log("Derecho");
 
                 }
                 if (ArmSelection == 2)
@@ -925,7 +918,6 @@ public class GameController : MonoBehaviour
                     //Izquierdo
                     select = 80;
                     selectArm = 80;
-                    Debug.Log("Izquierdo");
 
                 }
 

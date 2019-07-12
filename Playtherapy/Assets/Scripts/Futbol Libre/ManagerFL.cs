@@ -194,7 +194,7 @@ public class ManagerFL : MonoBehaviour
                 }
                 else
                 {
-                    if (repeticionesRestantes < repeticionesTotales)
+                    if (repeticionesRestantes <= repeticionesTotales)
                     {
                         panelTiempo.SetActive(false);
                         panelRepeticiones.SetActive(true);
@@ -204,7 +204,9 @@ public class ManagerFL : MonoBehaviour
                     else
                     {
                         ball.GetComponent<Rigidbody>().useGravity = false;
+
                         animationFinal.startAnimation();
+                        finalizarJuego();
                         hasStart = false;
                     }
                 }
@@ -227,14 +229,7 @@ public class ManagerFL : MonoBehaviour
 
         }, (t) =>
         {
-            finalizarJuego();
-            repeticionesRestantes = 0;
-            repeticionesText.text = "0/0";
-            game_over = true;
 
-
-            print("acabo juego");
-            desempenio = (puntos / repeticionesTotales) * 100;
         });
     }
 
@@ -382,6 +377,13 @@ public class ManagerFL : MonoBehaviour
     public void finalizarJuego()
     {
         //guardarDatos ();
+        repeticionesRestantes = 0;
+        repeticionesText.text = "0/0";
+        game_over = true;
+
+
+        print("acabo juego");
+        desempenio = (puntos / repeticionesTotales) * 100;
         string idMinigame = "4";
         int performance_loaded_BD = 0;
         panelResultados.SetActive(true);
@@ -403,10 +405,12 @@ public class ManagerFL : MonoBehaviour
             PerformanceController performanceCtrl = new PerformanceController();
             performanceCtrl.addPerformance(angle, this.GetMovement());
         }
-        Debug.Log(resultados);
+        Debug.Log(desempenio);
+        Debug.Log(performance_loaded_BD);
+        Debug.Log(resultados + "resultados");
         if (resultados != null)
         {
-            
+            Debug.Log("entre");
             resultados.Minigame = idMinigame;
 
             resultados.updateData(desempenio, performance_loaded_BD);
@@ -416,9 +420,6 @@ public class ManagerFL : MonoBehaviour
         {
             PlaylistManager.pm.NextGame();
         }
-
-
-
 
         //hasStart = false;
 

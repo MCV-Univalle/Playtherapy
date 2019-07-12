@@ -16,9 +16,10 @@ public class BallFL : MonoBehaviour {
 		
 	}
 	void OnCollisionEnter(Collision col){
-		if (col.gameObject.transform.tag=="Terrain") {
+        manager.repeticionesRestantes++;
+
+        if (col.gameObject.transform.tag=="Terrain") {
 			this.transform.position = new Vector3 (0, 6, 2);
-			manager.repeticionesRestantes++;
 			manager.golpeFallido.Play ();
 		}
 	}

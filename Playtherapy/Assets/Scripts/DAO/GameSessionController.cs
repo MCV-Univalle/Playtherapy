@@ -13,11 +13,9 @@ public class GameSessionController
 
     public int addGameSession(int score , float repititions, float time, int level , string minigame)
     {
-        Debug.Log("sddsd");
 
         GameSession game = new GameSession(minigame);
         GameSessionDAO gameDao = new GameSessionDAO();
-        Debug.Log("aqui");
 
 
         int repetitionsInt = (int)repititions;
@@ -31,12 +29,11 @@ public class GameSessionController
 
         if (result == -1)
         {
-            Debug.Log("llegue");
             return result;
         }
         else
         {
-            Debug.Log("erro");
+            Debug.Log("error");
         }
 
         return 0;

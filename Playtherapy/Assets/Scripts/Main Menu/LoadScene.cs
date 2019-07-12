@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
-public class LoadScene : MonoBehaviour
+public class LoadLevels : MonoBehaviour
 {
-    public string sceneToLoad;
+    public string levelToLoad;
+    public StartTherapySession st;
 
-	public void Load()
+    public void LoadLevelSelected()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToLoad);
+        st.StartPlayList();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(levelToLoad);
+        Time.timeScale = 1;
     }
 }

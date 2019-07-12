@@ -599,6 +599,26 @@ public class GameManagerTiroLibre : MonoBehaviour
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
+        float totalRepFloat = (float)totalRepetitions;
+        ParametersScreenManagerTiroLibre pmTiroLibre = new ParametersScreenManagerTiroLibre();
+        pmTiroLibre.SendGame(finalScore, totalRepFloat, totalTime, score, idMinigame);
+        if (useFrontPlane == true)
+        {
+            PerformanceController performanceCtrl = new PerformanceController();
+            performanceCtrl.addPerformance((int)this.FrontAngle1, "36");
+            performanceCtrl.addPerformance((int)this.FrontAngle2, "37");
+            performanceCtrl.addPerformance((int)this.FrontAngle3, "38");
+
+        }
+        if (useBackPlane == true)
+        {
+            PerformanceController performanceCtrl = new PerformanceController();
+            performanceCtrl.addPerformance((int)this.BackAngle1, "33");
+            performanceCtrl.addPerformance((int)this.BackAngle2, "34");
+            performanceCtrl.addPerformance((int)this.BackAngle3, "35");
+
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
@@ -628,25 +648,7 @@ public class GameManagerTiroLibre : MonoBehaviour
 
         resultsPanel.SetActive(true);
 
-        float totalRepFloat = (float)totalRepetitions;
-        ParametersScreenManagerTiroLibre pmTiroLibre = new ParametersScreenManagerTiroLibre();
-        pmTiroLibre.SendGame(finalScore, totalRepFloat, totalTime, score, idMinigame);
-        if (useFrontPlane == true)
-        {
-            PerformanceController performanceCtrl = new PerformanceController();
-           performanceCtrl.addPerformance((int)this.FrontAngle1 , "36");
-           performanceCtrl.addPerformance((int)this.FrontAngle2, "37");
-           performanceCtrl.addPerformance((int)this.FrontAngle3, "38");
-
-        }
-        if (useBackPlane == true)
-        {
-            PerformanceController performanceCtrl = new PerformanceController();
-            performanceCtrl.addPerformance((int)this.BackAngle1, "33");
-            performanceCtrl.addPerformance((int)this.BackAngle2, "34");
-            performanceCtrl.addPerformance((int)this.BackAngle3, "35");
-
-        }
+      
         //playlist block
         if (PlaylistManager.pm != null && PlaylistManager.pm.active)
             PlaylistManager.pm.NextGame();

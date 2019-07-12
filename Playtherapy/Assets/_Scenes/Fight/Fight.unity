@@ -17981,6 +17981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Main Menu
+  st: {fileID: 0}
 --- !u!114 &824768458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43856,6 +43857,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114883571852378952, guid: 0e1096c97a97ec845ba88605adbff8f7,
+        type: 2}
+      propertyPath: m_Text
+      value: "Cerrar sesi\xF3n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e1096c97a97ec845ba88605adbff8f7, type: 2}

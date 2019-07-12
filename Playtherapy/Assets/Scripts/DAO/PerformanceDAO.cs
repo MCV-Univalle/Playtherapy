@@ -21,12 +21,10 @@ public class PerformanceDAO
                     + performance.Angle + ","
                     + this.GetLastGameSessionId() + ","
                     + performance.Movement_id + ");";
-                Debug.Log(save_sql);
 
                 dbcmd.CommandText = save_sql;
                 dbcmd.ExecuteNonQuery();
 
-                Debug.Log("GGIZI");
                 exito = true;
             }
             catch (NpgsqlException ex)
@@ -60,12 +58,10 @@ public class PerformanceDAO
                 string sql = string.Format("INSERT INTO start_performance (angle, game_session_id, movement_id) VALUES ({0}, {1}, '{2}');",
                     performance.Angle, performance.Game_session_id, performance.Movement_id);
 
-                Debug.Log(sql);
 
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();
 
-                //Debug.Log("");
                 exito = true;
             }
             catch (NpgsqlException ex)
@@ -116,7 +112,6 @@ public class PerformanceDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0;
             }
         }

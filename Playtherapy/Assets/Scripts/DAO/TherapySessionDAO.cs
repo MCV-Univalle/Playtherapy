@@ -20,7 +20,6 @@ public class TherapySessionDAO
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            Debug.Log("Patient id:" + therapy.Patient_id);
 
             try
             {
@@ -31,7 +30,6 @@ public class TherapySessionDAO
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();
 
-                Debug.Log("gg");
                 exito = true;
             }
             catch (NpgsqlException ex)
@@ -59,7 +57,6 @@ public class TherapySessionDAO
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            Debug.Log("Writing observations to therapy record: " + therapyId);
 
             try
             {
@@ -137,7 +134,6 @@ public class TherapySessionDAO
         if (DBConnection.dbconn != null)
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
-            Debug.Log("aqui 1");
 
             try
             {
@@ -152,7 +148,6 @@ public class TherapySessionDAO
                 dbcmd.CommandText = save_sql;
                 dbcmd.ExecuteNonQuery();
 
-                Debug.Log("GG izi");
                 exito = true;
             }
             catch (NpgsqlException ex)

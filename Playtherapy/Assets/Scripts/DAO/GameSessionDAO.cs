@@ -31,7 +31,6 @@ public class GameSessionDAO
                 dbcmd.CommandText = save_sql;
                 dbcmd.ExecuteNonQuery();
 
-                Debug.Log("GG izi");
                 exito = true;
             }
             catch (NpgsqlException ex)
@@ -109,8 +108,6 @@ public class GameSessionDAO
             {
                 var record = (int)reader["record"];
 
-                Debug.Log("Record: " + record);
-                // clean up
                 reader.Close();
                 reader = null;
                 dbcmd.Dispose();
@@ -126,7 +123,6 @@ public class GameSessionDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0.0f;
             }
         }
@@ -210,7 +206,6 @@ public class GameSessionDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0;
             }
         }
@@ -237,8 +232,7 @@ public class GameSessionDAO
                 int id = (int)reader["max"];
 
                 // clean up
-                Debug.Log(id);
-                Debug.Log("llegue22122");
+
                 reader.Close();
                 reader = null;
                 dbcmd.Dispose();
@@ -254,7 +248,6 @@ public class GameSessionDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Error de consulta o elemento no encontrado");
                 return 0;
             }
         }

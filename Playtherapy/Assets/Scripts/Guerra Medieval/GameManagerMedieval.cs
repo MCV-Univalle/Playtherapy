@@ -259,7 +259,16 @@ namespace GuerraMedieval
                 finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
             }
             resultsScoreText.text = "Desempeño: " + finalScore + "%";
-
+            if (this.withTime == true)
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, 0, this.totalTime, score, idMinigame);
+            }
+            else
+            {
+                GameSessionController gameCtrl = new GameSessionController();
+                gameCtrl.addGameSession(finalScore, this.totalRepetitions, 0, score, idMinigame);
+            }
             if (objTherapy != null)
                 resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
             else
@@ -289,16 +298,7 @@ namespace GuerraMedieval
 
             resultsPanel.SetActive(true);
 
-            if (this.withTime == true)
-            {
-                GameSessionController gameCtrl = new GameSessionController();
-                gameCtrl.addGameSession(finalScore, 0, this.totalTime, score, idMinigame);
-            }
-            else
-            {
-                GameSessionController gameCtrl = new GameSessionController();
-                gameCtrl.addGameSession(finalScore, this.totalRepetitions, 0, score, idMinigame);
-            }
+    
             SendPerformance();
 
             if (PlaylistManager.pm != null && PlaylistManager.pm.active)

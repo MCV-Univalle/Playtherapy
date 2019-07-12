@@ -214,14 +214,6 @@ public class ManagerVecinosInvasores : MonoBehaviour
 
         int performance_loaded_BD = 0;
         string idMinigame = "9";
-        results_script.Minigame = idMinigame;
-        results_script.updateData(performance_game, performance_loaded_BD);
-      
-        hasStart = false;
-        foreach (MonoBehaviour behaviour in array_scrips_disabled)
-        {
-            behaviour.enabled = false;
-        }
         GameSessionController gameCtrl = new GameSessionController();
 
         if (HoldParametersVecinosInvasores.use_time == true)
@@ -232,19 +224,28 @@ public class ManagerVecinosInvasores : MonoBehaviour
         {
             gameCtrl.addGameSession(performance_game, HoldParametersVecinosInvasores.select_jugabilidad, 0, score_script.score_obtain, idMinigame);
         }
-        
+
 
         PerformanceController performanceCtrl = new PerformanceController();
         if (HoldParametersVecinosInvasores.type_game == 0)
         {
- 
+
             performanceCtrl.addPerformance(score_script.TouchPositive, "9");
         }
         if (HoldParametersVecinosInvasores.type_game == 1)
         {
-            
+
             performanceCtrl.addPerformance(score_script.TouchPositive, "10");
         }
+        results_script.Minigame = idMinigame;
+        results_script.updateData(performance_game, performance_loaded_BD);
+      
+        hasStart = false;
+        foreach (MonoBehaviour behaviour in array_scrips_disabled)
+        {
+            behaviour.enabled = false;
+        }
+
         FinalAnimation();
 
     }

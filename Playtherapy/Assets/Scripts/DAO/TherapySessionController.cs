@@ -17,7 +17,6 @@ public class TherapySessionController : MonoBehaviour {
 
         TherapySession therapySession = new TherapySession();
         TherapySessionDAO therapySessionDao = new TherapySessionDAO();
-        Debug.Log("aqui");
 
         therapySession.Date = date;
         therapySession.Objective = objetive;
@@ -31,12 +30,11 @@ public class TherapySessionController : MonoBehaviour {
 
         if (result == -1)
         {
-            Debug.Log("llegue");
             return result;
         }
         else
         {
-            Debug.Log("erro");
+            Debug.Log("error");
         }
 
         return 0;

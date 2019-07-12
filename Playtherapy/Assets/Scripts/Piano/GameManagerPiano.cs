@@ -90,7 +90,6 @@ public class GameManagerPiano : MonoBehaviour
                         timeMillis -= Time.deltaTime * 1000;
                         if (timeMillis < 0)
                             timeMillis = 1000f;
-                        //Debug.Log(currentTime);
                         textCurrentTime.text = (((int)currentTime) / 60).ToString("00") + ":"
                             + (((int)currentTime) % 60).ToString("00") + ":"
                             + ((int)(timeMillis * 60 / 1000)).ToString("00");
@@ -116,7 +115,7 @@ public class GameManagerPiano : MonoBehaviour
             }
             else
             {
-                Debug.Log("not supposed to be seen");
+                //("not supposed to be seen");
             }
         }
         else if (isGameOver)
@@ -243,6 +242,27 @@ public class GameManagerPiano : MonoBehaviour
             finalScore = 0;
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 
+        GameSessionController gameCtrl = new GameSessionController();
+
+        int scoreBD = finalScore;
+        if (withTime == true)
+        {
+            gameCtrl.addGameSession(score, 0, totalTime, scoreBD, idMinigame);
+        }
+        if (withTime == false)
+        {
+            gameCtrl.addGameSession(score, totalRepetitions, 0, scoreBD, idMinigame);
+        }
+
+        if (this.useFlexion == true)
+        {
+            sendPerformanceTouch();
+        }
+        else
+        {
+            sendPerformancePinch();
+        }
+
         if (objTherapy != null)
             resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
         else
@@ -270,27 +290,7 @@ public class GameManagerPiano : MonoBehaviour
             star3.sprite = starOn;
         }
 
-        GameSessionController gameCtrl = new GameSessionController();
-
-        int scoreBD = finalScore;
-        Debug.Log(scoreBD);
-        if (withTime == true)
-        {
-            gameCtrl.addGameSession(score, 0, totalTime, scoreBD, idMinigame);
-        }
-        if (withTime == false)
-        {
-            gameCtrl.addGameSession(score, totalRepetitions, 0, scoreBD, idMinigame);
-        }
-
-        if (this.useFlexion == true)
-        {
-            sendPerformanceTouch();
-        }
-        else
-        {
-            sendPerformancePinch();
-        }
+        
 
         StartCoroutine(FinalAnimation());
 
