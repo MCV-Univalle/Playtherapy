@@ -10,8 +10,6 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-# Never ignore Asset meta data
-!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 /Assets/AssetStoreTools*
@@ -52,11 +50,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-
-# Unity3D generated meta files
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -132,7 +125,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-#*.meta
 *.obj
 *.pch
 *.pdb
@@ -356,14 +348,6 @@ build/
 
 
 *.info
-Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
-Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
-Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_Corner_01.obj.meta
-Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_Corner_Green_Top_01.obj.meta
-Playtherapy/Assets/External Assets/Nature pack/Brown_Cliff_Bottom_01.obj.meta
-*.meta
-*.meta
-*.meta
 
 
 # Windows thumbnail cache files
