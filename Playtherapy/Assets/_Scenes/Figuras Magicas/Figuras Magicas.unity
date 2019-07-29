@@ -8907,7 +8907,7 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 1045307542}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 1
   m_Options:
     m_Options:
     - m_Text: Modo de Juego
@@ -10857,7 +10857,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu Principal
+  m_Text: "Men\xFA Principal"
 --- !u!222 &830386924
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12861,7 +12861,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
@@ -13891,7 +13891,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 60
   m_WholeNumbers: 1
-  m_Value: 1
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -14236,7 +14236,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 70
   m_WholeNumbers: 1
-  m_Value: 0
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -15850,7 +15850,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Escala  de dibujo minima
+  m_Text: "Escala  de dibujo m\xEDnima"
 --- !u!222 &1102698807
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16980,7 +16980,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1368612012}
   m_FillRect: {fileID: 1161502682}
   m_HandleRect: {fileID: 1368612011}
@@ -16988,7 +16988,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 10
   m_WholeNumbers: 1
-  m_Value: 1
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -19107,7 +19107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 01 s
+  m_Text: 02 s
 --- !u!1 &1327309560
 GameObject:
   m_ObjectHideFlags: 0
@@ -19741,7 +19741,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1352382831}
   m_OnClick:
     m_PersistentCalls:
@@ -20745,7 +20745,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224745694804551798, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
@@ -22827,7 +22827,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Main Menu
-  st: {fileID: 0}
 --- !u!114 &1577280993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24404,7 +24403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 00 %
+  m_Text: 20 %
 --- !u!1 &1799890180
 GameObject:
   m_ObjectHideFlags: 0
@@ -25565,7 +25564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Main Menu
-  st: {fileID: 0}
 --- !u!114 &1892224215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26278,7 +26276,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Modo de Juego
+  m_Text: '# Enemigos'
 --- !u!222 &1927733073
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28019,7 +28017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 10 e
 --- !u!1 &2070165641
 GameObject:
   m_ObjectHideFlags: 0

@@ -941,7 +941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Main Menu
-  st: {fileID: 0}
 --- !u!114 &114932885
 MonoBehaviour:
   m_ObjectHideFlags: 0

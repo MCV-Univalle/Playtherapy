@@ -7,7 +7,7 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
 {
 
 
-    int _modo_juego;
+    int _modo_juego=1;
     float jugabilidad_number;
     float _timeBetweenEnemies;
     float _percentFigureMin;
@@ -38,7 +38,15 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
             {
                 bt_play.interactable = atLeastATooggleActive() && _modo_juego != 0;
             }
+            if(_modo_juego == 1)
+            {
+                slide_tiempo_entre_enemigos.interactable = false;
+            }
 
+            if (_modo_juego == 2)
+            {
+                slide_tiempo_entre_enemigos.interactable = true;
+            }
 
         }
 
@@ -61,19 +69,21 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
     public void updateJugabilidadNumber()
     {
 
+        
         if (_modo_juego==1)
         {
             jugabilidad_number = slide_jugabilidad.value;
-            txt_jugabilidad.text = "" + jugabilidad_number.ToString("00") ;
+            txt_jugabilidad.text = "" + jugabilidad_number.ToString("00") + " e";
         }
         if (_modo_juego==2)
         {
             jugabilidad_number = slide_jugabilidad.value;
-            txt_jugabilidad.text = "" + jugabilidad_number.ToString("00") + " s";
+            txt_jugabilidad.text = "" + jugabilidad_number.ToString("00") + " min";
         }
 
         
     }
+  
     public void updateTiempoEntreEnemigos()
     {
         _timeBetweenEnemies = slide_tiempo_entre_enemigos.value;
@@ -110,6 +120,10 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
 
     public void StartGame()
     {
+
+        this.updateJugabilidadNumber();
+        this.updateEscalaMin();
+
         list_gestures_index = new List<int>();
 
         for (int i = 0; i < list_gestures_used.Count; i++)
