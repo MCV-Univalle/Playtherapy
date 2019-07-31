@@ -219,18 +219,7 @@ public class ManagerFM : MonoBehaviour{
 	}
 	public void StartGame()
 	{
-        /*
-		list_gestures_index= new List<int>();
-
-		for (int i = 0; i < list_gestures_used.Count; i++) {
-
-			if (list_gestures_used[i].isOn) {
-				list_gestures_index.Add (i);
-			}
-		}
-      
-		
-        */
+     
         parameters_canvas.SetActive(false);
         spawnnerEnemies.gestures_index_used = list_gestures_index;
 
@@ -248,7 +237,7 @@ public class ManagerFM : MonoBehaviour{
         
 	}
 
-	public void StartGame(int mj= 1,float jugabilidad=3,float time_enemies=3 )
+	public void StartGame(int mj,float jugabilidad,float time_enemies )
 	{
         modo_juego = mj;
 		select_jugabilidad = jugabilidad;
