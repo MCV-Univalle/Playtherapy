@@ -12782,7 +12782,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114964635624726850, guid: 488f8aa92ff229047802fe44c9e6af14,
         type: 2}
@@ -18589,12 +18589,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1283551800}
---- !u!114 &1296399216 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114839291554932514, guid: 0e1096c97a97ec845ba88605adbff8f7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1414047557}
-  m_Script: {fileID: 11500000, guid: 72b938a02652bdc469f114beeaf1ce3a, type: 3}
 --- !u!1 &1300390237
 GameObject:
   m_ObjectHideFlags: 0
@@ -20664,11 +20658,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1296399216}
+      objectReference: {fileID: 1642758970}
     - target: {fileID: 114647966160234328, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MainMenu
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7, type: 2}
       propertyPath: m_IsActive
@@ -23382,6 +23376,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1641280080}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1642758970 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1414047557}
 --- !u!1 &1662591115
 GameObject:
   m_ObjectHideFlags: 0
