@@ -2710,8 +2710,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Se debe flexionar la rodilla o lanzando una patada con el pie seg\xFAn
-    se indique"
+  m_Text: "Se debe flexionar la rodilla o lanzar una patada con el pie seg\xFAn se
+    indique"
 --- !u!222 &134728993
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3737,7 +3737,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224745694804551798, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
@@ -7511,7 +7511,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964635624726850, guid: 488f8aa92ff229047802fe44c9e6af14,
+        type: 2}
+      propertyPath: m_Text
+      value: "Por favor, ubiquese enfrente de la c\xE1mara en donde se detecte todo
+        su cuerpo"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
@@ -13190,7 +13196,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Debes golpear la pelota con la rodilla o con el pie que aparece iluminada
+  m_Text: Debes golpear la pelota con la rodilla o con el pie que aparece iluminado
     durante el juego
 --- !u!222 &771287273
 CanvasRenderer:
@@ -41965,7 +41971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Las flechas que se ven en las imagenes son una ayuda visual (configurable)
+  m_Text: "Las flechas que se ven en las im\xE1genes son una ayuda visual (configurable)
     que indica el momento adecuado para realizar los movimientos y golpear el bal\xF3n "
 --- !u!222 &1898293324
 CanvasRenderer:

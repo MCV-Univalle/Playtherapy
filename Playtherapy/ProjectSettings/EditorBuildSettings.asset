@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Space/Space.unity
     guid: 378fa916e7b2bbd41858d37927db7d09
+  - enabled: 1
+    path: Assets/_Scenes/Main Menu/PlayList.unity
+    guid: f47cdb960d208a440a3ac6d679605e32
   - enabled: 0
     path: Assets/_Scenes/Sushi/Sushi Samurai.unity
     guid: 5e1b15313b8a74e94b0c86fd388c10ed

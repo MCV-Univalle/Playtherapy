@@ -8934,8 +8934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ee131faa8194124875a0b0bcd28d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Main Menu
-  st: {fileID: 0}
+  levelToLoad: PlayList
 --- !u!1 &349402257
 GameObject:
   m_ObjectHideFlags: 0
@@ -34959,6 +34958,12 @@ Prefab:
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964635624726850, guid: 488f8aa92ff229047802fe44c9e6af14,
+        type: 2}
+      propertyPath: m_Text
+      value: "Por favor, ub\xEDquese enfrente de la c\xE1mara en donde se detecte
+        todo su cuerpo."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}

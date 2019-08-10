@@ -19,6 +19,7 @@ public class PlaylistScreenManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        
         startButton.interactable = false;
         playlist = new List<string>();
         minigames = new List<string>();

@@ -6,10 +6,11 @@ using System;
 
 public class StartTherapySession : MonoBehaviour
 {
+    public static StartTherapySession stateGame;
+    public static int valueList;
     public EventSystem eventSystem;
     public GameObject content; // grid container
     public GameObject buttonPrefab; // minigame frame
-
     public Text patient_name;
     public Text patient_id;
     public Text therapist_name;
@@ -36,6 +37,7 @@ public class StartTherapySession : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         minigames = new List<Minigame>();
 
         minigames.Add(new Minigame("16", "Sushi Samurai", "tirar pura katana"));
@@ -69,6 +71,21 @@ public class StartTherapySession : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (stateGame == null)
+        {
+            stateGame = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("soy el primero");
+            Debug.Log(valueList);
+        } else if (stateGame != this)
+        {
+            Destroy(gameObject);
+            Debug.Log("Soy el segundo y BUM ");
+            Debug.Log(valueList);
+        }
+    }
     public void StartTherapy()
     {
         QueryIdTherapy();
@@ -164,7 +181,8 @@ public class StartTherapySession : MonoBehaviour
                 m.GetComponent<Image>().sprite = GameObject.Find(minigame.Name + " Image").GetComponent<Image>().sprite;
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
-
+            valueList = 3;
+            Debug.Log(valueList);
             minigamesMenuCanvas.SetActive(mCanvas);
             loginMenu.SetActive(lMenu);
             loginCanvas.SetActive(lCanvas);
@@ -208,5 +226,22 @@ public class StartTherapySession : MonoBehaviour
         string patient = QueryIdPatient();
         string therapist = QueryIdTherapy();
         therapySessionCtrl.AddTherapy(date, inputObjective.text, inputDescription.text, patient, therapist);
-    } 
+    }
+    public void StartPlayList(int value)
+    {
+        if (value == 3)
+        {
+            if (tso != null)
+            {
+                tso.Login();
+                LoadMinigames(true, false, false, false, false, true);
+            }
+            else
+            {
+                Debug.Log("No therapy session object found");
+                LoadMinigames(true, false, false, false, false, true);
+            }
+        }
+     
+    }
 }
