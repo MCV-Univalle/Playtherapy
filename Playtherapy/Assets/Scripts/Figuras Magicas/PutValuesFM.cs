@@ -40,12 +40,12 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
             }
             if(_modo_juego == 1)
             {
-                slide_tiempo_entre_enemigos.interactable = false;
+               slide_tiempo_entre_enemigos.value = 2;
             }
 
             if (_modo_juego == 2)
             {
-                slide_tiempo_entre_enemigos.interactable = true;
+                slide_tiempo_entre_enemigos.value = 3;
             }
 
         }
@@ -122,6 +122,7 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
     {
 
         this.updateJugabilidadNumber();
+        this.updateTiempoEntreEnemigos();
         this.updateEscalaMin();
 
         list_gestures_index = new List<int>();
