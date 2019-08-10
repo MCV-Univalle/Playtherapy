@@ -9597,7 +9597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Intrucciones
+  m_Text: Instrucciones
 --- !u!222 &774235580
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12782,7 +12782,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114964635624726850, guid: 488f8aa92ff229047802fe44c9e6af14,
         type: 2}
@@ -13554,7 +13554,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "Los enemigos fallecen cuando dibujas el patr\xF3n que se encuentra encima
-    de ellos. (izquierda a derecha)"
+    de ellos. Se reconocen trazos en cualquier direcci\xF3n."
 --- !u!222 &983979532
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16825,8 +16825,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Para dibujar cierra la mano y traza la figura, cuando termines solo aplaude
-    para enviar el hechizo
+  m_Text: Para dibujar cierra la mano y traza la figura, cuando termine, aplaude para
+    enviar el hechizo.
 --- !u!222 &1180526860
 CanvasRenderer:
   m_ObjectHideFlags: 0
