@@ -24,7 +24,8 @@ public class GameController : MonoBehaviour
     public GameObject PausePanel;
     public GameObject TutorialMenu;
     public GameObject Eraser;
-
+    public GameObject ConfirmationModal;
+    public Text ConfirmationTextModal;
     GameObject particulas;
     public static GameController gc;
     Vector3 initialposition;
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour
     public GameObject ResultPanel;
     public GameObject pausa;
     public GameObject ObservationPanel;
-
+    public GameObject ConfirmationModalMenu;
     public Button boton;
     public GameObject btObservation;
 
@@ -183,11 +184,9 @@ public class GameController : MonoBehaviour
 
     void realRetry()
     {
-
         Reset();
         Start();
     }
-
 
 
     // Use this for initialization
@@ -267,7 +266,7 @@ public class GameController : MonoBehaviour
     public void retry()
     {
         //Camera_inv.SetActive(false);
-
+        ConfirmationModal.SetActive(false);
         HandInPosition = false;
         Eraser.SetActive(true);
         pitcher.Play("New State");
@@ -1093,5 +1092,25 @@ public class GameController : MonoBehaviour
     public void GetObservation()
     {
         // inputObservation.text 
+    }
+
+    public void ConfirmationModalOptions(int option)
+    {
+        if(option == 1)
+        {
+            ConfirmationModal.SetActive(true);
+        }
+        if (option == 2)
+        {
+            ConfirmationModalMenu.SetActive(true);
+        }
+        if (option == 3)
+        {
+            ConfirmationModal.SetActive(false);
+        }
+        if (option == 4)
+        {
+            ConfirmationModalMenu.SetActive(false);
+        }
     }
 }

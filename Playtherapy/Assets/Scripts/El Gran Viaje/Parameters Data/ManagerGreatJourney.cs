@@ -48,9 +48,13 @@ public class ManagerGreatJourney : MonoBehaviour {
 	float timer_game=-1;
 	float timeMillis;
 	int tutorial_page=0;
+    public GameObject ConfirmationModal;
+    public GameObject ConfirmationModalMenu;
 
-	// Use this for initialization
-	void Start () {
+
+
+    // Use this for initialization
+    void Start () {
 
 		if (gm==null) {
 			gm = this;
@@ -250,13 +254,24 @@ public class ManagerGreatJourney : MonoBehaviour {
     }
 	public void RetryGame()
 	{
-		TweenHideResults ();
+        ConfirmationModal.SetActive(false);
+
+        TweenHideResults();
 		TweenShowParameters ();
 
 
 
 	}
-	public void StartGame(bool use_time= true, int select_jugabilidad=10,int select_movimiento= HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES, int lados_involucrados= HoldParametersGreatJourney.LADO_TODOS,float angle_min=5,float angle_min_frontal=10,float angle_max=20,float sostener = 2,float descanso = 2 )
+    public void Retry()
+    {
+        ConfirmationModal.SetActive(false);
+
+        TweenShowParameters();
+
+
+
+    }
+    public void StartGame(bool use_time= true, int select_jugabilidad=10,int select_movimiento= HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES, int lados_involucrados= HoldParametersGreatJourney.LADO_TODOS,float angle_min=5,float angle_min_frontal=10,float angle_max=20,float sostener = 2,float descanso = 2 )
 	{
 
 		StartGame ();
@@ -755,6 +770,25 @@ public class ManagerGreatJourney : MonoBehaviour {
         if (movementX == 1)
         {
             movement = "13";
+        }
+    }
+    public void ConfirmationModalOptions(int option)
+    {
+        if (option == 1)
+        {
+            ConfirmationModal.SetActive(true);
+        }
+        if (option == 2)
+        {
+            ConfirmationModalMenu.SetActive(true);
+        }
+        if (option == 3)
+        {
+            ConfirmationModal.SetActive(false);
+        }
+        if (option == 4)
+        {
+            ConfirmationModalMenu.SetActive(false);
         }
     }
 }
