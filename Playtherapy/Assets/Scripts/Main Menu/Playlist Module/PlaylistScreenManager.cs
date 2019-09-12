@@ -11,16 +11,19 @@ public class PlaylistScreenManager : MonoBehaviour
     public GameObject listElement;
     public GameObject[] parametersElement;
     public Button startButton;
+    public Button startButtonFoot;
 
     private List<string> playlist;
     private List<string> minigames;
     private GameObject currrentParamentersScreen;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        
+
         startButton.interactable = false;
+        startButtonFoot.interactable = false;
+
         playlist = new List<string>();
         minigames = new List<string>();
 
@@ -67,6 +70,8 @@ public class PlaylistScreenManager : MonoBehaviour
             playlistUI.transform.GetChild(index - 1).gameObject.GetComponent<PlaylistElementBehaviour>().UpdateElement();
 
         startButton.interactable = true;
+        startButtonFoot.interactable = true;
+
     }
 
     public void MoveUp(int currentIndex)
@@ -126,6 +131,8 @@ public class PlaylistScreenManager : MonoBehaviour
 
         if (playlist.Count == 0)
             startButton.interactable = false;
+            startButtonFoot.interactable = false;
+
     }
 
     public void Select(int currentIndex)

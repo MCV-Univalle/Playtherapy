@@ -57,6 +57,7 @@ public class GameController : MonoBehaviour
     public GameObject pausa;
     public GameObject ObservationPanel;
     public GameObject ConfirmationModalMenu;
+    public GameObject EndModal;
     public Button boton;
     public GameObject btObservation;
 
@@ -1111,6 +1112,14 @@ public class GameController : MonoBehaviour
         if (option == 4)
         {
             ConfirmationModalMenu.SetActive(false);
+        }
+        if (option == 0)
+        {
+            EndModal.SetActive(true);
+        }
+        if (option == 6)
+        {
+            EndModal.SetActive(false);
         }
     }
 }
