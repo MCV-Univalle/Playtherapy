@@ -8,9 +8,13 @@ public class TinyPauseScript : MonoBehaviour
 {
 	GameObject panelPause;
 	Button buttonPause;
+    public GameObject ConfirmationModal;
+    public GameObject ConfirmationModalMenu;
+    public GameObject EndModal;
 
-	// Use this for initialization
-	void Start()
+
+    // Use this for initialization
+    void Start()
     {
 		panelPause = GameObject.Find("pause_data");
 		buttonPause = GameObject.Find("bt_pause").GetComponent<Button>();
@@ -54,4 +58,31 @@ public class TinyPauseScript : MonoBehaviour
 				ShowPause();
 		}
 	}
+    public void ConfirmationModalOptions(int option)
+    {
+        if (option == 0)
+        {
+            EndModal.SetActive(true);
+        }
+        if (option == 1)
+        {
+            ConfirmationModal.SetActive(true);
+        }
+        if (option == 2)
+        {
+            ConfirmationModalMenu.SetActive(true);
+        }
+        if (option == 3)
+        {
+            ConfirmationModal.SetActive(false);
+        }
+        if (option == 4)
+        {
+            ConfirmationModalMenu.SetActive(false);
+        }
+        if (option == 4)
+        {
+            EndModal.SetActive(false);
+        }
+    }
 }

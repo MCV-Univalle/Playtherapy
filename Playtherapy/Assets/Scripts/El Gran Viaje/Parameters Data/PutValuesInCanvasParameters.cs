@@ -17,8 +17,9 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 	private float _angle_min_frontal;
 	private float _angle_max;
     public GameObject GameSessionController;
-
-	public int type_game{
+    public GameObject ConfirmationModalMenu;
+    public GameObject ConfirmationModal;
+    public int type_game{
 
 		get{ 
 		
@@ -323,5 +324,24 @@ public class PutValuesInCanvasParameters : MonoBehaviour, IParametersManager {
 		angle_max = 30;
         
 
+    }
+    public void ConfirmationModalOptions(int option)
+    {
+        if (option == 1)
+        {
+            ConfirmationModal.SetActive(true);
+        }
+        if (option == 2)
+        {
+            ConfirmationModalMenu.SetActive(true);
+        }
+        if (option == 3)
+        {
+            ConfirmationModal.SetActive(false);
+        }
+        if (option == 4)
+        {
+            ConfirmationModalMenu.SetActive(false);
+        }
     }
 }
