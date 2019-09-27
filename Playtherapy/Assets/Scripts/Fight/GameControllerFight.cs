@@ -43,7 +43,9 @@ public class GameControllerFight : MonoBehaviour
     public string movement;
     public float finalTotalTime;
     public float finalTotalRepetition;
-
+    public GameObject ConfirmationModalMenu;
+    public GameObject ConfirmationModal;
+    public GameObject EndModal;
     // TEST
     public bool clean;
 
@@ -326,7 +328,7 @@ public class GameControllerFight : MonoBehaviour
 
         GameObject retry = GameObject.FindGameObjectWithTag("Parameters");
         Parameters.GetComponent<ParametersFIght>().StartAgain();
-
+        ConfirmationModal.SetActive(false);
 
         Eraser.SetActive(true);
         ResultPanel.SetActive(false);
@@ -828,6 +830,33 @@ public class GameControllerFight : MonoBehaviour
         if (combo == true)
         {
             movement = "11";
+        }
+    }
+    public void ConfirmationModalOptions(int option)
+    {
+        if (option == 1)
+        {
+            ConfirmationModal.SetActive(true);
+        }
+        if (option == 2)
+        {
+            ConfirmationModalMenu.SetActive(true);
+        }
+        if (option == 3)
+        {
+            ConfirmationModal.SetActive(false);
+        }
+        if (option == 4)
+        {
+            ConfirmationModalMenu.SetActive(false);
+        }
+        if (option == 0)
+        {
+            EndModal.SetActive(true);
+        }
+        if (option == 6)
+        {
+            EndModal.SetActive(false);
         }
     }
 }

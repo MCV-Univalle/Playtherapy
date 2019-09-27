@@ -41,11 +41,13 @@ public class PutValuesFM : MonoBehaviour, IParametersManager
             if(_modo_juego == 1)
             {
                slide_tiempo_entre_enemigos.value = 2;
+                slide_jugabilidad.value = 10;
             }
 
             if (_modo_juego == 2)
             {
-                slide_tiempo_entre_enemigos.value = 3;
+                slide_tiempo_entre_enemigos.value = 5;
+                slide_jugabilidad.value = 3;
             }
 
         }

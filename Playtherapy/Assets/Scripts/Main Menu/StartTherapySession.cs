@@ -14,10 +14,12 @@ public class StartTherapySession : MonoBehaviour
     public Text patient_name;
     public Text patient_id;
     public Text therapist_name;
+    public Text notificationText;
     public InputField inputObjective;
     public InputField inputDescription;
     public InputField inputTherapyId;
     public InputField inputPatientId;
+    public GameObject notification;
     public bool statePatient;
     public bool stateTherapist;
     public TherapySessionObject tso;
@@ -34,10 +36,16 @@ public class StartTherapySession : MonoBehaviour
     public TherapySessionDAO therapySessionDAO;
     private List<Minigame> minigames = null;
 
+    public GameObject inputID;
+
     // Use this for initialization
     void Start()
     {
-        
+        InputField inputTherapyId = GetComponent<InputField>();
+        InputField inputPatientId = GetComponent<InputField>();
+        InputField inputObjective = GetComponent<InputField>();
+        InputField inputDescription = GetComponent<InputField>();
+
         minigames = new List<Minigame>();
 
         minigames.Add(new Minigame("16", "Sushi Samurai", "tirar pura katana"));
@@ -49,6 +57,7 @@ public class StartTherapySession : MonoBehaviour
     }
     void Update()
     {
+
         if (inputTherapyId.isFocused && Input.GetKeyDown(KeyCode.Tab))
         {
             inputPatientId.ActivateInputField();
@@ -102,13 +111,16 @@ public class StartTherapySession : MonoBehaviour
             }
             else
             {
-                Debug.Log("Campos incorrectos");
+                notificationText.text = "Datos incorrectos";
+                notification.SetActive(true);
+
             }
         }
 
         else
         {
-            Debug.Log("Campos vacios ");
+            notificationText.text = "Campos vacios";
+            notification.SetActive(true);
         }
 
 
@@ -243,5 +255,16 @@ public class StartTherapySession : MonoBehaviour
             }
         }
      
+    }
+
+    public void SetStateNotification()
+    {
+        notification.SetActive(false);
+    }
+
+    public void BackObservation()
+    {
+        LoadMinigames(true, false, false, true, true, false);
+
     }
 }
