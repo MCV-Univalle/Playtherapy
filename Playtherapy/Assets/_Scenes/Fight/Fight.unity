@@ -1792,7 +1792,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -1804,7 +1804,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Se deber hacer con una espada, \ndicha espada se activa realizando \nun
+  m_Text: "Se debe hacer con una espada, \ndicha espada se activa realizando \nun
     aplauso "
 --- !u!222 &100148555
 CanvasRenderer:
@@ -2792,7 +2792,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -3076,7 +3076,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -4300,7 +4300,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -4312,12 +4312,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'El juego consiste en destruir un robot gigante. Para ello dispones de poderes
-    magicos. Para activar estos poderes debes tocar los sellos de energia que aparecen
-    en pantalla:
-
-
-'
+  m_Text: "El juego consiste en destruir un robot gigante y para ello dispones de
+    poderes m\xE1gicos. \nPara activar estos poderes debes tocar los sellos de energ\xEDa
+    que aparecen en pantalla:\n\n"
 --- !u!222 &247266865
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6474,7 +6471,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -7233,7 +7230,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -7245,7 +7242,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Para accionar este sello de energia '
+  m_Text: "Para accionar este sello de energ\xEDa "
 --- !u!222 &372941461
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9016,7 +9013,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Flexion
+  m_Text: "Flexi\xF3n"
 --- !u!222 &461243666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12197,7 +12194,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
@@ -17980,8 +17977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ee131faa8194124875a0b0bcd28d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Main Menu
-  st: {fileID: 0}
+  levelToLoad: PlayList
 --- !u!114 &824768458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18289,7 +18285,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Flexion y Abduccion \n"
+  m_Text: "Flexi\xF3n y Abducci\xF3n \n"
 --- !u!222 &831995094
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22063,7 +22059,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
@@ -22152,7 +22148,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Angulo M\xEDnimo"
+  m_Text: "\xC1ngulo M\xEDnimo"
 --- !u!222 &1031548671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25096,7 +25092,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -25108,8 +25104,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cada sello de energia se debe\n tocar  con la espada como se \nindica en
-    la imagen"
+  m_Text: "Cada sello de energ\xEDa se debe\n tocar  con la espada como se \nindica
+    en la imagen"
 --- !u!222 &1211995544
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26508,7 +26504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Angulo M\xE1ximo"
+  m_Text: "\xC1ngulo M\xE1ximo"
 --- !u!222 &1277251240
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34716,7 +34712,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -44397,7 +44393,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -45109,7 +45105,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -45121,8 +45117,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Cada sello de energia se \ndebe tocar  con la mano\n como se indica en
-    \nla siguiente imagen "
+  m_Text: " Cada sello de energi\xE1 se \ndebe tocar  con la mano\n como se indica
+    en \nla siguiente imagen "
 --- !u!222 &1762189416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -47758,7 +47754,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu Principal
+  m_Text: "Men\xFA Principal"
 --- !u!222 &1883794973
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50088,7 +50084,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Extension
+  m_Text: "Extensi\xF3n"
 --- !u!222 &1996565280
 CanvasRenderer:
   m_ObjectHideFlags: 0

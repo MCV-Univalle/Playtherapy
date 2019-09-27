@@ -3188,7 +3188,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &105205118
 Prefab:
@@ -7070,7 +7070,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220384118
 GameObject:
@@ -7158,7 +7158,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -13486,7 +13486,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -14150,7 +14150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400358, guid: 6f54d2ddf42d740698a979f6e151d8af, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 6f54d2ddf42d740698a979f6e151d8af, type: 3}
       propertyPath: m_IsActive
@@ -15269,7 +15269,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494845652
 GameObject:
@@ -15297,7 +15297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &497124164
 GameObject:
@@ -15981,7 +15981,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &518086497
 GameObject:
@@ -16922,7 +16922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ee131faa8194124875a0b0bcd28d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Main Menu
+  levelToLoad: PlayList
 --- !u!114 &565239623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17277,7 +17277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582544178
 GameObject:
@@ -18184,7 +18184,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -18196,8 +18196,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cada vez que se quieras reiniciar el juego es necesario que te ubiques
-    en el rect\xE1ngulo blanco como se muestra en la platalla"
+  m_Text: "Cada vez que deeses reiniciar el juego es necesario que te ubiques en el
+    rect\xE1ngulo blanco como se muestra en la pantalla"
 --- !u!222 &602817597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21958,7 +21958,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758795759
 GameObject:
@@ -26048,7 +26048,7 @@ RectTransform:
   - {fileID: 1314448660}
   - {fileID: 58147368}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -26946,7 +26946,7 @@ Transform:
   m_LocalScale: {x: 25, y: 5, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &954662357
 MonoBehaviour:
@@ -30903,7 +30903,7 @@ Transform:
   m_Children:
   - {fileID: 1916702415}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1060379043 stripped
 Transform:
@@ -35748,7 +35748,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1090620958
 GameObject:
@@ -37222,7 +37222,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -37836,7 +37836,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: "Abducci\xF3n"
       m_Image: {fileID: 0}
-    - m_Text: Extension
+    - m_Text: "Extensi\xF3n"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -41958,7 +41958,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -41970,10 +41970,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Para Obtener un punto debes colocar la mano que brilla en el indicador  y
+  m_Text: Para obtener un punto debes colocar la mano que brilla en el indicador  y
     esperar que la bola toque la mano
-
-'
 --- !u!222 &1181319516
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42140,7 +42138,7 @@ Transform:
   m_LocalScale: {x: 10, y: 12, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1197815974
 GameObject:
@@ -42721,7 +42719,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Angulo M\xE1ximo"
+  m_Text: "\xC1ngulo M\xE1ximo"
 --- !u!222 &1210008179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42979,7 +42977,7 @@ Transform:
   - {fileID: 57041566}
   - {fileID: 2049364441}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1217537164
 GameObject:
@@ -43462,7 +43460,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Angulo M\xEDnimo"
+  m_Text: "\xC1ngulo M\xEDnimo"
 --- !u!222 &1234949535
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44016,7 +44014,7 @@ Transform:
   m_Children:
   - {fileID: 1799560261}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1251950466 stripped
 Transform:
@@ -44684,7 +44682,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -46617,7 +46615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1332301064
 AudioSource:
@@ -47461,7 +47459,7 @@ Transform:
   - {fileID: 1596872228}
   - {fileID: 250992294}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1361327735
 GameObject:
@@ -54263,7 +54261,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -54275,8 +54273,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "El juego consiste en atrapar bolas de beisbol con las manos, estas ser\xE1n
-    lanzadas hacia ti y deber\xE1s atraparlas con la mano que se te indique     \n\n"
+  m_Text: "El juego consiste en atrapar bolas de b\xE9isbol con las manos, estas ser\xE1n
+    lanzadas hacia ti y deberas atraparlas con la mano que se te indique    \n\n"
 --- !u!222 &1464159907
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54641,7 +54639,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -54653,7 +54651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Para Obtener un punto debes colocar la mano que brilla en el indicador  y
+  m_Text: 'Para obtener un punto debes colocar la mano que brilla en el indicador  y
     esperar que la bola toque la mano
 
 '
@@ -55968,7 +55966,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1524910671
 MonoBehaviour:
@@ -57169,6 +57167,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1561620997}
   m_Mesh: {fileID: 4300048, guid: 72e643619fa32984785527a0c110a313, type: 3}
+--- !u!1001 &1562982003
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 484
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 231
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460031021682928, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1565135176
 GameObject:
   m_ObjectHideFlags: 0
@@ -58436,7 +58476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1602629835
 GameObject:
@@ -63467,7 +63507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!224 &1663387472 stripped
 RectTransform:
@@ -64667,7 +64707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1702590110
 GameObject:
@@ -65348,7 +65388,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu Principal
+  m_Text: "Men\xFA Principal"
 --- !u!222 &1728937358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65809,7 +65849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739133978
 GameObject:
@@ -66303,7 +66343,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -70808,7 +70848,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400152, guid: 2d0e61eeab8d5dd44850cbf107852f66, type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 400152, guid: 2d0e61eeab8d5dd44850cbf107852f66, type: 3}
       propertyPath: m_LocalScale.x
@@ -71362,7 +71402,7 @@ Transform:
   m_LocalScale: {x: 13, y: 13, z: 13}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1897274809
 GameObject:
@@ -72616,7 +72656,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400152, guid: d95a03765c3e0d84a84d7f9dd89c93e9, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400152, guid: d95a03765c3e0d84a84d7f9dd89c93e9, type: 3}
       propertyPath: m_LocalScale.x
@@ -73242,7 +73282,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -74134,7 +74174,7 @@ Transform:
   - {fileID: 377614306}
   - {fileID: 138263043}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2007509079 stripped
 Transform:
@@ -74713,7 +74753,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -74725,8 +74765,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "El juego consiste en atrapar bolas de beisbol con las manos, estas ser\xE1n
-    lanzadas hacia ti y deber\xE1s atraparlas con la mano que se te indique     \n\n"
+  m_Text: "El juego consiste en atrapar bolas de b\xE9isbol con las manos, estas ser\xE1n
+    lanzadas hacia ti y deberas atraparlas con la mano que se te indique     \n\n"
 --- !u!222 &2022260779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -77152,7 +77192,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bc95d2749fe1c294089785f466ae4dd4, type: 3}
+    m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
@@ -77164,8 +77204,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cada vez que se quieras reiniciar el juego es necesario que te ubiques
-    en el rect\xE1ngulo blanco como se muestra en la platalla"
+  m_Text: "Cada vez que deses reiniciar el juego es necesario que te ubiques en el
+    rect\xE1ngulo blanco como se muestra en la pantalla"
 --- !u!222 &2106166472
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -77662,7 +77702,7 @@ RectTransform:
   - {fileID: 781676601}
   - {fileID: 1663387472}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

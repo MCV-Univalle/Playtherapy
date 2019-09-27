@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1288975093640070}
+  m_IsPrefabParent: 1
+--- !u!1 &1288975093640070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4202021083071068}
+  - component: {fileID: 114336176267906850}
+  - component: {fileID: 114869878744116852}
+  m_Layer: 0
+  m_Name: TherapySessionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4202021083071068
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288975093640070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 484, y: 231, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114336176267906850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288975093640070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266c27e55d5c2e149854365aa38ebf3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
+  content: {fileID: 0}
+  buttonPrefab: {fileID: 1526487474091288, guid: 5b38b75c4ea683e498b0e2de32b99d49,
+    type: 2}
+  patient_name: {fileID: 0}
+  patient_id: {fileID: 0}
+  therapist_name: {fileID: 0}
+  inputObjective: {fileID: 0}
+  inputDescription: {fileID: 0}
+  inputTherapyId: {fileID: 0}
+  inputPatientId: {fileID: 0}
+  statePatient: 0
+  stateTherapist: 0
+  tso: {fileID: 0}
+  loginCanvas: {fileID: 0}
+  loginMenu: {fileID: 0}
+  observationAndDescription: {fileID: 0}
+  minigamesMenuCanvas: {fileID: 0}
+  panelDescription: {fileID: 0}
+  playList: {fileID: 0}
+--- !u!114 &114869878744116852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288975093640070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219d2975a09435b4eb745b9b69861ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tso: {fileID: 0}
+  minigamesMenuPanel: {fileID: 0}
+  observationsPanel: {fileID: 0}
+  observationsField: {fileID: 0}
+  sceneToLoad: Main Menu
