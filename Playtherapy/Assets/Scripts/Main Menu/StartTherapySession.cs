@@ -36,10 +36,16 @@ public class StartTherapySession : MonoBehaviour
     public TherapySessionDAO therapySessionDAO;
     private List<Minigame> minigames = null;
 
+    public GameObject inputID;
+
     // Use this for initialization
     void Start()
     {
-        
+        InputField inputTherapyId = GetComponent<InputField>();
+        InputField inputPatientId = GetComponent<InputField>();
+        InputField inputObjective = GetComponent<InputField>();
+        InputField inputDescription = GetComponent<InputField>();
+
         minigames = new List<Minigame>();
 
         minigames.Add(new Minigame("16", "Sushi Samurai", "tirar pura katana"));
@@ -51,6 +57,7 @@ public class StartTherapySession : MonoBehaviour
     }
     void Update()
     {
+
         if (inputTherapyId.isFocused && Input.GetKeyDown(KeyCode.Tab))
         {
             inputPatientId.ActivateInputField();

@@ -10,6 +10,8 @@ public class TinyPauseScript : MonoBehaviour
 	Button buttonPause;
     public GameObject ConfirmationModal;
     public GameObject ConfirmationModalMenu;
+    public GameObject EndModal;
+
 
     // Use this for initialization
     void Start()
@@ -58,6 +60,10 @@ public class TinyPauseScript : MonoBehaviour
 	}
     public void ConfirmationModalOptions(int option)
     {
+        if (option == 0)
+        {
+            EndModal.SetActive(true);
+        }
         if (option == 1)
         {
             ConfirmationModal.SetActive(true);
@@ -73,6 +79,10 @@ public class TinyPauseScript : MonoBehaviour
         if (option == 4)
         {
             ConfirmationModalMenu.SetActive(false);
+        }
+        if (option == 4)
+        {
+            EndModal.SetActive(false);
         }
     }
 }

@@ -45,6 +45,7 @@ public class GameControllerFight : MonoBehaviour
     public float finalTotalRepetition;
     public GameObject ConfirmationModalMenu;
     public GameObject ConfirmationModal;
+    public GameObject EndModal;
     // TEST
     public bool clean;
 
@@ -848,6 +849,14 @@ public class GameControllerFight : MonoBehaviour
         if (option == 4)
         {
             ConfirmationModalMenu.SetActive(false);
+        }
+        if (option == 0)
+        {
+            EndModal.SetActive(true);
+        }
+        if (option == 6)
+        {
+            EndModal.SetActive(false);
         }
     }
 }
