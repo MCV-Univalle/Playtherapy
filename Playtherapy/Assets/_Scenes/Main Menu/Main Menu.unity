@@ -12493,7 +12493,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5c6e346912784134388de15ba8a61762, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0765298add7562846a1e5c99eac42b80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38254,7 +38254,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5c6e346912784134388de15ba8a61762, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0765298add7562846a1e5c99eac42b80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42101,11 +42101,6 @@ Prefab:
       propertyPath: notificationText
       value: 
       objectReference: {fileID: 499052416}
-    - target: {fileID: 114336176267906850, guid: 23410cb6d7d8b9940b22076157a10f63,
-        type: 2}
-      propertyPath: inputID
-      value: 
-      objectReference: {fileID: 1083492559}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23410cb6d7d8b9940b22076157a10f63, type: 2}
   m_IsPrefabParent: 0
