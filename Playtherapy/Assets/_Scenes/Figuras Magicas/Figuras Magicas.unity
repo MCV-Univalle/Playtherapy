@@ -13962,7 +13962,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1196765989351682, guid: 488f8aa92ff229047802fe44c9e6af14, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114964635624726850, guid: 488f8aa92ff229047802fe44c9e6af14,
         type: 2}
@@ -20478,7 +20478,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 02 s
+  m_Text: 10 s
 --- !u!1 &1327309560
 GameObject:
   m_ObjectHideFlags: 0
@@ -22238,7 +22238,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1943982795811680, guid: 0e1096c97a97ec845ba88605adbff8f7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224745694804551798, guid: 0e1096c97a97ec845ba88605adbff8f7,
         type: 2}
@@ -29833,7 +29833,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 10 e
+  m_Text: 12 e
 --- !u!1 &2070165641
 GameObject:
   m_ObjectHideFlags: 0
