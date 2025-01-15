@@ -323,7 +323,7 @@ public class RUISSelectable : MonoBehaviour {
 
 	protected void AddMaterial(Material m, Renderer r)
     {
-        if (	m == null || r == null || r.GetType() == typeof(ParticleRenderer) 
+        if (	m == null || r == null
 			||  r.GetType() == typeof(ParticleSystemRenderer))
 			return;
 
@@ -339,7 +339,7 @@ public class RUISSelectable : MonoBehaviour {
 
 	protected void RemoveMaterial(Renderer r)
     {
-        if (	r == null || r.GetType() == typeof(ParticleRenderer) 
+        if (	r == null
 			||  r.GetType() == typeof(ParticleSystemRenderer) || r.materials.Length == 0)
 			return;
 

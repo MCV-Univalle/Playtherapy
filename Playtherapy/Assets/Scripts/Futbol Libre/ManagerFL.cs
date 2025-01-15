@@ -84,7 +84,9 @@ public class ManagerFL : MonoBehaviour
     float timer_game = -1;
     float timeMillis;
 
-    Random generador = new Random();
+#pragma warning disable IDE0052
+    private System.Random generador = new System.Random();
+#pragma warning restore IDE0052
 
     public int repeticionesRestantes;
     public int repeticionesTotales;

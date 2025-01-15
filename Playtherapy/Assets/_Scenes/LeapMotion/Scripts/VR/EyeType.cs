@@ -8,7 +8,7 @@
  ******************************************************************************/
 
 using UnityEngine;
-using UnityEngine.VR;
+using UnityEngine.XR;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

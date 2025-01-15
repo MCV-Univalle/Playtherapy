@@ -8,7 +8,7 @@
  ******************************************************************************/
 
 using UnityEngine;
-using UnityEngine.VR;
+using UnityEngine.XR;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -292,13 +292,27 @@ namespace Leap.Unity {
       LeapVRCameraControl.OnValidCameraParams -= onValidCameraParams;
     }
 
+    public static bool isPresent()
+    {
+        var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+        SubsystemManager.GetInstances<XRDisplaySubsystem>(xrDisplaySubsystems);
+        foreach (var xrDisplay in xrDisplaySubsystems)
+        {
+            if (xrDisplay.running)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void Update() {
       if (_shouldSetLocalPosition) {
         transform.localPosition = transform.forward * deviceInfo.focalPlaneOffset;
         _shouldSetLocalPosition = false;
       }
 
-      if (Input.GetKeyDown(recenter) && UnityEngine.XR.XRSettings.enabled && UnityEngine.XR.XRDevice.isPresent) {
+      if (Input.GetKeyDown(recenter) && UnityEngine.XR.XRSettings.enabled && LeapVRTemporalWarping.isPresent()) {
         UnityEngine.XR.InputTracking.Recenter();
       }
 

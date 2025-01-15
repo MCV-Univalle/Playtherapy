@@ -8,13 +8,30 @@
  ******************************************************************************/
 
 using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 
-namespace Leap.Unity{
-  public class StretchToScreen : MonoBehaviour {
-  
-    void Awake() {
-      GetComponent<GUITexture>().pixelInset = new Rect(0.0f, 0.0f, Screen.width, Screen.height);
+namespace Leap.Unity
+{
+    public class StretchToScreen : MonoBehaviour
+    {
+
+        private RectTransform rectTransform;
+
+        void Awake()
+        {
+            // Asegúrate de que este GameObject tenga un componente Image y RectTransform
+            rectTransform = GetComponent<RectTransform>();
+            if (rectTransform == null)
+            {
+                Debug.LogError("Este GameObject necesita un componente RectTransform para funcionar.");
+                return;
+            }
+
+            // Ajustar el tamaño del RectTransform para cubrir toda la pantalla
+            rectTransform.anchorMin = Vector2.zero; // Esquina inferior izquierda
+            rectTransform.anchorMax = Vector2.one;  // Esquina superior derecha
+            rectTransform.offsetMin = Vector2.zero; // Sin desplazamiento en el borde inferior izquierdo
+            rectTransform.offsetMax = Vector2.zero; // Sin desplazamiento en el borde superior derecho
+        }
     }
-  }
 }
