@@ -12,6 +12,7 @@ Licensing  :   LGPL Version 3 license for non-commercial projects. Use
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.XR;
 
 //using Ovr;
 
@@ -434,50 +435,62 @@ public class RUISDisplayManager : MonoBehaviour
 	private static bool isOpenVrAccessible = false;
 	private static bool failedToAccessOpenVr = false;
 
-	public static bool IsHmdPresent()
-	{
-		// When the the status has been polled sufficiently, then assume that it will remain constant
-		if(hmdCheckCount > 4)
-			return wasHmdPresent;
+    public static bool IsHmdPresent()
+    {
+        // When the status has been polled sufficiently, then assume that it will remain constant
+        if (hmdCheckCount > 4)
+            return wasHmdPresent;
 
-		// If Unity thinks yes, then we will go with that
-		if(UnityEngine.XR.XRDevice.isPresent)
-		{
-			++hmdCheckCount;
-			wasHmdPresent = true;
-			return true;
-		}
+        // Check if there is any HMD connected
+        bool hmdPresent = false;
 
-		// Otherwise lets ask a second opinion from OpenVR
-		if(isOpenVrAccessible)
-		{
-			++hmdCheckCount;
-			wasHmdPresent = Valve.VR.OpenVR.IsHmdPresent();
-			return wasHmdPresent;
-		}
-		else
-		{
-			bool isOpenVrHmdPresent = false;
-			if(!failedToAccessOpenVr)
-			{
-				try
-				{
-					isOpenVrHmdPresent = Valve.VR.OpenVR.IsHmdPresent();
-					isOpenVrAccessible = true;
-				}
-				catch
-				{
-					failedToAccessOpenVr = true;
-				}
-			}
+        // We use InputDevices to check for an HMD (Head-Mounted Display)
+        var inputDevices = new List<InputDevice>();
+        InputDevices.GetDevicesAtXRNode(XRNode.Head, inputDevices);
 
-			++hmdCheckCount;
-			wasHmdPresent = isOpenVrHmdPresent;
-			return isOpenVrHmdPresent;
-		}
-	}
+        if (inputDevices.Count > 0)
+        {
+            hmdPresent = true;
+        }
 
-	public static bool IsOpenVrAccessible()
+        // If Unity thinks yes, then we will go with that
+        if (hmdPresent)
+        {
+            ++hmdCheckCount;
+            wasHmdPresent = true;
+            return true;
+        }
+
+        // Otherwise, check OpenVR if accessible
+        if (isOpenVrAccessible)
+        {
+            ++hmdCheckCount;
+            wasHmdPresent = Valve.VR.OpenVR.IsHmdPresent();
+            return wasHmdPresent;
+        }
+        else
+        {
+            bool isOpenVrHmdPresent = false;
+            if (!failedToAccessOpenVr)
+            {
+                try
+                {
+                    isOpenVrHmdPresent = Valve.VR.OpenVR.IsHmdPresent();
+                    isOpenVrAccessible = true;
+                }
+                catch
+                {
+                    failedToAccessOpenVr = true;
+                }
+            }
+
+            ++hmdCheckCount;
+            wasHmdPresent = isOpenVrHmdPresent;
+            return isOpenVrHmdPresent;
+        }
+    }
+
+    public static bool IsOpenVrAccessible()
 	{
 		if(isOpenVrAccessible)
 			return true;
@@ -501,61 +514,67 @@ public class RUISDisplayManager : MonoBehaviour
 	}
 
 
-	#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 	private static bool isSteamVrAccessible = false;
 	private static bool failedToAccessSteamVr = false;
-	#endif
+#endif
 
-	public static string GetHmdModel()
-	{
-		if(!RUISDisplayManager.IsHmdPresent())
-			return "no_HMD";
-		
-		string hmdModel = UnityEngine.XR.XRDevice.model;
+    //public static string GetHmdModel()
+    //{
+    //	if(!RUISDisplayManager.IsHmdPresent())
+    //		return "no_HMD";
 
-		// Lets ask OpenVR if Unity does not recognice the HMD name
-		if(hmdModel == null || hmdModel == "")
-		{
-            /*
-			#if UNITY_EDITOR
-			//if(SteamVR.instance != null)
-			//	return SteamVR.instance.hmd_ModelNumber;
-			#else
-			if(isSteamVrAccessible)
-			{
-				if(SteamVR.instance != null)
-					return SteamVR.instance.hmd_ModelNumber;
-			}
-			else
-			{
-				if(!failedToAccessSteamVr)
-				{
-					try
-					{
-						if(SteamVR.instance != null)
-							hmdModel = SteamVR.instance.hmd_ModelNumber;
-						isSteamVrAccessible = true;
-					} 
-					catch
-					{
-						failedToAccessSteamVr = true;
-					}
-				}
-			}
-			#endif
-            */
-		}
-		else
-			return hmdModel;
+    //	string hmdModel = UnityEngine.XR.XRDevice.model;
 
-		if(hmdModel == null || hmdModel == "")
-			return "unknown HMD";
-		
-		return hmdModel;
-	}
+    //	// Lets ask OpenVR if Unity does not recognice the HMD name
+    //	if(hmdModel == null || hmdModel == "")
+    //	{
+    //           /*
+    //		#if UNITY_EDITOR
+    //		//if(SteamVR.instance != null)
+    //		//	return SteamVR.instance.hmd_ModelNumber;
+    //		#else
+    //		if(isSteamVrAccessible)
+    //		{
+    //			if(SteamVR.instance != null)
+    //				return SteamVR.instance.hmd_ModelNumber;
+    //		}
+    //		else
+    //		{
+    //			if(!failedToAccessSteamVr)
+    //			{
+    //				try
+    //				{
+    //					if(SteamVR.instance != null)
+    //						hmdModel = SteamVR.instance.hmd_ModelNumber;
+    //					isSteamVrAccessible = true;
+    //				} 
+    //				catch
+    //				{
+    //					failedToAccessSteamVr = true;
+    //				}
+    //			}
+    //		}
+    //		#endif
+    //           */
+    //	}
+    //	else
+    //		return hmdModel;
 
-	// *** HACK TODO need to check if the found HMD is really position tracked
-	public static bool IsHmdPositionTrackable()
+    //	if(hmdModel == null || hmdModel == "")
+    //		return "unknown HMD";
+
+    //	return hmdModel;
+    //}
+
+    public static string GetHmdModel()
+    {
+        // Si no estás usando HMD, simplemente devuelve "no_HMD"
+        return "no_HMD";
+    }
+
+    // *** HACK TODO need to check if the found HMD is really position tracked
+    public static bool IsHmdPositionTrackable()
 	{
 		//		if(OVRManager.capiHmd != null)
 		//		{

@@ -14,6 +14,8 @@ using System.Collections;
 using System.Collections.Generic;
 using CSML;
 using Kinect = Windows.Kinect;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum RUISDevice
 {
@@ -94,7 +96,7 @@ public class RUISCalibrationProcessSettings
 
 public class RUISCoordinateCalibration : MonoBehaviour {
     
-	private GUIText upperText, lowerText;
+	private Text upperText, lowerText;
 	
 	public GameObject sampleCube;
 	public GameObject sampleSphere;
@@ -189,8 +191,8 @@ public class RUISCoordinateCalibration : MonoBehaviour {
 		this.deviceModels = GameObject.Find ("Device models");
 		this.icons = GameObject.Find ("Icons");
 		
-		upperText = GameObject.Find ("Upper Text").GetComponent<GUIText>();
-		lowerText = GameObject.Find ("Lower Text").GetComponent<GUIText>();
+		upperText = GameObject.Find ("Upper Text").GetComponent<Text>();
+		lowerText = GameObject.Find ("Lower Text").GetComponent<Text>();
 		
 		skeletonController = FindObjectOfType(typeof(RUISSkeletonController)) as RUISSkeletonController;
 		coordinateSystem  = FindObjectOfType(typeof(RUISCoordinateSystem)) as RUISCoordinateSystem;
@@ -385,7 +387,7 @@ public class RUISCoordinateCalibration : MonoBehaviour {
 			if(GUILayout.Button("Exit calibration"))
 			{
 				Destroy(this.gameObject);
-				Application.LoadLevel(RUISCalibrationProcessSettings.previousSceneId);
+				SceneManager.LoadScene(RUISCalibrationProcessSettings.previousSceneId);
 			}
 		}
 		else 
@@ -395,7 +397,7 @@ public class RUISCoordinateCalibration : MonoBehaviour {
 			if(GUILayout.Button("Abort calibration"))
 			{
 				Destroy(this.gameObject);
-				Application.LoadLevel(RUISCalibrationProcessSettings.previousSceneId);
+                SceneManager.LoadScene(RUISCalibrationProcessSettings.previousSceneId);
 			}
 		}
 	}

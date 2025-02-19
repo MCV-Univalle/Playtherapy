@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CSML;
 using Kinect = Windows.Kinect;
+using UnityEngine.UI;
 
 public class RUISKinect2ToKinectCalibrationProcess : RUISCalibrationProcess {
 	
@@ -124,25 +125,55 @@ public class RUISKinect2ToKinectCalibrationProcess : RUISCalibrationProcess {
 
 		this.floorPlane = GameObject.Find ("Floor");
 
-		if(this.Kinect1Icon && this.Kinect1Icon.GetComponent<GUITexture>())
-			this.Kinect1Icon.GetComponent<GUITexture>().pixelInset = new Rect(5.1f, 10.0f, 70.0f, 70.0f);
-		
-		foreach (Transform child in this.deviceModelObjects.transform)
-		{
-			child.gameObject.SetActive(false);
-		}
-		
-		foreach (Transform child in this.depthViewObjects.transform)
-		{
-			child.gameObject.SetActive(false);
-		}
-		
-		foreach (Transform child in this.iconObjects.transform)
-		{
-			child.gameObject.SetActive(false);
-		}
-		
-		if(this.kinect1ModelObject)
+        if (this.Kinect1Icon)
+        {
+            RectTransform rectTransform = this.Kinect1Icon.GetComponent<RectTransform>();
+            if (rectTransform)
+            {
+                rectTransform.anchoredPosition = new Vector2(5.1f, 10.0f); // Posición relativa al anclaje
+                rectTransform.sizeDelta = new Vector2(70.0f, 70.0f);       // Ancho y alto
+            }
+        }
+
+        // Verificar y ajustar las propiedades de Kinect1Icon si existe
+        if (this.Kinect1Icon)
+        {
+            RectTransform rectTransform = this.Kinect1Icon.GetComponent<RectTransform>();
+            if (rectTransform)
+            {
+                rectTransform.anchoredPosition = new Vector2(5.1f, 10.0f); // Posición relativa al anclaje
+                rectTransform.sizeDelta = new Vector2(70.0f, 70.0f);       // Ancho y alto
+            }
+        }
+
+        // Manejar deviceModelObjects
+        if (this.deviceModelObjects)
+        {
+            foreach (Transform child in this.deviceModelObjects.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        // Manejar depthViewObjects
+        if (this.depthViewObjects)
+        {
+            foreach (Transform child in this.depthViewObjects.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        // Manejar iconObjects
+        if (this.iconObjects)
+        {
+            foreach (Transform child in this.iconObjects.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        if (this.kinect1ModelObject)
 			this.kinect1ModelObject.SetActive(true);
 		if(this.kinect2ModelObject)
 			this.kinect2ModelObject.SetActive(true);

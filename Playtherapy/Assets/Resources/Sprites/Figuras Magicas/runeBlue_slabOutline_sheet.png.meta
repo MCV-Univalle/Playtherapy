@@ -1,46 +1,117 @@
 fileFormatVersion: 2
 guid: c82f5b3a056d55f439d2576dacacfe6b
-timeCreated: 1506204462
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: runeBlue_slabOutline_sheet_0
-    21300002: runeBlue_slabOutline_sheet_1
-    21300004: runeBlue_slabOutline_sheet_2
-    21300006: ^
-    21300008: runeBlue_slabOutline_sheet_4
-    21300010: runeBlue_slabOutline_sheet_5
-    21300012: X
-    21300014: runeBlue_slabOutline_sheet_7
-    21300016: empty
-    21300018: runeBlue_slabOutline_sheet_9
-    21300020: runeBlue_slabOutline_sheet_10
-    21300022: runeBlue_slabOutline_sheet_11
-    21300024: runeBlue_slabOutline_sheet_12
-    21300026: runeBlue_slabOutline_sheet_13
-    21300028: runeBlue_slabOutline_sheet_14
-    21300030: diamond
-    21300032: runeBlue_slabOutline_sheet_16
-    21300034: runeBlue_slabOutline_sheet_17
-    21300036: runeBlue_slabOutline_sheet_18
-    21300038: runeBlue_slabOutline_sheet_19
-    21300040: runeBlue_slabOutline_sheet_20
-    21300042: runeBlue_slabOutline_sheet_21
-    21300044: runeBlue_slabOutline_sheet_22
-    21300046: runeBlue_slabOutline_sheet_23
-    21300048: runeBlue_slabOutline_sheet_24
-    21300050: thunder
-    21300052: cross
-    21300054: verticalLine
-    21300056: bowTie
-    21300058: runeBlue_slabOutline_sheet_29
-    21300060: runeBlue_slabOutline_sheet_30
-    21300062: runeBlue_slabOutline_sheet_31
-    21300064: runeBlue_slabOutline_sheet_32
-    21300066: runeBlue_slabOutline_sheet_33
-    21300068: flag
-    21300070: runeBlue_slabOutline_sheet_35
-  serializedVersion: 4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: runeBlue_slabOutline_sheet_0
+  - first:
+      213: 21300002
+    second: runeBlue_slabOutline_sheet_1
+  - first:
+      213: 21300004
+    second: runeBlue_slabOutline_sheet_2
+  - first:
+      213: 21300006
+    second: ^
+  - first:
+      213: 21300008
+    second: runeBlue_slabOutline_sheet_4
+  - first:
+      213: 21300010
+    second: runeBlue_slabOutline_sheet_5
+  - first:
+      213: 21300012
+    second: X
+  - first:
+      213: 21300014
+    second: runeBlue_slabOutline_sheet_7
+  - first:
+      213: 21300016
+    second: empty
+  - first:
+      213: 21300018
+    second: runeBlue_slabOutline_sheet_9
+  - first:
+      213: 21300020
+    second: runeBlue_slabOutline_sheet_10
+  - first:
+      213: 21300022
+    second: runeBlue_slabOutline_sheet_11
+  - first:
+      213: 21300024
+    second: runeBlue_slabOutline_sheet_12
+  - first:
+      213: 21300026
+    second: runeBlue_slabOutline_sheet_13
+  - first:
+      213: 21300028
+    second: runeBlue_slabOutline_sheet_14
+  - first:
+      213: 21300030
+    second: diamond
+  - first:
+      213: 21300032
+    second: runeBlue_slabOutline_sheet_16
+  - first:
+      213: 21300034
+    second: runeBlue_slabOutline_sheet_17
+  - first:
+      213: 21300036
+    second: runeBlue_slabOutline_sheet_18
+  - first:
+      213: 21300038
+    second: runeBlue_slabOutline_sheet_19
+  - first:
+      213: 21300040
+    second: runeBlue_slabOutline_sheet_20
+  - first:
+      213: 21300042
+    second: runeBlue_slabOutline_sheet_21
+  - first:
+      213: 21300044
+    second: runeBlue_slabOutline_sheet_22
+  - first:
+      213: 21300046
+    second: runeBlue_slabOutline_sheet_23
+  - first:
+      213: 21300048
+    second: runeBlue_slabOutline_sheet_24
+  - first:
+      213: 21300050
+    second: thunder
+  - first:
+      213: 21300052
+    second: cross
+  - first:
+      213: 21300054
+    second: verticalLine
+  - first:
+      213: 21300056
+    second: bowTie
+  - first:
+      213: 21300058
+    second: runeBlue_slabOutline_sheet_29
+  - first:
+      213: 21300060
+    second: runeBlue_slabOutline_sheet_30
+  - first:
+      213: 21300062
+    second: runeBlue_slabOutline_sheet_31
+  - first:
+      213: 21300064
+    second: runeBlue_slabOutline_sheet_32
+  - first:
+      213: 21300066
+    second: runeBlue_slabOutline_sheet_33
+  - first:
+      213: 21300068
+    second: flag
+  - first:
+      213: 21300070
+    second: runeBlue_slabOutline_sheet_35
+  externalObjects: {}
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -57,7 +128,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -66,12 +142,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -1
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
-    wrapV: -1
-    wrapW: -1
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -80,33 +156,51 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -124,6 +218,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_1
       rect:
@@ -138,6 +239,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_2
       rect:
@@ -152,6 +260,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ^
       rect:
@@ -166,6 +281,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_4
       rect:
@@ -180,6 +302,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_5
       rect:
@@ -194,6 +323,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: X
       rect:
@@ -208,6 +344,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_7
       rect:
@@ -222,6 +365,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: empty
       rect:
@@ -236,6 +386,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 03305410000000000800000000000000
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_9
       rect:
@@ -250,6 +407,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_10
       rect:
@@ -264,6 +428,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_11
       rect:
@@ -278,6 +449,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_12
       rect:
@@ -292,6 +470,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_13
       rect:
@@ -306,6 +491,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a3305410000000000800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_14
       rect:
@@ -320,6 +512,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c3305410000000000800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: diamond
       rect:
@@ -334,6 +533,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_16
       rect:
@@ -348,6 +554,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 04305410000000000800000000000000
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_17
       rect:
@@ -362,6 +575,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 24305410000000000800000000000000
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_18
       rect:
@@ -376,6 +596,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 44305410000000000800000000000000
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_19
       rect:
@@ -390,6 +617,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 64305410000000000800000000000000
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_20
       rect:
@@ -404,6 +638,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 84305410000000000800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_21
       rect:
@@ -418,6 +659,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a4305410000000000800000000000000
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_22
       rect:
@@ -432,6 +680,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c4305410000000000800000000000000
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_23
       rect:
@@ -446,6 +701,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e4305410000000000800000000000000
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_24
       rect:
@@ -460,6 +722,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 05305410000000000800000000000000
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: thunder
       rect:
@@ -474,6 +743,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 25305410000000000800000000000000
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: cross
       rect:
@@ -488,6 +764,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 45305410000000000800000000000000
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: verticalLine
       rect:
@@ -502,6 +785,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 65305410000000000800000000000000
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: bowTie
       rect:
@@ -516,6 +806,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 85305410000000000800000000000000
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_29
       rect:
@@ -530,6 +827,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a5305410000000000800000000000000
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_30
       rect:
@@ -544,6 +848,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c5305410000000000800000000000000
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_31
       rect:
@@ -558,6 +869,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e5305410000000000800000000000000
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_32
       rect:
@@ -572,6 +890,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 06305410000000000800000000000000
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_33
       rect:
@@ -586,6 +911,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 26305410000000000800000000000000
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: flag
       rect:
@@ -600,6 +932,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 46305410000000000800000000000000
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: runeBlue_slabOutline_sheet_35
       rect:
@@ -614,9 +953,62 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 66305410000000000800000000000000
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
-  spritePackingTag: 
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      X: 21300012
+      ^: 21300006
+      bowTie: 21300056
+      cross: 21300052
+      diamond: 21300030
+      empty: 21300016
+      flag: 21300068
+      runeBlue_slabOutline_sheet_0: 21300000
+      runeBlue_slabOutline_sheet_1: 21300002
+      runeBlue_slabOutline_sheet_10: 21300020
+      runeBlue_slabOutline_sheet_11: 21300022
+      runeBlue_slabOutline_sheet_12: 21300024
+      runeBlue_slabOutline_sheet_13: 21300026
+      runeBlue_slabOutline_sheet_14: 21300028
+      runeBlue_slabOutline_sheet_16: 21300032
+      runeBlue_slabOutline_sheet_17: 21300034
+      runeBlue_slabOutline_sheet_18: 21300036
+      runeBlue_slabOutline_sheet_19: 21300038
+      runeBlue_slabOutline_sheet_2: 21300004
+      runeBlue_slabOutline_sheet_20: 21300040
+      runeBlue_slabOutline_sheet_21: 21300042
+      runeBlue_slabOutline_sheet_22: 21300044
+      runeBlue_slabOutline_sheet_23: 21300046
+      runeBlue_slabOutline_sheet_24: 21300048
+      runeBlue_slabOutline_sheet_29: 21300058
+      runeBlue_slabOutline_sheet_30: 21300060
+      runeBlue_slabOutline_sheet_31: 21300062
+      runeBlue_slabOutline_sheet_32: 21300064
+      runeBlue_slabOutline_sheet_33: 21300066
+      runeBlue_slabOutline_sheet_35: 21300070
+      runeBlue_slabOutline_sheet_4: 21300008
+      runeBlue_slabOutline_sheet_5: 21300010
+      runeBlue_slabOutline_sheet_7: 21300014
+      runeBlue_slabOutline_sheet_9: 21300018
+      thunder: 21300050
+      verticalLine: 21300054
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

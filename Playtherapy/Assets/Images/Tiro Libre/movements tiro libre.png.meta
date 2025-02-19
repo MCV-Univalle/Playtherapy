@@ -1,62 +1,165 @@
 fileFormatVersion: 2
 guid: 85f263615eb6c7b4a8eaf2721902fe28
-timeCreated: 1494290228
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: movements tiro libre_0
-    21300002: movements tiro libre_1
-    21300004: movements tiro libre_2
-    21300006: movements tiro libre_3
-    21300008: movements tiro libre_4
-    21300010: movements tiro libre_5
-    21300012: movements tiro libre_6
-    21300014: movements tiro libre_7
-    21300016: movements tiro libre_8
-    21300018: movements tiro libre_9
-    21300020: movements tiro libre_10
-    21300022: movements tiro libre_11
-    21300024: movements tiro libre_12
-    21300026: movements tiro libre_13
-    21300028: movements tiro libre_14
-    21300030: movements tiro libre_15
-    21300032: movements tiro libre_16
-    21300034: movements tiro libre_17
-    21300036: movements tiro libre_18
-    21300038: movements tiro libre_19
-    21300040: movements tiro libre_20
-    21300042: movements tiro libre_21
-    21300044: movements tiro libre_22
-    21300046: movements tiro libre_23
-    21300048: movements tiro libre_24
-    21300050: movements tiro libre_25
-    21300052: movements tiro libre_26
-    21300054: movements tiro libre_27
-    21300056: movements tiro libre_28
-    21300058: movements tiro libre_29
-    21300060: movements tiro libre_30
-    21300062: movements tiro libre_31
-    21300064: movements tiro libre_32
-    21300066: movements tiro libre_33
-    21300068: movements tiro libre_34
-    21300070: movements tiro libre_35
-    21300072: movements tiro libre_36
-    21300074: movements tiro libre_37
-    21300076: movements tiro libre_38
-    21300078: movements tiro libre_39
-    21300080: movements tiro libre_40
-    21300082: movements tiro libre_41
-    21300084: movements tiro libre_42
-    21300086: movements tiro libre_43
-    21300088: movements tiro libre_44
-    21300090: movements tiro libre_45
-    21300092: movements tiro libre_46
-    21300094: movements tiro libre_47
-    21300096: movements tiro libre_48
-    21300098: movements tiro libre_49
-    21300100: movements tiro libre_50
-    21300102: movements tiro libre_51
-  serializedVersion: 4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: movements tiro libre_0
+  - first:
+      213: 21300002
+    second: movements tiro libre_1
+  - first:
+      213: 21300004
+    second: movements tiro libre_2
+  - first:
+      213: 21300006
+    second: movements tiro libre_3
+  - first:
+      213: 21300008
+    second: movements tiro libre_4
+  - first:
+      213: 21300010
+    second: movements tiro libre_5
+  - first:
+      213: 21300012
+    second: movements tiro libre_6
+  - first:
+      213: 21300014
+    second: movements tiro libre_7
+  - first:
+      213: 21300016
+    second: movements tiro libre_8
+  - first:
+      213: 21300018
+    second: movements tiro libre_9
+  - first:
+      213: 21300020
+    second: movements tiro libre_10
+  - first:
+      213: 21300022
+    second: movements tiro libre_11
+  - first:
+      213: 21300024
+    second: movements tiro libre_12
+  - first:
+      213: 21300026
+    second: movements tiro libre_13
+  - first:
+      213: 21300028
+    second: movements tiro libre_14
+  - first:
+      213: 21300030
+    second: movements tiro libre_15
+  - first:
+      213: 21300032
+    second: movements tiro libre_16
+  - first:
+      213: 21300034
+    second: movements tiro libre_17
+  - first:
+      213: 21300036
+    second: movements tiro libre_18
+  - first:
+      213: 21300038
+    second: movements tiro libre_19
+  - first:
+      213: 21300040
+    second: movements tiro libre_20
+  - first:
+      213: 21300042
+    second: movements tiro libre_21
+  - first:
+      213: 21300044
+    second: movements tiro libre_22
+  - first:
+      213: 21300046
+    second: movements tiro libre_23
+  - first:
+      213: 21300048
+    second: movements tiro libre_24
+  - first:
+      213: 21300050
+    second: movements tiro libre_25
+  - first:
+      213: 21300052
+    second: movements tiro libre_26
+  - first:
+      213: 21300054
+    second: movements tiro libre_27
+  - first:
+      213: 21300056
+    second: movements tiro libre_28
+  - first:
+      213: 21300058
+    second: movements tiro libre_29
+  - first:
+      213: 21300060
+    second: movements tiro libre_30
+  - first:
+      213: 21300062
+    second: movements tiro libre_31
+  - first:
+      213: 21300064
+    second: movements tiro libre_32
+  - first:
+      213: 21300066
+    second: movements tiro libre_33
+  - first:
+      213: 21300068
+    second: movements tiro libre_34
+  - first:
+      213: 21300070
+    second: movements tiro libre_35
+  - first:
+      213: 21300072
+    second: movements tiro libre_36
+  - first:
+      213: 21300074
+    second: movements tiro libre_37
+  - first:
+      213: 21300076
+    second: movements tiro libre_38
+  - first:
+      213: 21300078
+    second: movements tiro libre_39
+  - first:
+      213: 21300080
+    second: movements tiro libre_40
+  - first:
+      213: 21300082
+    second: movements tiro libre_41
+  - first:
+      213: 21300084
+    second: movements tiro libre_42
+  - first:
+      213: 21300086
+    second: movements tiro libre_43
+  - first:
+      213: 21300088
+    second: movements tiro libre_44
+  - first:
+      213: 21300090
+    second: movements tiro libre_45
+  - first:
+      213: 21300092
+    second: movements tiro libre_46
+  - first:
+      213: 21300094
+    second: movements tiro libre_47
+  - first:
+      213: 21300096
+    second: movements tiro libre_48
+  - first:
+      213: 21300098
+    second: movements tiro libre_49
+  - first:
+      213: 21300100
+    second: movements tiro libre_50
+  - first:
+      213: 21300102
+    second: movements tiro libre_51
+  externalObjects: {}
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -64,6 +167,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -71,7 +176,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -79,10 +189,13 @@ TextureImporter:
   textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: -1
-    mipBias: -1
-    wrapMode: 1
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -91,33 +204,51 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -133,7 +264,15 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: movements tiro libre_1
       rect:
@@ -146,7 +285,15 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: movements tiro libre_2
       rect:
@@ -159,9 +306,31 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
-  spritePackingTag: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      movements tiro libre_0: 21300000
+      movements tiro libre_1: 21300002
+      movements tiro libre_2: 21300004
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
