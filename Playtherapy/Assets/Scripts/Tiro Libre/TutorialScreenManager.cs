@@ -9,49 +9,48 @@ public class TutorialScreenManager : MonoBehaviour
     
     public Button buttonPreviousPage;
     public Button buttonNextPage;
+    public Button closeButton;
     public GameObject[] pages;
 
     void Start()
     {
-        currentPage = 0;
-        buttonPreviousPage.interactable = false;
-
-        if (pages.Length < 2)
-            buttonNextPage.interactable = false;
-
-        if (pages.Length > 0)
-            pages[0].SetActive(true);
+        UpdatePage();
+        buttonNextPage.onClick.AddListener(NextPage);
+        buttonPreviousPage.onClick.AddListener(PreviousPage);
+        closeButton.onClick.AddListener(CloseTutorial);
     }
 
     public void NextPage()
     {
-        buttonPreviousPage.interactable = true;
-
-        int nextPage = currentPage + 1;
-
-        if (nextPage + 1 > pages.Length - 1)
-            buttonNextPage.interactable = false;
-        else
-            buttonNextPage.interactable = true;
-
-        pages[currentPage].SetActive(false);
-        pages[nextPage].SetActive(true);
-        currentPage = nextPage;
+        if (currentPage < pages.Length - 1)
+        {
+            currentPage++;
+            UpdatePage();
+        }
     }
 
     public void PreviousPage()
     {
-        buttonNextPage.interactable = true;
+        if (currentPage > 0)
+        {
+            currentPage--;
+            UpdatePage();
+        }
+    }
 
-        int previousPage = currentPage - 1;
+    public void UpdatePage()
+    {
+      for (int i = 0; i<pages.Length; i++)
+      {
+            pages[i].SetActive(i == currentPage);
+      }
 
-        if (previousPage - 1 < 0)
-            buttonPreviousPage.interactable = false;
-        else
-            buttonPreviousPage.interactable = true;
+        buttonPreviousPage.interactable = currentPage > 0;
+        buttonNextPage.interactable = currentPage < pages.Length - 1;
+    }
 
-        pages[currentPage].SetActive(false);
-        pages[previousPage].SetActive(true);
-        currentPage = previousPage;
+    public void CloseTutorial()
+    {
+        gameObject.SetActive(false);
     }
 }

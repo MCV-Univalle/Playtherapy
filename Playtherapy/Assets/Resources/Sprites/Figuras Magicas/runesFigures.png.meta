@@ -34,13 +34,10 @@ TextureImporter:
     second: iluminati
   - first:
       213: 21300020
-    second: y_inverse
+    second: yInverse
   - first:
       213: 21300022
     second: chickenFoot
-  - first:
-      213: 21300024
-    second: yInverse
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -360,8 +357,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83305410000000000800000000000000
-      internalID: 21300024
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
       vertices: []
       indices: 
       edges: []
@@ -621,7 +618,7 @@ TextureImporter:
       lineV: 21300000
       lineVH: 21300006
       thunder: 21300012
-      yInverse: 21300024
+      yInverse: 21300020
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
