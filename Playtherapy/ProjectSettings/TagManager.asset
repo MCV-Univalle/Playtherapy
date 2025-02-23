@@ -71,6 +71,7 @@ TagManager:
   - Floor
   - KinectPlayer
   - IPosition
+  - Leche
   layers:
   - Default
   - TransparentFX

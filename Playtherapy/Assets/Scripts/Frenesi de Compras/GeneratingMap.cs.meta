@@ -3,7 +3,13 @@ guid: 5c8345acd03c14a4398a2d1df43fa5e8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pasilloPrefab: {fileID: 919132149155446097, guid: ea5eb904c0fb81d44ba031d05ad3fbc5,
+      type: 3}
+  - fakePasilloPrefab: {fileID: 5153514137970038675, guid: 59ab1f1306c8e19468965fe6392912c6,
+      type: 3}
+  - jugador: {fileID: 7196523847120461024, guid: b498e97520b84524a8008b68b3e9fd36,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
