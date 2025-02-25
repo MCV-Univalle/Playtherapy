@@ -11,6 +11,8 @@ public class TutorialScreenManager : MonoBehaviour
     public Button buttonNextPage;
     public Button closeButton;
     public GameObject[] pages;
+    public GameObject ParametersPanel;
+    public GameObject TutorialPanel;
 
     void Start()
     {
@@ -51,6 +53,7 @@ public class TutorialScreenManager : MonoBehaviour
 
     public void CloseTutorial()
     {
-        gameObject.SetActive(false);
+        ParametersPanel.SetActive(true);
+        TutorialPanel.SetActive(false);
     }
 }
