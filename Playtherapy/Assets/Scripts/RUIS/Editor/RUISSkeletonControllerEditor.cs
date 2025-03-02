@@ -81,9 +81,10 @@ public class RUISSkeletonControllerEditor : Editor
 	SerializedProperty trackThumbs;
 	SerializedProperty trackWrist;
 	SerializedProperty trackAnkle;
-//	SerializedProperty rotateWristFromElbow;
-	
-	SerializedProperty customRoot;
+	SerializedProperty trackLegs;
+    //	SerializedProperty rotateWristFromElbow;
+
+    SerializedProperty customRoot;
 	SerializedProperty customHead;
 	SerializedProperty customNeck;
 	SerializedProperty customTorso;
@@ -159,10 +160,11 @@ public class RUISSkeletonControllerEditor : Editor
 		leftThumb = serializedObject.FindProperty ("leftThumb");
 		rightThumb = serializedObject.FindProperty ("rightThumb");
 		trackWrist = serializedObject.FindProperty ("trackWrist");
-		trackAnkle = serializedObject.FindProperty ("trackAnkle");
-//		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
-		
-//		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
+		trackAnkle = serializedObject.FindProperty("trackAnkle");
+		trackLegs = serializedObject.FindProperty("trackLegs");
+		//		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
+
+		//		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
 		adjustVerticalHipsPosition = serializedObject.FindProperty("adjustVerticalHipsPosition");
         maxScaleFactor = serializedObject.FindProperty("maxScaleFactor");
         minimumConfidenceToUpdate = serializedObject.FindProperty("minimumConfidenceToUpdate");
@@ -430,10 +432,15 @@ public class RUISSkeletonControllerEditor : Editor
 
 		if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
 			EditorGUILayout.PropertyField(trackAnkle, new GUIContent("Track Ankle", "Track the rotation of the ankle bone"));
-		
+
 		EditorGUILayout.Space();
 
-		if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID) 
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
+            EditorGUILayout.PropertyField(trackLegs, new GUIContent("Track Legs", "Track the legs of the model, this function was developed for the Frenesi de compras game only"));
+
+        EditorGUILayout.Space();
+
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID) 
 		{
 				EditorGUILayout.LabelField ("Finger Joints", EditorStyles.boldLabel);
 				EditorGUILayout.BeginHorizontal ();

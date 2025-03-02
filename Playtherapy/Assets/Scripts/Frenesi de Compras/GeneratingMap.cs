@@ -188,7 +188,7 @@ public class GenerationMap : MonoBehaviour
     void TrySpawnProduct(GameObject shelf, Vector3 localOffset, bool isRightShelf)
     {
         // 50% de probabilidad de spawnear un producto
-        //if (Random.value > 0.8f) return;
+        if (Random.value > 0.5f) return;
 
         // Selecciona un producto aleatorio
         GameObject[] productList = (shelf.name.Contains("ThreeLevel")) ? canastaProducts : frituraLecheProducts;
@@ -198,6 +198,19 @@ public class GenerationMap : MonoBehaviour
         // Ajusta posición relativa dentro del estante
         product.transform.localPosition = localOffset;
 
+        product.tag = "Producto";
+
+        if (product.GetComponent<BoxCollider>() == null)
+        {
+            BoxCollider collider = product.AddComponent<BoxCollider>();
+
+            collider.isTrigger = true;
+            // Se hacen el collider un 50% mas grande de los productos pequeños
+            if (product.name.ToLower().Contains("leche") || product.name.ToLower().Contains("bolsa") || product.name.ToLower().Contains("botella"))
+            {
+                collider.size *= 1.7f;
+            }
+        }
 
         product.transform.localRotation = Quaternion.Euler(-180, -180, -90);
         //bool isFrituraLeche = frituraLecheProducts.Contains(productPrefab);
