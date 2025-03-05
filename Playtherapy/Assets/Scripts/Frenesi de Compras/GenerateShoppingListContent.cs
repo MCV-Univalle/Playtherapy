@@ -1,27 +1,30 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GenerateShoppingListContent : MonoBehaviour
 {
-    public GameObject entryPrefab; // Prefab del renglón
+    public GameObject entryPrefab; // Prefab del renglÃ³n
     public Transform contentParent; // Contenedor de la lista
 
-    private Dictionary<string, Sprite> productIcons = new Dictionary<string, Sprite>(); // Diccionario para los íconos
+    private Dictionary<string, Sprite> productIcons = new Dictionary<string, Sprite>(); // Diccionario para los Ã­conos
+    private Dictionary<string, GameObject> productEntries = new Dictionary<string, GameObject>();
+
+    private List<string> selectedProducts;
 
     void Start()
     {
-        // Lista completa de 20 productos con su respectivo ícono
+        // Lista completa de 20 productos con su respectivo Ã­cono
         List<string> allProducts = new List<string>
         {
             "Bananos", "Berenjenas", "Fresas", "Gaseosa morada", "Gaseosa naranja", "Gaseosa verde", "Leche descremada", "Leche deslactosada", "Leche entera", "Limones",
-            "Manzanas rojas", "Manzanas verdes", "Naranjas", "Papas azul claro", "Papas azul oscuro", "Papas moradas", "Papas naranjas", "Piña", "Rabanos", "Tomates"
+            "Manzanas rojas", "Manzanas verdes", "Naranjas", "Papas azul claro", "Papas azul oscuro", "Papas moradas", "Papas naranjas", "PiÃ±a", "Rabanos", "Tomates"
         };
 
-        LoadIcons(); // Cargar los íconos desde la carpeta
+        LoadIcons(); // Cargar los Ã­conos desde la carpeta
 
         // Seleccionar 8 productos aleatorios
-        List<string> selectedProducts = GetRandomProducts(allProducts, 8);
+        selectedProducts = GetRandomProducts(allProducts, 8);
 
         // Generar la lista en la UI
         foreach (string product in selectedProducts)
@@ -29,22 +32,39 @@ public class GenerateShoppingListContent : MonoBehaviour
             GameObject entry = Instantiate(entryPrefab, contentParent);
             entry.transform.Find("ProductText").GetComponent<Text>().text = product;
 
-            // Asigna el ícono correspondiente
+            // Asigna el Ã­cono correspondiente
             Image icon = entry.transform.Find("ProductIcon").GetComponent<Image>();
             if (productIcons.ContainsKey(product))
             {
                 icon.sprite = productIcons[product];
             }
+
+            productEntries[product] = entry;
         }
     }
 
-    // Cargar íconos desde la carpeta "Resources/Icons"
+    // Marcar los productos recolectados
+
+    public void MarkProductAsCollected(string productName)
+    {
+        if (productEntries.ContainsKey(productName))
+        {
+            // Marcar con un check
+            productEntries[productName].transform.Find("ProductText").GetComponent<Text>().text = "(Obtenido) " + productName;
+
+            // Eliminando el producto de la lista
+            // Destroy(productEntries[productName]);
+            // productEntries.Remove(productName);
+        }
+    }
+
+    // Cargar Ã­conos desde la carpeta "Resources/Icons"
     void LoadIcons()
     {
         foreach (string product in new string[]
         {
             "Bananos", "Berenjenas", "Fresas", "Gaseosa morada", "Gaseosa naranja", "Gaseosa verde", "Leche descremada", "Leche deslactosada", "Leche entera", "Limones",
-            "Manzanas rojas", "Manzanas verdes", "Naranjas", "Papas azul claro", "Papas azul oscuro", "Papas moradas", "Papas naranjas", "Piña", "Rabanos", "Tomates"
+            "Manzanas rojas", "Manzanas verdes", "Naranjas", "Papas azul claro", "Papas azul oscuro", "Papas moradas", "Papas naranjas", "PiÃ±a", "Rabanos", "Tomates"
         })
         {
             Sprite icon = Resources.Load<Sprite>($"Sprites/Frenesi de Compras/Product icons/{product}");
@@ -57,7 +77,7 @@ public class GenerateShoppingListContent : MonoBehaviour
         }
     }
 
-    // Devuelve una lista de elementos aleatorios sin repetición
+    // Devuelve una lista de elementos aleatorios sin repeticiÃ³n
     List<string> GetRandomProducts(List<string> sourceList, int count)
     {
         List<string> tempList = new List<string>(sourceList);

@@ -6451,6 +6451,79 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0780616, y: 1.5154061, z: 1.003034}
   m_Center: {x: -0.0000009536743, y: 1.2903637e-14, z: 0.45400637}
+--- !u!1001 &1284687999
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 184.603
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_Name
+      value: FinalHallway
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb55d5e7634dbe84db8785d1c175b438, type: 3}
 --- !u!4 &1300587354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400226, guid: 2d0e61eeab8d5dd44850cbf107852f66,
@@ -8761,6 +8834,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Supermarket Hallway
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea5eb904c0fb81d44ba031d05ad3fbc5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea5eb904c0fb81d44ba031d05ad3fbc5,
         type: 3}
@@ -11304,6 +11382,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 846797330974717058, guid: 59ab1f1306c8e19468965fe6392912c6,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 846797330974717058, guid: 59ab1f1306c8e19468965fe6392912c6,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
       objectReference: {fileID: 0}
@@ -11357,6 +11440,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FakeHallway
       objectReference: {fileID: 0}
+    - target: {fileID: 5153514137970038675, guid: 59ab1f1306c8e19468965fe6392912c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11370,6 +11458,7 @@ SceneRoots:
   - {fileID: 932338533}
   - {fileID: 2099376058}
   - {fileID: 3116018120274235684}
+  - {fileID: 1284687999}
   - {fileID: 1680502781}
   - {fileID: 1516596694}
   - {fileID: 485891369}
