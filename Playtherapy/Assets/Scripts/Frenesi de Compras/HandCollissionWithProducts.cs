@@ -48,6 +48,7 @@ public class HandCollissionWithProducts : MonoBehaviour
         if (other.CompareTag("Producto"))
         {
             string nombreProducto = other.gameObject.name.Replace("(Clone)", "").Trim();
+            //string nombreLista= all.ContainsKey(nombreProducto) ? nombreProductos[nombreObjeto] : nombreObjeto;
 
             // Actualizar la cantidad del producto en el diccionario
             if (productosRecolectados.ContainsKey(nombreProducto))

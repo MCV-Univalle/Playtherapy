@@ -6519,6 +6519,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalHallway
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb55d5e7634dbe84db8785d1c175b438,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7462,6 +7467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caf51fc5e79ed847a3a9d7334bd6773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalProductosEnEscena: 0
 --- !u!1 &1461398415
 GameObject:
   m_ObjectHideFlags: 0
@@ -10616,6 +10622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caf51fc5e79ed847a3a9d7334bd6773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalProductosEnEscena: 0
 --- !u!1 &2080800311
 GameObject:
   m_ObjectHideFlags: 0

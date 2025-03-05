@@ -451,7 +451,7 @@ public class RUISSkeletonController : MonoBehaviour
 	void LateUpdate()
 	{
 		deltaTime = Time.deltaTime; //1.0f / vr.hmd_DisplayFrequency;
-        Debug.Log("trackLegs está en: " + trackLegs);
+        //Debug.Log("trackLegs está en: " + trackLegs);
         // If a custom skeleton tracking source is used, save its data into skeletonManager (which is a little 
         // topsy turvy) so we can utilize same code as we did with Kinect 1 and 2
         if (bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
