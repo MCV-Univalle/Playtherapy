@@ -11,6 +11,9 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject kinectPlayer; // Modelo controlado por RUIS
     public GameObject Player; // Combinacion modelo mas carrito
     public GameObject mainCamera;
+    public GameObject endGamePanel;
+    public GameObject list;
+    public GameObject timer;
 
 
     public GameObject LeftShoulder;
@@ -27,8 +30,16 @@ public class GameControllerFrenesi : MonoBehaviour
     public float maxRightPosition = 3.134f; // Distancia en x maxima a la que se puede mover hacia la derecha
     public float rotationThreshold = 20f; // Umbral para la rotacion del torso
 
-    
-   
+    public bool InGame = true;
+    public float currentTime = 60f;
+    public float timeMillis = 1000f;
+    public int numberRepetitions = 0;
+    public Text textCurrentTime;
+    public Slider sliderCurrentTime;
+    private bool GameOver = false;
+
+
+
 
 
     void Start()
@@ -64,9 +75,43 @@ public class GameControllerFrenesi : MonoBehaviour
 
         MoveSideways();
         //kinectPlayer.transform.position = new Vector3(Player.transform.position.x - 6.799438f, Player.transform.position.y, Player.transform.position.z - 17.80806f);
+        if (!InGame || GameOver)
+            return;
+
+        if (numberRepetitions == 0)
+        {
+            currentTime -= Time.deltaTime;
+            if (currentTime > 0)
+            {
+                timeMillis -= Time.deltaTime * 1000;
+                if (timeMillis < 0)
+                    timeMillis = 1000f;
+
+                textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
+                    Mathf.FloorToInt(currentTime / 60),
+                    Mathf.FloorToInt(currentTime % 60),
+                    Mathf.FloorToInt(timeMillis * 60 / 1000));
+
+                sliderCurrentTime.value = currentTime * 100 / 60f;
+
+            }
+            else
+            {
+                textCurrentTime.text = "00:00:00";
+                TerminarJuego();
+            }
+        }
 
 
+    }
 
+    void TerminarJuego()
+    {
+        GameOver = true;
+        InGame = false;
+        list.SetActive(false);
+        timer.SetActive(false);
+        endGamePanel.SetActive(true);
     }
 
 
