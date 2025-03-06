@@ -98,14 +98,14 @@ public class GameControllerFrenesi : MonoBehaviour
             else
             {
                 textCurrentTime.text = "00:00:00";
-                TerminarJuego();
+                EndGame();
             }
         }
 
 
     }
 
-    void TerminarJuego()
+    void EndGame()
     {
         GameOver = true;
         InGame = false;
@@ -114,7 +114,12 @@ public class GameControllerFrenesi : MonoBehaviour
         endGamePanel.SetActive(true);
     }
 
-
+    public void ReduceTime()
+    {
+        currentTime -= 10f;
+        if (currentTime < 0)
+            currentTime = 0;
+    }
 
     private bool AreArmsRaised()
     {

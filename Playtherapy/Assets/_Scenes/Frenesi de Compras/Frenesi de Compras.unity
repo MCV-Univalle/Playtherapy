@@ -2587,7 +2587,7 @@ MonoBehaviour:
   maxRightPosition: 3.134
   rotationThreshold: 20
   InGame: 1
-  currentTime: 10
+  currentTime: 60
   timeMillis: 1000
   numberRepetitions: 0
   textCurrentTime: {fileID: 1246465983}

@@ -58,6 +58,20 @@ public class HandCollissionWithProducts : MonoBehaviour
                 // Verificar si se han recogido todos los elementos
                 CheckIfGameFinished();
             }
+            else
+            {
+                // Producto incorrecto: penalizar tiempo
+                Debug.Log($"¡Producto incorrecto recogido: {nombreObjeto}! Penalizando tiempo...");
+
+                GameControllerFrenesi gameController = FindObjectOfType<GameControllerFrenesi>();
+                if (gameController != null)
+                {
+                    gameController.ReduceTime();
+                }
+
+                // Opcional: destruir el producto incorrecto
+                Destroy(other.gameObject);
+            }
         }
     }
 
