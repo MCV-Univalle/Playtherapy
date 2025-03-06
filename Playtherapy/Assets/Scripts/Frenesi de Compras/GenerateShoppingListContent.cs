@@ -34,7 +34,7 @@ public class GenerateShoppingListContent : MonoBehaviour
         { "Canasta de piñas", "Piña" },
         { "Canasta de tomates", "Tomates" }
     };
-    private Dictionary<string, string> selectedProducts;
+    public Dictionary<string, string> selectedProducts;
 
     void Start()
     {

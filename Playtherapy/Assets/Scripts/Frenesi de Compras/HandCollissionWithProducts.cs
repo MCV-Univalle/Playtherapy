@@ -7,76 +7,99 @@ public class HandCollissionWithProducts : MonoBehaviour
     // Arreglo para almacenar los productos recogidos
     private Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
     private GenerateShoppingListContent shoppingList;
-    public int totalProductosEnEscena;
+    public GameObject endGamePanel;
+    public GameObject list;
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
         shoppingList = FindObjectOfType<GenerateShoppingListContent>();
-        totalProductosEnEscena = GameObject.FindGameObjectsWithTag("Producto").Length;
-        Debug.Log("Total de productos en escena: " + totalProductosEnEscena);
+        endGamePanel.SetActive(false);
+        list.SetActive(true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // Simular recolección con la tecla E
-        {
-            string productoSimulado = "Fresas"; // Cambia por cualquier producto de la lista
-            Debug.Log($"[SIMULACIÓN] Recolectado: {productoSimulado}");
-
-            if (!productosRecolectados.ContainsKey(productoSimulado))
-            {
-                productosRecolectados[productoSimulado] = 1;
-            }
-            else
-            {
-                productosRecolectados[productoSimulado]++;
-            }
-
-            // Notificar a la lista de compras
-            if (shoppingList != null)
-            {
-                shoppingList.MarkProductAsCollected(productoSimulado);
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.T)) // Simular recolección de todos los productos
+    {
+        SimularRecoleccionCompleta();
+    }
     }
 
     // Método para detectar colisiones con productos
     private void OnTriggerEnter(Collider other)
     {
-      
         if (other.CompareTag("Producto"))
         {
-            string nombreProducto = other.gameObject.name.Replace("(Clone)", "").Trim();
-            //string nombreLista= all.ContainsKey(nombreProducto) ? nombreProductos[nombreObjeto] : nombreObjeto;
+            string nombreObjeto = other.gameObject.name.Replace("(Clone)", "").Trim();
 
-            // Actualizar la cantidad del producto en el diccionario
-            if (productosRecolectados.ContainsKey(nombreProducto))
+            if (shoppingList.selectedProducts.ContainsKey(nombreObjeto))
             {
-                productosRecolectados[nombreProducto]++;
-            }
-            else
-            {
-                productosRecolectados[nombreProducto] = 1;
-            }
+                string nombreLista = shoppingList.selectedProducts[nombreObjeto];
 
-            Debug.Log($"Recolectado: {nombreProducto}");
+                if (productosRecolectados.ContainsKey(nombreLista))
+                {
+                    productosRecolectados[nombreLista]++;
+                }
+                else
+                {
+                    productosRecolectados[nombreLista] = 1;
+                }
 
-            if (shoppingList != null)
-            {
-                shoppingList.MarkProductAsCollected(nombreProducto);
+                Debug.Log($"Recolectado: {nombreLista}");
+
+                shoppingList.MarkProductAsCollected(nombreObjeto);
+
+                Destroy(other.gameObject);
+
+                // Verificar si se han recogido todos los elementos
+                CheckIfGameFinished();
             }
-
-            string diccionarioFormateado = "Productos recolectados:\n";
-            foreach (var item in productosRecolectados)
-            {
-                diccionarioFormateado += $"{item.Key}: {item.Value}\n";
-            }
-
-            // Mostrar en consola
-            Debug.Log(diccionarioFormateado);
-            // Destruir el objeto recolectado
-            Destroy(other.gameObject);
         }
+    }
+
+    void CheckIfGameFinished()
+    {
+        if (productosRecolectados.Count >= shoppingList.selectedProducts.Count)
+        {
+            Debug.Log("Todos los productos han sido recolectados! Fin del juego");
+            EndGame();
+        }
+    }
+
+    void EndGame()
+    {
+        endGamePanel.SetActive(true);
+        list.SetActive(false);
+        if (player != null)
+        {
+            player.GetComponent<GameControllerFrenesi>().enabled = false;
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    void SimularRecoleccionCompleta()
+    {
+        Debug.Log("[SIMULACIÓN] Recolectando todos los productos...");
+
+        foreach (var producto in shoppingList.selectedProducts.Keys)
+        {
+            string nombreLista = shoppingList.selectedProducts[producto];
+
+            if (!productosRecolectados.ContainsKey(nombreLista))
+            {
+                productosRecolectados[nombreLista] = 1;
+            }
+
+            // Notificar a la lista de compras
+            shoppingList.MarkProductAsCollected(producto);
+        }
+
+        // Verificar si se han recogido todos los elementos
+        CheckIfGameFinished();
     }
 }
