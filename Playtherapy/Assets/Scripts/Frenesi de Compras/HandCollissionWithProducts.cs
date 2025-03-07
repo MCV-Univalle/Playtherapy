@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandCollissionWithProducts : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class HandCollissionWithProducts : MonoBehaviour
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject player;
+    public Text WarningMessage;
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +20,20 @@ public class HandCollissionWithProducts : MonoBehaviour
         endGamePanel.SetActive(false);
         list.SetActive(true);
 
+        if(WarningMessage != null)
+        {
+            WarningMessage.gameObject.SetActive(false);
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T)) // Simular recolección de todos los productos
-    {
-        SimularRecoleccionCompleta();
-    }
+        {
+          SimularRecoleccionCompleta();
+        }
     }
 
     // Método para detectar colisiones con productos
@@ -69,9 +76,25 @@ public class HandCollissionWithProducts : MonoBehaviour
                     gameController.ReduceTime();
                 }
 
+                if (WarningMessage != null)
+                {
+                    WarningMessage.text = "¡Cuidado! Ese producto no está en la lista";
+                    WarningMessage.gameObject.SetActive(true);
+                    StartCoroutine(HideMessage());
+                }
+
                 // Opcional: destruir el producto incorrecto
                 Destroy(other.gameObject);
             }
+        }
+    }
+
+    IEnumerator HideMessage()
+    {
+        yield return new WaitForSeconds(2);
+        if (WarningMessage != null)
+        {
+            WarningMessage.gameObject.SetActive(false);
         }
     }
 
