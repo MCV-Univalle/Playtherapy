@@ -74,7 +74,10 @@ public class GenerateShoppingListContent : MonoBehaviour
         if (productEntries.ContainsKey(productName))
         {
             // Marcar con un check
-            productEntries[productName].transform.Find("ProductText").GetComponent<Text>().text = "(Obtenido) " + selectedProducts[productName];
+            //productEntries[productName].transform.Find("ProductText").GetComponent<Text>().text = "(Obtenido) " + selectedProducts[productName];
+            //productEntries[productName].transform.Find("ProductText").GetComponent<Text>().text = "----------------------";
+            //productEntries[productName].transform.Find("ProductText").GetComponent<Text>().text = "<s>" + selectedProducts[productName] + "</s>";
+            productEntries[productName].transform.Find("StrikethroughLine").gameObject.SetActive(true);
 
             // Eliminando el producto de la lista
             // Destroy(productEntries[productName]);
