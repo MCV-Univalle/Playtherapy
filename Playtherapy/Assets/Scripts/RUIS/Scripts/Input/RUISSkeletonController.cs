@@ -1,4 +1,4 @@
-/*****************************************************************************
+﻿/*****************************************************************************
 
 Content    :   Functionality to control a skeleton using Kinect
 Authors    :   Mikael Matveinen, Tuukka Takala, Heikki Heiskanen
@@ -68,6 +68,8 @@ public class RUISSkeletonController : MonoBehaviour
 	public bool trackThumbs = false;
 	public bool trackWrist = true;
 	public bool trackAnkle = true;
+	public bool trackLegs = true;
+
 	public bool rotateWristFromElbow = true;
 	
 	public RUISSkeletonManager.Skeleton.handState leftHandStatus = RUISSkeletonManager.Skeleton.handState.open;
@@ -272,6 +274,7 @@ public class RUISSkeletonController : MonoBehaviour
 			trackThumbs = false;
 			trackWrist = false;
 			trackAnkle = false;
+			
 			rotateWristFromElbow = false;
 		}
 
@@ -448,10 +451,10 @@ public class RUISSkeletonController : MonoBehaviour
 	void LateUpdate()
 	{
 		deltaTime = Time.deltaTime; //1.0f / vr.hmd_DisplayFrequency;
-
-		// If a custom skeleton tracking source is used, save its data into skeletonManager (which is a little 
-		// topsy turvy) so we can utilize same code as we did with Kinect 1 and 2
-		if(bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
+        //Debug.Log("trackLegs está en: " + trackLegs);
+        // If a custom skeleton tracking source is used, save its data into skeletonManager (which is a little 
+        // topsy turvy) so we can utilize same code as we did with Kinect 1 and 2
+        if (bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
 		{
 			skeletonManager.skeletons[bodyTrackingDeviceID, playerId].isTracking = true;
 
@@ -640,51 +643,56 @@ public class RUISSkeletonController : MonoBehaviour
 				UpdateTransform(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, maxAngularVelocity);
 				UpdateTransform(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, maxAngularVelocity);
 
-				if(trackWrist || !useHierarchicalModel)
+				if (trackWrist || !useHierarchicalModel)
 				{
 					UpdateTransform(ref leftHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHand, 2 * maxAngularVelocity);
 					UpdateTransform(ref rightHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHand, 2 * maxAngularVelocity);
 				}
 
-				UpdateTransform(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, maxAngularVelocity);
-				UpdateTransform(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, maxAngularVelocity);
-				UpdateTransform(ref leftKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftKnee, maxAngularVelocity);
-                // test knee orientation tracking
-                //Debug.Log(leftKnee.transform.rotation.eulerAngles.)
-				UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
-				
-				UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
-				UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
 
-				if(trackAnkle || !useHierarchicalModel)
+				if (trackLegs)
 				{
-					UpdateTransform(ref leftFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftFoot, maxAngularVelocity);
-					UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
+					UpdateTransform(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, maxAngularVelocity);
+					UpdateTransform(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, maxAngularVelocity);
+					UpdateTransform(ref leftKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftKnee, maxAngularVelocity);
+					// test knee orientation tracking
+					//Debug.Log(leftKnee.transform.rotation.eulerAngles.)
+					UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
+
+					UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
+					UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
+
+
+					if (trackAnkle || !useHierarchicalModel)
+					{
+						UpdateTransform(ref leftFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftFoot, maxAngularVelocity);
+						UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
+					}
 				}
 
-			
-//				// TODO: Restore this when implementation is fixed
-//				if(rotateWristFromElbow && bodyTrackingDevice == bodyTrackingDeviceType.Kinect2)
-//				{
-//					if (useHierarchicalModel)
-//					{
-//						if(leftElbow && leftHand)
-//							leftElbow.rotation  = leftHand.rotation;
-//						if(rightElbow && rightHand)
-//							rightElbow.rotation = rightHand.rotation;
-//					}
-//					else
-//					{
-//						if(leftElbow && leftHand)
-//							leftElbow.localRotation  = leftHand.localRotation;
-//						if(rightElbow && rightHand)
-//							rightElbow.localRotation = rightHand.localRotation;
-//					}
-//					//				UpdateTransform (ref rightElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].rightHand);
-//					//				UpdateTransform (ref leftElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].leftHand);
-//				}
-	
-				if(bodyTrackingDevice == bodyTrackingDeviceType.Kinect2 || bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
+
+				//				// TODO: Restore this when implementation is fixed
+				//				if(rotateWristFromElbow && bodyTrackingDevice == bodyTrackingDeviceType.Kinect2)
+				//				{
+				//					if (useHierarchicalModel)
+				//					{
+				//						if(leftElbow && leftHand)
+				//							leftElbow.rotation  = leftHand.rotation;
+				//						if(rightElbow && rightHand)
+				//							rightElbow.rotation = rightHand.rotation;
+				//					}
+				//					else
+				//					{
+				//						if(leftElbow && leftHand)
+				//							leftElbow.localRotation  = leftHand.localRotation;
+				//						if(rightElbow && rightHand)
+				//							rightElbow.localRotation = rightHand.localRotation;
+				//					}
+				//					//				UpdateTransform (ref rightElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].rightHand);
+				//					//				UpdateTransform (ref leftElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].leftHand);
+				//				}
+
+				if (bodyTrackingDevice == bodyTrackingDeviceType.Kinect2 || bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
 				{
 					leftHandStatus = (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHandStatus);
 					rightHandStatus = (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHandStatus);
@@ -1310,8 +1318,11 @@ public class RUISSkeletonController : MonoBehaviour
 		
 		lastLeftHandStatus = currentLeftHandStatus;
 		lastRightHandStatus = currentRightHandStatus;
-		
-		for(int i = 0; i < 2; i++)
+
+        //Debug.Log("Left Hand Status: " + currentLeftHandStatus);
+        //Debug.Log("Right Hand Status: " + currentRightHandStatus);
+
+        for (int i = 0; i < 2; i++)
 		{ // Hands
 			if(i == 0)
 			{
