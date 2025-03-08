@@ -12,7 +12,7 @@ public class GenerationMap : MonoBehaviour
     public GameObject[] shelfPrefabs;
     public GameObject[] canastaProducts;
     public GameObject[] frituraLecheProducts;
-    public Vector3 escalaLeche = new Vector3(0.13f, 0.13f, 0.13f);
+    public Vector3 escalaLeche = new Vector3(1.2f, 1.2f, 1.2f);
     public Vector3 escalaProductos = new Vector3(0.6f, 0.6f, 0.6f);
  
     public int cantidadTramos = 5;
@@ -217,19 +217,21 @@ public class GenerationMap : MonoBehaviour
         if (product.name.ToLower().Contains("leche"))
         {
             // Hacer algo específico para la leche
-            product.transform.localRotation = Quaternion.Euler(0, -180, -90);
+            product.transform.localRotation = Quaternion.Euler(0, 270, 270);
             product.transform.localScale = escalaLeche;
             Vector3 nuevaPosicion = product.transform.position;
             nuevaPosicion.y += 0.4f;
-            if (isRightShelf)
-            {
-                nuevaPosicion.x -= 0.3f;
-            }
-            else
-            {
-                nuevaPosicion.x += 0.3f;
-            }
-            
+            //if (isRightShelf)
+            //{
+            //    nuevaPosicion.x -= -3.0f;
+                
+            //}
+            //else
+            //{
+            //    nuevaPosicion.x += -3.0f;
+               
+            //}
+
             product.transform.position = nuevaPosicion;
         }
 
