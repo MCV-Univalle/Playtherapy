@@ -24,11 +24,12 @@ public class GameControllerFrenesi : MonoBehaviour
 
 
 
-    public float forwardSpeed = 5f; // Velocidad hacia adelante
-    public float lateralSpeed = 7f; // Velocidad hacia los lados
+    public float forwardSpeed = 5.0f; // Velocidad hacia adelante
+    public float lateralSpeed = 7.0f; // Velocidad hacia los lados
     public float maxLeftPosition = -3.62f;// Distancia en x maxima a la que se puede mover hacia la izquierda
     public float maxRightPosition = 3.134f; // Distancia en x maxima a la que se puede mover hacia la derecha
     public float rotationThreshold = 20f; // Umbral para la rotacion del torso
+    public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
     public bool InGame = true;
     public float currentTime = 60f;
@@ -101,7 +102,7 @@ public class GameControllerFrenesi : MonoBehaviour
                 EndGame();
             }
         }
-
+        mainCamera.transform.position = Player.transform.position + offset;
 
     }
 
@@ -138,7 +139,7 @@ public class GameControllerFrenesi : MonoBehaviour
     {
 
         Player.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-        mainCamera.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        //mainCamera.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
     }
 
     private void MoveSideways()
