@@ -20,7 +20,7 @@ public class GenerateShoppingListContent : MonoBehaviour
         { "Canasta de remolachas", "Rabanos" },
         { "Canasta de bananos", "Bananos" },
         { "Canasta de berenjenas", "Berenjenas" },
-        { "Botella rosada", "Gaseosa morada" },
+        { "Botella rosada", "Gaseosa rosada" },
         { "Botella naranja", "Gaseosa naranja" },
         { "Botella verde claro", "Gaseosa verde" },
         { "Leche descremada", "Leche descremada" },

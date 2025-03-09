@@ -57,7 +57,7 @@ public class GameControllerFrenesi : MonoBehaviour
         RUISSkeletonController[] kinectControllers = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         if (kinectControllers.Length > 0)
         {
-            kinectControllers[0].updateRootPosition = true;
+            kinectControllers[0].updateRootPosition = false;
         }
 
 
@@ -103,6 +103,7 @@ public class GameControllerFrenesi : MonoBehaviour
             }
         }
         mainCamera.transform.position = Player.transform.position + offset;
+        
 
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 public class HandCollissionWithProducts : MonoBehaviour
@@ -8,10 +9,15 @@ public class HandCollissionWithProducts : MonoBehaviour
     // Arreglo para almacenar los productos recogidos
     private Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
     private GenerateShoppingListContent shoppingList;
+
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject player;
+    public GameObject cart; // Referencia al carrito
+    public Transform spawnPoint; // Punto donde aparecerán los productos en el carrito
     public Text WarningMessage;
+
+    public GameObject[] productModels; // Arreglo con los modelos de los productos que caeran en el carrito
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +68,8 @@ public class HandCollissionWithProducts : MonoBehaviour
 
                 Destroy(other.gameObject);
 
+                AddProductToCart(nombreLista);
+
                 // Verificar si se han recogido todos los elementos
                 CheckIfGameFinished();
             }
@@ -87,6 +95,57 @@ public class HandCollissionWithProducts : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    void AddProductToCart(string nombreProducto)
+    {
+        GameObject modeloEncontrado = null;
+        foreach (GameObject modelo in productModels)
+        {
+            if (nombreProducto.ToLower().Contains(modelo.name.ToLower()))
+            {
+                modeloEncontrado = modelo;
+                break;
+            }
+        }
+
+
+
+        if (modeloEncontrado == null)
+        {
+            Debug.LogError($"No se encontró un modelo en modelosCarrito que coincida con: {nombreProducto}");
+            return;
+        }
+
+        Vector3 spawnPosition = spawnPoint.position + new Vector3(
+        Random.Range(-0.3f, 0.3f),
+        0,
+        Random.Range(-0.7f, 0.7f)
+    );
+
+        GameObject productoEnCarrito = Instantiate(modeloEncontrado, spawnPoint.position, Quaternion.identity);
+        if (!(nombreProducto.ToLower().Contains("leche")))
+        {
+            productoEnCarrito.transform.localRotation = Quaternion.Euler(-180, -180, -90);
+        }
+        
+        Rigidbody rb = productoEnCarrito.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = productoEnCarrito.AddComponent<Rigidbody>();
+        }
+        rb.useGravity = true;
+        //rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        BoxCollider collider = productoEnCarrito.GetComponent<BoxCollider>();
+        if (collider == null)
+        {
+            collider = productoEnCarrito.AddComponent<BoxCollider>();
+        }
+
+        collider.size *= 0.8f;
+
+        productoEnCarrito.transform.SetParent(cart.transform, true);
     }
 
     IEnumerator HideMessage()

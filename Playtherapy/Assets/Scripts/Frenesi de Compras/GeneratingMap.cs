@@ -12,7 +12,7 @@ public class GenerationMap : MonoBehaviour
     public GameObject[] shelfPrefabs;
     public GameObject[] canastaProducts;
     public GameObject[] frituraLecheProducts;
-    public Vector3 escalaLeche = new Vector3(1.2f, 1.2f, 1.2f);
+    public Vector3 escalaLeche = new Vector3(0.6f, 0.6f, 0.6f);
     public Vector3 escalaProductos = new Vector3(0.6f, 0.6f, 0.6f);
  
     public int cantidadTramos = 5;
