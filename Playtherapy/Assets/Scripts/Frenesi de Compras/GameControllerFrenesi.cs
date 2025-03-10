@@ -39,6 +39,8 @@ public class GameControllerFrenesi : MonoBehaviour
     public Slider sliderCurrentTime;
     private bool GameOver = false;
 
+    public EnemySpawner enemySpawner;
+
 
 
 
@@ -114,6 +116,8 @@ public class GameControllerFrenesi : MonoBehaviour
         list.SetActive(false);
         timer.SetActive(false);
         endGamePanel.SetActive(true);
+        enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
+        Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
     }
 
     public void ReduceTime()
