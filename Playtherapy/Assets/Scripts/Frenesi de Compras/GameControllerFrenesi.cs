@@ -39,6 +39,8 @@ public class GameControllerFrenesi : MonoBehaviour
     public Slider sliderCurrentTime;
     private bool GameOver = false;
 
+    public EnemySpawner enemySpawner;
+
 
 
 
@@ -57,7 +59,7 @@ public class GameControllerFrenesi : MonoBehaviour
         RUISSkeletonController[] kinectControllers = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
         if (kinectControllers.Length > 0)
         {
-            kinectControllers[0].updateRootPosition = true;
+            kinectControllers[0].updateRootPosition = false;
         }
 
 
@@ -103,6 +105,7 @@ public class GameControllerFrenesi : MonoBehaviour
             }
         }
         mainCamera.transform.position = Player.transform.position + offset;
+        
 
     }
 
@@ -113,6 +116,8 @@ public class GameControllerFrenesi : MonoBehaviour
         list.SetActive(false);
         timer.SetActive(false);
         endGamePanel.SetActive(true);
+        enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
+        Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
     }
 
     public void ReduceTime()
