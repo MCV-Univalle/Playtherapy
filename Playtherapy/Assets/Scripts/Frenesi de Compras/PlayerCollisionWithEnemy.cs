@@ -12,6 +12,7 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
     public GameControllerFrenesi gameControllerFrenesi;
     private bool timeReducted = false; // Para evitar restar varias veces seguidas
     private float timeLastReduction = 0f; // Controla el tiempo de la última resta
+    public AudioSource collisionSound;
 
     void Start()
     {
@@ -24,6 +25,10 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
         {
             Debug.Log("Detecte la colision con el enemigo");
             //float laneWidth = 5.21f; // Ancho del carril
+            if (collisionSound != null)
+            {
+                collisionSound.Play();
+            }
             float minX = -9.62f; // Límite izquierdo
             float maxX = -4.41f;  // Límite derecho
             Vector3 enemyPosition = other.transform.position;

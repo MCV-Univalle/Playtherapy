@@ -7,9 +7,11 @@ public class BackgroundMusic : MonoBehaviour
     private static BackgroundMusic instance;
     private AudioSource audioSource;
 
+    public AudioClip gameOverClip; // Canción que se reproducirá al finalizar la partida
+
     void Awake()
     {
-        // Singleton: Evita que la música se duplique al cambiar de escena
+        // Singleton: Evita duplicados de música
         if (instance == null)
         {
             instance = this;
@@ -21,7 +23,6 @@ public class BackgroundMusic : MonoBehaviour
             return;
         }
 
-        // Obtiene el componente AudioSource y reproduce la música
         audioSource = GetComponent<AudioSource>();
         if (!audioSource.isPlaying)
         {
@@ -29,9 +30,15 @@ public class BackgroundMusic : MonoBehaviour
         }
     }
 
-    // Método opcional para detener la música cuando termine la partida
-    public void StopMusic()
+    // Método para cambiar la música al terminar la partida
+    public void PlayGameOverMusic()
     {
-        audioSource.Stop();
+        if (gameOverClip != null)
+        {
+            audioSource.Stop(); // Detiene la música actual
+            audioSource.clip = gameOverClip; // Asigna la nueva canción
+            audioSource.loop = false; // No repetir (opcional)
+            audioSource.Play(); // Reproduce la música de Game Over
+        }
     }
 }
