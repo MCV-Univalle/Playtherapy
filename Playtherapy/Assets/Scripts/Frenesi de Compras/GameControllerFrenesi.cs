@@ -115,6 +115,7 @@ public class GameControllerFrenesi : MonoBehaviour
         InGame = false;
         list.SetActive(false);
         timer.SetActive(false);
+        FindObjectOfType<BackgroundMusic>().StopMusic();
         endGamePanel.SetActive(true);
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
