@@ -11,9 +11,11 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject kinectPlayer; // Modelo controlado por RUIS
     public GameObject Player; // Combinacion modelo mas carrito
     public GameObject mainCamera;
+    public GameObject parametersPanel;
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject timer;
+    public Button startGameButton;
 
 
     public GameObject LeftShoulder;
@@ -31,8 +33,9 @@ public class GameControllerFrenesi : MonoBehaviour
     public float rotationThreshold = 20f; // Umbral para la rotacion del torso
     public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
-    public bool InGame = true;
+    public bool InGame = false;
     public float currentTime = 60f;
+    private float totalGameTime;
     public float timeMillis = 1000f;
     public int numberRepetitions = 0;
     public Text textCurrentTime;
@@ -43,10 +46,25 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public AudioSource movementSound;
 
-
-
     void Start()
     {
+        parametersPanel.SetActive(true);
+        endGamePanel.SetActive(false);
+        //list.SetActive(false);
+        timer.SetActive(false);
+
+        Invoke("HideList", 0.001f);
+
+        forwardSpeed = 0f;
+        lateralSpeed = 0f;
+        totalGameTime = currentTime;
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.enabled = false;
+        }
+
+        startGameButton.onClick.AddListener(StartGame);
         // Buscar el Skeleton Manager en la escena
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -68,8 +86,7 @@ public class GameControllerFrenesi : MonoBehaviour
     void Update()
     {
 
-        if (!InGame || GameOver)
-            return;
+        if (!InGame || GameOver) return;
         if (skeletonManager == null) return;
 
         // Moverse hacia adelante cuando se estiran los brazos hacia adelante
@@ -89,33 +106,55 @@ public class GameControllerFrenesi : MonoBehaviour
 
 
         MoveSideways();
+        UpdateTimer();
         //kinectPlayer.transform.position = new Vector3(Player.transform.position.x - 6.799438f, Player.transform.position.y, Player.transform.position.z - 17.80806f);
 
-        if (numberRepetitions == 0)
-        {
-            currentTime -= Time.deltaTime;
-            if (currentTime > 0)
-            {
-                timeMillis -= Time.deltaTime * 1000;
-                if (timeMillis < 0)
-                    timeMillis = 1000f;
+        //if (numberRepetitions == 0)
+        //{
+        //    currentTime -= Time.deltaTime;
+        //    if (currentTime > 0)
+        //    {
+        //        timeMillis -= Time.deltaTime * 1000;
+        //        if (timeMillis < 0)
+        //            timeMillis = 1000f;
 
-                textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
-                    Mathf.FloorToInt(currentTime / 60),
-                    Mathf.FloorToInt(currentTime % 60),
-                    Mathf.FloorToInt(timeMillis * 60 / 1000));
+        //        textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
+        //            Mathf.FloorToInt(currentTime / 60),
+        //            Mathf.FloorToInt(currentTime % 60),
+        //            Mathf.FloorToInt(timeMillis * 60 / 1000));
 
-                sliderCurrentTime.value = currentTime * 100 / 60f;
+        //        sliderCurrentTime.value = currentTime * 100 / 60f;
 
-            }
-            else
-            {
-                textCurrentTime.text = "00:00:00";
-                EndGame();
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        textCurrentTime.text = "00:00:00";
+        //        EndGame();
+        //    }
+        //}
         mainCamera.transform.position = Player.transform.position + offset;
         
+
+    }
+
+    public void StartGame()
+    {
+        Debug.Log("¡Juego iniciado!");
+
+        parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
+        InGame = true; //  Permitir que `Update()` funcione
+        forwardSpeed = 5.0f; //  Restaurar la velocidad de movimiento
+        lateralSpeed = 7.0f;
+
+        list.SetActive(true);
+        timer.SetActive(true);
+
+        //FindObjectOfType<BackgroundMusic>().PlayBackgroundMusic();
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.enabled = true;
+        }
 
     }
 
@@ -132,6 +171,34 @@ public class GameControllerFrenesi : MonoBehaviour
         endGamePanel.SetActive(true);
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
+    }
+
+    void UpdateTimer()
+    {
+        totalGameTime -= Time.deltaTime;
+        if (totalGameTime > 0)
+        {
+            timeMillis -= Time.deltaTime * 1000;
+            if (timeMillis < 0)
+                timeMillis = 1000f;
+
+            textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
+                Mathf.FloorToInt(totalGameTime / 60),
+                Mathf.FloorToInt(totalGameTime % 60),
+                Mathf.FloorToInt(timeMillis * 60 / 1000));
+
+            sliderCurrentTime.value = totalGameTime * 100 / currentTime;
+        }
+        else
+        {
+            textCurrentTime.text = "00:00:00";
+            EndGame();
+        }
+    }
+
+    void HideList()
+    {
+        list.SetActive(false);
     }
 
     public void ReduceTime()

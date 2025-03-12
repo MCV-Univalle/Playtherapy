@@ -2518,9 +2518,11 @@ MonoBehaviour:
   kinectPlayer: {fileID: 57490082}
   Player: {fileID: 671188210}
   mainCamera: {fileID: 1816539395}
+  parametersPanel: {fileID: 1026492245}
   endGamePanel: {fileID: 789650726}
   list: {fileID: 1850140992}
   timer: {fileID: 2083080387}
+  startGameButton: {fileID: 705295903}
   LeftShoulder: {fileID: 1139164054}
   RightShoulder: {fileID: 1416978042}
   Spine: {fileID: 253378528}
@@ -2532,8 +2534,8 @@ MonoBehaviour:
   maxRightPosition: -3.89
   rotationThreshold: 20
   offset: {x: 0, y: 1.5, z: -4}
-  InGame: 1
-  currentTime: 30
+  InGame: 0
+  currentTime: 10
   timeMillis: 1000
   numberRepetitions: 0
   textCurrentTime: {fileID: 1246465983}
