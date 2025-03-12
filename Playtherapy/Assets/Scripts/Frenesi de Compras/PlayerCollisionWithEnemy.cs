@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCollisionWithEnemy : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
     private bool timeReducted = false; // Para evitar restar varias veces seguidas
     private float timeLastReduction = 0f; // Controla el tiempo de la última resta
     public AudioSource collisionSound;
+    public Text ReducedTime;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (ReducedTime != null)
+        {
+            ReducedTime.gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -41,9 +47,14 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
             Vector3 knockback = new Vector3(newX - playerPosition.x, 0, 0) * knockbackForce;
             rb.AddForce(knockback, ForceMode.Impulse);
 
-            
+            if (ReducedTime != null)
+            {
+                ReducedTime.text = "-10";
+                ReducedTime.gameObject.SetActive(true);
+                StartCoroutine(HideMessage());
+            }
 
-            
+
 
         }
     }
@@ -69,5 +80,14 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
         yield return new WaitForSeconds(0.5f); // Espera 0.5s para evitar que siga deslizándose
         rb.drag = 0f; // Restaura el drag a su estado normal
         timeReducted = false;
+    }
+
+    IEnumerator HideMessage()
+    {
+        yield return new WaitForSeconds(2);
+        if (ReducedTime != null)
+        {
+            ReducedTime.gameObject.SetActive(false);
+        }
     }
 }

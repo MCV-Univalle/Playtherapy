@@ -12,11 +12,14 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject Player; // Combinacion modelo mas carrito
     public GameObject mainCamera;
     public GameObject parametersPanel;
+    public GameObject memoryPanel;
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject timer;
     public Button startGameButton;
-
+    public Button confirmListButton;
+    public Toggle memorizeListToggle;
+    private bool isPreviewingList = false;
 
     public GameObject LeftShoulder;
     public GameObject RightShoulder;
@@ -52,6 +55,7 @@ public class GameControllerFrenesi : MonoBehaviour
         endGamePanel.SetActive(false);
         //list.SetActive(false);
         timer.SetActive(false);
+        memoryPanel.SetActive(false);
 
         Invoke("HideList", 0.001f);
 
@@ -64,7 +68,8 @@ public class GameControllerFrenesi : MonoBehaviour
             enemySpawner.enabled = false;
         }
 
-        startGameButton.onClick.AddListener(StartGame);
+        startGameButton.onClick.AddListener(OnStartGameButtonPressed);
+        confirmListButton.onClick.AddListener(StartGame);
         // Buscar el Skeleton Manager en la escena
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -106,47 +111,74 @@ public class GameControllerFrenesi : MonoBehaviour
 
 
         MoveSideways();
-        UpdateTimer();
+        //UpdateTimer();
         //kinectPlayer.transform.position = new Vector3(Player.transform.position.x - 6.799438f, Player.transform.position.y, Player.transform.position.z - 17.80806f);
 
-        //if (numberRepetitions == 0)
-        //{
-        //    currentTime -= Time.deltaTime;
-        //    if (currentTime > 0)
-        //    {
-        //        timeMillis -= Time.deltaTime * 1000;
-        //        if (timeMillis < 0)
-        //            timeMillis = 1000f;
+        if (numberRepetitions == 0)
+        {
+            currentTime -= Time.deltaTime;
+            if (currentTime > 0)
+            {
+                timeMillis -= Time.deltaTime * 1000;
+                if (timeMillis < 0)
+                    timeMillis = 1000f;
 
-        //        textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
-        //            Mathf.FloorToInt(currentTime / 60),
-        //            Mathf.FloorToInt(currentTime % 60),
-        //            Mathf.FloorToInt(timeMillis * 60 / 1000));
+                textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
+                    Mathf.FloorToInt(currentTime / 60),
+                    Mathf.FloorToInt(currentTime % 60),
+                    Mathf.FloorToInt(timeMillis * 60 / 1000));
 
-        //        sliderCurrentTime.value = currentTime * 100 / 60f;
+                sliderCurrentTime.value = currentTime * 100 / 60f;
 
-        //    }
-        //    else
-        //    {
-        //        textCurrentTime.text = "00:00:00";
-        //        EndGame();
-        //    }
-        //}
+            }
+            else
+            {
+                textCurrentTime.text = "00:00:00";
+                EndGame();
+            }
+        }
         mainCamera.transform.position = Player.transform.position + offset;
         
 
+    }
+
+    void OnStartGameButtonPressed()
+    {
+        if (memorizeListToggle.isOn)
+        {
+            parametersPanel.SetActive(false);
+            memoryPanel.SetActive(true);
+            isPreviewingList = true;
+        }
+        else
+        {
+            StartGame();
+        }
     }
 
     public void StartGame()
     {
         Debug.Log("¡Juego iniciado!");
 
-        parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
+        if (isPreviewingList)
+        {
+            memoryPanel.SetActive(false);
+            isPreviewingList = false;
+        }
+        else
+        {
+            parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
+        }
+        
         InGame = true; //  Permitir que `Update()` funcione
         forwardSpeed = 5.0f; //  Restaurar la velocidad de movimiento
         lateralSpeed = 7.0f;
 
-        list.SetActive(true);
+        if (!memorizeListToggle.isOn)
+        {
+            list.SetActive(true);
+        }
+    
         timer.SetActive(true);
 
         //FindObjectOfType<BackgroundMusic>().PlayBackgroundMusic();

@@ -16,6 +16,7 @@ public class HandCollissionWithProducts : MonoBehaviour
     public GameObject cart; // Referencia al carrito
     public Transform spawnPoint; // Punto donde aparecerán los productos en el carrito
     public Text WarningMessage;
+    public Text ReducedTime;
 
     public GameObject[] productModels; // Arreglo con los modelos de los productos que caeran en el carrito
 
@@ -32,6 +33,11 @@ public class HandCollissionWithProducts : MonoBehaviour
         if(WarningMessage != null)
         {
             WarningMessage.gameObject.SetActive(false);
+        }
+
+        if (ReducedTime != null)
+        {
+            ReducedTime.gameObject.SetActive(false);
         }
 
         audioSource = GetComponent<AudioSource>();
@@ -98,6 +104,13 @@ public class HandCollissionWithProducts : MonoBehaviour
                 {
                     WarningMessage.text = "¡Cuidado! Ese producto no está en la lista";
                     WarningMessage.gameObject.SetActive(true);
+                    StartCoroutine(HideMessage());
+                }
+
+                if (ReducedTime != null)
+                {
+                    ReducedTime.text = "-10";
+                    ReducedTime.gameObject.SetActive(true);
                     StartCoroutine(HideMessage());
                 }
 
@@ -169,6 +182,11 @@ public class HandCollissionWithProducts : MonoBehaviour
         if (WarningMessage != null)
         {
             WarningMessage.gameObject.SetActive(false);
+        }
+
+        if (ReducedTime != null)
+        {
+            ReducedTime.gameObject.SetActive(false);
         }
     }
 
