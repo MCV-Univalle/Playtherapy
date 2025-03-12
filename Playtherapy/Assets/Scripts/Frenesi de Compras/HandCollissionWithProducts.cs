@@ -19,6 +19,9 @@ public class HandCollissionWithProducts : MonoBehaviour
 
     public GameObject[] productModels; // Arreglo con los modelos de los productos que caeran en el carrito
 
+    private AudioSource audioSource;
+    public AudioClip correctPickupSound;
+    public AudioClip wrongPickupSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,8 @@ public class HandCollissionWithProducts : MonoBehaviour
         {
             WarningMessage.gameObject.SetActive(false);
         }
+
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -70,6 +75,11 @@ public class HandCollissionWithProducts : MonoBehaviour
 
                 AddProductToCart(nombreLista);
 
+                if (audioSource != null && correctPickupSound != null)
+                {
+                    audioSource.PlayOneShot(correctPickupSound);
+                }
+
                 // Verificar si se han recogido todos los elementos
                 CheckIfGameFinished();
             }
@@ -89,6 +99,11 @@ public class HandCollissionWithProducts : MonoBehaviour
                     WarningMessage.text = "¡Cuidado! Ese producto no está en la lista";
                     WarningMessage.gameObject.SetActive(true);
                     StartCoroutine(HideMessage());
+                }
+
+                if (audioSource != null && wrongPickupSound != null)
+                {
+                    audioSource.PlayOneShot(wrongPickupSound);
                 }
 
                 // Opcional: destruir el producto incorrecto

@@ -41,7 +41,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public EnemySpawner enemySpawner;
 
-
+    public AudioSource movementSound;
 
 
 
@@ -67,6 +67,9 @@ public class GameControllerFrenesi : MonoBehaviour
 
     void Update()
     {
+
+        if (!InGame || GameOver)
+            return;
         if (skeletonManager == null) return;
 
         // Moverse hacia adelante cuando se estiran los brazos hacia adelante
@@ -74,12 +77,19 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             MoveForward();
         }
+        else
+        {
+            // Si el carrito se detiene, se detiene el sonido
+            if (movementSound.isPlaying)
+            {
+                movementSound.Stop();
+            }
+        }
+
 
 
         MoveSideways();
         //kinectPlayer.transform.position = new Vector3(Player.transform.position.x - 6.799438f, Player.transform.position.y, Player.transform.position.z - 17.80806f);
-        if (!InGame || GameOver)
-            return;
 
         if (numberRepetitions == 0)
         {
@@ -115,6 +125,10 @@ public class GameControllerFrenesi : MonoBehaviour
         InGame = false;
         list.SetActive(false);
         timer.SetActive(false);
+        FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
+        forwardSpeed = 0f;
+        lateralSpeed = 0f;
+        movementSound.Stop();
         endGamePanel.SetActive(true);
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
@@ -144,6 +158,10 @@ public class GameControllerFrenesi : MonoBehaviour
     {
 
         Player.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        if (!movementSound.isPlaying)
+        {
+            movementSound.Play();
+        }
         //mainCamera.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
     }
 

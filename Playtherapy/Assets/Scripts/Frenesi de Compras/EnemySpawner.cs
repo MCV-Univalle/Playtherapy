@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float spawnDistance = 43.5f; // Qué tan atrás aparecen
     public Vector3[] spawnPositions; // Posiciones en los carriles
     private bool isSpawning = true;
+    public AudioClip enemySound;
 
     void Start()
     {
@@ -33,7 +34,14 @@ public class EnemySpawner : MonoBehaviour
         spawnPos.z = jugador.position.z + spawnDistance;
 
         // Instanciar el enemigo
-        Instantiate(enemyPrefab, spawnPos, Quaternion.Euler(0, 180, 0));
+        GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.Euler(0, 180, 0));
+
+        AudioSource enemyAudio = newEnemy.GetComponent<AudioSource>();
+        if (enemyAudio != null && enemySound != null)
+        {
+            //enemyAudio.clip = enemySound;
+            enemyAudio.PlayOneShot(enemySound);
+        }
     }
 
     public void StopSpawning()
