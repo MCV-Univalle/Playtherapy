@@ -30,6 +30,26 @@ public class BackgroundMusic : MonoBehaviour
         }
     }
 
+    public void PlayBackgroundMusic()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+    }
+
     // Método para cambiar la música al terminar la partida
     public void PlayGameOverMusic()
     {

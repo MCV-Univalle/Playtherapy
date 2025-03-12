@@ -11,10 +11,15 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject kinectPlayer; // Modelo controlado por RUIS
     public GameObject Player; // Combinacion modelo mas carrito
     public GameObject mainCamera;
+    public GameObject parametersPanel;
+    public GameObject memoryPanel;
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject timer;
-
+    public Button startGameButton;
+    public Button confirmListButton;
+    public Toggle memorizeListToggle;
+    private bool isPreviewingList = false;
 
     public GameObject LeftShoulder;
     public GameObject RightShoulder;
@@ -31,8 +36,9 @@ public class GameControllerFrenesi : MonoBehaviour
     public float rotationThreshold = 20f; // Umbral para la rotacion del torso
     public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
-    public bool InGame = true;
+    public bool InGame = false;
     public float currentTime = 60f;
+    private float totalGameTime;
     public float timeMillis = 1000f;
     public int numberRepetitions = 0;
     public Text textCurrentTime;
@@ -43,10 +49,27 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public AudioSource movementSound;
 
-
-
     void Start()
     {
+        parametersPanel.SetActive(true);
+        endGamePanel.SetActive(false);
+        //list.SetActive(false);
+        timer.SetActive(false);
+        memoryPanel.SetActive(false);
+
+        Invoke("HideList", 0.001f);
+
+        forwardSpeed = 0f;
+        lateralSpeed = 0f;
+        totalGameTime = currentTime;
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.enabled = false;
+        }
+
+        startGameButton.onClick.AddListener(OnStartGameButtonPressed);
+        confirmListButton.onClick.AddListener(StartGame);
         // Buscar el Skeleton Manager en la escena
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -68,8 +91,7 @@ public class GameControllerFrenesi : MonoBehaviour
     void Update()
     {
 
-        if (!InGame || GameOver)
-            return;
+        if (!InGame || GameOver) return;
         if (skeletonManager == null) return;
 
         // Moverse hacia adelante cuando se estiran los brazos hacia adelante
@@ -89,6 +111,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
 
         MoveSideways();
+        //UpdateTimer();
         //kinectPlayer.transform.position = new Vector3(Player.transform.position.x - 6.799438f, Player.transform.position.y, Player.transform.position.z - 17.80806f);
 
         if (numberRepetitions == 0)
@@ -119,6 +142,54 @@ public class GameControllerFrenesi : MonoBehaviour
 
     }
 
+    void OnStartGameButtonPressed()
+    {
+        if (memorizeListToggle.isOn)
+        {
+            parametersPanel.SetActive(false);
+            memoryPanel.SetActive(true);
+            isPreviewingList = true;
+        }
+        else
+        {
+            StartGame();
+        }
+    }
+
+    public void StartGame()
+    {
+        Debug.Log("¡Juego iniciado!");
+
+        if (isPreviewingList)
+        {
+            memoryPanel.SetActive(false);
+            isPreviewingList = false;
+        }
+        else
+        {
+            parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
+        }
+        
+        InGame = true; //  Permitir que `Update()` funcione
+        forwardSpeed = 5.0f; //  Restaurar la velocidad de movimiento
+        lateralSpeed = 7.0f;
+
+        if (!memorizeListToggle.isOn)
+        {
+            list.SetActive(true);
+        }
+    
+        timer.SetActive(true);
+
+        //FindObjectOfType<BackgroundMusic>().PlayBackgroundMusic();
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.enabled = true;
+        }
+
+    }
+
     void EndGame()
     {
         GameOver = true;
@@ -132,6 +203,34 @@ public class GameControllerFrenesi : MonoBehaviour
         endGamePanel.SetActive(true);
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
+    }
+
+    void UpdateTimer()
+    {
+        totalGameTime -= Time.deltaTime;
+        if (totalGameTime > 0)
+        {
+            timeMillis -= Time.deltaTime * 1000;
+            if (timeMillis < 0)
+                timeMillis = 1000f;
+
+            textCurrentTime.text = string.Format("{0:00}:{1:00}:{2:00}",
+                Mathf.FloorToInt(totalGameTime / 60),
+                Mathf.FloorToInt(totalGameTime % 60),
+                Mathf.FloorToInt(timeMillis * 60 / 1000));
+
+            sliderCurrentTime.value = totalGameTime * 100 / currentTime;
+        }
+        else
+        {
+            textCurrentTime.text = "00:00:00";
+            EndGame();
+        }
+    }
+
+    void HideList()
+    {
+        list.SetActive(false);
     }
 
     public void ReduceTime()
