@@ -14,10 +14,10 @@ public class GenerateShoppingListContent : MonoBehaviour
     private Dictionary<string, string> allProducts = new Dictionary<string, string>()
     {
         { "Canasta de fresas", "Fresas" },
-        { "Bolsa de papas moradas", "Papas moradas" },
+        { "Bolsa de papas rosadas", "Papas moradas" },
         { "Leche deslactosada", "Leche deslactosada" },
         { "Canasta de manzanas rojas", "Manzanas rojas" },
-        { "Canasta de remolachas", "Rabanos" },
+        { "Canasta de remolacha", "Rabanos" },
         { "Canasta de bananos", "Bananos" },
         { "Canasta de berenjenas", "Berenjenas" },
         { "Botella rosada", "Gaseosa rosada" },
@@ -26,11 +26,11 @@ public class GenerateShoppingListContent : MonoBehaviour
         { "Leche descremada", "Leche descremada" },
         { "Leche entera", "Leche entera" },
         { "Canasta de limones", "Limones" },
-        { "Canasta de manzanas verdes", "Manzanas verdes" },
+        { "Canasta manzanas verdes", "Manzanas verdes" },
         { "Canasta de naranjas", "Naranjas" },
         { "Bolsa de papas azul claro", "Papas azul claro" },
         { "Bolsa de papas azul oscuro", "Papas azul oscuro" },
-        { "Bolsa de papas naranjas", "Papas naranjas" },
+        { "Bolsa de papas de pollo", "Papas de pollo" },
         { "Canasta de piñas", "Piña" },
         { "Canasta de tomates", "Tomates" }
     };

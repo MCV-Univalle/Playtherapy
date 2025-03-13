@@ -73,6 +73,7 @@ TagManager:
   - IPosition
   - Leche
   - Producto
+  - FakeHallway
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerCollisionWithEnemy : MonoBehaviour
 {
-    public float knockbackForce = 120f; // Fuerza del rebote
+    public float knockbackForce = 3f; // Fuerza del rebote
     public Transform enemy; // Referencia al NPC enemigo
 
     private Rigidbody rb;
@@ -29,23 +29,28 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
     {
         if (other.CompareTag("Enemies"))
         {
-            Debug.Log("Detecte la colision con el enemigo");
-            //float laneWidth = 5.21f; // Ancho del carril
+            Debug.Log("Detecté la colisión con el enemigo");
+
             if (collisionSound != null)
             {
                 collisionSound.Play();
             }
+
             float minX = -9.62f; // Límite izquierdo
-            float maxX = -4.41f;  // Límite derecho
-            Vector3 enemyPosition = other.transform.position;
+            float maxX = -4.41f; // Límite derecho
             Vector3 playerPosition = transform.position;
 
-            float direction = (playerPosition.x < enemyPosition.x) ? -1f : 1f; // Decide hacia dónde rebotar
-            float newX = Mathf.Clamp(playerPosition.x + (direction * knockbackForce), minX, maxX); // Mantener en carriles
+            // Determinar la dirección del knockback según el borde más cercano
+            float distanceToLeft = Mathf.Abs(playerPosition.x - minX);
+            float distanceToRight = Mathf.Abs(playerPosition.x - maxX);
+            float direction = (distanceToLeft < distanceToRight) ? 1f : -1f; // Si está más cerca del borde izquierdo, se mueve a la derecha
 
-            // Aplicar rebote solo en X
+            // Calcular la nueva posición
+            float newX = Mathf.Clamp(playerPosition.x + (direction * knockbackForce), minX, maxX);
+
+            // Aplicar el knockback solo en X
             Vector3 knockback = new Vector3(newX - playerPosition.x, 0, 0) * knockbackForce;
-            rb.AddForce(knockback, ForceMode.Impulse);
+            rb.AddForce(knockback, ForceMode.VelocityChange);
 
             if (ReducedTime != null)
             {
@@ -53,9 +58,6 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
                 ReducedTime.gameObject.SetActive(true);
                 StartCoroutine(HideMessage());
             }
-
-
-
         }
     }
 
@@ -69,6 +71,7 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
                 timeReducted = true;
                 timeLastReduction = Time.time;
                 StartCoroutine(RestoreDrag());
+                StartCoroutine(StopKnockback());
             }
         }
     }
@@ -80,6 +83,12 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
         yield return new WaitForSeconds(0.5f); // Espera 0.5s para evitar que siga deslizándose
         rb.drag = 0f; // Restaura el drag a su estado normal
         timeReducted = false;
+    }
+
+    IEnumerator StopKnockback()
+    {
+        yield return new WaitForSeconds(0.2f); // Espera un poco después del empuje
+        rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z); // Elimina la velocidad en X
     }
 
     IEnumerator HideMessage()

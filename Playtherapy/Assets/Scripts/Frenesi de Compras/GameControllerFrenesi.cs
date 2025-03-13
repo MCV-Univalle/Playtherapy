@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using Leap.Unity;
+using OpenNI;
 
 public class GameControllerFrenesi : MonoBehaviour
 {
@@ -37,13 +38,17 @@ public class GameControllerFrenesi : MonoBehaviour
     public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
     public bool InGame = false;
-    public float currentTime = 60f;
+
+
+    public float currentTime = 120f;
     private float totalGameTime;
     public float timeMillis = 1000f;
     public int numberRepetitions = 0;
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
     private bool GameOver = false;
+
+    public GameObject FinalHallwayPrefab;
 
     public EnemySpawner enemySpawner;
 
@@ -138,7 +143,7 @@ public class GameControllerFrenesi : MonoBehaviour
             }
         }
         mainCamera.transform.position = Player.transform.position + offset;
-        
+
 
     }
 
@@ -169,7 +174,7 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
         }
-        
+
         InGame = true; //  Permitir que `Update()` funcione
         forwardSpeed = 5.0f; //  Restaurar la velocidad de movimiento
         lateralSpeed = 7.0f;
@@ -178,7 +183,7 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             list.SetActive(true);
         }
-    
+
         timer.SetActive(true);
 
         //FindObjectOfType<BackgroundMusic>().PlayBackgroundMusic();
@@ -190,19 +195,33 @@ public class GameControllerFrenesi : MonoBehaviour
 
     }
 
-    void EndGame()
+    public void EndGame()
     {
         GameOver = true;
         InGame = false;
         list.SetActive(false);
         timer.SetActive(false);
-        FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
+
         forwardSpeed = 0f;
         lateralSpeed = 0f;
         movementSound.Stop();
-        endGamePanel.SetActive(true);
+
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
+        GameObject FakeHallway = GameObject.Find("FakeHallway(Clone)");
+        Destroy(FakeHallway);
+        GameObject BuyerNPC = GameObject.Find("BuyerNPC(Clone)");
+        Destroy(BuyerNPC);
+        // Instanciar el prefab final
+
+        SpawnEndPrefab();
+
+        // Mover al jugador al centro
+        StartCoroutine(EndGameSequence());
+
+        // Moverlo hasta el final
+
+
     }
 
     void UpdateTimer()
@@ -284,6 +303,106 @@ public class GameControllerFrenesi : MonoBehaviour
         float newX = Mathf.Clamp(Player.transform.position.x + movementDelta, maxLeftPosition, maxRightPosition);
         Player.transform.position = new Vector3(newX, Player.transform.position.y, Player.transform.position.z);
     }
+
+
+
+    void SpawnEndPrefab()
+    {
+        // Encontrar el último pasillo generado
+        GeneratingMap generateMap = FindObjectOfType<GeneratingMap>();
+
+        if (generateMap == null)
+        {
+            Debug.LogError("No se encontró GeneratingMap en la escena.");
+            return;
+        }
+
+        GameObject lastHallway = generateMap.GetLastHallway();
+        if (lastHallway == null)
+        {
+            Debug.Log("no se encontro el ultimo pasillo;");
+            return;
+        }
+
+
+
+        float sectionLength = generateMap.GetSectionLength();
+        Vector3 spawnPos = lastHallway.transform.position + new Vector3(-6.66f, -0.3f, (sectionLength / 2) - 0.1574f);
+        GameObject InstanceFinalHallwayPrefab = Instantiate(FinalHallwayPrefab, spawnPos, Quaternion.identity);
+        FindObjectOfType<GeneratingMap>().enabled = false;
+        //StartCoroutine(MoveToEnd(InstanceFinalHallwayPrefab.transform.position, 5f));
+    }
+
+    IEnumerator MovePlayerToCenter(float speed)
+    {
+        Vector3 start = Player.transform.position;
+        Vector3 end = new Vector3(-6.87f, start.y, start.z); // Posición centrada
+
+        while (Mathf.Abs(Player.transform.position.x - end.x) > 0.01f)
+        {
+            //Debug.Log(Player.transform.position);
+            float newX = Mathf.MoveTowards(Player.transform.position.x, end.x, speed * Time.deltaTime);
+            Player.transform.position = new Vector3(newX, Player.transform.position.y, Player.transform.position.z);
+            mainCamera.transform.position = Player.transform.position + offset;
+            yield return null;
+        }
+
+        Player.transform.position = end;
+    }
+
+    IEnumerator MoveToEnd(GameObject finalHallway, float speed)
+    {
+        // Calcula un punto dentro del FinalHallway para que el jugador vaya hacia allí
+        Vector3 targetPosition = finalHallway.transform.position;
+        targetPosition.x = -6.87f;
+        targetPosition.y = 1.34f;
+
+        Debug.Log("Moviéndose hacia: " + targetPosition);
+
+        while (Vector3.Distance(Player.transform.position, targetPosition) > 0.1f)
+        {
+            float newX = Mathf.MoveTowards(Player.transform.position.x, targetPosition.x, speed * Time.deltaTime);
+            float newZ = Mathf.MoveTowards(Player.transform.position.z, targetPosition.z, speed * Time.deltaTime);
+
+            Player.transform.position = new Vector3(newX, Player.transform.position.y, newZ);
+            mainCamera.transform.position = Player.transform.position + offset;
+            yield return null;
+        }
+
+        Debug.Log("Llegó al final");
+        yield return new WaitForSeconds(2f);
+        FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
+        endGamePanel.SetActive(true);
+    }
+
+    IEnumerator EndGameSequence()
+    {
+        // Mover al jugador al centro primero
+        yield return StartCoroutine(MovePlayerToCenter(7f));
+
+        // Ahora sí, mover al jugador hacia el pasillo final
+        GameObject finalPrefab = GameObject.Find("FinalHallway(Clone)"); // Encuentra el prefab final
+        Debug.Log("encontre el pasillo final es (antes del if): " + finalPrefab.name);
+        if (finalPrefab != null)
+        {
+            Debug.Log("encontre el pasillo final es: " + finalPrefab.name);
+            yield return StartCoroutine(MoveToEnd(finalPrefab, 20f));
+        }
+        else
+        {
+            Debug.LogError("No se encontró el prefab final.");
+        }
+
+        Debug.Log("termine mi trabajo, terminaron la corrutinas lolololo");
+    }
+
+    public void UpdateTimeFromSlider(float value)
+    {
+        Debug.Log("soy el valor recibido del slider: " + value);
+        currentTime = value * 60;
+    }
+
+
 
 
 }

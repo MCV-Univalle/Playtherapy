@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class HandCollissionWithProducts : MonoBehaviour
 {
     // Arreglo para almacenar los productos recogidos
-    private Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
+    private static Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
     private GenerateShoppingListContent shoppingList;
 
     public GameObject endGamePanel;
@@ -59,23 +60,41 @@ public class HandCollissionWithProducts : MonoBehaviour
         if (other.CompareTag("Producto"))
         {
             string nombreObjeto = other.gameObject.name.Replace("(Clone)", "").Trim();
+            //Debug.Log("soy el nombre objeto: " + nombreObjeto);
 
             if (shoppingList.selectedProducts.ContainsKey(nombreObjeto))
             {
                 string nombreLista = shoppingList.selectedProducts[nombreObjeto];
-
+               Debug.Log("soy el nombre lista/producto: " + nombreLista);
                 if (productosRecolectados.ContainsKey(nombreLista))
                 {
+                    Debug.Log("entre al ++" + nombreLista);
                     productosRecolectados[nombreLista]++;
                 }
                 else
                 {
+                    Debug.Log("entre al = 1" + nombreLista);
                     productosRecolectados[nombreLista] = 1;
                 }
 
-                Debug.Log($"Recolectado: {nombreLista}");
+                // Debug.Log($"Recolectado: {nombreLista}");
 
                 shoppingList.MarkProductAsCollected(nombreObjeto);
+
+                foreach (var item in productosRecolectados)
+                {
+                    Debug.Log($"Producto: {item.Key}, Cantidad: {item.Value}");
+                }
+
+                try
+                {
+                CheckIfGameFinished();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Error en CheckIfGameFinished(): {e.Message}");
+                }
+                
 
                 Destroy(other.gameObject);
 
@@ -87,7 +106,7 @@ public class HandCollissionWithProducts : MonoBehaviour
                 }
 
                 // Verificar si se han recogido todos los elementos
-                CheckIfGameFinished();
+                
             }
             else
             {
@@ -130,6 +149,7 @@ public class HandCollissionWithProducts : MonoBehaviour
         GameObject modeloEncontrado = null;
         foreach (GameObject modelo in productModels)
         {
+            //Debug.Log("soy el nombre modelo: " + modelo.name.ToLower());
             if (nombreProducto.ToLower().Contains(modelo.name.ToLower()))
             {
                 modeloEncontrado = modelo;
@@ -154,6 +174,7 @@ public class HandCollissionWithProducts : MonoBehaviour
         GameObject productoEnCarrito = Instantiate(modeloEncontrado, spawnPoint.position, Quaternion.identity);
         if (!(nombreProducto.ToLower().Contains("leche")))
         {
+            productoEnCarrito.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             productoEnCarrito.transform.localRotation = Quaternion.Euler(-180, -180, -90);
         }
         
@@ -192,10 +213,20 @@ public class HandCollissionWithProducts : MonoBehaviour
 
     void CheckIfGameFinished()
     {
+        Debug.Log("soy el tamano del diccionario productos recolectados: " + productosRecolectados.Count);
         if (productosRecolectados.Count >= shoppingList.selectedProducts.Count)
         {
             Debug.Log("Todos los productos han sido recolectados! Fin del juego");
-            EndGame();
+            GameControllerFrenesi gameController = FindObjectOfType<GameControllerFrenesi>();
+
+            if (gameController != null)
+            {
+                gameController.EndGame();
+            }
+            else
+            {
+                Debug.LogError("GameControllerFrenesi no encontrado en la escena.");
+            }
         }
     }
 
