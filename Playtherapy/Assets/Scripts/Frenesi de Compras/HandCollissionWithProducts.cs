@@ -9,7 +9,7 @@ public class HandCollissionWithProducts : MonoBehaviour
 {
     // Arreglo para almacenar los productos recogidos
     private static Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
-    private GenerateShoppingListContent shoppingList;
+    //private GenerateShoppingListContent shoppingList;
 
     public GameObject endGamePanel;
     public GameObject list;
@@ -27,7 +27,8 @@ public class HandCollissionWithProducts : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shoppingList = FindObjectOfType<GenerateShoppingListContent>();
+        ////shoppingList = FindObjectOfType<GenerateShoppingListContent>();
+        //Debug.Log("soy la shopping list: " + shoppingList);
         endGamePanel.SetActive(false);
         list.SetActive(true);
 
@@ -62,9 +63,9 @@ public class HandCollissionWithProducts : MonoBehaviour
             string nombreObjeto = other.gameObject.name.Replace("(Clone)", "").Trim();
             //Debug.Log("soy el nombre objeto: " + nombreObjeto);
 
-            if (shoppingList.selectedProducts.ContainsKey(nombreObjeto))
+            if (GenerateShoppingListContent.selectedProducts.ContainsKey(nombreObjeto))
             {
-                string nombreLista = shoppingList.selectedProducts[nombreObjeto];
+                string nombreLista = GenerateShoppingListContent.selectedProducts[nombreObjeto];
                Debug.Log("soy el nombre lista/producto: " + nombreLista);
                 if (productosRecolectados.ContainsKey(nombreLista))
                 {
@@ -79,7 +80,7 @@ public class HandCollissionWithProducts : MonoBehaviour
 
                 // Debug.Log($"Recolectado: {nombreLista}");
 
-                shoppingList.MarkProductAsCollected(nombreObjeto);
+                GenerateShoppingListContent.MarkProductAsCollected(nombreObjeto);
 
                 foreach (var item in productosRecolectados)
                 {
@@ -214,7 +215,7 @@ public class HandCollissionWithProducts : MonoBehaviour
     void CheckIfGameFinished()
     {
         Debug.Log("soy el tamano del diccionario productos recolectados: " + productosRecolectados.Count);
-        if (productosRecolectados.Count >= shoppingList.selectedProducts.Count)
+        if (productosRecolectados.Count >= GenerateShoppingListContent.selectedProducts.Count)
         {
             Debug.Log("Todos los productos han sido recolectados! Fin del juego");
             GameControllerFrenesi gameController = FindObjectOfType<GameControllerFrenesi>();
@@ -246,9 +247,9 @@ public class HandCollissionWithProducts : MonoBehaviour
     {
         Debug.Log("[SIMULACIÓN] Recolectando todos los productos...");
 
-        foreach (var producto in shoppingList.selectedProducts.Keys)
+        foreach (var producto in GenerateShoppingListContent.selectedProducts.Keys)
         {
-            string nombreLista = shoppingList.selectedProducts[producto];
+            string nombreLista = GenerateShoppingListContent.selectedProducts[producto];
 
             if (!productosRecolectados.ContainsKey(nombreLista))
             {
@@ -256,7 +257,7 @@ public class HandCollissionWithProducts : MonoBehaviour
             }
 
             // Notificar a la lista de compras
-            shoppingList.MarkProductAsCollected(producto);
+            GenerateShoppingListContent.MarkProductAsCollected(producto);
         }
 
         // Verificar si se han recogido todos los elementos

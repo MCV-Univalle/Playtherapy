@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -17,6 +17,7 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject timer;
+
     public Button startGameButton;
     public Button confirmListButton;
     public Toggle memorizeListToggle;
@@ -34,8 +35,14 @@ public class GameControllerFrenesi : MonoBehaviour
     public float lateralSpeed = 7.0f; // Velocidad hacia los lados
     public float maxLeftPosition = -3.62f;// Distancia en x maxima a la que se puede mover hacia la izquierda
     public float maxRightPosition = 3.134f; // Distancia en x maxima a la que se puede mover hacia la derecha
-    public float rotationThreshold = 20f; // Umbral para la rotacion del torso
-    public Vector3 offset; // Desplazamiento de la c�mara respecto al jugador
+    //public float rotationThreshold = 20f; // Umbral para la rotacion del torso
+
+    static public int trunkRotationAngle = 20;
+    static public int trunkInclinationAngle = 360;
+    static public int armElevationAngle = 45;
+    static public int shoulderAbductionAngle = 20;
+
+    public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
     public bool InGame = false;
 
@@ -152,18 +159,21 @@ public class GameControllerFrenesi : MonoBehaviour
         if (memorizeListToggle.isOn)
         {
             parametersPanel.SetActive(false);
+
             memoryPanel.SetActive(true);
             isPreviewingList = true;
         }
         else
         {
+
             StartGame();
+
         }
     }
 
     public void StartGame()
     {
-        Debug.Log("�Juego iniciado!");
+        Debug.Log("¡Juego iniciado!");
 
         if (isPreviewingList)
         {
@@ -172,7 +182,7 @@ public class GameControllerFrenesi : MonoBehaviour
         }
         else
         {
-            parametersPanel.SetActive(false); // Ocultar pantalla de par�metros
+            parametersPanel.SetActive(false); // Ocultar pantalla de parámetros
         }
 
         InGame = true; //  Permitir que `Update()` funcione
@@ -259,6 +269,13 @@ public class GameControllerFrenesi : MonoBehaviour
             currentTime = 0;
     }
 
+    /*
+    Explicacion de la relacion entre los angulos de abduccion de hombro y elevacion de brazo:
+
+        - Ajustando el ángulo de abducción del hombro, se decide a qué altura se quieren detectar los brazos levantados.
+        - Ajustando la elevación del brazo, se define cuánta tolerancia se permite para que el jugador pueda moverse.
+
+    */
     private bool AreArmsRaised()
     {
         Vector3 leftShoulderPos = LeftShoulder.transform.position;
@@ -269,7 +286,13 @@ public class GameControllerFrenesi : MonoBehaviour
         float leftAngle = Vector3.Angle(Vector3.up, leftHandPos - leftShoulderPos);
         float rightAngle = Vector3.Angle(Vector3.up, rightHandPos - rightShoulderPos);
 
-        return Mathf.Abs(leftAngle - 110) < 20 || Mathf.Abs(rightAngle - 110) < 20;
+        // Obtener los valores dinámicos de los sliders
+        float shoulderAbduction = shoulderAbductionAngle; // Ángulo objetivo de abducción del hombro
+        float armElevation = armElevationAngle;           // Margen de tolerancia
+
+        // Comprobar si los brazos están dentro del rango configurado por los sliders
+        return Mathf.Abs(leftAngle - shoulderAbduction) < armElevation ||
+               Mathf.Abs(rightAngle - shoulderAbduction) < armElevation;
     }
 
     private void MoveForward()
@@ -283,24 +306,48 @@ public class GameControllerFrenesi : MonoBehaviour
         //mainCamera.transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
     }
 
+    /*
+    Para que el movimiento funcione los angulos deben:
+            1. el angulo de inclinacion debe cumplirse o superarse
+            2. dependiendo de la direccion de la rotacion del torso se, el personaje se mueve hacia la derecha o hacia la izquierda
+    */
+
     private void MoveSideways()
     {
+        // Obtener ángulos de rotación del tronco
         float torsoRotationY = Spine.transform.rotation.eulerAngles.y;
-        if (torsoRotationY > 180) torsoRotationY -= 360; // Normalize rotation (-180 to 180)
+        float torsoInclinationX = Spine.transform.rotation.eulerAngles.x;
+
+        // Normalizar el ángulo de rotación (-180 a 180)
+        if (torsoRotationY > 180) torsoRotationY -= 360;
+        if (torsoInclinationX > 180) torsoInclinationX -= 360;
 
         float movementDelta = 0;
 
-        if (torsoRotationY > rotationThreshold)
-        {
-            movementDelta = lateralSpeed * Time.deltaTime;
-        }
-        else if (torsoRotationY < -rotationThreshold)
-        {
-            movementDelta = -lateralSpeed * Time.deltaTime;
-        }
+        int rotationThreshold = trunkRotationAngle;
+        int inclinationThreshold = trunkInclinationAngle;
 
-        // Aplicar movimiento de manera uniforme al GameObject completo
-        float newX = Mathf.Clamp(Player.transform.position.x + movementDelta, maxLeftPosition, maxRightPosition);
+        // Verificar si la inclinación cumple el umbral
+        if (torsoInclinationX < 0)
+        {
+            if (Math.Abs(torsoInclinationX) > inclinationThreshold)
+            {
+                // Determinar dirección solo con la rotación en Y
+                if (torsoRotationY > rotationThreshold)
+                {
+                    movementDelta = lateralSpeed * Time.deltaTime; // Mover a la derecha
+                }
+                else if (torsoRotationY < -rotationThreshold)
+                {
+                    movementDelta = -lateralSpeed * Time.deltaTime; // Mover a la izquierda
+                }
+            }
+
+            }
+
+
+            // Aplicar movimiento con restricciones
+            float newX = Mathf.Clamp(Player.transform.position.x + movementDelta, maxLeftPosition, maxRightPosition);
         Player.transform.position = new Vector3(newX, Player.transform.position.y, Player.transform.position.z);
     }
 
@@ -308,12 +355,12 @@ public class GameControllerFrenesi : MonoBehaviour
 
     void SpawnEndPrefab()
     {
-        // Encontrar el �ltimo pasillo generado
+        // Encontrar el último pasillo generado
         GeneratingMap generateMap = FindObjectOfType<GeneratingMap>();
 
         if (generateMap == null)
         {
-            Debug.LogError("No se encontr� GeneratingMap en la escena.");
+            Debug.LogError("No se encontró GeneratingMap en la escena.");
             return;
         }
 
@@ -336,7 +383,7 @@ public class GameControllerFrenesi : MonoBehaviour
     IEnumerator MovePlayerToCenter(float speed)
     {
         Vector3 start = Player.transform.position;
-        Vector3 end = new Vector3(-6.87f, start.y, start.z); // Posici�n centrada
+        Vector3 end = new Vector3(-6.87f, start.y, start.z); // Posición centrada
 
         while (Mathf.Abs(Player.transform.position.x - end.x) > 0.01f)
         {
@@ -352,12 +399,12 @@ public class GameControllerFrenesi : MonoBehaviour
 
     IEnumerator MoveToEnd(GameObject finalHallway, float speed)
     {
-        // Calcula un punto dentro del FinalHallway para que el jugador vaya hacia all�
+        // Calcula un punto dentro del FinalHallway para que el jugador vaya hacia allí
         Vector3 targetPosition = finalHallway.transform.position;
         targetPosition.x = -6.87f;
         targetPosition.y = 1.34f;
 
-        Debug.Log("Movi�ndose hacia: " + targetPosition);
+        Debug.Log("Moviéndose hacia: " + targetPosition);
 
         while (Vector3.Distance(Player.transform.position, targetPosition) > 0.1f)
         {
@@ -369,7 +416,7 @@ public class GameControllerFrenesi : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Lleg� al final");
+        Debug.Log("Llegó al final");
         yield return new WaitForSeconds(2f);
         FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
         endGamePanel.SetActive(true);
@@ -380,7 +427,7 @@ public class GameControllerFrenesi : MonoBehaviour
         // Mover al jugador al centro primero
         yield return StartCoroutine(MovePlayerToCenter(7f));
 
-        // Ahora s�, mover al jugador hacia el pasillo final
+        // Ahora sí, mover al jugador hacia el pasillo final
         GameObject finalPrefab = GameObject.Find("FinalHallway(Clone)"); // Encuentra el prefab final
         Debug.Log("encontre el pasillo final es (antes del if): " + finalPrefab.name);
         if (finalPrefab != null)
@@ -390,7 +437,7 @@ public class GameControllerFrenesi : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se encontr� el prefab final.");
+            Debug.LogError("No se encontró el prefab final.");
         }
 
         Debug.Log("termine mi trabajo, terminaron la corrutinas lolololo");
@@ -398,8 +445,40 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public void UpdateTimeFromSlider(float value)
     {
-        Debug.Log("soy el valor recibido del slider: " + value);
+        Debug.Log("soy el valor recibido del slider de tiempo: " + value);
         currentTime = value * 60;
+    }
+
+    public void UpdateTrunkRotationAngle(float value)
+    {
+        Debug.Log("soy el valor recibido del slider de rotacion de tronco: " + value);
+        int intValue = Mathf.RoundToInt(value);
+        trunkRotationAngle = intValue;
+        
+    }
+
+    public void UpdateTrunkInclinationAngle(float value)
+    {
+        Debug.Log("soy el valor recibido del slider de inclinacion de tronco: " + value);
+        int intValue = Mathf.RoundToInt(value);
+        trunkInclinationAngle = intValue;
+        
+    }
+
+    public void UpdateArmElevationAngle(float value)
+    {
+        Debug.Log("soy el valor recibido del slider de elevacion der brazo: " + value);
+        int intValue = Mathf.RoundToInt(value);
+        armElevationAngle = intValue;
+        
+    }
+
+    public void UpdateShoulderAbductionAngle(float value)
+    {
+        Debug.Log("soy el valor recibido del slider de abduccion de hombro: " + value);
+        int intValue = Mathf.RoundToInt(value);
+        shoulderAbductionAngle = intValue;
+        
     }
 
 

@@ -6,9 +6,10 @@ public class GenerateShoppingListContent : MonoBehaviour
 {
     public GameObject entryPrefab; // Prefab del renglón
     public Transform contentParent; // Contenedor de la lista
+    static public int numberOfProducts = 8;
 
     private Dictionary<string, Sprite> productIcons = new Dictionary<string, Sprite>(); // Diccionario para los íconos
-    private Dictionary<string, GameObject> productEntries = new Dictionary<string, GameObject>();
+    private static Dictionary<string, GameObject> productEntries = new Dictionary<string, GameObject>();
 
     // Diccionario con equivalencias entre el nombre del objeto en la escena y el nombre en la lista
     private Dictionary<string, string> allProducts = new Dictionary<string, string>()
@@ -34,42 +35,20 @@ public class GenerateShoppingListContent : MonoBehaviour
         { "Canasta de piñas", "Piña" },
         { "Canasta de tomates", "Tomates" }
     };
-    public Dictionary<string, string> selectedProducts;
+    public static Dictionary<string, string> selectedProducts;
 
     void Start()
     {
-        // Lista completa de 20 productos con su respectivo ícono
-        //List<string> allProducts = new List<string>
-        //{
-        //    "Bananos", "Berenjenas", "Fresas", "Gaseosa morada", "Gaseosa naranja", "Gaseosa verde", "Leche descremada", "Leche deslactosada", "Leche entera", "Limones",
-        //    "Manzanas rojas", "Manzanas verdes", "Naranjas", "Papas azul claro", "Papas azul oscuro", "Papas moradas", "Papas naranjas", "Piña", "Remolachas", "Tomates"
-        //};
+        
 
         LoadIcons(); // Cargar los íconos desde la carpeta
+        UpdateProductList();
 
-        // Seleccionar 8 productos aleatorios
-        selectedProducts = GetRandomProducts(allProducts, 8);
-
-        // Generar la lista en la UI
-        foreach (var product in selectedProducts)
-        {
-            GameObject entry = Instantiate(entryPrefab, contentParent);
-            entry.transform.Find("ProductText").GetComponent<Text>().text = product.Value;
-
-            // Asigna el ícono correspondiente
-            Image icon = entry.transform.Find("ProductIcon").GetComponent<Image>();
-            if (productIcons.ContainsKey(product.Value))
-            {
-                icon.sprite = productIcons[product.Value];
-            }
-
-            productEntries[product.Key] = entry;
-        }
     }
 
     // Marcar los productos recolectados
 
-    public void MarkProductAsCollected(string productName)
+    public static void MarkProductAsCollected(string productName)
     {
         if (productEntries.ContainsKey(productName))
         {
@@ -140,5 +119,42 @@ public class GenerateShoppingListContent : MonoBehaviour
         }
 
         return selectedItems;
+    }
+
+     void UpdateProductList()
+    {
+        // Limpiar la UI anterior
+        foreach (var entry in productEntries.Values)
+        {
+            Destroy(entry);
+        }
+        productEntries.Clear();
+
+        // Seleccionar nuevos productos aleatorios
+        selectedProducts = GetRandomProducts(allProducts, numberOfProducts);
+
+        // Generar la nueva lista en la UI
+        foreach (var product in selectedProducts)
+        {
+            GameObject entry = Instantiate(entryPrefab, contentParent);
+            entry.transform.Find("ProductText").GetComponent<Text>().text = product.Value;
+
+            Image icon = entry.transform.Find("ProductIcon").GetComponent<Image>();
+            if (productIcons.ContainsKey(product.Value))
+            {
+                icon.sprite = productIcons[product.Value];
+            }
+
+            productEntries[product.Key] = entry;
+        }
+    }
+
+
+    public void UpdateNumberOfProducts(float value)
+    {
+        Debug.Log("soy el valor recibido del slider de tiempo: " + value);
+        int intValue = Mathf.RoundToInt(value);
+        numberOfProducts = intValue;
+        UpdateProductList();
     }
 }

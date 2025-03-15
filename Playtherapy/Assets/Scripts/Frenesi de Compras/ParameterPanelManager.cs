@@ -20,7 +20,7 @@ public class Parameters : MonoBehaviour
     // Elementos en la lista
     public Slider itemCountSlider;
     public Text itemCountText;
-    private int _itemCount = 5;
+    private int _itemCount = 8;
 
     // Mostrar lista
     public Toggle showListToggle;
@@ -44,7 +44,7 @@ public class Parameters : MonoBehaviour
     // Rango de inclinacion del tronco
     public Slider trunkInclinationSlider;
     public Text trunkInclinationText;
-    private int _trunkInclination = 20;
+    private int _trunkInclination = 0;
 
     private void Start()
     {
@@ -60,8 +60,8 @@ public class Parameters : MonoBehaviour
         speedDropdown.options.Add(new Dropdown.OptionData("Paso rápido"));
         speedDropdown.value = 1;
 
-        itemCountSlider.minValue = 5;
-        itemCountSlider.maxValue = 15;
+        itemCountSlider.minValue = 2;
+        itemCountSlider.maxValue = 11;
         itemCountSlider.value = _itemCount;
         itemCountText.text = _itemCount.ToString();
 
@@ -72,18 +72,18 @@ public class Parameters : MonoBehaviour
         trunkSlider.value = _trunk;
         trunkText.text = _trunk + "°";
 
-        armExtensionSlider.minValue = 45;
+        armExtensionSlider.minValue = 10;
         armExtensionSlider.maxValue = 135;
         armExtensionSlider.value = _armExtension;
         armExtensionText.text = _armExtension + "°";
 
         shoulderAbductionSlider.minValue = 20;
-        shoulderAbductionSlider.maxValue = 90;
+        shoulderAbductionSlider.maxValue = 110;
         shoulderAbductionSlider.value = _shoulderAbduction;
         shoulderAbductionText.text = _shoulderAbduction + "°";
 
-        trunkInclinationSlider.minValue = 20;
-        trunkInclinationSlider.maxValue = 90;
+        trunkInclinationSlider.minValue = 0;
+        trunkInclinationSlider.maxValue = 40;
         trunkInclinationSlider.value = _trunkInclination;
         trunkInclinationText.text = _trunkInclination + "°";
     }

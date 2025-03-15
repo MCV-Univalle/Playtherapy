@@ -494,7 +494,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 952662308}
   m_HandleRect: {fileID: 784970314}
   m_Direction: 0
-  m_MinValue: 45
+  m_MinValue: 10
   m_MaxValue: 135
   m_WholeNumbers: 1
   m_Value: 45
@@ -505,6 +505,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Parameters, Assembly-CSharp
         m_MethodName: UpdateArmExtension
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 390527409}
+        m_TargetAssemblyTypeName: GameControllerFrenesi, Assembly-CSharp
+        m_MethodName: UpdateArmElevationAngle
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1243,7 +1255,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 196570882}
-  - component: {fileID: 196570883}
+  - component: {fileID: 196570885}
+  - component: {fileID: 196570884}
+  - component: {fileID: 196570886}
   m_Layer: 5
   m_Name: ShoppingListContent
   m_TagString: Untagged
@@ -1267,10 +1281,48 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -273.2, y: 96.1}
-  m_SizeDelta: {x: 150, y: 100}
+  m_AnchoredPosition: {x: -273.2, y: 102.9}
+  m_SizeDelta: {x: 150, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &196570883
+--- !u!114 &196570884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196570881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &196570885
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196570881}
+  m_CullTransparentMesh: 1
+--- !u!114 &196570886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1279,7 +1331,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 196570881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -1288,14 +1340,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -15
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 10.5, y: 10.5}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 1
 --- !u!1 &199919068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,10 +2239,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1148981084}
   m_HandleRect: {fileID: 529824286}
   m_Direction: 0
-  m_MinValue: 5
-  m_MaxValue: 15
+  m_MinValue: 2
+  m_MaxValue: 11
   m_WholeNumbers: 1
-  m_Value: 5
+  m_Value: 8
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2200,6 +2250,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Parameters, Assembly-CSharp
         m_MethodName: UpdateItemCount
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 183271777}
+        m_TargetAssemblyTypeName: GenerateShoppingListContent, Assembly-CSharp
+        m_MethodName: UpdateNumberOfProducts
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2624,7 +2686,6 @@ MonoBehaviour:
   lateralSpeed: 7
   maxLeftPosition: -10.14
   maxRightPosition: -3.89
-  rotationThreshold: 20
   offset: {x: 0, y: 1.5, z: -4}
   InGame: 0
   currentTime: 180
@@ -3532,6 +3593,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511329824}
+  - component: {fileID: 511329827}
+  - component: {fileID: 511329826}
   - component: {fileID: 511329825}
   m_Layer: 5
   m_Name: ShoppingListContent
@@ -3556,8 +3619,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: 80}
-  m_SizeDelta: {x: 450, y: 300}
+  m_AnchoredPosition: {x: -225, y: 44}
+  m_SizeDelta: {x: 450, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511329825
 MonoBehaviour:
@@ -3568,7 +3631,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 511329823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -3577,14 +3640,50 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -45
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 31.4, y: 31.4}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 1
+--- !u!114 &511329826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511329823}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &511329827
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511329823}
+  m_CullTransparentMesh: 1
 --- !u!1 &529824285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,8 +3716,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1860002685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.6666667, y: 0}
+  m_AnchorMax: {x: 0.6666667, y: 1}
   m_AnchoredPosition: {x: 19.1, y: 0}
   m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4190,7 +4289,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1424270751}
   m_HandleRect: {fileID: 1524207025}
   m_Direction: 0
-  m_MinValue: 20
+  m_MinValue: 10
   m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 20
@@ -4201,6 +4300,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Parameters, Assembly-CSharp
         m_MethodName: UpdateShoulderAbduction
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 390527409}
+        m_TargetAssemblyTypeName: GameControllerFrenesi, Assembly-CSharp
+        m_MethodName: UpdateShoulderAbductionAngle
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6897,6 +7008,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100180, guid: 2d0e61eeab8d5dd44850cbf107852f66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 100182, guid: 2d0e61eeab8d5dd44850cbf107852f66, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -7319,7 +7434,7 @@ RectTransform:
   m_Father: {fileID: 715101607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.6666667, y: 1}
   m_AnchoredPosition: {x: 26.9, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7944,6 +8059,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6428889839237124187, guid: 8dda825d2cc4e174f8ed6aa8b130f104,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 173
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039652624816355149, guid: 8dda825d2cc4e174f8ed6aa8b130f104,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8407,10 +8532,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 293810951}
   m_HandleRect: {fileID: 1257538880}
   m_Direction: 0
-  m_MinValue: 20
-  m_MaxValue: 90
+  m_MinValue: 0
+  m_MaxValue: 40
   m_WholeNumbers: 1
-  m_Value: 20
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -8418,6 +8543,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Parameters, Assembly-CSharp
         m_MethodName: UpdateTrunkInclination
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 390527409}
+        m_TargetAssemblyTypeName: GameControllerFrenesi, Assembly-CSharp
+        m_MethodName: UpdateTrunkInclinationAngle
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12009,6 +12146,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 390527409}
+        m_TargetAssemblyTypeName: GameControllerFrenesi, Assembly-CSharp
+        m_MethodName: UpdateTrunkRotationAngle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1735557917 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2536908642734275234, guid: 7089a7615c5358e41a1342a2cb8b2dea,
@@ -12460,7 +12609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 100}
+  m_AnchoredPosition: {x: -300, y: 123}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1774894545
