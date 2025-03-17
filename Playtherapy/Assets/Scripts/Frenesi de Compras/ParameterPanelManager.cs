@@ -10,28 +10,27 @@ public class Parameters : MonoBehaviour, IParametersManager
     public GameControllerFrenesi gameControllerFrenesi;
     public Button startGameButton;
     public Button confirmListButton;
-    public Toggle memorizeListToggle;
-    public bool isPreviewingList = false;
-    public GameObject parametersPanel;
+    
+    static public bool isPreviewingList = false;
     public GameObject memoryPanel;
     //public GenerateShoppingListContent generateShoppingListContent;
 
     // Tiempo de juego
     public Slider timeSlider;
     public Text timeText;
-    private int _timeGame = 2;
+    static private int _timeGame = 2;
 
     // Velocidad de los compradores
     public Dropdown speedDropdown;
-    private string _speedGame = "Paso medio";
+    static private string _speedGame = "Paso medio";
 
     //Velocidad de los compradores numerica 
-    public float enemySpeed = 5f;
+    static public float enemySpeed = 5f;
 
     // Elementos en la lista
     public Slider itemCountSlider;
     public Text itemCountText;
-    private int _itemCount = 8;
+    static private int _itemCount = 8;
 
     // Mostrar lista
     public Toggle showListToggle;
@@ -40,22 +39,22 @@ public class Parameters : MonoBehaviour, IParametersManager
     // Rango de movimiento del tronco
     public Slider trunkSlider;
     public Text trunkText;
-    private int _trunk = 20;
+    static private int _trunk = 20;
 
     // Rango de extension de los brazos
     public Slider armExtensionSlider;
     public Text armExtensionText;
-    private int _armExtension = 45;
+    static private int _armExtension = 45;
 
     // Rango de abduccion del hombro
     public Slider shoulderAbductionSlider;
     public Text shoulderAbductionText;
-    private int _shoulderAbduction = 20;
+    static private int _shoulderAbduction = 20;
 
     // Rango de inclinacion del tronco
     public Slider trunkInclinationSlider;
     public Text trunkInclinationText;
-    private int _trunkInclination = 0;
+    static private int _trunkInclination = 0;
 
     private void Start()
     {
@@ -234,12 +233,13 @@ public class Parameters : MonoBehaviour, IParametersManager
         //{
         //}
         Debug.Log("Ejecute el startgame, se deberian quitar las interfaces");
-        if (memorizeListToggle.isOn)
+        if (showListToggle.isOn)
         {
-            parametersPanel.SetActive(false);
+            //ParametersPanel.SetActive(false);
 
-            memoryPanel.SetActive(true);
+            //memoryPanel.SetActive(true);
             isPreviewingList = true;
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
         }
         else
         {
@@ -249,12 +249,13 @@ public class Parameters : MonoBehaviour, IParametersManager
 
     public void OnStartGameButtonPressed()
     {
-        if (memorizeListToggle.isOn)
+        if (showListToggle.isOn)
         {
-            parametersPanel.SetActive(false);
+            //ParametersPanel.SetActive(false);
 
-            memoryPanel.SetActive(true);
+            //memoryPanel.SetActive(true);
             isPreviewingList = true;
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
         }
         else
         {

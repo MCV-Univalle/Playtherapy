@@ -222,10 +222,18 @@ public class GameControllerFrenesi : MonoBehaviour
 
         Parameters parameterPanelManager = parametersPanel.GetComponent<Parameters>();
 
-        if (parameterPanelManager.isPreviewingList)
+        if (memorizeGamemode && !memoryPanel.activeSelf)
+        {
+            parametersPanel.SetActive(false);
+            memoryPanel.SetActive(true);
+            return;
+        }
+
+        if (Parameters.isPreviewingList)
         {
             memoryPanel.SetActive(false);
             parameterPanelManager.setIsPreviewingList(false);
+            parametersPanel.SetActive(false);
         }
         else
         {
