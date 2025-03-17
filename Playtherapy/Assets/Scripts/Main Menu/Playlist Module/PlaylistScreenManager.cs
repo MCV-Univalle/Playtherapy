@@ -43,6 +43,7 @@ public class PlaylistScreenManager : MonoBehaviour
         minigames.Add("Tiro Libre");
         minigames.Add("Topos");
         minigames.Add("Vecinos Invasores");
+        minigames.Add("Frenesi de Compras");
 
         minigamesDropdown.AddOptions(minigames);
     }

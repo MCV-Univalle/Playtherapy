@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Parameters : MonoBehaviour
+public class Parameters : MonoBehaviour, IParametersManager
 {
     public GameObject ParametersPanel;
     public GameObject TutorialPanel;
+    public GameControllerFrenesi gameControllerFrenesi;
+    public Button startGameButton;
+    public Button confirmListButton;
+    public Toggle memorizeListToggle;
+    public bool isPreviewingList = false;
+    public GameObject parametersPanel;
+    public GameObject memoryPanel;
+    //public GenerateShoppingListContent generateShoppingListContent;
 
     // Tiempo de juego
     public Slider timeSlider;
@@ -15,7 +23,10 @@ public class Parameters : MonoBehaviour
 
     // Velocidad de los compradores
     public Dropdown speedDropdown;
-    private string _speedGame = "Medio";
+    private string _speedGame = "Paso medio";
+
+    //Velocidad de los compradores numerica 
+    public float enemySpeed = 5f;
 
     // Elementos en la lista
     public Slider itemCountSlider;
@@ -48,6 +59,26 @@ public class Parameters : MonoBehaviour
 
     private void Start()
     {
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+
+            gameControllerFrenesi = gameControllerObject.GetComponent<GameControllerFrenesi>();
+        }
+        if (gameControllerFrenesi == null)
+        {
+
+            Debug.Log("Cannot find GameController script");
+        }
+
+        if (GameControllerFrenesi.gcf != null)
+        {
+            startGameButton.onClick.AddListener(OnStartGameButtonPressed);
+            confirmListButton.onClick.AddListener(() => GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction));
+
+        }
+
+
         //Inicializar valores
         timeSlider.minValue = 2;
         timeSlider.maxValue = 10;
@@ -98,12 +129,43 @@ public class Parameters : MonoBehaviour
     public void UpdateSpeed()
     {
         _speedGame = speedDropdown.options[speedDropdown.value].text;
+        if (_speedGame == "Paso lento")
+        {
+            enemySpeed = 2f;
+        }
+        else if (_speedGame == "Paso medio")
+        {
+            enemySpeed = 5f;
+        }
+        else
+        {
+            enemySpeed = 8f;
+        }
+        Debug.Log("Se cambio a la velocidad: " + _speedGame + "en numerico: " + enemySpeed);
     }
 
     public void UpdateItemCount()
     {
         _itemCount = (int)itemCountSlider.value;
         itemCountText.text = _itemCount.ToString();
+        //GameObject shoppingListUIObject = GameObject.FindWithTag("ShoppingListUI");
+        //if (shoppingListUIObject != null)
+        //{
+
+        //    generateShoppingListContent = shoppingListUIObject.GetComponent<GenerateShoppingListContent>();
+        //}
+        //if (generateShoppingListContent == null)
+        //{
+
+        //    Debug.Log("Cannot find GenerateShoppingContentScript script");
+        //}
+
+        //if (GenerateShoppingListContent.gsc != null)
+        //{
+        //    Debug.Log("Ejecute el update list, se deberian actualizar dinamicamente la lista luego de iniciar");
+        //    GenerateShoppingListContent.gsc.UpdateProductList();
+        //}
+
     }
 
     public void ToggleShowList()
@@ -153,5 +215,63 @@ public class Parameters : MonoBehaviour
         Debug.Log("Tronco: 20° a " + _trunk + "°");
         Debug.Log("Extensión de brazos: " + _armExtension + "°");
         Debug.Log("Abducción  del hombro: " + _shoulderAbduction + "°");
+
+
+
+        //GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        //if (gameControllerObject != null)
+        //{
+
+        //    gameControllerFrenesi = gameControllerObject.GetComponent<GameControllerFrenesi>();
+        //}
+        //if (gameControllerFrenesi == null)
+        //{
+
+        //    Debug.Log("Cannot find GameController script");
+        //}
+
+        //if (GameControllerFrenesi.gcf != null)
+        //{
+        //}
+        Debug.Log("Ejecute el startgame, se deberian quitar las interfaces");
+        if (memorizeListToggle.isOn)
+        {
+            parametersPanel.SetActive(false);
+
+            memoryPanel.SetActive(true);
+            isPreviewingList = true;
+        }
+        else
+        {
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+        }
     }
+
+    public void OnStartGameButtonPressed()
+    {
+        if (memorizeListToggle.isOn)
+        {
+            parametersPanel.SetActive(false);
+
+            memoryPanel.SetActive(true);
+            isPreviewingList = true;
+        }
+        else
+        {
+
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+
+        }
+    }
+
+    public void setIsPreviewingList(bool isPreviewing)
+    {
+        isPreviewingList = isPreviewing;
+    }
+
+
+
+
+
+
 }

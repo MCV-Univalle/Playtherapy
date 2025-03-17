@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,8 @@ public class GenerateShoppingListContent : MonoBehaviour
 {
     public GameObject entryPrefab; // Prefab del renglón
     public Transform contentParent; // Contenedor de la lista
-    static public int numberOfProducts = 8;
+    static public float numberOfProducts = 8f;
+    static public GenerateShoppingListContent gsc;
 
     private Dictionary<string, Sprite> productIcons = new Dictionary<string, Sprite>(); // Diccionario para los íconos
     private static Dictionary<string, GameObject> productEntries = new Dictionary<string, GameObject>();
@@ -39,8 +41,8 @@ public class GenerateShoppingListContent : MonoBehaviour
 
     void Start()
     {
-        
 
+        gsc = gameObject.GetComponent<GenerateShoppingListContent>();
         LoadIcons(); // Cargar los íconos desde la carpeta
         UpdateProductList();
 
@@ -106,14 +108,14 @@ public class GenerateShoppingListContent : MonoBehaviour
 
     //    return selectedItems;
     //}
-    Dictionary<string, string> GetRandomProducts(Dictionary<string, string> sourceDict, int count)
+    Dictionary<string, string> GetRandomProducts(Dictionary<string, string> sourceDict, float count)
     {
         List<KeyValuePair<string, string>> tempList = new List<KeyValuePair<string, string>>(sourceDict);
         Dictionary<string, string> selectedItems = new Dictionary<string, string>();
 
         for (int i = 0; i < count && tempList.Count > 0; i++)
         {
-            int randomIndex = Random.Range(0, tempList.Count);
+            int randomIndex = UnityEngine.Random.Range(0, tempList.Count);
             selectedItems.Add(tempList[randomIndex].Key, tempList[randomIndex].Value);
             tempList.RemoveAt(randomIndex);
         }
@@ -121,7 +123,8 @@ public class GenerateShoppingListContent : MonoBehaviour
         return selectedItems;
     }
 
-     void UpdateProductList()
+
+    public void UpdateProductList()
     {
         // Limpiar la UI anterior
         foreach (var entry in productEntries.Values)
@@ -150,11 +153,17 @@ public class GenerateShoppingListContent : MonoBehaviour
     }
 
 
+    //public void UpdateNumberOfProducts(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de la cantidad de productos: " + value);
+    //    int intValue = Mathf.RoundToInt(value);
+    //    numberOfProducts = intValue;
+    //    UpdateProductList();
+    //}
+
     public void UpdateNumberOfProducts(float value)
     {
-        Debug.Log("soy el valor recibido del slider de tiempo: " + value);
-        int intValue = Mathf.RoundToInt(value);
-        numberOfProducts = intValue;
+        numberOfProducts = value;
         UpdateProductList();
     }
 }

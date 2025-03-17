@@ -50,3 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Vecinos Invasores/Vecinos Invasores.unity
     guid: 1cc76a6b19af3e04785892fb151084ad
+  - enabled: 1
+    path: Assets/_Scenes/Frenesi de Compras/Frenesi de Compras.unity
+    guid: 16cc8f4ed59517340bc136e083fbd475
+  m_configObjects: {}

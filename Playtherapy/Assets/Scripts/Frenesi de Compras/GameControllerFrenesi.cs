@@ -17,11 +17,13 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject endGamePanel;
     public GameObject list;
     public GameObject timer;
+    public GameObject BuyerNPCPrefab;
+    public GameObject ShoppingListUI;
 
-    public Button startGameButton;
-    public Button confirmListButton;
+    //public Button startGameButton;
+    //public Button confirmListButton;
     public Toggle memorizeListToggle;
-    private bool isPreviewingList = false;
+    //private bool isPreviewingList = false;
 
     public GameObject LeftShoulder;
     public GameObject RightShoulder;
@@ -35,12 +37,13 @@ public class GameControllerFrenesi : MonoBehaviour
     public float lateralSpeed = 7.0f; // Velocidad hacia los lados
     public float maxLeftPosition = -3.62f;// Distancia en x maxima a la que se puede mover hacia la izquierda
     public float maxRightPosition = 3.134f; // Distancia en x maxima a la que se puede mover hacia la derecha
+
     //public float rotationThreshold = 20f; // Umbral para la rotacion del torso
 
-    static public int trunkRotationAngle = 20;
-    static public int trunkInclinationAngle = 360;
-    static public int armElevationAngle = 45;
-    static public int shoulderAbductionAngle = 20;
+    static public float trunkRotationAngle = 20;
+    static public float trunkInclinationAngle = 360;
+    static public float armElevationAngle = 45;
+    static public float shoulderAbductionAngle = 20;
 
     public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
@@ -54,6 +57,9 @@ public class GameControllerFrenesi : MonoBehaviour
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
     private bool GameOver = false;
+    public float speed = 5f;
+    public float itemCount = 8f;
+    public bool memorizeGamemode = true;
 
     public GameObject FinalHallwayPrefab;
 
@@ -61,8 +67,12 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public AudioSource movementSound;
 
+    static public GameControllerFrenesi gcf;
+
     void Start()
     {
+        gcf = gameObject.GetComponent<GameControllerFrenesi>();
+        //enemyMovement = FindObjectOfType<EnemyMovement>();
         parametersPanel.SetActive(true);
         endGamePanel.SetActive(false);
         //list.SetActive(false);
@@ -80,8 +90,9 @@ public class GameControllerFrenesi : MonoBehaviour
             enemySpawner.enabled = false;
         }
 
-        startGameButton.onClick.AddListener(OnStartGameButtonPressed);
-        confirmListButton.onClick.AddListener(StartGame);
+        //startGameButton.onClick.AddListener(OnStartGameButtonPressed);
+        //confirmListButton.onClick.AddListener(StartGame);
+        //confirmListButton.onClick.AddListener(() => StartGame(currentTime, speed, itemCount, memorizeGamemode, trunkRotationAngle, trunkInclinationAngle, armElevationAngle, shoulderAbductionAngle));
         // Buscar el Skeleton Manager en la escena
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -154,31 +165,67 @@ public class GameControllerFrenesi : MonoBehaviour
 
     }
 
-    void OnStartGameButtonPressed()
-    {
-        if (memorizeListToggle.isOn)
-        {
-            parametersPanel.SetActive(false);
+    //void OnStartGameButtonPressed()
+    //{
+    //    if (memorizeListToggle.isOn)
+    //    {
+    //        parametersPanel.SetActive(false);
 
-            memoryPanel.SetActive(true);
-            isPreviewingList = true;
-        }
-        else
-        {
+    //        memoryPanel.SetActive(true);
+    //        isPreviewingList = true;
+    //    }
+    //    else
+    //    {
 
-            StartGame();
+    //        StartGame(currentTime,speed,itemCount,memorizeGamemode,trunkRotationAngle,trunkInclinationAngle,armElevationAngle,shoulderAbductionAngle);
 
-        }
-    }
+    //    }
+    //}
 
-    public void StartGame()
+    public void StartGame(float _timeGame, float enemySpeed, float _itemCount, bool _showListAlways, float _trunk,float _trunkInclination,float _armExtension,float _shoulderAbduction)
     {
         Debug.Log("¡Juego iniciado!");
 
-        if (isPreviewingList)
+        currentTime = _timeGame * 60;
+        speed = enemySpeed;
+        itemCount = _itemCount;
+        memorizeGamemode = _showListAlways;
+        trunkRotationAngle = _trunk;
+        trunkInclinationAngle = _trunkInclination;
+        armElevationAngle = _armExtension;
+        shoulderAbductionAngle = _shoulderAbduction;
+
+        EnemyMovement enemyMovement = BuyerNPCPrefab.GetComponent<EnemyMovement>();
+        if (enemyMovement != null)
+        {
+            enemyMovement.setEnemySpeed(speed);
+            Debug.Log("Velocidad del prefab NPCBuyer cambiada a: " + speed);
+        }
+
+        else
+        {
+            Debug.LogError("No se encontró el script EnemyMovement en el prefab NPCBuyer.");
+        }
+
+
+        GenerateShoppingListContent generateShoppingListContent = ShoppingListUI.GetComponent<GenerateShoppingListContent>();
+        if (generateShoppingListContent != null)
+        {
+            generateShoppingListContent.UpdateNumberOfProducts(itemCount);
+            Debug.Log("Cantidad de productos cambiada a : " + itemCount);
+        }
+
+        else
+        {
+            Debug.LogError("No se encontró el script GenerateShoppingListContent en el prefab ShoppingListUI.");
+        }
+
+        Parameters parameterPanelManager = parametersPanel.GetComponent<Parameters>();
+
+        if (parameterPanelManager.isPreviewingList)
         {
             memoryPanel.SetActive(false);
-            isPreviewingList = false;
+            parameterPanelManager.setIsPreviewingList(false);
         }
         else
         {
@@ -324,8 +371,8 @@ public class GameControllerFrenesi : MonoBehaviour
 
         float movementDelta = 0;
 
-        int rotationThreshold = trunkRotationAngle;
-        int inclinationThreshold = trunkInclinationAngle;
+        float rotationThreshold = trunkRotationAngle;
+        float inclinationThreshold = trunkInclinationAngle;
 
         // Verificar si la inclinación cumple el umbral
         if (torsoInclinationX < 0)
@@ -343,11 +390,11 @@ public class GameControllerFrenesi : MonoBehaviour
                 }
             }
 
-            }
+        }
 
 
-            // Aplicar movimiento con restricciones
-            float newX = Mathf.Clamp(Player.transform.position.x + movementDelta, maxLeftPosition, maxRightPosition);
+        // Aplicar movimiento con restricciones
+        float newX = Mathf.Clamp(Player.transform.position.x + movementDelta, maxLeftPosition, maxRightPosition);
         Player.transform.position = new Vector3(newX, Player.transform.position.y, Player.transform.position.z);
     }
 
@@ -443,43 +490,48 @@ public class GameControllerFrenesi : MonoBehaviour
         Debug.Log("termine mi trabajo, terminaron la corrutinas lolololo");
     }
 
-    public void UpdateTimeFromSlider(float value)
-    {
-        Debug.Log("soy el valor recibido del slider de tiempo: " + value);
-        currentTime = value * 60;
-    }
+    //public void UpdateTimeFromSlider(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de tiempo: " + value);
+    //    currentTime = value * 60;
+    //}
 
-    public void UpdateTrunkRotationAngle(float value)
-    {
-        Debug.Log("soy el valor recibido del slider de rotacion de tronco: " + value);
-        int intValue = Mathf.RoundToInt(value);
-        trunkRotationAngle = intValue;
-        
-    }
+    //public void UpdateTrunkRotationAngle(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de rotacion de tronco: " + value);
+    //    int intValue = Mathf.RoundToInt(value);
+    //    trunkRotationAngle = intValue;
 
-    public void UpdateTrunkInclinationAngle(float value)
-    {
-        Debug.Log("soy el valor recibido del slider de inclinacion de tronco: " + value);
-        int intValue = Mathf.RoundToInt(value);
-        trunkInclinationAngle = intValue;
-        
-    }
+    //}
 
-    public void UpdateArmElevationAngle(float value)
-    {
-        Debug.Log("soy el valor recibido del slider de elevacion der brazo: " + value);
-        int intValue = Mathf.RoundToInt(value);
-        armElevationAngle = intValue;
-        
-    }
+    //public void UpdateTrunkInclinationAngle(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de inclinacion de tronco: " + value);
+    //    int intValue = Mathf.RoundToInt(value);
+    //    trunkInclinationAngle = intValue;
 
-    public void UpdateShoulderAbductionAngle(float value)
-    {
-        Debug.Log("soy el valor recibido del slider de abduccion de hombro: " + value);
-        int intValue = Mathf.RoundToInt(value);
-        shoulderAbductionAngle = intValue;
-        
-    }
+    //}
+
+    //public void UpdateArmElevationAngle(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de elevacion der brazo: " + value);
+    //    int intValue = Mathf.RoundToInt(value);
+    //    armElevationAngle = intValue;
+
+    //}
+
+    //public void UpdateShoulderAbductionAngle(float value)
+    //{
+    //    Debug.Log("soy el valor recibido del slider de abduccion de hombro: " + value);
+    //    int intValue = Mathf.RoundToInt(value);
+    //    shoulderAbductionAngle = intValue;
+
+    //}
+
+    //public void StartGame()
+    //{
+
+    //}
 
 
 

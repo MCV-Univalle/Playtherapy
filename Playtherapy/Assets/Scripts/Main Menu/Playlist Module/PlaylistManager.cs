@@ -86,7 +86,8 @@ public class PlaylistManager : MonoBehaviour
 
     private void LoadParameters()
     {
-        //Debug.Log(playlistParameters[currentIndex]); // que le pasa a esto que no autocompleta reinstala esta monda
+        Debug.Log("soy el minijuego que se va a reproducir: ", playlistParameters[currentIndex]); // que le pasa a esto que no autocompleta reinstala esta monda
+        //Debug.Log("Por lo menos intente cargar los parametros desde el menu");
         ((IParametersManager)playlistParameters[currentIndex]).StartGame();
     }
 

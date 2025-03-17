@@ -74,6 +74,7 @@ TagManager:
   - Leche
   - Producto
   - FakeHallway
+  - ShoppingListUI
   layers:
   - Default
   - TransparentFX
