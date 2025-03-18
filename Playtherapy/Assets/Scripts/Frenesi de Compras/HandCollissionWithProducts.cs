@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class HandCollissionWithProducts : MonoBehaviour
 {
     // Arreglo para almacenar los productos recogidos
-    private static Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
+    public static Dictionary<string, int> productosRecolectados = new Dictionary<string, int>();
     //private GenerateShoppingListContent shoppingList;
 
     public GameObject endGamePanel;

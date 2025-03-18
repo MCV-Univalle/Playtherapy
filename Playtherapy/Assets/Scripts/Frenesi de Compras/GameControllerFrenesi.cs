@@ -68,6 +68,7 @@ public class GameControllerFrenesi : MonoBehaviour
     public AudioSource movementSound;
 
     static public GameControllerFrenesi gcf;
+    PutDataResults dataResults;
 
     void Start()
     {
@@ -107,7 +108,7 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             kinectControllers[0].updateRootPosition = false;
         }
-
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -161,7 +162,7 @@ public class GameControllerFrenesi : MonoBehaviour
             }
         }
         mainCamera.transform.position = Player.transform.position + offset;
-
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -285,6 +286,40 @@ public class GameControllerFrenesi : MonoBehaviour
         StartCoroutine(EndGameSequence());
 
         // Moverlo hasta el final
+        string idMinigame = "1";
+        //PutDataResults dataResults = endGamePanel.GetComponent<PutDataResults>();
+
+        if (dataResults != null)
+        {
+            float totalProducts = itemCount; // Total de productos en la lista de compras
+            int collectedProducts = HandCollissionWithProducts.productosRecolectados.Count; // Productos obtenidos
+
+            // Calcular el porcentaje de rendimiento basado en los productos recolectados
+            int performance = Mathf.RoundToInt(((float)collectedProducts / totalProducts) * 100);
+            //int bestPerformance = PlayerPrefs.GetInt("BestScore", 0); // Cargar mejor puntaje guardado
+
+            // Guardar si es el mejor puntaje
+            //if (performance > bestPerformance)
+            //{
+            //    PlayerPrefs.SetInt("BestScore", performance);
+            //}
+            GameSessionController gameCtrl = new GameSessionController();
+            gameCtrl.addGameSession(collectedProducts, this.numberRepetitions, this.totalGameTime, performance, idMinigame);
+
+            // Actualizar los datos en la UI del panel de resultados
+            dataResults.Minigame = idMinigame;
+            dataResults.updateData(performance, 0);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el script PutDataResults en la escena.");
+        }
+
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+
+        {
+            PlaylistManager.pm.NextGame();
+        }
 
 
     }
