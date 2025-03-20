@@ -92,13 +92,8 @@ public class PutDataResults : MonoBehaviour {
 	}
 	void searchObjects2()
 	{
-        Debug.Log("Llamado a la funcion searchObjects");
+
 		txt_score_results = GameObject.Find("txt_score_results2").GetComponent<Text>();
-        if (txt_score_results == null)
-        {
-            Debug.Log("No se encontro el objeto");
-        }
-        Debug.Log("Encontre los datos");
         txt_best_score_results = GameObject.Find("txt_best_score_results2").GetComponent<Text>();
 
 		star1 = GameObject.Find("Star1").GetComponent<Image> ();
@@ -113,11 +108,18 @@ public class PutDataResults : MonoBehaviour {
 	}
 	public Sprite getSpriteFromName(string name="")
 	{
-		int index = System.Array.IndexOf (names_sprites, name);
+        //int index = System.Array.IndexOf (names_sprites, name);
 
-		return sprites [index];
+        //return sprites [index];
+        int index = System.Array.IndexOf(names_sprites, name);
+        if (index < 0 || index >= sprites.Length)
+        {
+            Debug.LogError("Sprite no encontrado: " + name);
+            return null;
+        }
+        return sprites[index];
 
-	}
+    }
 	/// <summary>
 	/// Updates the data results
 	/// </summary>
@@ -134,7 +136,7 @@ public class PutDataResults : MonoBehaviour {
         {
             searchObjects2();
         }
-        Debug.Log("He entrado al Script con un performance de " + percent);
+
 		int how_do_it;
 		if (percent <= 25) {
 			how_do_it = DEFICIENT;
@@ -147,16 +149,10 @@ public class PutDataResults : MonoBehaviour {
 
 
         GameSessionDAO gameDao = new GameSessionDAO();
-        if(gameDao != null)
-        {
-            Debug.Log("Se ha creado el DAO");
-        }
 
         txt_score_results.text = "Desempeño: " + percent+"%";
-        Debug.Log("El campo de texto de result se ha modificado con " + txt_score_results);
-		txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
+		//txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
 
-        Debug.Log("Se han configurado los campos");
 
 
 		if (mostrar_propuesta1 == true) 
