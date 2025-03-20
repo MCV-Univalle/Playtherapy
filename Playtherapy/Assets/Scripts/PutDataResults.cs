@@ -34,7 +34,7 @@ public class PutDataResults : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        Debug.Log("Soy el Start del PutData");
 		sprites = Resources.LoadAll<Sprite> ("Sprites/medals_flat") ;
 		names_sprites = new string[sprites.Length];
 
@@ -92,14 +92,18 @@ public class PutDataResults : MonoBehaviour {
 	}
 	void searchObjects2()
 	{
+        Debug.Log("Llamado a la funcion searchObjects");
+		txt_score_results = GameObject.Find("txt_score_results2").GetComponent<Text>();
+        if (txt_score_results == null)
+        {
+            Debug.Log("No se encontro el objeto");
+        }
+        Debug.Log("Encontre los datos");
+        txt_best_score_results = GameObject.Find("txt_best_score_results2").GetComponent<Text>();
 
-		txt_score_results = GameObject.Find ("txt_score_results2").GetComponent<Text>();
-
-		txt_best_score_results= GameObject.Find ("txt_best_score_results2").GetComponent<Text>();
-
-		star1 = GameObject.Find ("Star1").GetComponent<Image> ();
-		star2 = GameObject.Find ("Star2").GetComponent<Image> ();
-		star3 = GameObject.Find ("Star3").GetComponent<Image> ();
+		star1 = GameObject.Find("Star1").GetComponent<Image> ();
+		star2 = GameObject.Find("Star2").GetComponent<Image> ();
+		star3 = GameObject.Find("Star3").GetComponent<Image> ();
 
 
 		names_stars = new string[2];
@@ -122,8 +126,15 @@ public class PutDataResults : MonoBehaviour {
 	public void updateData(int percent=0,int best_percent=0)
 	{
 
-
-
+        if (mostrar_propuesta1 == true)
+        {
+            searchObjects1();
+        }
+        else
+        {
+            searchObjects2();
+        }
+        Debug.Log("He entrado al Script con un performance de " + percent);
 		int how_do_it;
 		if (percent <= 25) {
 			how_do_it = DEFICIENT;
@@ -132,14 +143,20 @@ public class PutDataResults : MonoBehaviour {
 		} else {
 			how_do_it = EXCELENT;
 		}
+        Debug.Log("Lo hizo " + how_do_it);
 
 
         GameSessionDAO gameDao = new GameSessionDAO();
+        if(gameDao != null)
+        {
+            Debug.Log("Se ha creado el DAO");
+        }
 
         txt_score_results.text = "Desempeño: " + percent+"%";
+        Debug.Log("El campo de texto de result se ha modificado con " + txt_score_results);
 		txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
 
-
+        Debug.Log("Se han configurado los campos");
 
 
 		if (mostrar_propuesta1 == true) 
