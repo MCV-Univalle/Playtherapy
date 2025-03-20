@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2095612237}
         m_TargetAssemblyTypeName: Parameters, Assembly-CSharp
         m_MethodName: TutorialPhase
         m_Mode: 1
@@ -10688,7 +10688,7 @@ MonoBehaviour:
   - {fileID: 1405087147}
   - {fileID: 1429652054}
   - {fileID: 1344851078}
-  ParametersPanel: {fileID: 0}
+  ParametersPanel: {fileID: 2095612235}
   TutorialPanel: {fileID: 1585535336}
 --- !u!1 &1591909597
 GameObject:
