@@ -59,7 +59,7 @@ public class GameControllerFrenesi : MonoBehaviour
     private bool GameOver = false;
     public float speed = 5f;
     public float itemCount = 8f;
-    public bool memorizeGamemode = true;
+    public bool memorizeGamemode = false;
 
     public GameObject FinalHallwayPrefab;
 
@@ -68,6 +68,7 @@ public class GameControllerFrenesi : MonoBehaviour
     public AudioSource movementSound;
 
     static public GameControllerFrenesi gcf;
+    PutDataResults dataResults;
 
     void Start()
     {
@@ -107,7 +108,7 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             kinectControllers[0].updateRootPosition = false;
         }
-
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -161,7 +162,7 @@ public class GameControllerFrenesi : MonoBehaviour
             }
         }
         mainCamera.transform.position = Player.transform.position + offset;
-
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -244,7 +245,7 @@ public class GameControllerFrenesi : MonoBehaviour
         forwardSpeed = 5.0f; //  Restaurar la velocidad de movimiento
         lateralSpeed = 7.0f;
 
-        if (!memorizeListToggle.isOn)
+        if (!memorizeGamemode)
         {
             list.SetActive(true);
         }
@@ -285,6 +286,8 @@ public class GameControllerFrenesi : MonoBehaviour
         StartCoroutine(EndGameSequence());
 
         // Moverlo hasta el final
+        
+        
 
 
     }
@@ -475,6 +478,29 @@ public class GameControllerFrenesi : MonoBehaviour
         yield return new WaitForSeconds(2f);
         FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
         endGamePanel.SetActive(true);
+        string idMinigame = "1";
+        //PutDataResults dataResults = endGamePanel.GetComponent<PutDataResults>();
+
+        float totalProducts = itemCount; // Total de productos en la lista de compras
+        int collectedProducts = HandCollissionWithProducts.productosRecolectados.Count; // Productos obtenidos
+
+        // Calcular el porcentaje de rendimiento basado en los productos recolectados
+        int performance = Mathf.RoundToInt(((float)collectedProducts / totalProducts) * 100);
+        Debug.Log("Soy el performance " + performance);
+        //GameSessionController gameCtrl = new GameSessionController();
+        //gameCtrl.addGameSession(collectedProducts, this.numberRepetitions, this.totalGameTime, performance, idMinigame);
+
+        // Actualizar los datos en la UI del panel de resultados
+        PutDataResults dataResults = endGamePanel.GetComponent<PutDataResults>();
+        dataResults.Minigame = idMinigame;
+        dataResults.updateData(performance, 0);
+
+
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+
+        {
+            PlaylistManager.pm.NextGame();
+        }
     }
 
     IEnumerator EndGameSequence()
