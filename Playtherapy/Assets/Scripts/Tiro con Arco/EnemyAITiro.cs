@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,11 +11,21 @@ public class EnemyAITiro : MonoBehaviour
     private EnemySpawnerTiro spawner;
     private bool hasReachedDestination = false;
     private Transform cameraTransform;
+    private Animator animator;
+    public GameObject magicProjectilePrefab; // 🔥 Prefab de bola de magia
+    public GameObject cannonBallPrefab; // 🔥 Prefab de bola de cañón
+    public Transform firePoint; // 🔥 Lugar donde se dispara el proyectil
+    public float fireRate = 2f; // 🔥 Tiempo entre disparos
+    private bool isShooting = false;
+    private List<GameObject> activeProjectiles = new List<GameObject>();
+    private GameControllerTiro gameController;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         cameraTransform = Camera.main.transform;
+        animator = GetComponent<Animator>();
+        gameController = FindObjectOfType<GameControllerTiro>();
 
     }
 
@@ -46,26 +57,70 @@ public class EnemyAITiro : MonoBehaviour
 
     void Update()
     {
-        if (!hasReachedDestination && agent.remainingDistance <= agent.stoppingDistance)
+        float distanceToTarget = agent.remainingDistance;
+
+        if (!hasReachedDestination)
         {
-            hasReachedDestination = true;
-            agent.isStopped = true;   // Detiene el NavMeshAgent para evitar movimientos bruscos
-            agent.updateRotation = false; // Evita que el NavMeshAgent siga ajustando la rotación
-            if (!isMelee)
+
+            // Si el enemigo está cerca del destino, reduce la velocidad
+            if (distanceToTarget <= 4)
             {
-                RotateToFaceCamera();
+                agent.speed = Mathf.Lerp(agent.speed, 0, Time.deltaTime * 3); // Detiene suavemente
             }
-            else
+
+            if (distanceToTarget <= 4)
             {
-                Destroy(gameObject);
+                hasReachedDestination = true;
+                agent.isStopped = true;
+                agent.updateRotation = false;
+
+                if (!isMelee)
+                {
+
+                    RotateToFaceCamera();
+                }
+                else
+                {
+                    gameController.updateScore(-200f);
+                    Destroy(gameObject);
+                    
+                }
             }
         }
+        else if (distanceToTarget == 0)
+        {
+            if (!isMelee)
+            {
+
+                animator.SetTrigger("Shoot");
+                //StartShooting();
+            }
+        }
+
+    }
+
+    //void StartShooting()
+    //{
+    //    if (!isShooting)
+    //    {
+    //        isShooting = true;
+    //        InvokeRepeating(nameof(Shoot), 0f, fireRate); // Dispara en intervalos
+    //    }
+    //}
+
+    void Shoot()
+    {
+        GameObject projectilePrefab = gameObject.name.Contains("Goblin") ? magicProjectilePrefab : cannonBallPrefab; // 🔄 Selecciona el proyectil correcto
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        MoveProjectile movement = projectile.AddComponent<MoveProjectile>(); // Se agrega script para moverlo
+        movement.Initialize(cameraTransform.position, 20f); // Se le pasa el objetivo y la velocidad
+        activeProjectiles.Add(projectile); // Se guarda el proyectil en la lista
     }
 
     void AdjustPositionToAvoidOverlap()
     {
-        float detectionRadius = 3f; // Radio de detección más realista
-        float separationDistance = 2f; // Distancia mínima entre enemigos
+        float detectionRadius = 10f;
+        float separationDistance = 20f;
 
         Collider[] colliders = Physics.OverlapSphere(target.position, detectionRadius);
         int nearbyEnemies = 0;
@@ -78,16 +133,32 @@ public class EnemyAITiro : MonoBehaviour
             }
         }
 
-        // Separación controlada con un ángulo aleatorio en un radio específico
+        // Genera un desplazamiento aleatorio en un rango determinado
         Vector3 randomOffset = new Vector3(Random.Range(-separationDistance, separationDistance), 0, Random.Range(-separationDistance, separationDistance));
         Vector3 newPos = target.position + randomOffset;
 
-        agent.SetDestination(newPos);
+        Debug.Log($"📍 Nueva posición generada: {newPos}");
+
+        // Validar si `newPos` está en el NavMesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(newPos, out hit, separationDistance, NavMesh.AllAreas))
+        {
+            newPos = hit.position; // Asegura que el punto sea válido
+            Debug.Log($"✅ Posición válida en NavMesh: {newPos}");
+            agent.SetDestination(newPos);
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ No se encontró una posición válida en el NavMesh cerca de " + newPos);
+        }
     }
 
     void RotateToFaceCamera()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(cameraTransform.position - transform.position);
+        Vector3 directionToCamera = cameraTransform.position - transform.position;
+        directionToCamera.y = 0; // Bloquea la rotación en X y Z para que solo gire en Y
+
+        Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
         StartCoroutine(SmoothRotate(targetRotation));
     }
 
@@ -106,6 +177,16 @@ public class EnemyAITiro : MonoBehaviour
 
         transform.rotation = targetRotation; // Asegurar que termine exactamente en la rotación correcta
     }
+
+
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawSphere(target.position, 0.2f); // Destino original
+
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(agent.destination, 0.2f); // Destino actual del agente
+    //}
 
     private void OnDestroy()
     {
