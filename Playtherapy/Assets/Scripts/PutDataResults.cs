@@ -108,9 +108,10 @@ public class PutDataResults : MonoBehaviour {
 	}
 	public Sprite getSpriteFromName(string name="")
 	{
-        //int index = System.Array.IndexOf (names_sprites, name);
+        Debug.Log("Sot el name: " + name);
+        //int index = System.Array.IndexOf(names_sprites, name);
 
-        //return sprites [index];
+        //return sprites[index];
         int index = System.Array.IndexOf(names_sprites, name);
         if (index < 0 || index >= sprites.Length)
         {
