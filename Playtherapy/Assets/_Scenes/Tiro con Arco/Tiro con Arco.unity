@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -181, y: -53}
-  m_SizeDelta: {x: 400, y: 75}
+  m_AnchoredPosition: {x: -440, y: 10}
+  m_SizeDelta: {x: 520, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &13213881
 MonoBehaviour:
@@ -965,8 +965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -89, y: -53}
-  m_SizeDelta: {x: 260, y: 75}
+  m_AnchoredPosition: {x: 50, y: 10}
+  m_SizeDelta: {x: 520, y: 150}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &105194666
 MonoBehaviour:
@@ -7411,7 +7411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &385473247
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7956,7 +7956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -160}
+  m_AnchoredPosition: {x: -100, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560574779
@@ -7979,7 +7979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ecd135a6c088b394d9c2d0418f45d801, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 92df51c2e7d85df4480d446bb4a65e45, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9006,7 +9006,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -9017,16 +9017,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1: Observa la lista de compras que aparece en la pantalla.
+  m_Text: '1: Inclina la cabeza hacia atras para tensionar el arco
 
-    2: Busca
-    los productos correctos a medida que recorres el supermercado.
+    2: Mueve
+    la cabeza hacia los lados para ajustar la trayectoria del tiro
 
-    3: Usa tu
-    mano para seleccionarlos.
+    3: Realiza
+    un aplauso para  efectuar el disparo
 
-    4: Llena el carrito con los productos correctos
-    antes de que termine el tiempo.'
+    4: Acaba con tantos enemigos como puedas
+    antes de que se acabe el tiempo'
 --- !u!222 &769893431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9591,11 +9591,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 50
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 4
-    m_MaxSize: 50
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -9889,19 +9889,20 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 100
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Puntaje: Recibes puntos por cada producto correcto.\nPenalizaci\xF3n:
-    Si seleccionas un producto incorrecto, perder\xE1s tiempo."
+  m_Text: "Puntaje: Recibes puntos por cada enemigo abatido. Cada tipo de enemigo
+    da un puntaje distinto\n\nPenalizaci\xF3n: Si los enemigos alcanzan a atacar
+    tu base, disminuye el puntaje"
 --- !u!222 &968281296
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10140,11 +10141,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 50
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 50
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -11268,17 +11269,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 51e3914cce707334d8858d26924b58f7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2717781
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51e3914cce707334d8858d26924b58f7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45804656
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51e3914cce707334d8858d26924b58f7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51e3914cce707334d8858d26924b58f7,
         type: 3}
@@ -11315,10 +11316,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 51e3914cce707334d8858d26924b58f7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 14aa6896e7f04ca4490dea75c550cefb, type: 2}
     - target: {fileID: 919132149155446097, guid: 51e3914cce707334d8858d26924b58f7,
         type: 3}
       propertyPath: m_Name
       value: Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 51e3914cce707334d8858d26924b58f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11654,6 +11665,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd2ff1e5843b27f48bb523e801f817cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5675310469690906644, guid: bd2ff1e5843b27f48bb523e801f817cd,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -11910,7 +11926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 55}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1331509663
@@ -11950,7 +11966,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 40
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -11987,7 +12003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1340377404
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12226,7 +12242,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 26, y: 35}
-  m_SizeDelta: {x: 660, y: 300}
+  m_SizeDelta: {x: 900, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1438906270
 MonoBehaviour:
@@ -12250,7 +12266,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -12261,9 +12277,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "En este minijuego, pondr\xE1s a prueba tu velocidad y precisi\xF3n al
-    seleccionar los productos correctos dentro de un supermercado lleno de opciones.\n\nTu
-    objetivo es completar la lista de compras antes de que se acabe el tiempo.\n\n"
+  m_Text: "\xA1Bienvenido! En este desaf\xEDo de tiro con arco, tu objetivo es acabar
+    con la mayor cantidad de enemigos en el tiempo establecido. Ajusta tu punter\xEDa
+    y controla la fuerza de tu disparo para obtener la mejor puntuaci\xF3n. Evita
+    que los enemigos alcancen tu base.\n"
 --- !u!222 &1438906271
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12421,7 +12438,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -12432,9 +12449,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Prioriza los productos de la lista y evita los que no necesitas.\n\nMant\xE9n
-    la calma y usa movimientos precisos para seleccionar los art\xEDculos.\n\nAprende
-    a reconocer los productos r\xE1pidamente para mejorar tu puntaje."
+  m_Text: "Mantente alerta de los enemigos que se acercan a tu base\n\nTen cuidado
+    de los Chamanes, ya que estos pueden atacar desde una distancia m\xE1s alejada\n\nMejora
+    tu tiempo de reaccion y alcanza un mayor puntaje"
 --- !u!222 &1469656755
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12443,6 +12460,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469656752}
   m_CullTransparentMesh: 1
+--- !u!1001 &1480061441
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2400031699537356565, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6c7037904b8be8544a344f1e33b195a9, type: 2}
+    - target: {fileID: 919132149155446097, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_Name
+      value: Bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee4503f2e36b5ed45a4f728f80e085b9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee4503f2e36b5ed45a4f728f80e085b9, type: 3}
 --- !u!1 &1497421713
 GameObject:
   m_ObjectHideFlags: 0
@@ -12878,11 +12973,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e5b2262975f6a0c4b9ccce94349377e9, type: 3}
-    m_FontSize: 50
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 4
-    m_MaxSize: 50
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -13453,7 +13548,7 @@ GameObject:
   - component: {fileID: 1681489985}
   - component: {fileID: 1681489984}
   m_Layer: 5
-  m_Name: Anim 1
+  m_Name: Image2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13475,8 +13570,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.6431475, y: -69}
-  m_SizeDelta: {x: 125, y: 198}
+  m_AnchoredPosition: {x: 150, y: -200}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1681489984
 Animator:
@@ -13519,7 +13614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 85f263615eb6c7b4a8eaf2721902fe28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7d12b4a67b7e4242815a82b5738d9a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13672,7 +13767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: -150}
+  m_AnchoredPosition: {x: 160, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697721612
@@ -14457,6 +14552,103 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1793422988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1794897569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794897570}
+  - component: {fileID: 1794897573}
+  - component: {fileID: 1794897572}
+  - component: {fileID: 1794897571}
+  m_Layer: 5
+  m_Name: Image1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1794897570
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794897569}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2051792552}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -150, y: -200}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1794897571
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794897569}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ffaa147679cf9964ba21528a55002a6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1794897572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794897569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d73f4763c0ad42c4a893875ea4d339d5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1794897573
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794897569}
+  m_CullTransparentMesh: 1
 --- !u!1 &1799614383
 GameObject:
   m_ObjectHideFlags: 0
@@ -14577,7 +14769,7 @@ RectTransform:
   m_GameObject: {fileID: 1848554538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5000031, y: 1.5000031, z: 1.5000031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 99113214}
@@ -14590,8 +14782,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 960, y: 540}
-  m_SizeDelta: {x: 820, y: 640}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848554540
 MonoBehaviour:
@@ -14613,7 +14805,7 @@ MonoBehaviour:
   - {fileID: 99871174}
   - {fileID: 2051792551}
   - {fileID: 385473246}
-  ParametersPanel: {fileID: 0}
+  ParametersPanel: {fileID: 1919154070}
   TutorialPanel: {fileID: 1848554538}
 --- !u!1 &1852778013
 GameObject:
@@ -15079,8 +15271,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 102, y: -51}
-  m_SizeDelta: {x: 400, y: 75}
+  m_AnchoredPosition: {x: -40, y: 10}
+  m_SizeDelta: {x: 520, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1970871260
 MonoBehaviour:
@@ -15612,11 +15804,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1848554539}
   - {fileID: 1919154071}
   - {fileID: 716761305}
   - {fileID: 744288762}
   - {fileID: 2046697959}
-  - {fileID: 1848554539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -15747,6 +15939,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1681489983}
+  - {fileID: 1794897570}
   - {fileID: 968281294}
   m_Father: {fileID: 594024840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16207,6 +16400,7 @@ SceneRoots:
   - {fileID: 1178094838}
   - {fileID: 1195256731}
   - {fileID: 1525331425}
+  - {fileID: 1480061441}
   - {fileID: 1250058647}
   - {fileID: 193911292}
   - {fileID: 1292575204}
