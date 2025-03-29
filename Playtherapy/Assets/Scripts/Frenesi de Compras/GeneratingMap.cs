@@ -24,7 +24,9 @@ public class GeneratingMap : MonoBehaviour
     private float sectionLength;
     private GameObject fakePasillo;
 
-    private float[] shelfHeights = { 2.11f, 1.14f, 0.09f };
+    private float[] shelfHeights = {  0.09f, 1.14f, 2.11f };
+
+    static public string shoulderAbductionValue;
 
     void Start()
     {
@@ -151,44 +153,74 @@ public class GeneratingMap : MonoBehaviour
         string shelfName = shelf.name.Replace("(Clone)", "").Trim();
         List<GameObject> products = new List<GameObject>();
 
-        if (shelfName == "ShelfMedium")
+        // Determinar los productos según el tipo de estante
+        if (shelfName == "ShelfMedium" || shelfName == "ShelfThreeFloorSmall")
         {
             products = frituraLecheProducts.ToList();
-            TrySpawnProduct(shelf, new Vector3(-0.7f, -0.7f, 0), isRightShelf);
-            TrySpawnProduct(shelf, new Vector3(-0.7f, 0.7f, 0), isRightShelf);
         }
-        else if (shelfName == "ShelfThreeLevelLarge")
+        else if (shelfName == "ShelfThreeLevelLarge" || shelfName == "ShelfThreeLevelMedium")
         {
             products = canastaProducts.ToList();
-            foreach (float height in shelfHeights)
+        }
+
+        
+        // Determinar en qué niveles se generarán productos según la selección del usuario
+        int startLevel = 0; // Por defecto, todos los niveles
+        if (shoulderAbductionValue == "Tercer piso (90°)")
+        {
+            startLevel = 2; // Solo el tercer nivel
+        }
+        else if (shoulderAbductionValue == "Tercer y segundo piso (60°)")
+        {
+            startLevel = 1; // Segundo y tercer nivel
+        }
+        // Si es "Todos los pisos (30°)", startLevel se mantiene en 0
+
+        // Generar productos en los niveles seleccionados
+        for (int i = startLevel; i < shelfHeights.Length; i++)
+        {
+            float height = shelfHeights[i];
+            if (shelfName == "ShelfThreeFloorSmall")
+            {
+                TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
+            }
+            else if (shelfName == "ShelfThreeLevelLarge")
             {
                 TrySpawnProduct(shelf, new Vector3(-0.7f, -1.05f, height), isRightShelf);
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 1.05f, height), isRightShelf);
-                //Debug.Log("Soy la altura imprimida " + height);
             }
-        }
-        else if (shelfName == "ShelfThreeLevelMedium")
-        {
-            products = canastaProducts.ToList();
-            foreach (float height in shelfHeights)
+            else if (shelfName == "ShelfThreeLevelMedium")
             {
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
             }
-        }
-        else if (shelfName == "ShelfThreeFloorSmall")
-        {
-            products = frituraLecheProducts.ToList();
-            foreach (float height in shelfHeights)
+
+            if (shelfName == "ShelfMedium" && startLevel <= 1)
             {
-                TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
+                TrySpawnProduct(shelf, new Vector3(-0.7f, -0.7f, 0), isRightShelf);
+                TrySpawnProduct(shelf, new Vector3(-0.7f, 0.7f, 0), isRightShelf);
             }
         }
     }
 
     void TrySpawnProduct(GameObject shelf, Vector3 localOffset, bool isRightShelf)
     {
-        // 50% de probabilidad de spawnear un producto
-        if (Random.value > 0.5f) return;
+
+        if (shoulderAbductionValue == "Tercer piso (90°)")
+        {
+            // 100% de probabilidad de spawnear un producto
+
+        }
+        else if (shoulderAbductionValue == "Tercer y segundo piso (60°)")
+        {
+            // 70% de probabilidad de spawnear un producto
+            if (Random.value > 0.7f) return;
+        }
+        else if (shoulderAbductionValue == "Todos los pisos (30°)")
+        {
+            // 50% de probabilidad de spawnear un producto
+            if (Random.value > 0.5f) return;
+        }
+
 
         // Selecciona un producto aleatorio
         GameObject[] productList = (shelf.name.Contains("ThreeLevel")) ? canastaProducts : frituraLecheProducts;
@@ -221,16 +253,6 @@ public class GeneratingMap : MonoBehaviour
             product.transform.localScale = escalaLeche;
             Vector3 nuevaPosicion = product.transform.position;
             nuevaPosicion.y += 0.4f;
-            //if (isRightShelf)
-            //{
-            //    nuevaPosicion.x -= -3.0f;
-
-            //}
-            //else
-            //{
-            //    nuevaPosicion.x += -3.0f;
-
-            //}
 
             product.transform.position = nuevaPosicion;
         }
@@ -240,7 +262,6 @@ public class GeneratingMap : MonoBehaviour
             // Hacer algo específico para la leche
             product.transform.localRotation = Quaternion.Euler(0, 180, 180);
             Vector3 nuevaPosicion = product.transform.position;
-            //nuevaPosicion.y += 0.1f;
             product.transform.position = nuevaPosicion;
 
         }
@@ -255,6 +276,12 @@ public class GeneratingMap : MonoBehaviour
     public float GetSectionLength()
     {
         return sectionLength;
+    }
+
+    public void setShoulderAbductionValue(string shoulderAbduction)
+    {
+        shoulderAbductionValue = shoulderAbduction;
+        Debug.Log("Entre a cambiar el valor de la abduccion de hombro en el generatingMap: " + shoulderAbduction);
     }
 
 

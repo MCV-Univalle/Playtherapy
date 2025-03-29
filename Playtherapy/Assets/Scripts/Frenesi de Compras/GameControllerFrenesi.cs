@@ -19,6 +19,7 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject timer;
     public GameObject BuyerNPCPrefab;
     public GameObject ShoppingListUI;
+    public GameObject GenerateHallways;
 
     //public Button startGameButton;
     //public Button confirmListButton;
@@ -40,10 +41,12 @@ public class GameControllerFrenesi : MonoBehaviour
 
     //public float rotationThreshold = 20f; // Umbral para la rotacion del torso
 
-    static public float trunkRotationAngle = 20;
-    static public float trunkInclinationAngle = 360;
-    static public float armElevationAngle = 45;
-    static public float shoulderAbductionAngle = 20;
+    static public float trunkRotationAngle;
+    static public float trunkInclinationAngle;
+    static public float shoulderFlexionAngle;
+    static public string shoulderAbductionValue;
+
+    private float calibrationOffset = 10f;
 
     public Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
@@ -65,7 +68,10 @@ public class GameControllerFrenesi : MonoBehaviour
 
     public EnemySpawner enemySpawner;
 
+    public GeneratingMap generatingMap;
+
     public AudioSource movementSound;
+
 
     static public GameControllerFrenesi gcf;
     PutDataResults dataResults;
@@ -80,7 +86,13 @@ public class GameControllerFrenesi : MonoBehaviour
         timer.SetActive(false);
         memoryPanel.SetActive(false);
 
-        Invoke("HideList", 0.001f);
+        generatingMap = GenerateHallways.GetComponent<GeneratingMap>();
+        if (generatingMap != null)
+        {
+            generatingMap.enabled = false;
+        }
+
+            Invoke("HideList", 0.001f);
 
         forwardSpeed = 0f;
         lateralSpeed = 0f;
@@ -93,7 +105,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
         //startGameButton.onClick.AddListener(OnStartGameButtonPressed);
         //confirmListButton.onClick.AddListener(StartGame);
-        //confirmListButton.onClick.AddListener(() => StartGame(currentTime, speed, itemCount, memorizeGamemode, trunkRotationAngle, trunkInclinationAngle, armElevationAngle, shoulderAbductionAngle));
+        //confirmListButton.onClick.AddListener(() => StartGame(currentTime, speed, itemCount, memorizeGamemode, trunkRotationAngle, trunkInclinationAngle, shoulderFlexionAngle, shoulderAbductionAngle));
         // Buscar el Skeleton Manager en la escena
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -178,12 +190,12 @@ public class GameControllerFrenesi : MonoBehaviour
     //    else
     //    {
 
-    //        StartGame(currentTime,speed,itemCount,memorizeGamemode,trunkRotationAngle,trunkInclinationAngle,armElevationAngle,shoulderAbductionAngle);
+    //        StartGame(currentTime,speed,itemCount,memorizeGamemode,trunkRotationAngle,trunkInclinationAngle,shoulderFlexionAngle,shoulderAbductionAngle);
 
     //    }
     //}
 
-    public void StartGame(float _timeGame, float enemySpeed, float _itemCount, bool _showListAlways, float _trunk,float _trunkInclination,float _armExtension,float _shoulderAbduction)
+    public void StartGame(float _timeGame, float enemySpeed, float _itemCount, bool _showListAlways, float _trunk, float _trunkInclination, float _shoulderFlexion, string _shoulderAbduction)
     {
         Debug.Log("¡Juego iniciado!");
 
@@ -193,8 +205,8 @@ public class GameControllerFrenesi : MonoBehaviour
         memorizeGamemode = _showListAlways;
         trunkRotationAngle = _trunk;
         trunkInclinationAngle = _trunkInclination;
-        armElevationAngle = _armExtension;
-        shoulderAbductionAngle = _shoulderAbduction;
+        shoulderFlexionAngle = _shoulderFlexion;
+        shoulderAbductionValue = _shoulderAbduction;
 
         EnemyMovement enemyMovement = BuyerNPCPrefab.GetComponent<EnemyMovement>();
         if (enemyMovement != null)
@@ -220,6 +232,18 @@ public class GameControllerFrenesi : MonoBehaviour
         {
             Debug.LogError("No se encontró el script GenerateShoppingListContent en el prefab ShoppingListUI.");
         }
+
+        //GeneratingMap generatingMap = GenerateHallways.GetComponent<GeneratingMap>();
+        if (generatingMap != null)
+        {
+            generatingMap.setShoulderAbductionValue(shoulderAbductionValue);
+            Debug.Log("Valor de abduccion de hombro cambiada a: " + shoulderAbductionValue);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el script GeneratingMap en el prefab GenerateHallways.");
+        }
+
 
         Parameters parameterPanelManager = parametersPanel.GetComponent<Parameters>();
 
@@ -259,7 +283,12 @@ public class GameControllerFrenesi : MonoBehaviour
             enemySpawner.enabled = true;
         }
 
-    }
+        if (generatingMap != null)
+        {
+            generatingMap.enabled = true;
+        }
+
+        }
 
     public void EndGame()
     {
@@ -334,6 +363,7 @@ public class GameControllerFrenesi : MonoBehaviour
         - Ajustando la elevación del brazo, se define cuánta tolerancia se permite para que el jugador pueda moverse.
 
     */
+
     private bool AreArmsRaised()
     {
         Vector3 leftShoulderPos = LeftShoulder.transform.position;
@@ -341,16 +371,35 @@ public class GameControllerFrenesi : MonoBehaviour
         Vector3 leftHandPos = LeftHand.transform.position;
         Vector3 rightHandPos = RightHand.transform.position;
 
-        float leftAngle = Vector3.Angle(Vector3.up, leftHandPos - leftShoulderPos);
-        float rightAngle = Vector3.Angle(Vector3.up, rightHandPos - rightShoulderPos);
+        // Direcciones de los brazos
+        Vector3 leftArmDir = leftHandPos - leftShoulderPos;
+        Vector3 rightArmDir = rightHandPos - rightShoulderPos;
 
-        // Obtener los valores dinámicos de los sliders
-        float shoulderAbduction = shoulderAbductionAngle; // Ángulo objetivo de abducción del hombro
-        float armElevation = armElevationAngle;           // Margen de tolerancia
+        // Eje lateral de los hombros (para proyectar correctamente)
+        Vector3 leftLateral = LeftShoulder.transform.right;
+        Vector3 rightLateral = RightShoulder.transform.right;
 
-        // Comprobar si los brazos están dentro del rango configurado por los sliders
-        return Mathf.Abs(leftAngle - shoulderAbduction) < armElevation ||
-               Mathf.Abs(rightAngle - shoulderAbduction) < armElevation;
+        // Proyección en el plano frontal del personaje (plano X-Z)
+        Vector3 leftProjection = Vector3.ProjectOnPlane(leftArmDir, leftLateral);
+        Vector3 rightProjection = Vector3.ProjectOnPlane(rightArmDir, rightLateral);
+
+        // Obtener el ángulo desde abajo (0°) hasta arriba (180°)
+        float leftAngle = Vector3.Angle(Vector3.down, leftProjection);
+        float rightAngle = Vector3.Angle(Vector3.down, rightProjection);
+
+        float shoulderFlexion = shoulderFlexionAngle;
+
+        // Tolerancia para la detección
+        float tolerance = 15f;
+
+        // Comprobar si los brazos están dentro del rango configurado por shoulderFlexion y la tolerancia
+        //float paraElDebug1 = Mathf.Abs(rightAngle - shoulderFlexion);
+
+        //Debug.Log("El angulo derecho esta siendo: " + rightAngle + " El cual menos el angulo que mande por parametros " + "("+ shoulderFlexion  +")" + "da en valor absoluto: " 
+        //    + paraElDebug1 + " Y este valor debe ser menor a la tolerancia : " + tolerance);
+
+        return Mathf.Abs(leftAngle - shoulderFlexion) < tolerance ||
+               Mathf.Abs(rightAngle - shoulderFlexion) < tolerance;
     }
 
     private void MoveForward()
@@ -380,16 +429,24 @@ public class GameControllerFrenesi : MonoBehaviour
         if (torsoRotationY > 180) torsoRotationY -= 360;
         if (torsoInclinationX > 180) torsoInclinationX -= 360;
 
-        float movementDelta = 0;
+        // Ajustar la referencia para que 90° sea la postura recta
+        float adjustedInclination = 90f - torsoInclinationX - calibrationOffset;
 
+        float movementDelta = 0;
         float rotationThreshold = trunkRotationAngle;
+
+
         float inclinationThreshold = trunkInclinationAngle;
 
+        float tolerance = 10f; // Margen de error de ±10 grados
+        ;
+        float paraElDebug1 = Mathf.Abs(adjustedInclination - inclinationThreshold);
+
+        Debug.Log("El angulo de inclinacion del tronco esta siendo: " + adjustedInclination + " El cual menos el angulo que mande por parametros " + "(" + inclinationThreshold + ")" + "da en valor absoluto: "
+            + paraElDebug1 + " Y este valor debe ser menor a la tolerancia : " + tolerance);
         // Verificar si la inclinación cumple el umbral
-        if (torsoInclinationX < 0)
+        if (Mathf.Abs(adjustedInclination - inclinationThreshold) <= tolerance)
         {
-            if (Math.Abs(torsoInclinationX) > inclinationThreshold)
-            {
                 // Determinar dirección solo con la rotación en Y
                 if (torsoRotationY > rotationThreshold)
                 {
@@ -399,7 +456,6 @@ public class GameControllerFrenesi : MonoBehaviour
                 {
                     movementDelta = -lateralSpeed * Time.deltaTime; // Mover a la izquierda
                 }
-            }
 
         }
 
@@ -546,11 +602,11 @@ public class GameControllerFrenesi : MonoBehaviour
 
     //}
 
-    //public void UpdateArmElevationAngle(float value)
+    //public void UpdateshoulderFlexionAngle(float value)
     //{
     //    Debug.Log("soy el valor recibido del slider de elevacion der brazo: " + value);
     //    int intValue = Mathf.RoundToInt(value);
-    //    armElevationAngle = intValue;
+    //    shoulderFlexionAngle = intValue;
 
     //}
 

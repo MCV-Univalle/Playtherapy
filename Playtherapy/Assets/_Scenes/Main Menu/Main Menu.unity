@@ -2137,7 +2137,7 @@ MonoBehaviour:
   - {fileID: 1797956688226050, guid: 9c2db40d01fcf1a499a7679847259b07, type: 3}
   - {fileID: 1195788002339634, guid: 6379b006290d69544984ef4f46977643, type: 3}
   - {fileID: 1654427474597292, guid: 510b83abe4bb45e4fab2fd1b291b663c, type: 3}
-  - {fileID: 658517537750058312, guid: 0d7da07202374784c8ced408cd563a9c, type: 3}
+  - {fileID: 1295784867211693800, guid: 0ebf62038e8a547489cb55dda9b906f6, type: 3}
   startButton: {fileID: 350249932}
   startButtonFoot: {fileID: 1884235732}
 --- !u!114 &59691524
@@ -23093,11 +23093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863100c6b60fe214781019294a8b3c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  host: 127.0.0.1
-  username: postgres
-  password: postgres
-  database: playtherapy
-  cameraAnimator: {fileID: 0}
 --- !u!4 &777957030
 Transform:
   m_ObjectHideFlags: 0

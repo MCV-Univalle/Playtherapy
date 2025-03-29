@@ -22,10 +22,10 @@ public class Parameters : MonoBehaviour, IParametersManager
 
     // Velocidad de los compradores
     public Dropdown speedDropdown;
-    static private string _speedGame = "Paso medio";
+    private string _speedGame = "Paso medio";
 
     //Velocidad de los compradores numerica 
-    static public float enemySpeed = 5f;
+    public float enemySpeed = 5f;
 
     // Elementos en la lista
     public Slider itemCountSlider;
@@ -42,19 +42,18 @@ public class Parameters : MonoBehaviour, IParametersManager
     static private int _trunk = 20;
 
     // Rango de extension de los brazos
-    public Slider armExtensionSlider;
-    public Text armExtensionText;
-    static private int _armExtension = 45;
+    public Slider shoulderFlexionSlider;
+    public Text shoulderFlexionText;
+    static private int _shoulderFlexion = 90;
 
     // Rango de abduccion del hombro
-    public Slider shoulderAbductionSlider;
-    public Text shoulderAbductionText;
-    static private int _shoulderAbduction = 20;
+    public Dropdown shoulderAbductionDropdown;
+    private string _shoulderAbduction = "Tercer y segundo piso (60°)";
 
     // Rango de inclinacion del tronco
     public Slider trunkInclinationSlider;
     public Text trunkInclinationText;
-    static private int _trunkInclination = 0;
+    static private int _trunkInclination = 90;
 
     private void Start()
     {
@@ -73,7 +72,7 @@ public class Parameters : MonoBehaviour, IParametersManager
         if (GameControllerFrenesi.gcf != null)
         {
             startGameButton.onClick.AddListener(OnStartGameButtonPressed);
-            confirmListButton.onClick.AddListener(() => GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction));
+            confirmListButton.onClick.AddListener(() => GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _shoulderFlexion, _shoulderAbduction));
 
         }
 
@@ -102,18 +101,19 @@ public class Parameters : MonoBehaviour, IParametersManager
         trunkSlider.value = _trunk;
         trunkText.text = _trunk + "°";
 
-        armExtensionSlider.minValue = 10;
-        armExtensionSlider.maxValue = 135;
-        armExtensionSlider.value = _armExtension;
-        armExtensionText.text = _armExtension + "°";
+        shoulderFlexionSlider.minValue = 0;
+        shoulderFlexionSlider.maxValue = 180;
+        shoulderFlexionSlider.value = _shoulderFlexion;
+        shoulderFlexionText.text = _shoulderFlexion + "°";
 
-        shoulderAbductionSlider.minValue = 20;
-        shoulderAbductionSlider.maxValue = 110;
-        shoulderAbductionSlider.value = _shoulderAbduction;
-        shoulderAbductionText.text = _shoulderAbduction + "°";
+        shoulderAbductionDropdown.options.Clear();
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Tercer piso (90°)"));
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Tercer y segundo piso (60°)"));
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Todos los pisos (30°)"));
+        shoulderAbductionDropdown.value = 1;
 
-        trunkInclinationSlider.minValue = 0;
-        trunkInclinationSlider.maxValue = 40;
+        trunkInclinationSlider.minValue = 60;
+        trunkInclinationSlider.maxValue = 120;
         trunkInclinationSlider.value = _trunkInclination;
         trunkInclinationText.text = _trunkInclination + "°";
     }
@@ -178,16 +178,18 @@ public class Parameters : MonoBehaviour, IParametersManager
         trunkText.text = _trunk + "°";
     }
 
-    public void UpdateArmExtension()
+    public void UpdateShoulderFlexion()
     {
-        _armExtension = (int)armExtensionSlider.value;
-        armExtensionText.text = _armExtension + "°";
+        _shoulderFlexion = (int)shoulderFlexionSlider.value;
+        shoulderFlexionText.text = _shoulderFlexion + "°";
     }
 
     public void UpdateShoulderAbduction()
     {
-        _shoulderAbduction = (int)shoulderAbductionSlider.value;
-        shoulderAbductionText.text = _shoulderAbduction + "°";
+
+       
+        _shoulderAbduction = shoulderAbductionDropdown.options[shoulderAbductionDropdown.value].text;
+        Debug.Log("Abducción  del hombro (la de la funcion): " + _shoulderAbduction);
     }
 
     public void UpdateTrunkInclination()
@@ -208,13 +210,13 @@ public class Parameters : MonoBehaviour, IParametersManager
     {
         Debug.Log("Iniciando el minijuego con los siguientes parámetros:");
         Debug.Log("Tiempo: " + _timeGame + " min");
-        Debug.Log("Velocidad: " + _speedGame);
+        Debug.Log("Velocidad: " + _speedGame + "con velocidad: " + enemySpeed);
         Debug.Log("Cantidad de objetos en la lista: " + _itemCount);
         Debug.Log("Lista de compras siempre visible: " + _showListAlways);
         Debug.Log("Tronco: 20° a " + _trunk + "°");
-        Debug.Log("Extensión de brazos: " + _armExtension + "°");
-        Debug.Log("Abducción  del hombro: " + _shoulderAbduction + "°");
-
+        Debug.Log("Extensión de brazos: " + _shoulderFlexion + "°");
+        Debug.Log("Abducción  del hombro: " + _shoulderAbduction);
+            
 
 
         //GameObject gameControllerObject = GameObject.FindWithTag("GameController");
@@ -239,11 +241,11 @@ public class Parameters : MonoBehaviour, IParametersManager
 
             //memoryPanel.SetActive(true);
             isPreviewingList = true;
-            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _shoulderFlexion, _shoulderAbduction);
         }
         else
         {
-            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _shoulderFlexion, _shoulderAbduction);
         }
     }
 
@@ -255,12 +257,12 @@ public class Parameters : MonoBehaviour, IParametersManager
 
             //memoryPanel.SetActive(true);
             isPreviewingList = true;
-            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _shoulderFlexion, _shoulderAbduction);
         }
         else
         {
 
-            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _armExtension, _shoulderAbduction);
+            GameControllerFrenesi.gcf.StartGame(_timeGame, enemySpeed, _itemCount, _showListAlways, _trunk, _trunkInclination, _shoulderFlexion, _shoulderAbduction);
 
         }
     }

@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 9058305096050361495}
   - component: {fileID: 7319723283667681951}
   - component: {fileID: 5822130394626965453}
-  - component: {fileID: 8459053163130016705}
   m_Layer: 0
-  m_Name: FakeHallway
-  m_TagString: EditorOnly
+  m_Name: FakeHallwayPrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,15 +106,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &8459053163130016705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5153514137970038675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712f92793aa3ee04a8900b8b2b34b4ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
