@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class EnemySpawnerTiro : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class EnemySpawnerTiro : MonoBehaviour
     public Transform destinationMelee1, destinationMelee2; // Destinos melee
     public Transform destinationRanged3, destinationRanged4; // Destinos rango
 
-    public float baseSpawnRate = 3f; // Tiempo base de spawn
+    public float enemySpawnRate; // Tiempo base de spawn
     private float currentSpawnRate;
 
     private int maxRangedEnemies = 8; // Límite total de enemigos de rango
@@ -20,7 +21,7 @@ public class EnemySpawnerTiro : MonoBehaviour
 
     void Start()
     {
-        currentSpawnRate = baseSpawnRate;
+        currentSpawnRate = enemySpawnRate;
         InvokeRepeating("SpawnEnemy", 0f, currentSpawnRate);
     }
 
@@ -61,9 +62,23 @@ public class EnemySpawnerTiro : MonoBehaviour
         AdjustSpawnRate();
     }
 
+    //void AdjustSpawnRate()
+    //{
+    //    currentSpawnRate = Mathf.Clamp(enemySpawnRate - (rangedEnemiesInGame * 0.2f), 1.5f, enemySpawnRate);
+    //    CancelInvoke();
+    //    InvokeRepeating("SpawnEnemy", currentSpawnRate, currentSpawnRate);
+    //}
+
     void AdjustSpawnRate()
     {
-        currentSpawnRate = Mathf.Clamp(baseSpawnRate - (rangedEnemiesInGame * 0.2f), 1.5f, baseSpawnRate);
+        // Calcula la tasa de aparición base ajustada según la cantidad de enemigos a distancia
+        float baseSpawnRate = Mathf.Clamp(enemySpawnRate - (rangedEnemiesInGame * 0.2f), 1.0f, enemySpawnRate);
+
+        // Introduce una variabilidad aleatoria en el tiempo de aparición
+        float variability = Random.Range(-0.5f, 0.5f); // Ajusta el rango según la variabilidad deseada
+        currentSpawnRate = Mathf.Clamp(baseSpawnRate + variability, 0.5f, enemySpawnRate);
+
+        // Reinicia el temporizador de invocación con la nueva tasa de aparición
         CancelInvoke();
         InvokeRepeating("SpawnEnemy", currentSpawnRate, currentSpawnRate);
     }
@@ -75,5 +90,10 @@ public class EnemySpawnerTiro : MonoBehaviour
             rangedEnemiesInGame--;
             rangedEnemiesList.Remove(enemy);
         }
+    }
+
+    public void setEnemySpawnRate(float spawnRate)
+    {
+        enemySpawnRate = spawnRate;
     }
 }

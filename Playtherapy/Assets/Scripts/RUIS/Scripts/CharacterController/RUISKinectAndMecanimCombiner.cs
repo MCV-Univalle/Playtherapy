@@ -35,6 +35,11 @@ public class RUISKinectAndMecanimCombiner : MonoBehaviour {
 
         public BoneTriplet(Transform kinectTransform, Transform mecanimTransform, Transform blendedTransform, BodypartClassification bodypartClassification)
         {
+
+            if (mecanimTransform == null || kinectTransform == null || blendedTransform == null)
+            {
+                Debug.LogError("Error al crear BoneTriplet: Uno de los valores es NULL.");
+            }
             this.kinectTransform = kinectTransform;
             this.mecanimTransform = mecanimTransform;
             this.blendedTransform = blendedTransform;
@@ -46,6 +51,21 @@ public class RUISKinectAndMecanimCombiner : MonoBehaviour {
 
         public override string ToString()
         {
+            if (mecanimTransform == null)
+            {
+                Debug.LogError("mecanimTransform es NULL");
+                return "mecanimTransform es NULL";
+            }
+            if (kinectTransform == null)
+            {
+                Debug.LogError("kinectTransform es NULL");
+                return "kinectTransform es NULL";
+            }
+            if (blendedTransform == null)
+            {
+                Debug.LogError("blendedTransform es NULL");
+                return "blendedTransform es NULL";
+            }
             return bodypartClassification + " (" + kinectTransform.name + ", " + mecanimTransform.name + ", " + blendedTransform.name + ")";
         }
     }
@@ -239,6 +259,7 @@ public class RUISKinectAndMecanimCombiner : MonoBehaviour {
 
     void UpdateScales(BoneTriplet root)
     {
+        
         root.blendedTransform.localScale = root.mecanimTransform.localScale = root.kinectTransform.localScale;
 
         foreach (BoneTriplet childTriplet in root.children)

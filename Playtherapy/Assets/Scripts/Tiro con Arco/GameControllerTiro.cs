@@ -1,14 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class GameControllerTiro : MonoBehaviour
 {
     public GameObject timer;
+    public GameObject parametersPanel;
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
-    public float currentTime = 600f;
+    
     private float totalGameTime;
     public float timeMillis = 1000f;
     public GameObject score;
@@ -17,16 +21,51 @@ public class GameControllerTiro : MonoBehaviour
     static public float gameScore = 0;
     public Text floatingScorePrefab; // Prefab del texto animado 
 
+    public bool InGame = false;
+    private bool GameOver = false;
+
+    //Variables del panel de parametros
+    public float currentTime = 600f;
+    public float speed;
+    public float spawnRate;
+    static public float headInclination;
+    static public float shoulderRotation;
+
+    //Script que spawnea enemigos
+    public GameObject enemySpawner;
+    EnemySpawnerTiro enemySpawnerTiro;
+
+    //Prefabs de los enemigos
+    public GameObject[] enemyPrefabs;
+
+
+    //Variable para hacer referencia el gameController
+    static public GameControllerTiro gct;
+
     // Start is called before the first frame update
     void Start()
     {
+        gct = gameObject.GetComponent<GameControllerTiro>();
+        timer.SetActive(false);
+        score.SetActive(false);
+        parametersPanel.SetActive(true);
         totalGameTime = currentTime;
+
+        enemySpawnerTiro = enemySpawner.GetComponent<EnemySpawnerTiro>();
+        //Esto no se hace porque este gameObject ya viene desactivado en la escena
+        //if (enemySpawner != null)
+        //{
+        //    enemySpawner.setActive(false);
+        //}
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!InGame || GameOver) return;
+
+
         currentTime -= Time.deltaTime;
         if (currentTime > 0)
         {
@@ -45,6 +84,51 @@ public class GameControllerTiro : MonoBehaviour
 
         textCurrentScore.text = gameScore.ToString();
         //sliderCurrentScore.value = gameScore;
+
+    }
+
+    public void StartGame(float _timeGame, float enemySpeed, float enemySpawnRate, float _headInclination, float _shoulderRotation)
+    {
+        Debug.Log("¡Juego iniciado!");
+
+        currentTime = _timeGame * 60;
+        speed = enemySpeed;
+        spawnRate = enemySpawnRate;
+        headInclination = _headInclination;
+        shoulderRotation = _shoulderRotation;
+
+
+
+        foreach (GameObject prefab in enemyPrefabs)
+        {
+            EnemyAITiro enemyAITiro = prefab.GetComponent<EnemyAITiro>();
+            if (enemyAITiro != null)
+            {
+                enemyAITiro.setEnemySpeed(enemySpeed);
+            }
+            else
+            {
+                Debug.LogError($"No se encontró el script EnemyAITiro en el prefab {prefab.name}.");
+            }
+        }
+        Debug.Log("Velocidad de los NPC's cambiada a: " + speed);
+
+        if (enemySpawnerTiro != null)
+        {
+            enemySpawnerTiro.setEnemySpawnRate(spawnRate);
+            enemySpawner.SetActive(true);
+            Debug.Log("Valor de spawnRate cambiado a : " + spawnRate);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el script enemySpawnerTiro en el prefab EnemySpawner.");
+        }
+        parametersPanel.SetActive(false);
+        timer.SetActive(true);
+
+    
+
+        InGame = true; //  Permitir que `Update()` funcione
 
     }
 

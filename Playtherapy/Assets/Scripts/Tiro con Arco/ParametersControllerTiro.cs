@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ParametersController : MonoBehaviour
+public class ParametersController : MonoBehaviour, IParametersManager
 {
 
     public GameObject ParametersPanel;
@@ -20,10 +20,14 @@ public class ParametersController : MonoBehaviour
     // Velocidad de movimiento de los enemigos
     public Dropdown speedDropdown;
     static private string _speedGame = "Paso medio";
+    // Velocidad de moviemiento de los enemigos numerica 
+    static public float enemySpeed = 10f;
 
     // Velocidad de aparicion de los enemigos
     public Dropdown spawnDropdown;
     static private string _spawnrate = "Moderado";
+    // Velocidad de moviemiento de los enemigos numerica 
+    static public float enemySpawnRate = 3f;
 
     // Rango de inclinacion de la cabeza
     public Slider headInclinationSlider;
@@ -31,18 +35,37 @@ public class ParametersController : MonoBehaviour
     static private int _headInclination = 35;
 
     // Rango de abduccion del hombro
-    public Slider headRotationSlider;
-    public Text headRotationText;
-    static private int _headRotation = 40;
+    public Slider shoulderRotationSlider;
+    public Text shoulderRotationText;
+    static private int _shoulderRotation = 40;
 
-    //Velocidad de moviemiento de los enemigos numerica 
-    static public float enemySpeed = 5f;
-
-    //Velocidad de aparicion de los enemigos numerica 
-    static public float spawnRate = 5f;
+   
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Entre a ejecutar el start del parameter panel");
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+
+            gameControllerTiro = gameControllerObject.GetComponent<GameControllerTiro>();
+        }
+        if (gameControllerTiro == null)
+        {
+
+            Debug.Log("Cannot find GameController script");
+        }
+
+        if (GameControllerTiro.gct != null)
+        {
+            startGameButton.onClick.AddListener(OnStartGameButtonPressed);
+
+        }
+
+
+
+
+
         //Inicializar valores
         timeSlider.minValue = 1;
         timeSlider.maxValue = 5;
@@ -66,10 +89,10 @@ public class ParametersController : MonoBehaviour
         headInclinationSlider.value = _headInclination;
         headInclinationText.text = _headInclination + "°";
 
-        headRotationSlider.minValue = 20;
-        headRotationSlider.maxValue = 60;
-        headRotationSlider.value = _headRotation;
-        headRotationText.text = _headRotation + "°";
+        shoulderRotationSlider.minValue = 20;
+        shoulderRotationSlider.maxValue = 60;
+        shoulderRotationSlider.value = _shoulderRotation;
+        shoulderRotationText.text = _shoulderRotation + "°";
     }
 
     // Métodos para actualizar valores en tiempo real
@@ -84,15 +107,15 @@ public class ParametersController : MonoBehaviour
         _speedGame = speedDropdown.options[speedDropdown.value].text;
         if (_speedGame == "Paso lento")
         {
-            enemySpeed = 2f;
+            enemySpeed = 5f;
         }
         else if (_speedGame == "Paso medio")
         {
-            enemySpeed = 5f;
+            enemySpeed = 10f;
         }
         else
         {
-            enemySpeed = 8f;
+            enemySpeed = 15f;
         }
         Debug.Log("Se cambio a la velocidad: " + _speedGame + "en numerico: " + enemySpeed);
     }
@@ -102,17 +125,17 @@ public class ParametersController : MonoBehaviour
         _spawnrate = spawnDropdown.options[spawnDropdown.value].text;
         if (_spawnrate == "Lento")
         {
-            spawnRate = 2f;
+            enemySpawnRate = 8f;
         }
         else if (_spawnrate == "Moderado")
         {
-            spawnRate = 5f;
+            enemySpawnRate = 5f;
         }
         else
         {
-            spawnRate = 8f;
+            enemySpawnRate = 3f;
         }
-        Debug.Log("Se cambio a la velocidad de aparicion: " + _spawnrate + "en numerico: " + spawnRate);
+        Debug.Log("Se cambio a la velocidad de aparicion: " + _spawnrate + "en numerico: " + enemySpawnRate);
     }
 
     public void UpdateHeadInclination()
@@ -121,10 +144,10 @@ public class ParametersController : MonoBehaviour
         headInclinationText.text = _headInclination + "°";
     }
 
-    public void UpdateHeadRotation()
+    public void UpdateShoulderRotation()
     {
-        _headRotation = (int)headRotationSlider.value;
-        headRotationText.text = _headRotation + "°";
+        _shoulderRotation = (int)shoulderRotationSlider.value;
+        shoulderRotationText.text = _shoulderRotation + "°";
     }
 
     public void TutorialPhase()
@@ -137,11 +160,12 @@ public class ParametersController : MonoBehaviour
 
     public void StartGame()
     {
-
+        Debug.Log("Ejecute el startgame, se deberian quitar las interfaces");
+        GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination, _shoulderRotation);
     }
 
     public void OnStartGameButtonPressed()
     {
-
+       GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination, _shoulderRotation);
     }
 }

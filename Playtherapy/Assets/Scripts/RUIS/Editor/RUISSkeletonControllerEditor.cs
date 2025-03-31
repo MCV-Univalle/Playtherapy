@@ -82,6 +82,8 @@ public class RUISSkeletonControllerEditor : Editor
 	SerializedProperty trackWrist;
 	SerializedProperty trackAnkle;
 	SerializedProperty trackLegs;
+
+	SerializedProperty trackOnlyHeadTiro;
     //	SerializedProperty rotateWristFromElbow;
 
     SerializedProperty customRoot;
@@ -162,10 +164,11 @@ public class RUISSkeletonControllerEditor : Editor
 		trackWrist = serializedObject.FindProperty ("trackWrist");
 		trackAnkle = serializedObject.FindProperty("trackAnkle");
 		trackLegs = serializedObject.FindProperty("trackLegs");
-		//		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
+		trackOnlyHeadTiro = serializedObject.FindProperty("trackOnlyHeadTiro");
+        //		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
 
-		//		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
-		adjustVerticalHipsPosition = serializedObject.FindProperty("adjustVerticalHipsPosition");
+        //		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
+        adjustVerticalHipsPosition = serializedObject.FindProperty("adjustVerticalHipsPosition");
         maxScaleFactor = serializedObject.FindProperty("maxScaleFactor");
         minimumConfidenceToUpdate = serializedObject.FindProperty("minimumConfidenceToUpdate");
         rotationDamping = serializedObject.FindProperty("rotationDamping");
@@ -380,11 +383,17 @@ public class RUISSkeletonControllerEditor : Editor
 			EditorGUILayout.PropertyField (customRightThumb, new GUIContent ("Right Thumb", "The thumb of the right hand"));
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.EndHorizontal ();
-			
-			
+
+
 		}
 		RUISEditorUtility.HorizontalRuler();
-        EditorGUILayout.LabelField("Torso and Head Joints", EditorStyles.boldLabel);
+
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
+            EditorGUILayout.PropertyField(trackOnlyHeadTiro, new GUIContent("Track Only Head Tiro", "Track only the head of the body, this function was developed for the Tiro con Arco game only"));
+
+		EditorGUILayout.Space();
+
+		EditorGUILayout.LabelField("Torso and Head Joints", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(rootBone, new GUIContent("Root Joint", "The skeleton hierarchy root bone"));
 		EditorGUILayout.Space();
 		EditorGUILayout.PropertyField(torsoBone, new GUIContent("Torso", "The torso bone, has to be parent or grandparent of the hips"));
