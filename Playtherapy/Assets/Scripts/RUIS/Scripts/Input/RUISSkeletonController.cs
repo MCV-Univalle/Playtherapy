@@ -927,20 +927,32 @@ public class RUISSkeletonController : MonoBehaviour
 			{
 				if (trackOnlyHeadTiro)
 				{
-					Quaternion targetRotation = jointToGet.rotation;
-                    // Se aumenta el giro en Y manualmente
-                    targetRotation.y *= 10f;
-                    transformToUpdate.localRotation = Quaternion.RotateTowards(
-					transformToUpdate.localRotation,
-					targetRotation,
-					maxAngularVelocity
-				);
-                }
+                    // Obtén la rotación actual en el espacio local
+                    Quaternion currentRotation = transformToUpdate.localRotation;
+
+                    // Extrae los ángulos de la rotación actual en Euler
+                    Vector3 currentEulerAngles = currentRotation.eulerAngles;
+
+                    // Crea un nuevo ángulo que conserva la rotación en el eje Z
+                    Vector3 targetEulerAngles = jointToGet.rotation.eulerAngles;
+					targetEulerAngles.z = currentEulerAngles.z;  // Bloquea la rotación en Z
+
+                    // Incrementa la rotación en X para aumentar la velocidad
+                    // Puedes ajustar el factor para aumentar o disminuir la velocidad en X
+                    float rotationSpeedFactor = 100f;  // Ajusta este valor para controlar la velocidad en X
+                    targetEulerAngles.x = Mathf.LerpAngle(currentEulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
+
+                    // Convierte los ángulos de vuelta a un Quaternion
+                    Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
+
+                    // Realiza la rotación con RotateTowards, pero manteniendo el valor de Z fijo
+                    transformToUpdate.localRotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxAngularVelocity);
+				}
 				else
 				{
 					transformToUpdate.localRotation = Quaternion.RotateTowards(transformToUpdate.localRotation, jointToGet.rotation, maxAngularVelocity);
-                }
-            }
+				}
+			}
 			}
 	}
 

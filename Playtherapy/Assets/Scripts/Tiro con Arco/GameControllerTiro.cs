@@ -2,17 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Leap;
+using OpenNI;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class GameControllerTiro : MonoBehaviour
 {
+    private RUISSkeletonManager skeletonManager;
+    public GameObject kinectPlayer; // Modelo controlado por RUIS
     public GameObject timer;
     public GameObject parametersPanel;
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
-    
+
+    public Transform BowHead;
+    public Transform Player;
+    public Transform cameraTransform;
+    public Transform ArrowFather;
+
+    public Animator bowAnimator;
+    private bool animationStarted = false;
+    private bool ShotFired = false;
+    private bool shotEventFire = false;
+
+    private Vector3 cameraOffset;
+
     private float totalGameTime;
     public float timeMillis = 1000f;
     public GameObject score;
@@ -51,12 +68,30 @@ public class GameControllerTiro : MonoBehaviour
         parametersPanel.SetActive(true);
         totalGameTime = currentTime;
 
+
         enemySpawnerTiro = enemySpawner.GetComponent<EnemySpawnerTiro>();
         //Esto no se hace porque este gameObject ya viene desactivado en la escena
         //if (enemySpawner != null)
         //{
         //    enemySpawner.setActive(false);
         //}
+
+        // Calcula y almacena el desplazamiento inicial de la cámara respecto al Player
+        cameraOffset = new Vector3(-0.3f, 0.1f, -0.7f);
+
+        skeletonManager = FindObjectOfType<RUISSkeletonManager>();
+        if (skeletonManager == null)
+        {
+            Debug.LogError("Falta el script RUISSkeletonManager en la escena.");
+            return;
+        }
+
+        // Obtener control del esqueleto
+        RUISSkeletonController[] kinectControllers = kinectPlayer.GetComponentsInChildren<RUISSkeletonController>();
+        if (kinectControllers.Length > 0)
+        {
+            kinectControllers[0].updateRootPosition = false;
+        }
 
     }
 
@@ -65,6 +100,9 @@ public class GameControllerTiro : MonoBehaviour
     {
         if (!InGame || GameOver) return;
 
+        AdjustCameraPosition();
+
+        UpdateBowAnimation();
 
         currentTime -= Time.deltaTime;
         if (currentTime > 0)
@@ -126,7 +164,7 @@ public class GameControllerTiro : MonoBehaviour
         parametersPanel.SetActive(false);
         timer.SetActive(true);
 
-    
+
 
         InGame = true; //  Permitir que `Update()` funcione
 
@@ -174,4 +212,104 @@ public class GameControllerTiro : MonoBehaviour
 
         Destroy(floatingText.gameObject); // 🗑️ Se destruye tras la animación
     }
+    void AdjustCameraPosition()
+    {
+        // Verifica si el Kinect ha detectado el cuerpo
+        if (skeletonManager == null)
+        {
+            return; // Si no hay detección, no mover la cámara
+        }
+
+        // 🔹 Calcula la posición correcta de la cámara con un offset rotado alrededor del arco
+        Vector3 cameraLocalOffset = Quaternion.Euler(0, BowHead.eulerAngles.y, 0) * cameraOffset;
+        cameraTransform.position = BowHead.position + cameraLocalOffset;
+
+        // 🔹 Obtenemos la rotación en Y del arco sin afectar X ni Z
+        Quaternion targetRotation = Quaternion.Euler(0, BowHead.eulerAngles.y, 0);
+
+        // 🔹 Aplica la rotación corregida, agregando un ajuste para inclinar la cámara si es necesario
+        cameraTransform.rotation = targetRotation;
+
+        // 🔹 Opcional: Pequeña rotación extra para ver la cuerda del arco más claramente
+        cameraTransform.Rotate(0, 0, 0); // Ajusta estos valores si es necesario
+    }
+
+
+    void UpdateBowAnimation()
+    {
+        if (skeletonManager == null)
+        {
+            return; // Si no hay detección, no mover la cámara
+        }
+
+        // Verificar si la animación no ha sido iniciada
+        if (!animationStarted)
+        {
+            Debug.Log("Entre a empezar la animacion");
+            // Activar el trigger para iniciar la animación
+            bowAnimator.SetTrigger("StartBowAnimation");
+            animationStarted = true;
+        }
+
+        // Verificar si la animación ha alcanzado el frame 43
+        AnimatorStateInfo state = bowAnimator.GetCurrentAnimatorStateInfo(0);
+
+       
+
+        if (state.IsName("BowAnimation"))
+        {
+            // Calcular el progreso de la animación hasta el frame 43
+            float animationProgress = Mathf.Clamp01(state.normalizedTime / 0.43f);
+            Debug.Log("Soy el progreso de la animacion" + animationProgress);
+            // Definir la posición inicial y final de la flecha en el eje Z
+            float initialZ = 0f; // Posición inicial de la flecha
+            float finalZ = -0.8f; // Posición final de la flecha al tensar completamente
+
+            // Interpolar la posición de la flecha en Z según el progreso de la animación
+            float currentZ = Mathf.Lerp(initialZ, finalZ, animationProgress);
+            Debug.Log("Soy el valor devuelto por math.lerp" + currentZ);
+            // Aplicar la nueva posición a la flecha
+            Vector3 arrowPosition = ArrowFather.localPosition;
+            arrowPosition.z = currentZ;
+            ArrowFather.localPosition = arrowPosition;
+            // Debug.Log("Cambie la posicion de la flecha");
+
+            if (state.normalizedTime >= 0.43f && !ShotFired)
+            {
+                // Pausar la animación en el frame 43
+                bowAnimator.speed = 0f;
+
+            }
+
+
+            // Detectar el evento de disparo (reemplaza "Fire1" con tu input de disparo)
+            if (shotEventFire && state.normalizedTime >= 0.43f)
+            {
+                // Realizar el disparo (implementa tu lógica aquí)
+                Shoot();
+
+                // Reanudar la animación
+                bowAnimator.speed = 1f;
+
+                // Reiniciar el state de la animación
+                animationStarted = false;
+                ShotFired = false;
+            }
+        }
+
+        if (state.normalizedTime >= 1f)
+        {
+            // Reiniciar la animación
+            bowAnimator.SetTrigger("StartBowAnimation");
+        }
+    }
+
+    void Shoot()
+    {
+        // Implementa aquí la lógica de disparo
+        // Por ejemplo, instanciar un proyectil, aplicar daño, etc.
+        Debug.Log("Disparo realizado");
+    }
+
+
 }
