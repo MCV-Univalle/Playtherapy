@@ -4,19 +4,19 @@ public class ArrowBehaviour : MonoBehaviour
 {
 
     Rigidbody rb;
+    float minVelocity = 0.1f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        // Si la velocidad es suficiente, actualizar la rotación de la flecha
-        if (rb.velocity.sqrMagnitude > 0.1f)
-        {
-            transform.rotation = Quaternion.LookRotation(rb.velocity.normalized);
-        }
+        if (rb.velocity.magnitude <= minVelocity)
+            return;
+
+        transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity, Vector3.up);
     }
 
     private void OnCollisionEnter(Collision collision)

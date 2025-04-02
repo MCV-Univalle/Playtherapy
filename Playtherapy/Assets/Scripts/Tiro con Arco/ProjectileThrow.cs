@@ -7,7 +7,7 @@ public class ProjectileThrow : MonoBehaviour
     TrajectoryPredictor trajectoryPredictor;
 
     [SerializeField]
-    Rigidbody objectToThrow;
+    GameObject newArrow;
 
     [SerializeField, Range(0.0f, 50.0f)]
     float force;
@@ -43,7 +43,7 @@ public class ProjectileThrow : MonoBehaviour
         }
         else
         {
-            trajectoryPredictor.SetTrajectoryVisible(true);
+            trajectoryPredictor.SetTrajectoryVisible(false);
         }
     }
 
@@ -55,7 +55,7 @@ public class ProjectileThrow : MonoBehaviour
     ProjectileProperties ProjectileData()
     {
         ProjectileProperties properties = new ProjectileProperties();
-        Rigidbody r = objectToThrow.GetComponent<Rigidbody>();
+        Rigidbody r = newArrow.GetComponent<Rigidbody>();
 
         //float angle = -transform.eulerAngles.x; // Invertimos el ángulo
         //float adjustedForce = force + Mathf.Sin(angle * Mathf.Deg2Rad) * extraForceMultiplier;
@@ -71,18 +71,11 @@ public class ProjectileThrow : MonoBehaviour
 
     public void ThrowObject()
     {
-        Rigidbody thrownObject = Instantiate(objectToThrow, StartPosition.position, Quaternion.identity);
+        GameObject arrow = Instantiate(newArrow, StartPosition.position, Quaternion.identity);
+        Rigidbody rb = arrow.GetComponent<Rigidbody>();
+        Vector3 shootDirection = transform.forward;
+        rb.AddForce(shootDirection * force, ForceMode.Impulse);
 
-        // Obtener la dirección ajustada del arco
-        //float angle = -transform.eulerAngles.x;
-        //float adjustedForce = force + Mathf.Sin(angle * Mathf.Deg2Rad) * extraForceMultiplier;
-
-        // Aplicar la fuerza con la dirección correcta
-        Vector3 launchDirection = StartPosition.forward;
-        // launchDirection.y = Mathf.Sin(angle * Mathf.Deg2Rad); // Ajuste de altura
-
-        thrownObject.AddForce(launchDirection * force, ForceMode.Impulse);
-        thrownObject.transform.rotation = Quaternion.LookRotation(thrownObject.velocity.normalized);
     }
 
     public void updateIsTensioning(bool _isTensioning)
