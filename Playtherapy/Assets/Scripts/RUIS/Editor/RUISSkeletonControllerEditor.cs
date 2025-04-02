@@ -83,7 +83,7 @@ public class RUISSkeletonControllerEditor : Editor
 	SerializedProperty trackAnkle;
 	SerializedProperty trackLegs;
 
-	SerializedProperty trackOnlyHeadTiro;
+	SerializedProperty personalizatedTrackTiro;
     //	SerializedProperty rotateWristFromElbow;
 
     SerializedProperty customRoot;
@@ -164,7 +164,7 @@ public class RUISSkeletonControllerEditor : Editor
 		trackWrist = serializedObject.FindProperty ("trackWrist");
 		trackAnkle = serializedObject.FindProperty("trackAnkle");
 		trackLegs = serializedObject.FindProperty("trackLegs");
-		trackOnlyHeadTiro = serializedObject.FindProperty("trackOnlyHeadTiro");
+		personalizatedTrackTiro = serializedObject.FindProperty("personalizatedTrackTiro");
         //		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
 
         //		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
@@ -389,7 +389,7 @@ public class RUISSkeletonControllerEditor : Editor
 		RUISEditorUtility.HorizontalRuler();
 
         if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
-            EditorGUILayout.PropertyField(trackOnlyHeadTiro, new GUIContent("Track Only Head Tiro", "Track only the head of the body, this function was developed for the Tiro con Arco game only"));
+            EditorGUILayout.PropertyField(personalizatedTrackTiro, new GUIContent("Personalizated track for tiro", "Track only the head of the body and the hands, this function was developed for the Tiro con Arco game only"));
 
 		EditorGUILayout.Space();
 

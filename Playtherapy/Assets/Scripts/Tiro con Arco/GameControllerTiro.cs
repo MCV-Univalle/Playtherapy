@@ -18,10 +18,36 @@ public class GameControllerTiro : MonoBehaviour
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
 
-    public Transform BowHead;
+    public GameObject BowHead;
+    ProjectileThrow projectileThrow;
     public Transform Player;
     public Transform cameraTransform;
     public Transform ArrowFather;
+
+    public Transform leftHand;
+    public Transform rightHand;
+    private bool clapDetected = false; // Bandera para controlar la detección
+    private string clapTurn = "First clap"; // Bandera para el tensado de la cuerda
+    private bool _isTensioning;
+    public bool isTensioning
+    {
+        get { return _isTensioning; }
+        set
+        {
+            if (_isTensioning != value) 
+            {
+                _isTensioning = value;
+                projectileThrow.updateIsTensioning(_isTensioning);
+            }
+        }
+    }
+    public bool shootArrow = false;
+    public AnimationClip bowTensioningClip;
+    public float arrowStartZ = 0f; // Posición inicial en Z de la flecha
+    public float arrowEndZ = -0.5f; // Posición final en Z de la flecha al tensar completamente
+
+   // public GameObject trajectoryObject; //Diseño de la preview de la trayectoria de la flecha
+
 
     public Animator bowAnimator;
     private bool animationStarted = false;
@@ -70,6 +96,8 @@ public class GameControllerTiro : MonoBehaviour
 
 
         enemySpawnerTiro = enemySpawner.GetComponent<EnemySpawnerTiro>();
+        projectileThrow = BowHead.GetComponent<ProjectileThrow>();
+
         //Esto no se hace porque este gameObject ya viene desactivado en la escena
         //if (enemySpawner != null)
         //{
@@ -77,7 +105,7 @@ public class GameControllerTiro : MonoBehaviour
         //}
 
         // Calcula y almacena el desplazamiento inicial de la cámara respecto al Player
-        cameraOffset = new Vector3(-0.3f, 0.1f, -0.7f);
+        cameraOffset = new Vector3(cameraTransform.localPosition.x, 0.5f, cameraTransform.localPosition.z - 1f);
 
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -99,10 +127,22 @@ public class GameControllerTiro : MonoBehaviour
     void Update()
     {
         if (!InGame || GameOver) return;
-
+        //if (isTensioning)
+        //{
+        //    ShowTrajectoryPreview();
+        //}
+        if (shootArrow)
+        {
+            projectileThrow.ThrowObject();
+        }
+        //if (isTensioning)
+        //{
+        //    projectileThrow.updateIsTensioning(isTensioning);
+        //}
         AdjustCameraPosition();
+        DetectClap();
 
-        UpdateBowAnimation();
+        // UpdateBowAnimation();
 
         currentTime -= Time.deltaTime;
         if (currentTime > 0)
@@ -221,11 +261,11 @@ public class GameControllerTiro : MonoBehaviour
         }
 
         // 🔹 Calcula la posición correcta de la cámara con un offset rotado alrededor del arco
-        Vector3 cameraLocalOffset = Quaternion.Euler(0, BowHead.eulerAngles.y, 0) * cameraOffset;
-        cameraTransform.position = BowHead.position + cameraLocalOffset;
+        Vector3 cameraLocalOffset = Quaternion.Euler(0, BowHead.transform.eulerAngles.y, 0) * cameraOffset;
+        cameraTransform.position = BowHead.transform.position + cameraLocalOffset;
 
         // 🔹 Obtenemos la rotación en Y del arco sin afectar X ni Z
-        Quaternion targetRotation = Quaternion.Euler(0, BowHead.eulerAngles.y, 0);
+        Quaternion targetRotation = Quaternion.Euler(0, BowHead.transform.eulerAngles.y, 0);
 
         // 🔹 Aplica la rotación corregida, agregando un ajuste para inclinar la cámara si es necesario
         cameraTransform.rotation = targetRotation;
@@ -235,81 +275,97 @@ public class GameControllerTiro : MonoBehaviour
     }
 
 
-    void UpdateBowAnimation()
+    void DetectClap()
     {
-        if (skeletonManager == null)
+        shootArrow = false;
+        Vector3 leftHandPos = leftHand.position;
+        Vector3 rightHandPos = rightHand.position;
+        float distance = Vector3.Distance(leftHandPos, rightHandPos);
+        Debug.Log("La distancia que hay entres ambas manos es: " + distance);
+        //float distanceX = Mathf.Abs(leftHandPos.x - rightHandPos.x);
+        if (distance < 0.7f && !clapDetected) // Umbral de distancia y verificación de la bandera
         {
-            return; // Si no hay detección, no mover la cámara
-        }
+            clapDetected = true; // Marcar que el aplauso ha sido detectado  
 
-        // Verificar si la animación no ha sido iniciada
-        if (!animationStarted)
-        {
-            Debug.Log("Entre a empezar la animacion");
-            // Activar el trigger para iniciar la animación
-            bowAnimator.SetTrigger("StartBowAnimation");
-            animationStarted = true;
-        }
-
-        // Verificar si la animación ha alcanzado el frame 43
-        AnimatorStateInfo state = bowAnimator.GetCurrentAnimatorStateInfo(0);
-
-       
-
-        if (state.IsName("BowAnimation"))
-        {
-            // Calcular el progreso de la animación hasta el frame 43
-            float animationProgress = Mathf.Clamp01(state.normalizedTime / 0.43f);
-            Debug.Log("Soy el progreso de la animacion" + animationProgress);
-            // Definir la posición inicial y final de la flecha en el eje Z
-            float initialZ = 0f; // Posición inicial de la flecha
-            float finalZ = -0.8f; // Posición final de la flecha al tensar completamente
-
-            // Interpolar la posición de la flecha en Z según el progreso de la animación
-            float currentZ = Mathf.Lerp(initialZ, finalZ, animationProgress);
-            Debug.Log("Soy el valor devuelto por math.lerp" + currentZ);
-            // Aplicar la nueva posición a la flecha
-            Vector3 arrowPosition = ArrowFather.localPosition;
-            arrowPosition.z = currentZ;
-            ArrowFather.localPosition = arrowPosition;
-            // Debug.Log("Cambie la posicion de la flecha");
-
-            if (state.normalizedTime >= 0.43f && !ShotFired)
+            Debug.Log("¡Aplauso detectado!");
+            //Debug.Log("La distancia que hay entres ambas manos es: " + distance);
+            Debug.Log("El valor del clapTurn es: " + clapTurn + "Al segundo: " + currentTime);
+            if (clapTurn == "First clap")
             {
-                // Pausar la animación en el frame 43
-                bowAnimator.speed = 0f;
-
+                OnBowTensioning();
+                isTensioning = true;
+                clapTurn = "Second clap"; 
+                Debug.Log("Se detecto la primer palmada");
+            }
+            else if (clapTurn == "Second clap")
+            {
+                isTensioning = false;
+                shootArrow = true;
+                OnBowShooting();     
+                clapTurn = "First clap";
+                Debug.Log("Se detecto la segunda palmada");
             }
 
 
-            // Detectar el evento de disparo (reemplaza "Fire1" con tu input de disparo)
-            if (shotEventFire && state.normalizedTime >= 0.43f)
-            {
-                // Realizar el disparo (implementa tu lógica aquí)
-                Shoot();
-
-                // Reanudar la animación
-                bowAnimator.speed = 1f;
-
-                // Reiniciar el state de la animación
-                animationStarted = false;
-                ShotFired = false;
-            }
         }
-
-        if (state.normalizedTime >= 1f)
+        else if (distance >= 1f && clapDetected)
         {
-            // Reiniciar la animación
-            bowAnimator.SetTrigger("StartBowAnimation");
+            Debug.Log("Detecte que se alejo de umbral especificado, ya no hay palmada");
+            clapDetected = false;
         }
     }
 
-    void Shoot()
+    void OnBowTensioning()
     {
-        // Implementa aquí la lógica de disparo
-        // Por ejemplo, instanciar un proyectil, aplicar daño, etc.
-        Debug.Log("Disparo realizado");
+        bowAnimator.SetTrigger("StartBowTensioning");
     }
+
+    //void ShowTrajectoryPreview()
+    //{
+    //    float angle = BowHead.transform.eulerAngles.x * Mathf.Deg2Rad; // Convertir a radianes
+    //    angle = -angle; //Se invierte para que alzar lam mirada sea aumentar la distancia y viceversa
+    //    //Vector3 launchDirection = BowHead.transform.forward; // Dirección en la que apunta el arco
+    //    Vector3 launchDirection = BowHead.transform.forward; // Dirección en la que apunta el arco
+    //    launchDirection.x = 0;
+    //    launchDirection.y = 0;
+    //    //launchDirection = -launchDirection;
+    //    float launchSpeed = 5f; // Velocidad de lanzamiento ajustable
+    //    float gravity = 9.81f; // Aceleración debido a la gravedad en m/s²
+    //    Vector3 offset = new Vector3(0.2f, 0f,0.2f);
+    //    // Componentes de la velocidad inicial
+    //    Vector3 velocity = launchDirection * launchSpeed;
+    //    velocity.y = Mathf.Sin(angle) * launchSpeed;
+
+    //    List<Vector3> trajectoryPoints = new List<Vector3>();
+    //    Vector3 startPosition = BowHead.transform.position + offset; // Posición del arco
+    //    float timeStep = 0.05f; // Intervalo de tiempo entre puntos
+    //    float totalTime = (2 * velocity.y) / gravity; // Tiempo total de vuelo
+    //    int numPoints = Mathf.CeilToInt(totalTime / timeStep);
+
+    //    for (int i = 0; i <= numPoints; i++)
+    //    {
+    //        float t = i * timeStep;
+    //        float x = startPosition.x + velocity.x * t;
+    //        float y = startPosition.y + velocity.y * t - 0.5f * gravity * t * t;
+    //        float z = startPosition.z + velocity.z * t;
+    //        trajectoryPoints.Add(new Vector3(x, y, z));
+    //    }
+
+    //    LineRenderer lineRenderer = trajectoryObject.GetComponent<LineRenderer>();
+    //    lineRenderer.alignment = LineAlignment.TransformZ;
+    //    Material lineMaterial = new Material(Shader.Find("Sprites/Default"));
+    //    lineRenderer.material = lineMaterial;
+    //    lineRenderer.positionCount = trajectoryPoints.Count;
+    //    lineRenderer.SetPositions(trajectoryPoints.ToArray());
+    //}
+
+
+
+    void OnBowShooting()
+    {
+        bowAnimator.SetTrigger("StartBowShooting");
+    }
+
 
 
 }

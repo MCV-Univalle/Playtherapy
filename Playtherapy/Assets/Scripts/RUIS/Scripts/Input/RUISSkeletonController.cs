@@ -69,7 +69,7 @@ public class RUISSkeletonController : MonoBehaviour
 	public bool trackWrist = true;
 	public bool trackAnkle = true;
 	public bool trackLegs = true;
-	public bool trackOnlyHeadTiro = false;
+	public bool personalizatedTrackTiro = false;
 
 	public bool rotateWristFromElbow = true;
 	
@@ -129,7 +129,7 @@ public class RUISSkeletonController : MonoBehaviour
 
 	public float minimumConfidenceToUpdate = 0.5f;
 	public float rotationDamping = 360.0f;
-    public float rotationDampingTrackOnlyHeadTiro = 720.0f;
+    public float rotationDampingpersonalizatedTrackTiro = 720.0f;
 
     // Constrained between [0, -180] in Unity Editor script
     public float handRollAngleMinimum = -180; 
@@ -600,28 +600,28 @@ public class RUISSkeletonController : MonoBehaviour
 			//				return;
 
 			float maxAngularVelocity;
-			float maxAngularVelocityTrackOnlyHeadTiro;
+			float maxAngularVelocitypersonalizatedTrackTiro;
             //			if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID)
             //				maxAngularVelocity = skeletonManager.kinect2FrameDeltaT * rotationDamping;
             //			else 
             maxAngularVelocity = deltaTime * rotationDamping;
-			maxAngularVelocityTrackOnlyHeadTiro = deltaTime * rotationDampingTrackOnlyHeadTiro;
+			maxAngularVelocitypersonalizatedTrackTiro = deltaTime * rotationDampingpersonalizatedTrackTiro;
 
 			// Obtained new body tracking data. TODO test that Kinect 1 still works
 //			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
 			{
 				UpdateSkeletonPosition();
 
-				if (!trackOnlyHeadTiro)
+				if (!personalizatedTrackTiro)
 				{
 					UpdateTransform(ref torso, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso, maxAngularVelocity);
 					UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocity);
 				}
 				else
 				{
-                   UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocityTrackOnlyHeadTiro);
+                   UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocitypersonalizatedTrackTiro);
                 }
-				//rotationDampingTrackOnlyHeadTiro
+				//rotationDampingpersonalizatedTrackTiro
 				
 			}
 				
@@ -651,21 +651,12 @@ public class RUISSkeletonController : MonoBehaviour
 						head.localRotation = hmdRotation; //skeletonManager.skeletons [bodyTrackingDeviceID, playerId].head;
 				}
 			}
-			
+
 			// Obtained new body tracking data. TODO test that Kinect 1 still works
-//			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
+			//			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
 			{
-				if (!trackOnlyHeadTiro)
+				if (!personalizatedTrackTiro)
 				{
-					UpdateTransform(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, maxAngularVelocity);
-					UpdateTransform(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, maxAngularVelocity);
-
-					if (trackWrist || !useHierarchicalModel)
-					{
-						UpdateTransform(ref leftHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHand, 2 * maxAngularVelocity);
-						UpdateTransform(ref rightHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHand, 2 * maxAngularVelocity);
-					}
-
 
 					if (trackLegs)
 					{
@@ -676,8 +667,7 @@ public class RUISSkeletonController : MonoBehaviour
 						//Debug.Log(leftKnee.transform.rotation.eulerAngles.)
 						UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
 
-						UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
-						UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
+
 
 
 						if (trackAnkle || !useHierarchicalModel)
@@ -686,7 +676,19 @@ public class RUISSkeletonController : MonoBehaviour
 							UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
 						}
 					}
+				}
+
+                UpdateTransform(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, maxAngularVelocity);
+                UpdateTransform(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, maxAngularVelocity);
+
+                if (trackWrist || !useHierarchicalModel)
+                {
+                    UpdateTransform(ref leftHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHand, 2 * maxAngularVelocity);
+                    UpdateTransform(ref rightHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHand, 2 * maxAngularVelocity);
                 }
+
+                UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
+                UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
 
 
                 //				// TODO: Restore this when implementation is fixed
@@ -911,49 +913,80 @@ public class RUISSkeletonController : MonoBehaviour
 
 		if(updateJointRotations && jointToGet.rotationConfidence >= minimumConfidenceToUpdate)
 		{
-			if(useHierarchicalModel)
+			if (useHierarchicalModel)
 			{
-				Quaternion newRotation = transform.rotation * jointToGet.rotation *
-				                                     (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
-
-				//newRotation.x = newRotation.x * -1f;
-				//newRotation.y = newRotation.y * -1f;
-				//newRotation.z = newRotation.z * -1f;
-				//newRotation.w = newRotation.w * -1f;
-				
-				transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, newRotation, maxAngularVelocity);
-			}
-			else
-			{
-				if (trackOnlyHeadTiro)
+                Quaternion newRotation = transform.rotation * jointToGet.rotation *
+                                                    (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
+				if (personalizatedTrackTiro && transformToUpdate.name == "BowHead")
 				{
-                    // Obtén la rotación actual en el espacio local
-                    Quaternion currentRotation = transformToUpdate.localRotation;
+					Debug.Log("Entre as cambiar la transofrmacion de la cabeza");
+                    // Capturar el valor actual de la rotación en Z
+                    float currentZRotation = transformToUpdate.eulerAngles.z;
 
-                    // Extrae los ángulos de la rotación actual en Euler
-                    Vector3 currentEulerAngles = currentRotation.eulerAngles;
+                    // Convertir la rotación propuesta a ángulos de Euler
+                    Vector3 targetEulerAngles = newRotation.eulerAngles;
 
-                    // Crea un nuevo ángulo que conserva la rotación en el eje Z
-                    Vector3 targetEulerAngles = jointToGet.rotation.eulerAngles;
-					targetEulerAngles.z = currentEulerAngles.z;  // Bloquea la rotación en Z
+                    // Mantener la rotación en Z constante
+                    targetEulerAngles.z = currentZRotation;
 
-                    // Incrementa la rotación en X para aumentar la velocidad
-                    // Puedes ajustar el factor para aumentar o disminuir la velocidad en X
-                    float rotationSpeedFactor = 100f;  // Ajusta este valor para controlar la velocidad en X
-                    targetEulerAngles.x = Mathf.LerpAngle(currentEulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
+                    // Aplicar interpolación en el eje X para suavizar la rotación
+                    float rotationSpeedFactor = 10f;
+                    targetEulerAngles.x = Mathf.LerpAngle(transformToUpdate.eulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
 
-                    // Convierte los ángulos de vuelta a un Quaternion
+                    // Convertir de nuevo a Quaternion
                     Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
 
-                    // Realiza la rotación con RotateTowards, pero manteniendo el valor de Z fijo
-                    transformToUpdate.localRotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxAngularVelocity);
+					// Aplicar la rotación resultante al transform
+					transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, targetRotation, maxAngularVelocity);
+                    //transformToUpdate.rotation = Quaternion.Euler(targetEulerAngles);
+                }
+                else
+                {
+
+
+                    //newRotation.x = newRotation.x * -1f;
+                    //newRotation.y = newRotation.y * -1f;
+                    //newRotation.z = newRotation.z * -1f;
+                    //newRotation.w = newRotation.w * -1f;
+
+                    transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, newRotation, maxAngularVelocity);
+                }
+
+            }
+				
 				}
 				else
 				{
-					transformToUpdate.localRotation = Quaternion.RotateTowards(transformToUpdate.localRotation, jointToGet.rotation, maxAngularVelocity);
+					//Debug.Log("Soy el transform name: " + transformToUpdate.name);
+					//if (personalizatedTrackTiro && transformToUpdate.name == "BowHead")
+					//{
+		   //             // Obtén la rotación actual en el espacio local
+		   //             Quaternion currentRotation = transformToUpdate.localRotation;
+
+		   //             // Extrae los ángulos de la rotación actual en Euler
+		   //             Vector3 currentEulerAngles = currentRotation.eulerAngles;
+
+		   //             // Crea un nuevo ángulo que conserva la rotación en el eje Z
+		   //             Vector3 targetEulerAngles = jointToGet.rotation.eulerAngles;
+					//	targetEulerAngles.z = currentEulerAngles.z;  // Bloquea la rotación en Z
+
+		   //             // Incrementa la rotación en X para aumentar la velocidad
+		   //             // Puedes ajustar el factor para aumentar o disminuir la velocidad en X
+		   //             float rotationSpeedFactor = 100f;  // Ajusta este valor para controlar la velocidad en X
+		   //             targetEulerAngles.x = Mathf.LerpAngle(currentEulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
+
+		   //             // Convierte los ángulos de vuelta a un Quaternion
+		   //             Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
+
+		   //             // Realiza la rotación con RotateTowards, pero manteniendo el valor de Z fijo
+		   //             transformToUpdate.localRotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxAngularVelocity);
+					////}
+					//else
+					//{
+						transformToUpdate.localRotation = Quaternion.RotateTowards(transformToUpdate.localRotation, jointToGet.rotation, maxAngularVelocity);
+					//}
 				}
-			}
-			}
+			//}
 	}
 
 	// Here tracked device can mean PS Move or Oculus Rift DK2+

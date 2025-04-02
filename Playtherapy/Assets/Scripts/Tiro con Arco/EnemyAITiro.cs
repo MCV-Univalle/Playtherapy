@@ -146,7 +146,7 @@ public class EnemyAITiro : MonoBehaviour
         if (NavMesh.SamplePosition(newPos, out hit, separationDistance, NavMesh.AllAreas))
         {
             newPos = hit.position; // Asegura que el punto sea válido
-            Debug.Log($"✅ Posición válida en NavMesh: {newPos}");
+            //Debug.Log($"✅ Posición válida en NavMesh: {newPos}");
             agent.SetDestination(newPos);
         }
         else
