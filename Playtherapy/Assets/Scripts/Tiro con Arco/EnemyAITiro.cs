@@ -19,10 +19,12 @@ public class EnemyAITiro : MonoBehaviour
     private bool isShooting = false;
     private List<GameObject> activeProjectiles = new List<GameObject>();
     private GameControllerTiro gameController;
+    static public float enemySpeed;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = enemySpeed;
         cameraTransform = Camera.main.transform;
         animator = GetComponent<Animator>();
         gameController = FindObjectOfType<GameControllerTiro>();
@@ -144,7 +146,7 @@ public class EnemyAITiro : MonoBehaviour
         if (NavMesh.SamplePosition(newPos, out hit, separationDistance, NavMesh.AllAreas))
         {
             newPos = hit.position; // Asegura que el punto sea válido
-            Debug.Log($"✅ Posición válida en NavMesh: {newPos}");
+            //Debug.Log($"✅ Posición válida en NavMesh: {newPos}");
             agent.SetDestination(newPos);
         }
         else
@@ -187,6 +189,11 @@ public class EnemyAITiro : MonoBehaviour
     //    Gizmos.color = Color.red;
     //    Gizmos.DrawSphere(agent.destination, 0.2f); // Destino actual del agente
     //}
+
+    public void setEnemySpeed(float speed)
+    {
+        enemySpeed = speed;
+    }
 
     private void OnDestroy()
     {
