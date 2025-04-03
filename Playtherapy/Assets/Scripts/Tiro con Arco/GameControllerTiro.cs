@@ -161,6 +161,11 @@ public class GameControllerTiro : MonoBehaviour
         }
 
         textCurrentScore.text = gameScore.ToString();
+
+        if (Input.GetKeyDown(KeyCode.E)) // Simular eliminación con la tecla "E"
+        {
+            SimulateEnemyElimination("WarriorOrc"); // Puedes cambiar el enemigo
+        }
         //sliderCurrentScore.value = gameScore;
 
     }
@@ -203,6 +208,7 @@ public class GameControllerTiro : MonoBehaviour
         }
         parametersPanel.SetActive(false);
         timer.SetActive(true);
+        score.SetActive(true);
 
 
 
@@ -214,6 +220,7 @@ public class GameControllerTiro : MonoBehaviour
     {
         gameScore += score;
         ShowFloatingScore(score);
+        Debug.Log("Puntaje actualizado: " + score);
     }
 
     void ShowFloatingScore(float score)
@@ -366,6 +373,24 @@ public class GameControllerTiro : MonoBehaviour
         bowAnimator.SetTrigger("StartBowShooting");
     }
 
+    public void SimulateEnemyElimination(string enemyName)
+    {
+        Debug.Log("Simulando eliminación de enemigo...");
+        float points = GetScoreForEnemy(enemyName);
+        updateScore(points);
+        Debug.Log($"Eliminaste un {enemyName}. Puntaje: {points}");
+    }
 
+    private float GetScoreForEnemy(string enemyName)
+    {
+        switch (enemyName)
+        {
+            case "WarriorOrc": return 175f;
+            case "ShamanGoblin": return 125f;
+            case "WarriorGoblin": return 100f;
+            case "BlasterOrc": return 200f;
+            default: return 50f;
+        }
+    }
 
 }
