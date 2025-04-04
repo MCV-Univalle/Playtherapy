@@ -15,6 +15,7 @@ public class GameControllerTiro : MonoBehaviour
     public GameObject kinectPlayer; // Modelo controlado por RUIS
     public GameObject timer;
     public GameObject parametersPanel;
+    public GameObject endGamePanel;
     public Text textCurrentTime;
     public Slider sliderCurrentTime;
 
@@ -84,6 +85,9 @@ public class GameControllerTiro : MonoBehaviour
 
     //Variable para hacer referencia el gameController
     static public GameControllerTiro gct;
+    PutDataResults dataResults;
+    private int totalEnemiesSpawned = 0; // Contador de enemigos generados
+    private int totalEnemiesDefeated = 0; // Contador de enemigos eliminados
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +95,7 @@ public class GameControllerTiro : MonoBehaviour
         gct = gameObject.GetComponent<GameControllerTiro>();
         timer.SetActive(false);
         score.SetActive(false);
+        endGamePanel.SetActive(false);
         parametersPanel.SetActive(true);
         totalGameTime = currentTime;
 
@@ -120,6 +125,8 @@ public class GameControllerTiro : MonoBehaviour
         {
             kinectControllers[0].updateRootPosition = false;
         }
+
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -158,15 +165,25 @@ public class GameControllerTiro : MonoBehaviour
 
             sliderCurrentTime.value = currentTime * 100 / 60f;
 
+        } else
+        {
+            EndGame();
         }
 
         textCurrentScore.text = gameScore.ToString();
 
         if (Input.GetKeyDown(KeyCode.E)) // Simular eliminación con la tecla "E"
         {
+            IncrementDefeatedEnemies();
             SimulateEnemyElimination("WarriorOrc"); // Puedes cambiar el enemigo
         }
+
+        if (Input.GetKeyDown(KeyCode.T)) // Simular eliminación con la tecla "E"
+        {
+            currentTime = 1;
+        }
         //sliderCurrentScore.value = gameScore;
+        dataResults = endGamePanel.GetComponent<PutDataResults>();
 
     }
 
@@ -214,6 +231,52 @@ public class GameControllerTiro : MonoBehaviour
 
         InGame = true; //  Permitir que `Update()` funcione
 
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Juego Terminado");
+        timer.SetActive(false);
+        score.SetActive(false);
+        endGamePanel.SetActive(true);
+
+        // Detener el spawn de enemigos
+        if (enemySpawnerTiro != null)
+        {
+            enemySpawner.SetActive(false);
+        }
+
+        // Eliminar a todos los enemigos en la escena
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+
+        string idMinigame = "13";
+        Debug.Log("Spawnearon " + totalEnemiesSpawned + " enemigos");
+        Debug.Log("Acabe con " + totalEnemiesDefeated + " enemigos");
+  
+        int performance = Mathf.RoundToInt((totalEnemiesDefeated / (float)totalEnemiesSpawned) * 100);
+        Debug.Log("Soy el performance " + performance);
+        //GameSessionController gameCtrl = new GameSessionController();
+        //gameCtrl.addGameSession(collectedProducts, this.numberRepetitions, this.totalGameTime, performance, idMinigame);
+
+        // Actualizar los datos en la UI del panel de resultados
+        PutDataResults dataResults = endGamePanel.GetComponent<PutDataResults>();
+        dataResults.Minigame = idMinigame;
+        dataResults.updateData(performance, 0);
+
+
+        if (PlaylistManager.pm != null && PlaylistManager.pm.active)
+
+        {
+            PlaylistManager.pm.NextGame();
+        }
+
+        // Marcar el juego como finalizado
+        InGame = false;
+        GameOver = true;
     }
 
     public void updateScore(float score)
@@ -393,4 +456,13 @@ public class GameControllerTiro : MonoBehaviour
         }
     }
 
+    public void IncrementSpawnedEnemies()
+    {
+        totalEnemiesSpawned++;
+    }
+
+    public void IncrementDefeatedEnemies()
+    {
+        totalEnemiesDefeated++;
+    }
 }

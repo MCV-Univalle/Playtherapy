@@ -534,7 +534,7 @@ public class GameControllerFrenesi : MonoBehaviour
         yield return new WaitForSeconds(2f);
         FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
         endGamePanel.SetActive(true);
-        string idMinigame = "1";
+        string idMinigame = "12";
         //PutDataResults dataResults = endGamePanel.GetComponent<PutDataResults>();
 
         float totalProducts = itemCount; // Total de productos en la lista de compras

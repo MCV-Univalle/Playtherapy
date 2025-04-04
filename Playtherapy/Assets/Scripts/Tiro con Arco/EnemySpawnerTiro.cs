@@ -18,11 +18,13 @@ public class EnemySpawnerTiro : MonoBehaviour
     private int maxRangedEnemies = 8; // Límite total de enemigos de rango
     private int rangedEnemiesInGame = 0; // Contador de enemigos de rango en el mapa
     private List<GameObject> rangedEnemiesList = new List<GameObject>(); // Lista para seguimiento
+    private GameControllerTiro gct;
 
     void Start()
     {
         currentSpawnRate = enemySpawnRate;
         InvokeRepeating("SpawnEnemy", 0f, currentSpawnRate);
+        gct = FindObjectOfType<GameControllerTiro>();
     }
 
     void SpawnEnemy()
@@ -58,7 +60,7 @@ public class EnemySpawnerTiro : MonoBehaviour
         {
             rangedEnemiesList.Add(newEnemy);
         }
-
+        gct.IncrementSpawnedEnemies();
         AdjustSpawnRate();
     }
 

@@ -20,10 +20,6 @@ public class ArrowBehaviour : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity, Vector3.up);
 
-        if (Input.GetKeyDown(KeyCode.E)) // Simular eliminación con la tecla "E"
-        {
-            SimulateEnemyElimination("WarriorOrc"); // Puedes cambiar el enemigo
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,6 +43,7 @@ public class ArrowBehaviour : MonoBehaviour
             if (gameController != null)
             {
                 gameController.updateScore(points);
+                gameController.IncrementDefeatedEnemies();
             }
         }
 
@@ -58,24 +55,12 @@ public class ArrowBehaviour : MonoBehaviour
     {
         switch (enemyName)
         {
-            case "WarriorOrc":
-                return 200f;
-            case "ShamanGoblin":
-                return 150f;
-            case "WarriorGoblin":
-                return 100f;
-            case "BlasterOrc":
-                return 250f;
-            default:
-                return 50f;
+            case "WarriorOrc": return 175f;
+            case "ShamanGoblin": return 125f;
+            case "WarriorGoblin": return 100f;
+            case "BlasterOrc": return 200f;
+            default: return 50f;
         }
     }
 
-    public void SimulateEnemyElimination(string enemyName)
-    {
-        Debug.Log("I simulate eliminating");
-        float points = GetScoreForEnemy(enemyName);
-        gameController.updateScore(points);
-        Debug.Log($"Eliminaste un {enemyName}. Puntaje: {points}");
-    }
 }
