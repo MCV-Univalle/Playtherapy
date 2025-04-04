@@ -82,6 +82,10 @@ public class GameControllerTiro : MonoBehaviour
     //Prefabs de los enemigos
     public GameObject[] enemyPrefabs;
 
+    //Efectos de sonido
+    public AudioSource bowTensioningAudioSource;  // Loop de tensión
+    public AudioSource bowShootingAudioSource;    // Disparo único
+
 
     //Variable para hacer referencia el gameController
     static public GameControllerTiro gct;
@@ -389,6 +393,11 @@ public class GameControllerTiro : MonoBehaviour
     void OnBowTensioning()
     {
         bowAnimator.SetTrigger("StartBowTensioning");
+        if (!bowTensioningAudioSource.isPlaying)
+        {
+            bowTensioningAudioSource.loop = true;
+            bowTensioningAudioSource.Play();
+        }
     }
 
     //void ShowTrajectoryPreview()
@@ -435,6 +444,16 @@ public class GameControllerTiro : MonoBehaviour
     void OnBowShooting()
     {
         bowAnimator.SetTrigger("StartBowShooting");
+        if (bowTensioningAudioSource.isPlaying)
+        {
+            bowTensioningAudioSource.Stop();
+        }
+
+        if (bowShootingAudioSource != null)
+        {
+            bowShootingAudioSource.loop = false;
+            bowShootingAudioSource.PlayOneShot(bowShootingAudioSource.clip);
+        }
     }
 
     public void SimulateEnemyElimination(string enemyName)

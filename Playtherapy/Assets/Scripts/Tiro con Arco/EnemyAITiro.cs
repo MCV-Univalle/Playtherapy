@@ -117,6 +117,11 @@ public class EnemyAITiro : MonoBehaviour
         MoveProjectile movement = projectile.AddComponent<MoveProjectile>(); // Se agrega script para moverlo
         movement.Initialize(cameraTransform.position, 20f); // Se le pasa el objetivo y la velocidad
         activeProjectiles.Add(projectile); // Se guarda el proyectil en la lista
+
+        if (gameObject.name.Contains("Goblin"))
+            SoundManager.Instance?.PlayMagicShoot();
+        else
+            SoundManager.Instance?.PlayCannonShoot();
     }
 
     void AdjustPositionToAvoidOverlap()

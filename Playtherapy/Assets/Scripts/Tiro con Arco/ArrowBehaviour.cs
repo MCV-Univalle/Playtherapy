@@ -7,6 +7,11 @@ public class ArrowBehaviour : MonoBehaviour
     float minVelocity = 0.1f;
     private GameControllerTiro gameController;
 
+    //Sounds for hitting enemies
+    public AudioClip GoblinSound;
+    public AudioClip OrcSound;
+    public AudioClip HitSound;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,9 +38,11 @@ public class ArrowBehaviour : MonoBehaviour
         // Si el objeto tiene el tag "Enemy" y un Animator, activar la animación
         if (collision.transform.CompareTag("Enemy"))
         {
+
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("Dying");
+                PlayImpactSound(collision.gameObject.name, collision.contacts[0].point);
             }
 
             float points = GetScoreForEnemy(collision.gameObject.name);
@@ -60,6 +67,33 @@ public class ArrowBehaviour : MonoBehaviour
             case "WarriorGoblin": return 100f;
             case "BlasterOrc": return 200f;
             default: return 50f;
+        }
+    }
+
+    private void PlayImpactSound(string enemyName, Vector3 position)
+    {
+        AudioClip clipToPlay = HitSound;
+        AudioSource.PlayClipAtPoint(clipToPlay, position);
+
+        switch (enemyName)
+        {
+            case "WarriorOrc":
+                clipToPlay = OrcSound;
+                break;
+            case "ShamanGoblin":
+                clipToPlay = GoblinSound;
+                break;
+            case "WarriorGoblin":
+                clipToPlay = GoblinSound;
+                break;
+            case "BlasterOrc":
+                clipToPlay = OrcSound;
+                break;
+        }
+
+        if (clipToPlay != null)
+        {
+            AudioSource.PlayClipAtPoint(clipToPlay, position);
         }
     }
 

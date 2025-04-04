@@ -95,6 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cfc083a8f6fbdc40af89ed59582ccb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GoblinSound: {fileID: 8300000, guid: c8ea632c350bec64f8a6f55ec6d58ee4, type: 3}
+  OrcSound: {fileID: 8300000, guid: 44e87ccffa22c344a9c8b2408138e6d4, type: 3}
+  HitSound: {fileID: 8300000, guid: 4c79436b62401514fb5e8823cd9e4201, type: 3}
 --- !u!1001 &1431057276736063160
 PrefabInstance:
   m_ObjectHideFlags: 0
