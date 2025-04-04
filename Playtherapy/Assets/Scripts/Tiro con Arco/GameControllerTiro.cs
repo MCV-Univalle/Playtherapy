@@ -238,6 +238,7 @@ public class GameControllerTiro : MonoBehaviour
         Debug.Log("Juego Terminado");
         timer.SetActive(false);
         score.SetActive(false);
+        FindObjectOfType<BackgroundMusic>().PlayGameOverMusic();
         endGamePanel.SetActive(true);
 
         // Detener el spawn de enemigos
