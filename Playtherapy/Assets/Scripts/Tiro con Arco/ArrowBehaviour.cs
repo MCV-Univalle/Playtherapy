@@ -46,7 +46,7 @@ public class ArrowBehaviour : MonoBehaviour
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("Dying");
-                PlayImpactSound(collision.gameObject.name, collision.contacts[0].point);
+                PlayImpactSound(collision.gameObject.name);
             }
 
             float points = GetScoreForEnemy(collision.gameObject.name);
