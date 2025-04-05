@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
+using System.Collections;
 
 public class EnemySpawnerTiro : MonoBehaviour
 {
@@ -18,15 +19,18 @@ public class EnemySpawnerTiro : MonoBehaviour
     private int maxRangedEnemies = 8; // Límite total de enemigos de rango
     private int rangedEnemiesInGame = 0; // Contador de enemigos de rango en el mapa
     private List<GameObject> rangedEnemiesList = new List<GameObject>(); // Lista para seguimiento
+    private GameControllerTiro gct;
 
     void Start()
     {
         currentSpawnRate = enemySpawnRate;
-        InvokeRepeating("SpawnEnemy", 0f, currentSpawnRate);
+        gct = FindObjectOfType<GameControllerTiro>();
+        StartCoroutine(SpawnLoop());
     }
 
     void SpawnEnemy()
     {
+        Debug.Log( "Llame a spawnEnemy con spawnRate: " + currentSpawnRate);
         Transform spawnPoint = Random.Range(0, 2) == 0 ? spawnPoint1 : spawnPoint2;
         bool isMelee = Random.Range(0, 2) == 0;
 
@@ -58,7 +62,7 @@ public class EnemySpawnerTiro : MonoBehaviour
         {
             rangedEnemiesList.Add(newEnemy);
         }
-
+        gct.IncrementSpawnedEnemies();
         AdjustSpawnRate();
     }
 
@@ -71,16 +75,18 @@ public class EnemySpawnerTiro : MonoBehaviour
 
     void AdjustSpawnRate()
     {
-        // Calcula la tasa de aparición base ajustada según la cantidad de enemigos a distancia
         float baseSpawnRate = Mathf.Clamp(enemySpawnRate - (rangedEnemiesInGame * 0.2f), 1.0f, enemySpawnRate);
-
-        // Introduce una variabilidad aleatoria en el tiempo de aparición
-        float variability = Random.Range(-0.5f, 0.5f); // Ajusta el rango según la variabilidad deseada
+        float variability = Random.Range(-0.2f, 0.2f);
         currentSpawnRate = Mathf.Clamp(baseSpawnRate + variability, 0.5f, enemySpawnRate);
+    }
 
-        // Reinicia el temporizador de invocación con la nueva tasa de aparición
-        CancelInvoke();
-        InvokeRepeating("SpawnEnemy", currentSpawnRate, currentSpawnRate);
+    IEnumerator SpawnLoop()
+    {
+        while (true)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(currentSpawnRate);
+        }
     }
 
     public void EnemyDied(GameObject enemy, bool isRanged)
