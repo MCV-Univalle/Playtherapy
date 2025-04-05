@@ -12,10 +12,13 @@ public class ArrowBehaviour : MonoBehaviour
     public AudioClip OrcSound;
     public AudioClip HitSound;
 
+    AudioSource audioSource;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameController = FindObjectOfType<GameControllerTiro>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -38,6 +41,7 @@ public class ArrowBehaviour : MonoBehaviour
         // Si el objeto tiene el tag "Enemy" y un Animator, activar la animación
         if (collision.transform.CompareTag("Enemy"))
         {
+            audioSource.PlayOneShot(HitSound);
 
             if (enemyAnimator != null)
             {
@@ -70,10 +74,9 @@ public class ArrowBehaviour : MonoBehaviour
         }
     }
 
-    private void PlayImpactSound(string enemyName, Vector3 position)
+    private void PlayImpactSound(string enemyName)
     {
-        AudioClip clipToPlay = HitSound;
-        AudioSource.PlayClipAtPoint(clipToPlay, position);
+        AudioClip clipToPlay = GoblinSound;
 
         switch (enemyName)
         {
@@ -91,10 +94,8 @@ public class ArrowBehaviour : MonoBehaviour
                 break;
         }
 
-        if (clipToPlay != null)
-        {
-            AudioSource.PlayClipAtPoint(clipToPlay, position);
-        }
+        audioSource.PlayOneShot(clipToPlay);
+
     }
 
 }
