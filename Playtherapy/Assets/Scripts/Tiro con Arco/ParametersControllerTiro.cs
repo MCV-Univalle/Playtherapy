@@ -21,13 +21,13 @@ public class ParametersController : MonoBehaviour, IParametersManager
     public Dropdown speedDropdown;
     static private string _speedGame = "Paso medio";
     // Velocidad de moviemiento de los enemigos numerica 
-    static public float enemySpeed = 10f;
+    static public float enemySpeed = 5f;
 
     // Velocidad de aparicion de los enemigos
     public Dropdown spawnDropdown;
     static private string _spawnrate = "Moderado";
     // Velocidad de moviemiento de los enemigos numerica 
-    static public float enemySpawnRate = 3f;
+    static public float enemySpawnRate = 8f;
 
     // Rango de inclinacion de la cabeza
     public Slider headInclinationSlider;
@@ -107,15 +107,15 @@ public class ParametersController : MonoBehaviour, IParametersManager
         _speedGame = speedDropdown.options[speedDropdown.value].text;
         if (_speedGame == "Paso lento")
         {
-            enemySpeed = 5f;
+            enemySpeed = 3f;
         }
         else if (_speedGame == "Paso medio")
         {
-            enemySpeed = 10f;
+            enemySpeed = 5f;
         }
         else
         {
-            enemySpeed = 15f;
+            enemySpeed = 8f;
         }
         Debug.Log("Se cambio a la velocidad: " + _speedGame + "en numerico: " + enemySpeed);
     }
@@ -125,15 +125,15 @@ public class ParametersController : MonoBehaviour, IParametersManager
         _spawnrate = spawnDropdown.options[spawnDropdown.value].text;
         if (_spawnrate == "Lento")
         {
-            enemySpawnRate = 8f;
+            enemySpawnRate = 12f;
         }
         else if (_spawnrate == "Moderado")
         {
-            enemySpawnRate = 5f;
+            enemySpawnRate = 8f;
         }
         else
         {
-            enemySpawnRate = 3f;
+            enemySpawnRate = 5f;
         }
         Debug.Log("Se cambio a la velocidad de aparicion: " + _spawnrate + "en numerico: " + enemySpawnRate);
     }

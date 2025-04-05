@@ -58,8 +58,9 @@ public class ArrowBehaviour : MonoBehaviour
             }
         }
 
-        Destroy(rb);
-        Destroy(this);
+        //Destroy(rb);
+        //Destroy(this);
+        Destroy(collision.gameObject, 10f);
     }
 
     private float GetScoreForEnemy(string enemyName)

@@ -144,7 +144,7 @@ public class EnemyAITiro : MonoBehaviour
         Vector3 randomOffset = new Vector3(Random.Range(-separationDistance, separationDistance), 0, Random.Range(-separationDistance, separationDistance));
         Vector3 newPos = target.position + randomOffset;
 
-        Debug.Log($"📍 Nueva posición generada: {newPos}");
+        Debug.Log($"Nueva posición generada: {newPos}");
 
         // Validar si `newPos` está en el NavMesh
         NavMeshHit hit;
@@ -156,7 +156,7 @@ public class EnemyAITiro : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("⚠️ No se encontró una posición válida en el NavMesh cerca de " + newPos);
+            Debug.LogWarning("No se encontró una posición válida en el NavMesh cerca de " + newPos);
         }
     }
 
