@@ -163,21 +163,21 @@ public class GeneratingMap : MonoBehaviour
             products = canastaProducts.ToList();
         }
 
-        
+
         // Determinar en qué niveles se generarán productos según la selección del usuario
-        int startLevel = 0; // Por defecto, todos los niveles
-        if (shoulderAbductionValue == "Tercer piso (90°)")
+        int maxLevel = shelfHeights.Length - 1; // Por defecto, todos los niveles (hasta el más alto)
+        if (shoulderAbductionValue == "Solo primer piso (30°)")
         {
-            startLevel = 2; // Solo el tercer nivel
+            maxLevel = 0; // Solo el primer nivel
         }
-        else if (shoulderAbductionValue == "Tercer y segundo piso (60°)")
+        else if (shoulderAbductionValue == "Primer y segundo piso (60°)")
         {
-            startLevel = 1; // Segundo y tercer nivel
+            maxLevel = 1; // Hasta el segundo nivel
         }
-        // Si es "Todos los pisos (30°)", startLevel se mantiene en 0
+        // Si es "Todos los pisos (90°)", maxLevel se mantiene en 2 (o lo que sea shelfHeights.Length - 1)
 
         // Generar productos en los niveles seleccionados
-        for (int i = startLevel; i < shelfHeights.Length; i++)
+        for (int i = 0; i <= maxLevel; i++)
         {
             float height = shelfHeights[i];
             if (shelfName == "ShelfThreeFloorSmall")
@@ -194,7 +194,7 @@ public class GeneratingMap : MonoBehaviour
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
             }
 
-            if (shelfName == "ShelfMedium" && startLevel <= 1)
+            if (shelfName == "ShelfMedium" && i >= 1)
             {
                 TrySpawnProduct(shelf, new Vector3(-0.7f, -0.7f, 0), isRightShelf);
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0.7f, 0), isRightShelf);

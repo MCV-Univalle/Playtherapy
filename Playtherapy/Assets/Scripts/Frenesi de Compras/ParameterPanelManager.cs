@@ -48,12 +48,12 @@ public class Parameters : MonoBehaviour, IParametersManager
 
     // Rango de abduccion del hombro
     public Dropdown shoulderAbductionDropdown;
-    private string _shoulderAbduction = "Tercer y segundo piso (60°)";
+    private string _shoulderAbduction = "Primer y segundo piso (60°)";
 
     // Rango de inclinacion del tronco
     public Slider trunkInclinationSlider;
     public Text trunkInclinationText;
-    static private int _trunkInclination = 90;
+    static private int _trunkInclination = 0;
 
     private void Start()
     {
@@ -97,7 +97,7 @@ public class Parameters : MonoBehaviour, IParametersManager
         showListToggle.isOn = _showListAlways;
 
         trunkSlider.minValue = 20;
-        trunkSlider.maxValue = 60;
+        trunkSlider.maxValue = 50;
         trunkSlider.value = _trunk;
         trunkText.text = _trunk + "°";
 
@@ -107,13 +107,13 @@ public class Parameters : MonoBehaviour, IParametersManager
         shoulderFlexionText.text = _shoulderFlexion + "°";
 
         shoulderAbductionDropdown.options.Clear();
-        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Tercer piso (90°)"));
-        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Tercer y segundo piso (60°)"));
-        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Todos los pisos (30°)"));
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Todos los pisos (90°)"));
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Primer y segundo piso (60°)"));
+        shoulderAbductionDropdown.options.Add(new Dropdown.OptionData("Solo primer piso (30°)"));
         shoulderAbductionDropdown.value = 1;
 
-        trunkInclinationSlider.minValue = 60;
-        trunkInclinationSlider.maxValue = 120;
+        trunkInclinationSlider.minValue = 0;
+        trunkInclinationSlider.maxValue = 30;
         trunkInclinationSlider.value = _trunkInclination;
         trunkInclinationText.text = _trunkInclination + "°";
     }

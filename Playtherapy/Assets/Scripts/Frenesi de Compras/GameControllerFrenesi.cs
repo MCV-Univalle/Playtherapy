@@ -208,6 +208,8 @@ public class GameControllerFrenesi : MonoBehaviour
         shoulderFlexionAngle = _shoulderFlexion;
         shoulderAbductionValue = _shoulderAbduction;
 
+        Debug.Log("la inclinacion del tronco pasada es " + trunkInclinationAngle);
+
         EnemyMovement enemyMovement = BuyerNPCPrefab.GetComponent<EnemyMovement>();
         if (enemyMovement != null)
         {
@@ -303,7 +305,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
         enemySpawner.StopSpawning(); // Detiene el InvokeRepeating
         Debug.Log("Juego terminado. Se detuvo el spawn de enemigos.");
-        GameObject FakeHallway = GameObject.Find("FakeHallway(Clone)");
+        GameObject FakeHallway = GameObject.Find("FakeHallwayPrefab(Clone)");
         Destroy(FakeHallway);
         GameObject BuyerNPC = GameObject.Find("BuyerNPC(Clone)");
         Destroy(BuyerNPC);
@@ -421,38 +423,45 @@ public class GameControllerFrenesi : MonoBehaviour
 
     private void MoveSideways()
     {
-        // Obtener ángulos de rotación del tronco
-        float torsoRotationY = Spine.transform.rotation.eulerAngles.y;
-        float torsoInclinationX = Spine.transform.rotation.eulerAngles.x;
+        // Obtener la rotación actual del tronco en ángulos de Euler
+        Vector3 spineEulerAngles = Spine.transform.rotation.eulerAngles;
 
-        // Normalizar el ángulo de rotación (-180 a 180)
-        if (torsoRotationY > 180) torsoRotationY -= 360;
-        if (torsoInclinationX > 180) torsoInclinationX -= 360;
-
-        // Ajustar la referencia para que 90° sea la postura recta
-        float adjustedInclination = 90f - torsoInclinationX - calibrationOffset;
-
-        float movementDelta = 0;
-        float rotationThreshold = trunkRotationAngle;
+        // Normalizar el ángulo de inclinación en X al rango -180° a 180°
+        float torsoInclinationX = spineEulerAngles.x;
+        if (torsoInclinationX > 180f) torsoInclinationX -= 360f;
 
 
-        float inclinationThreshold = trunkInclinationAngle;
+        float toleranceInclination = 10f; // Margen de error de 10 grados
+        // Calcular la inclinación ajustada: 0° es posición recta, valores positivos indican inclinación hacia adelante
+        float adjustedInclination = torsoInclinationX + toleranceInclination;
 
-        float tolerance = 10f; // Margen de error de ±10 grados
-        ;
-        float paraElDebug1 = Mathf.Abs(adjustedInclination - inclinationThreshold);
+        // Obtener la rotación en Y del tronco y normalizarla al rango -180° a 180°
+        float torsoRotationY = spineEulerAngles.y;
+        if (torsoRotationY > 180f) torsoRotationY -= 360f;
 
-        Debug.Log("El angulo de inclinacion del tronco esta siendo: " + adjustedInclination + " El cual menos el angulo que mande por parametros " + "(" + inclinationThreshold + ")" + "da en valor absoluto: "
-            + paraElDebug1 + " Y este valor debe ser menor a la tolerancia : " + tolerance);
+        float toleranceRotation = 10f; // Margen de error de 10 grados
+
+        // Umbral de inclinación y rotación desde la interfaz
+        float inclinationThreshold = trunkInclinationAngle; // Valores entre 0 y 30 grados
+        float rotationThreshold = trunkRotationAngle; // Umbral para detectar rotación lateral
+
+
+        float movementDelta = 0f;
+        //float paraElDebug1 = Mathf.Abs(adjustedInclination - inclinationThreshold);
+
+        //Debug.Log("El angulo de inclinacion del tronco esta siendo: " + adjustedInclination + " el cual debe ser mayor al valor pasado por parametros : " + inclinationThreshold);
+         Debug.Log("El angulo de rotacion del tronco esta siendo: " + torsoRotationY + " el cual debe ser mayor al valor pasado por parametros : " + rotationThreshold);
         // Verificar si la inclinación cumple el umbral
-        if (Mathf.Abs(adjustedInclination - inclinationThreshold) <= tolerance)
+        if (adjustedInclination >= 0f && adjustedInclination >= inclinationThreshold)
         {
-                // Determinar dirección solo con la rotación en Y
-                if (torsoRotationY > rotationThreshold)
+            
+
+            // Determinar dirección solo con la rotación en Y
+            if (torsoRotationY + toleranceRotation > rotationThreshold)
                 {
                     movementDelta = lateralSpeed * Time.deltaTime; // Mover a la derecha
                 }
-                else if (torsoRotationY < -rotationThreshold)
+                else if (torsoRotationY - toleranceRotation < -rotationThreshold)
                 {
                     movementDelta = -lateralSpeed * Time.deltaTime; // Mover a la izquierda
                 }
@@ -566,6 +575,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
         // Ahora sí, mover al jugador hacia el pasillo final
         GameObject finalPrefab = GameObject.Find("FinalHallway(Clone)"); // Encuentra el prefab final
+
         Debug.Log("encontre el pasillo final es (antes del if): " + finalPrefab.name);
         if (finalPrefab != null)
         {
