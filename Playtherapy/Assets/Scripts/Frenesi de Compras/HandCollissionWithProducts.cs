@@ -1,9 +1,10 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.UI;
+
 
 public class HandCollissionWithProducts : MonoBehaviour
 {
@@ -15,15 +16,18 @@ public class HandCollissionWithProducts : MonoBehaviour
     public GameObject list;
     public GameObject player;
     public GameObject cart; // Referencia al carrito
-    public Transform spawnPoint; // Punto donde aparecer·n los productos en el carrito
+    public Transform spawnPoint; // Punto donde aparecer√°n los productos en el carrito
     public Text WarningMessage;
     public Text ReducedTime;
+    public CanvasGroup reducedTimeCanvasGroup;
 
     public GameObject[] productModels; // Arreglo con los modelos de los productos que caeran en el carrito
 
     private AudioSource audioSource;
     public AudioClip correctPickupSound;
     public AudioClip wrongPickupSound;
+
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +36,7 @@ public class HandCollissionWithProducts : MonoBehaviour
         endGamePanel.SetActive(false);
         list.SetActive(true);
 
-        if(WarningMessage != null)
+        if (WarningMessage != null)
         {
             WarningMessage.gameObject.SetActive(false);
         }
@@ -49,13 +53,13 @@ public class HandCollissionWithProducts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) // Simular recolecciÛn de todos los productos
+        if (Input.GetKeyDown(KeyCode.T)) // Simular recolecci√≥n de todos los productos
         {
-          SimularRecoleccionCompleta();
+            SimularRecoleccionCompleta();
         }
     }
 
-    // MÈtodo para detectar colisiones con productos
+    // M√©todo para detectar colisiones con productos
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Producto"))
@@ -66,7 +70,7 @@ public class HandCollissionWithProducts : MonoBehaviour
             if (GenerateShoppingListContent.selectedProducts.ContainsKey(nombreObjeto))
             {
                 string nombreLista = GenerateShoppingListContent.selectedProducts[nombreObjeto];
-               Debug.Log("soy el nombre lista/producto: " + nombreLista);
+                Debug.Log("soy el nombre lista/producto: " + nombreLista);
                 if (productosRecolectados.ContainsKey(nombreLista))
                 {
                     Debug.Log("entre al ++" + nombreLista);
@@ -89,13 +93,13 @@ public class HandCollissionWithProducts : MonoBehaviour
 
                 try
                 {
-                CheckIfGameFinished();
+                    CheckIfGameFinished();
                 }
                 catch (System.Exception e)
                 {
                     Debug.LogError($"Error en CheckIfGameFinished(): {e.Message}");
                 }
-                
+
 
                 Destroy(other.gameObject);
 
@@ -107,12 +111,12 @@ public class HandCollissionWithProducts : MonoBehaviour
                 }
 
                 // Verificar si se han recogido todos los elementos
-                
+
             }
             else
             {
                 // Producto incorrecto: penalizar tiempo
-                Debug.Log($"°Producto incorrecto recogido: {nombreObjeto}! Penalizando tiempo...");
+                Debug.Log($"{nombreObjeto} no esta en la lista!...");
 
                 GameControllerFrenesi gameController = FindObjectOfType<GameControllerFrenesi>();
                 if (gameController != null)
@@ -122,16 +126,17 @@ public class HandCollissionWithProducts : MonoBehaviour
 
                 if (WarningMessage != null)
                 {
-                    WarningMessage.text = "°Cuidado! Ese producto no est· en la lista";
+                    WarningMessage.text = $"Cuidado, este producto no esta en la lista!";
                     WarningMessage.gameObject.SetActive(true);
                     StartCoroutine(HideMessage());
                 }
 
                 if (ReducedTime != null)
                 {
-                    ReducedTime.text = "-10";
+                    ReducedTime.text = "-10 segundos";
                     ReducedTime.gameObject.SetActive(true);
-                    StartCoroutine(HideMessage());
+                    StartCoroutine(AnimateAndHideReducedTime());
+                    //StartCoroutine(HideMessage());
                 }
 
                 if (audioSource != null && wrongPickupSound != null)
@@ -162,7 +167,7 @@ public class HandCollissionWithProducts : MonoBehaviour
 
         if (modeloEncontrado == null)
         {
-            Debug.LogError($"No se encontrÛ un modelo en modelosCarrito que coincida con: {nombreProducto}");
+            Debug.LogError($"No se encontr√≥ un modelo en modelosCarrito que coincida con: {nombreProducto}");
             return;
         }
 
@@ -178,7 +183,7 @@ public class HandCollissionWithProducts : MonoBehaviour
             productoEnCarrito.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             productoEnCarrito.transform.localRotation = Quaternion.Euler(-180, -180, -90);
         }
-        
+
         Rigidbody rb = productoEnCarrito.GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -206,10 +211,10 @@ public class HandCollissionWithProducts : MonoBehaviour
             WarningMessage.gameObject.SetActive(false);
         }
 
-        if (ReducedTime != null)
-        {
-            ReducedTime.gameObject.SetActive(false);
-        }
+        //if (ReducedTime != null)
+        //{
+        //    ReducedTime.gameObject.SetActive(false);
+        //}
     }
 
     void CheckIfGameFinished()
@@ -245,7 +250,7 @@ public class HandCollissionWithProducts : MonoBehaviour
 
     void SimularRecoleccionCompleta()
     {
-        Debug.Log("[SIMULACI”N] Recolectando todos los productos...");
+        Debug.Log("[SIMULACI√ìN] Recolectando todos los productos...");
 
         foreach (var producto in GenerateShoppingListContent.selectedProducts.Keys)
         {
@@ -263,4 +268,48 @@ public class HandCollissionWithProducts : MonoBehaviour
         // Verificar si se han recogido todos los elementos
         CheckIfGameFinished();
     }
+
+    IEnumerator AnimateAndHideReducedTime()
+    {
+        reducedTimeCanvasGroup.alpha = 1;
+        RectTransform rt = ReducedTime.GetComponent<RectTransform>();
+
+        // Escala inicial
+        rt.localScale = Vector3.zero;
+
+        // Animaci√≥n de "rebote" de escala (como punch)
+        float duration = 0.3f;
+        float elapsed = 0f;
+        Vector3 targetScale = Vector3.one * 1.2f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            rt.localScale = Vector3.Lerp(Vector3.zero, targetScale, Mathf.Sin(t * Mathf.PI));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        rt.localScale = Vector3.one;
+
+        // Esperar un momento visible
+        yield return new WaitForSeconds(1f);
+
+        // Fade out
+        float fadeDuration = 0.5f;
+        elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            float t = elapsed / fadeDuration;
+            reducedTimeCanvasGroup.alpha = Mathf.Lerp(1, 0, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        reducedTimeCanvasGroup.alpha = 0;
+        ReducedTime.gameObject.SetActive(false);
+    }
+
+
 }

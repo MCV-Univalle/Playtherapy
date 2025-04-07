@@ -24,6 +24,7 @@ public class ProjectileThrow : MonoBehaviour
 
     void OnEnable()
     {
+
         trajectoryPredictor = GetComponent<TrajectoryPredictor>();
 
         if (StartPosition == null)
@@ -45,6 +46,7 @@ public class ProjectileThrow : MonoBehaviour
         {
             trajectoryPredictor.SetTrajectoryVisible(false);
         }
+
     }
 
     void Predict()

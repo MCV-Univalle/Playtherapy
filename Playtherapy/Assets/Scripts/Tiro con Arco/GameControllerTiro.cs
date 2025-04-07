@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
 using Leap;
+using Leap.Unity.Attributes;
 using OpenNI;
 using UnityEditor;
 using UnityEngine;
@@ -20,10 +22,15 @@ public class GameControllerTiro : MonoBehaviour
     public Slider sliderCurrentTime;
 
     public GameObject BowHead;
+    public GameObject Head;
     ProjectileThrow projectileThrow;
     public Transform Player;
     public Transform cameraTransform;
     public Transform ArrowFather;
+
+    private float rotationSpeed = 15f;
+    public float maxLeftAngle = -60f;// Distancia en x maxima a la que se puede mover hacia la izquierda
+    public float maxRightAngle = 60f; // Distancia en x maxima a la que se puede mover hacia la derecha
 
     public Transform leftHand;
     public Transform rightHand;
@@ -114,7 +121,7 @@ public class GameControllerTiro : MonoBehaviour
         //}
 
         // Calcula y almacena el desplazamiento inicial de la cámara respecto al Player
-        cameraOffset = new Vector3(cameraTransform.localPosition.x, 0.5f, cameraTransform.localPosition.z - 1f);
+        cameraOffset = new Vector3(cameraTransform.localPosition.x, 0.5f, -6f);
 
         skeletonManager = FindObjectOfType<RUISSkeletonManager>();
         if (skeletonManager == null)
@@ -152,6 +159,9 @@ public class GameControllerTiro : MonoBehaviour
         //}
         AdjustCameraPosition();
         DetectClap();
+
+        UpdateBowHeadFlexion();
+        UpdateBowHeadInclination();
 
         // UpdateBowAnimation();
 
@@ -191,7 +201,7 @@ public class GameControllerTiro : MonoBehaviour
 
     }
 
-    public void StartGame(float _timeGame, float enemySpeed, float enemySpawnRate, float _headInclination, float _shoulderRotation)
+    public void StartGame(float _timeGame, float enemySpeed, float enemySpawnRate, float _headInclination)
     {
         Debug.Log("¡Juego iniciado!");
 
@@ -199,7 +209,6 @@ public class GameControllerTiro : MonoBehaviour
         speed = enemySpeed;
         spawnRate = enemySpawnRate;
         headInclination = _headInclination;
-        shoulderRotation = _shoulderRotation;
 
 
 
@@ -356,7 +365,7 @@ public class GameControllerTiro : MonoBehaviour
         Vector3 leftHandPos = leftHand.position;
         Vector3 rightHandPos = rightHand.position;
         float distance = Vector3.Distance(leftHandPos, rightHandPos);
-        Debug.Log("La distancia que hay entres ambas manos es: " + distance);
+        //Debug.Log("La distancia que hay entres ambas manos es: " + distance);
         //float distanceX = Mathf.Abs(leftHandPos.x - rightHandPos.x);
         if (distance < 0.7f && !clapDetected) // Umbral de distancia y verificación de la bandera
         {
@@ -400,46 +409,6 @@ public class GameControllerTiro : MonoBehaviour
         }
     }
 
-    //void ShowTrajectoryPreview()
-    //{
-    //    float angle = BowHead.transform.eulerAngles.x * Mathf.Deg2Rad; // Convertir a radianes
-    //    angle = -angle; //Se invierte para que alzar lam mirada sea aumentar la distancia y viceversa
-    //    //Vector3 launchDirection = BowHead.transform.forward; // Dirección en la que apunta el arco
-    //    Vector3 launchDirection = BowHead.transform.forward; // Dirección en la que apunta el arco
-    //    launchDirection.x = 0;
-    //    launchDirection.y = 0;
-    //    //launchDirection = -launchDirection;
-    //    float launchSpeed = 5f; // Velocidad de lanzamiento ajustable
-    //    float gravity = 9.81f; // Aceleración debido a la gravedad en m/s²
-    //    Vector3 offset = new Vector3(0.2f, 0f,0.2f);
-    //    // Componentes de la velocidad inicial
-    //    Vector3 velocity = launchDirection * launchSpeed;
-    //    velocity.y = Mathf.Sin(angle) * launchSpeed;
-
-    //    List<Vector3> trajectoryPoints = new List<Vector3>();
-    //    Vector3 startPosition = BowHead.transform.position + offset; // Posición del arco
-    //    float timeStep = 0.05f; // Intervalo de tiempo entre puntos
-    //    float totalTime = (2 * velocity.y) / gravity; // Tiempo total de vuelo
-    //    int numPoints = Mathf.CeilToInt(totalTime / timeStep);
-
-    //    for (int i = 0; i <= numPoints; i++)
-    //    {
-    //        float t = i * timeStep;
-    //        float x = startPosition.x + velocity.x * t;
-    //        float y = startPosition.y + velocity.y * t - 0.5f * gravity * t * t;
-    //        float z = startPosition.z + velocity.z * t;
-    //        trajectoryPoints.Add(new Vector3(x, y, z));
-    //    }
-
-    //    LineRenderer lineRenderer = trajectoryObject.GetComponent<LineRenderer>();
-    //    lineRenderer.alignment = LineAlignment.TransformZ;
-    //    Material lineMaterial = new Material(Shader.Find("Sprites/Default"));
-    //    lineRenderer.material = lineMaterial;
-    //    lineRenderer.positionCount = trajectoryPoints.Count;
-    //    lineRenderer.SetPositions(trajectoryPoints.ToArray());
-    //}
-
-
 
     void OnBowShooting()
     {
@@ -455,6 +424,77 @@ public class GameControllerTiro : MonoBehaviour
             bowShootingAudioSource.PlayOneShot(bowShootingAudioSource.clip);
         }
     }
+
+    public void UpdateBowHeadFlexion()
+    {
+        Transform HeadTransform = Head.transform;
+        Transform BowHeadTransform = BowHead.transform;
+        // Captura la rotación local en X del Head
+        float flexionAngle = HeadTransform.localEulerAngles.x;
+        // Ajuste para evitar el salto de 360 a 0
+        if (flexionAngle > 180f)
+            flexionAngle -= 360f;
+
+        // Aplica ese ángulo a la rotación en X del BowHead (manteniendo Y y Z)
+        Vector3 bowRotation = BowHeadTransform.localEulerAngles;
+        bowRotation.x = flexionAngle;
+        BowHeadTransform.localEulerAngles = bowRotation;
+    }
+
+    public void UpdateBowHeadInclination()
+    {
+        
+        Transform HeadTransform = Head.transform;
+        Transform BowHeadTransform = BowHead.transform;
+        // Captura la inclinación lateral en Z del Head
+        float headInclinationZ = HeadTransform.localEulerAngles.z;
+        if (headInclinationZ > 180f)
+            headInclinationZ -= 360f;
+
+        Debug.Log("El angulo actual de la inclinacion de la cabeza en Z es: " + headInclinationZ);
+
+        //Parametro
+        float inclinationThreshold = headInclination;
+
+        float tolerance = 5f; // Pequeño margen de error
+
+        float currentY = BowHeadTransform.localEulerAngles.y;
+        if (currentY > 180f) currentY -= 360f;
+
+        float delta = rotationSpeed * Time.deltaTime;
+
+        if (headInclinationZ < -inclinationThreshold && currentY < maxRightAngle)
+        {
+            BowHeadTransform.localEulerAngles = new Vector3(
+                BowHeadTransform.localEulerAngles.x,
+                currentY + delta,
+                BowHeadTransform.localEulerAngles.z
+            );
+        }
+        // Inclinación hacia la izquierda
+        else if (headInclinationZ > inclinationThreshold && currentY > maxLeftAngle)
+        {
+            BowHeadTransform.localEulerAngles = new Vector3(
+                BowHeadTransform.localEulerAngles.x,
+                currentY - delta,
+                BowHeadTransform.localEulerAngles.z
+            );
+        }
+
+    }
+
+    //public void ApplyHeadTiltToBowDirection(Transform head, Transform bowHead)
+    //{
+    //    float headZ = head.localEulerAngles.z;
+
+    //    // Corregimos valores mayores a 180°
+    //    if (headZ > 180) headZ -= 360;
+
+    //    // Aplicamos el valor de inclinación en Z a la rotación Y del BowHead
+    //    float bowY = headZ; // Podés multiplicar por un factor si querés suavizar o amplificar
+
+    //    bowHead.localRotation = Quaternion.Euler(bowHead.localEulerAngles.x, bowY, bowHead.localEulerAngles.z);
+    //}
 
     public void SimulateEnemyElimination(string enemyName)
     {

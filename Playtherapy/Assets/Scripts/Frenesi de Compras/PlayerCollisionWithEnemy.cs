@@ -15,6 +15,7 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
     private float timeLastReduction = 0f; // Controla el tiempo de la última resta
     public AudioSource collisionSound;
     public Text ReducedTime;
+    public CanvasGroup reducedTimeCanvasGroup;
 
     void Start()
     {
@@ -54,9 +55,10 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
 
             if (ReducedTime != null)
             {
-                ReducedTime.text = "-10";
+                ReducedTime.text = "-10 segundos";
                 ReducedTime.gameObject.SetActive(true);
-                StartCoroutine(HideMessage());
+                StartCoroutine(AnimateAndHideReducedTime());
+                // StartCoroutine(HideMessage());
             }
         }
     }
@@ -91,12 +93,53 @@ public class PlayerCollisionWithEnemy : MonoBehaviour
         rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z); // Elimina la velocidad en X
     }
 
-    IEnumerator HideMessage()
+    //IEnumerator HideMessage()
+    //{
+    //    yield return new WaitForSeconds(2);
+    //    if (ReducedTime != null)
+    //    {
+    //        ReducedTime.gameObject.SetActive(false);
+    //    }
+    //}
+    IEnumerator AnimateAndHideReducedTime()
     {
-        yield return new WaitForSeconds(2);
-        if (ReducedTime != null)
+        reducedTimeCanvasGroup.alpha = 1;
+        RectTransform rt = ReducedTime.GetComponent<RectTransform>();
+
+        // Escala inicial
+        rt.localScale = Vector3.zero;
+
+        // Animación de "rebote" de escala (como punch)
+        float duration = 0.3f;
+        float elapsed = 0f;
+        Vector3 targetScale = Vector3.one * 1.2f;
+
+        while (elapsed < duration)
         {
-            ReducedTime.gameObject.SetActive(false);
+            float t = elapsed / duration;
+            rt.localScale = Vector3.Lerp(Vector3.zero, targetScale, Mathf.Sin(t * Mathf.PI));
+            elapsed += Time.deltaTime;
+            yield return null;
         }
+
+        rt.localScale = Vector3.one;
+
+        // Esperar un momento visible
+        yield return new WaitForSeconds(1f);
+
+        // Fade out
+        float fadeDuration = 0.5f;
+        elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            float t = elapsed / fadeDuration;
+            reducedTimeCanvasGroup.alpha = Mathf.Lerp(1, 0, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        reducedTimeCanvasGroup.alpha = 0;
+        ReducedTime.gameObject.SetActive(false);
     }
 }
