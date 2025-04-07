@@ -56,11 +56,13 @@ public class ArrowBehaviour : MonoBehaviour
                 gameController.updateScore(points);
                 gameController.IncrementDefeatedEnemies();
             }
+
+            Destroy(collision.gameObject, 10f);
         }
 
         //Destroy(rb);
         //Destroy(this);
-        Destroy(collision.gameObject, 10f);
+
     }
 
     private float GetScoreForEnemy(string enemyName)

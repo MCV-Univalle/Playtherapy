@@ -919,26 +919,41 @@ public class RUISSkeletonController : MonoBehaviour
                                                     (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
 				if (personalizatedTrackTiro && transformToUpdate.name == "BowHead")
 				{
-					Debug.Log("Entre as cambiar la transofrmacion de la cabeza");
-                    // Capturar el valor actual de la rotación en Z
-                    float currentZRotation = transformToUpdate.eulerAngles.z;
+                    //Debug.Log("Entre a cambiar la transformacion de la cabeza");
+                    //// Capturar la rotación actual del objeto
+                    Vector3 currentEuler = transformToUpdate.eulerAngles;
+                    //Debug.Log("La transformacion inicial es: " + currentEuler);
+                    //// Convertir la rotación propuesta a ángulos de Euler
+                    Vector3 targetEuler = newRotation.eulerAngles;
 
-                    // Convertir la rotación propuesta a ángulos de Euler
-                    Vector3 targetEulerAngles = newRotation.eulerAngles;
+                    //// MAPEAR: Usar la inclinación Z como si fuera la rotación en Y
+                    //float simulatedYRotation = targetEuler.z - 180;
+                    //Debug.Log("La rotacion en Y que entro es: " + simulatedYRotation);
+                    //// Normalizar para evitar saltos bruscos en 360°
+                    ////if (simulatedYRotation < 180f) simulatedYRotation -= 360f;
 
-                    // Mantener la rotación en Z constante
-                    targetEulerAngles.z = currentZRotation;
+                    //simulatedYRotation = 360 - simulatedYRotation;
 
-                    // Aplicar interpolación en el eje X para suavizar la rotación
-                    float rotationSpeedFactor = 10f;
-                    targetEulerAngles.x = Mathf.LerpAngle(transformToUpdate.eulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
+                    //Debug.Log("La anterior la normalize y ahora es: " + simulatedYRotation);
 
-                    // Convertir de nuevo a Quaternion
-                    Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
+                    //// Mantener el eje Z fijo 
+                    targetEuler.z = currentEuler.z;
 
-					// Aplicar la rotación resultante al transform
-					transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, targetRotation, maxAngularVelocity);
-                    //transformToUpdate.rotation = Quaternion.Euler(targetEulerAngles);
+                    //// Reemplazar el eje Y por el mapeo desde Z
+                    //targetEuler.y = simulatedYRotation;
+
+                    //// Suavizar transición en X (opcional)
+                    //float rotationSpeedFactor = 10f;
+                    //targetEuler.x = Mathf.LerpAngle(currentEuler.x, targetEuler.x, rotationSpeedFactor * Time.deltaTime);
+
+                    //Debug.Log("Ya cambie el targetEuler, quedo del siguiente modo: X = " + targetEuler.x + "Y: " + targetEuler.y + "Z: " + targetEuler.z);
+
+                    //// Aplicar nueva rotación
+                    Quaternion targetRotation = Quaternion.Euler(targetEuler);
+
+                    transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, targetRotation, maxAngularVelocity);
+                    //Vector3 eulerAngles = transformToUpdate.rotation.eulerAngles;
+                    //Debug.Log("Y la rotacion de la transformupdate es: " + eulerAngles);
                 }
                 else
                 {

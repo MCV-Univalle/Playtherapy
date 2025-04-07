@@ -32,12 +32,7 @@ public class ParametersController : MonoBehaviour, IParametersManager
     // Rango de inclinacion de la cabeza
     public Slider headInclinationSlider;
     public Text headInclinationText;
-    static private int _headInclination = 35;
-
-    // Rango de abduccion del hombro
-    public Slider shoulderRotationSlider;
-    public Text shoulderRotationText;
-    static private int _shoulderRotation = 40;
+    static private int _headInclination = 5;
 
    
     // Start is called before the first frame update
@@ -84,15 +79,12 @@ public class ParametersController : MonoBehaviour, IParametersManager
         spawnDropdown.options.Add(new Dropdown.OptionData("Rápido"));
         spawnDropdown.value = 1;
 
-        headInclinationSlider.minValue = 35;
-        headInclinationSlider.maxValue = 45;
+        headInclinationSlider.minValue = 5;
+        headInclinationSlider.maxValue = 20;
         headInclinationSlider.value = _headInclination;
         headInclinationText.text = _headInclination + "°";
 
-        shoulderRotationSlider.minValue = 20;
-        shoulderRotationSlider.maxValue = 60;
-        shoulderRotationSlider.value = _shoulderRotation;
-        shoulderRotationText.text = _shoulderRotation + "°";
+        
     }
 
     // Métodos para actualizar valores en tiempo real
@@ -144,11 +136,6 @@ public class ParametersController : MonoBehaviour, IParametersManager
         headInclinationText.text = _headInclination + "°";
     }
 
-    public void UpdateShoulderRotation()
-    {
-        _shoulderRotation = (int)shoulderRotationSlider.value;
-        shoulderRotationText.text = _shoulderRotation + "°";
-    }
 
     public void TutorialPhase()
     {
@@ -161,11 +148,11 @@ public class ParametersController : MonoBehaviour, IParametersManager
     public void StartGame()
     {
         Debug.Log("Ejecute el startgame, se deberian quitar las interfaces");
-        GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination, _shoulderRotation);
+        GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination);
     }
 
     public void OnStartGameButtonPressed()
     {
-       GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination, _shoulderRotation);
+       GameControllerTiro.gct.StartGame(_timeGame, enemySpeed, enemySpawnRate, _headInclination);
     }
 }
