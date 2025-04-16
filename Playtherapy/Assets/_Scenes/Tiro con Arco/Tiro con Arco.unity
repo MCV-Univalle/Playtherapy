@@ -13270,7 +13270,8 @@ PrefabInstance:
       value: Forest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -5784167346491859207, guid: 5c08035b42a67c9459ee44db88f49889, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -5343395698495966031, guid: 5c08035b42a67c9459ee44db88f49889,
@@ -18115,6 +18116,8 @@ MonoBehaviour:
   ArrowFather: {fileID: 885925417}
   maxLeftAngle: -60
   maxRightAngle: 60
+  maxBackwardAngle: -30
+  maxForwardAngle: 30
   leftHand: {fileID: 1913189471}
   rightHand: {fileID: 1002521604}
   shootArrow: 0

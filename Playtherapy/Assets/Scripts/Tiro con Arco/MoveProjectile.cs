@@ -8,7 +8,6 @@ public class MoveProjectile : MonoBehaviour
     private float speed;
     private GameControllerTiro gameController;
 
-
     private void Start()
     {
         gameController = FindObjectOfType<GameControllerTiro>();
@@ -28,7 +27,7 @@ public class MoveProjectile : MonoBehaviour
 
         if (Vector3.Dot(Camera.main.transform.forward, toProjectile) < 0) // Si está detrás de la cámara
         {
-            gameController.updateScore(-200f);
+            gameController.updateScore(-100f);
             Destroy(gameObject);
         }
     }

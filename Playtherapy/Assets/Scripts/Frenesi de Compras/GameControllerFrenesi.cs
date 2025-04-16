@@ -34,7 +34,7 @@ public class GameControllerFrenesi : MonoBehaviour
 
 
 
-    public float forwardSpeed = 5.0f; // Velocidad hacia adelante
+    public float forwardSpeed = 3.0f; // Velocidad hacia adelante
     public float lateralSpeed = 7.0f; // Velocidad hacia los lados
     public float maxLeftPosition = -3.62f;// Distancia en x maxima a la que se puede mover hacia la izquierda
     public float maxRightPosition = 3.134f; // Distancia en x maxima a la que se puede mover hacia la derecha

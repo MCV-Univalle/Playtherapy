@@ -7,7 +7,7 @@ public class GenerateShoppingListContent : MonoBehaviour
 {
     public GameObject entryPrefab; // Prefab del renglón
     public Transform contentParent; // Contenedor de la lista
-    static public float numberOfProducts = 8f;
+    static public float numberOfProducts = 6f;
     static public GenerateShoppingListContent gsc;
 
     private Dictionary<string, Sprite> productIcons = new Dictionary<string, Sprite>(); // Diccionario para los íconos

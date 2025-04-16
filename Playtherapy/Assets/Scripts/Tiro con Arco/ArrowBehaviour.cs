@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ArrowBehaviour : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ArrowBehaviour : MonoBehaviour
     public AudioClip GoblinSound;
     public AudioClip OrcSound;
     public AudioClip HitSound;
+    private bool hasHit = false;
 
     AudioSource audioSource;
 
@@ -23,6 +25,9 @@ public class ArrowBehaviour : MonoBehaviour
 
     void Update()
     {
+        if (hasHit || rb == null)
+            return;
+
         if (rb.velocity.magnitude <= minVelocity)
             return;
 
@@ -32,31 +37,51 @@ public class ArrowBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (hasHit) return;  
+        hasHit = true;
         transform.parent = collision.transform;
-
 
         // Obtener el Animator del objeto colisionado
         Animator enemyAnimator = collision.transform.GetComponent<Animator>();
+        NavMeshAgent enemyAgent = collision.transform.GetComponent<NavMeshAgent>();
+        Rigidbody enemyRb = collision.transform.GetComponent<Rigidbody>();
+        Collider enemyCol = collision.transform.GetComponent<Collider>();
 
         // Si el objeto tiene el tag "Enemy" y un Animator, activar la animación
         if (collision.transform.CompareTag("Enemy"))
         {
-            audioSource.PlayOneShot(HitSound);
-
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("Dying");
                 PlayImpactSound(collision.gameObject.name);
             }
 
+            audioSource.PlayOneShot(HitSound);
+
+            // Detener al enemigo
+            if (enemyAgent != null)
+            {
+                enemyAgent.isStopped = true;
+                enemyAgent.velocity = Vector3.zero;
+            }          
+
             float points = GetScoreForEnemy(collision.gameObject.name);
 
             if (gameController != null)
             {
                 gameController.updateScore(points);
+                
                 gameController.IncrementDefeatedEnemies();
             }
 
+            if (enemyRb != null) Destroy(enemyRb);
+            if (enemyCol != null) Destroy(enemyCol);
+
+            // Destruir Rigidbody y Collider de la flecha para que no siga afectando físicas
+            Rigidbody rb = GetComponent<Rigidbody>();
+            Collider col = GetComponent<Collider>();    
+            if (rb != null) Destroy(rb);
+            if (col != null) Destroy(col);
             Destroy(collision.gameObject, 10f);
         }
 

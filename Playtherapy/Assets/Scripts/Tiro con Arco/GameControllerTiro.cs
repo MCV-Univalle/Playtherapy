@@ -32,6 +32,10 @@ public class GameControllerTiro : MonoBehaviour
     public float maxLeftAngle = -60f;// Distancia en x maxima a la que se puede mover hacia la izquierda
     public float maxRightAngle = 60f; // Distancia en x maxima a la que se puede mover hacia la derecha
 
+    private float flexionSpeed = 15f;
+    public float maxBackwardAngle = -40f;// Distancia en x maxima a la que se puede mover hacia la izquierda
+    public float maxForwardAngle = 40f; // Distancia en x maxima a la que se puede mover hacia la derecha
+
     public Transform leftHand;
     public Transform rightHand;
     private bool clapDetected = false; // Bandera para controlar la detección
@@ -42,7 +46,7 @@ public class GameControllerTiro : MonoBehaviour
         get { return _isTensioning; }
         set
         {
-            if (_isTensioning != value) 
+            if (_isTensioning != value)
             {
                 _isTensioning = value;
                 projectileThrow.updateIsTensioning(_isTensioning);
@@ -54,7 +58,7 @@ public class GameControllerTiro : MonoBehaviour
     public float arrowStartZ = 0f; // Posición inicial en Z de la flecha
     public float arrowEndZ = -0.5f; // Posición final en Z de la flecha al tensar completamente
 
-   // public GameObject trajectoryObject; //Diseño de la preview de la trayectoria de la flecha
+    // public GameObject trajectoryObject; //Diseño de la preview de la trayectoria de la flecha
 
 
     public Animator bowAnimator;
@@ -99,6 +103,7 @@ public class GameControllerTiro : MonoBehaviour
     PutDataResults dataResults;
     private int totalEnemiesSpawned = 0; // Contador de enemigos generados
     private int totalEnemiesDefeated = 0; // Contador de enemigos eliminados
+    public float maximumPossibleScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -179,7 +184,8 @@ public class GameControllerTiro : MonoBehaviour
 
             sliderCurrentTime.value = currentTime * 100 / 60f;
 
-        } else
+        }
+        else
         {
             EndGame();
         }
@@ -270,7 +276,7 @@ public class GameControllerTiro : MonoBehaviour
         string idMinigame = "13";
         Debug.Log("Spawnearon " + totalEnemiesSpawned + " enemigos");
         Debug.Log("Acabe con " + totalEnemiesDefeated + " enemigos");
-  
+
         int performance = Mathf.RoundToInt((totalEnemiesDefeated / (float)totalEnemiesSpawned) * 100);
         Debug.Log("Soy el performance " + performance);
         //GameSessionController gameCtrl = new GameSessionController();
@@ -367,7 +373,7 @@ public class GameControllerTiro : MonoBehaviour
         float distance = Vector3.Distance(leftHandPos, rightHandPos);
         //Debug.Log("La distancia que hay entres ambas manos es: " + distance);
         //float distanceX = Mathf.Abs(leftHandPos.x - rightHandPos.x);
-        if (distance < 0.7f && !clapDetected) // Umbral de distancia y verificación de la bandera
+        if ((distance < 0.7f || Input.GetMouseButtonDown(0)) && !clapDetected) // Umbral de distancia y verificación de la bandera
         {
             clapDetected = true; // Marcar que el aplauso ha sido detectado  
 
@@ -378,21 +384,21 @@ public class GameControllerTiro : MonoBehaviour
             {
                 OnBowTensioning();
                 isTensioning = true;
-                clapTurn = "Second clap"; 
+                clapTurn = "Second clap";
                 Debug.Log("Se detecto la primer palmada");
             }
             else if (clapTurn == "Second clap")
             {
                 isTensioning = false;
                 shootArrow = true;
-                OnBowShooting();     
+                OnBowShooting();
                 clapTurn = "First clap";
                 Debug.Log("Se detecto la segunda palmada");
             }
 
 
         }
-        else if (distance >= 1f && clapDetected)
+        else if ((distance >= 1f || Input.GetMouseButtonDown(0)) && clapDetected)
         {
             Debug.Log("Detecte que se alejo de umbral especificado, ya no hay palmada");
             clapDetected = false;
@@ -425,6 +431,22 @@ public class GameControllerTiro : MonoBehaviour
         }
     }
 
+    //public void UpdateBowHeadFlexion()
+    //{
+    //    Transform HeadTransform = Head.transform;
+    //    Transform BowHeadTransform = BowHead.transform;
+    //    // Captura la rotación local en X del Head
+    //    float flexionAngle = HeadTransform.localEulerAngles.x;
+    //    // Ajuste para evitar el salto de 360 a 0
+    //    if (flexionAngle > 180f)
+    //        flexionAngle -= 360f;
+
+    //    // Aplica ese ángulo a la rotación en X del BowHead (manteniendo Y y Z)
+    //    Vector3 bowRotation = BowHeadTransform.localEulerAngles;
+    //    bowRotation.x = flexionAngle;
+    //    BowHeadTransform.localEulerAngles = bowRotation;
+    //}
+
     public void UpdateBowHeadFlexion()
     {
         Transform HeadTransform = Head.transform;
@@ -435,15 +457,40 @@ public class GameControllerTiro : MonoBehaviour
         if (flexionAngle > 180f)
             flexionAngle -= 360f;
 
+        float delta = flexionSpeed * Time.deltaTime;
         // Aplica ese ángulo a la rotación en X del BowHead (manteniendo Y y Z)
-        Vector3 bowRotation = BowHeadTransform.localEulerAngles;
-        bowRotation.x = flexionAngle;
-        BowHeadTransform.localEulerAngles = bowRotation;
+        float currentX = BowHeadTransform.localEulerAngles.x;
+        if (currentX > 180f) currentX -= 360f;
+
+        float flexionThresholdForward = 15f;
+        float flexionThresholdBackward = 1f;
+
+        Debug.Log("El angulo actual de la inclinacion de la cabeza en X es: " + flexionAngle);
+
+        Debug.Log("Entre al UpdateBowHeadFlexion, el valor de flexion angle es: " + flexionAngle + " y tambien el currentX" + currentX + " y el valor maximo hacia adelante es: " + maxForwardAngle);
+        //Flexion hacia adelante
+        if (flexionAngle > flexionThresholdForward && currentX < maxForwardAngle)
+        {
+            BowHeadTransform.localEulerAngles = new Vector3(
+                currentX + delta,
+                BowHeadTransform.localEulerAngles.y,
+                BowHeadTransform.localEulerAngles.z
+            );
+        }
+        //Flexion hacia atras
+        else if (flexionAngle < -flexionThresholdBackward && currentX > maxBackwardAngle)
+        {
+            BowHeadTransform.localEulerAngles = new Vector3(
+                currentX - delta,
+                BowHeadTransform.localEulerAngles.y,
+                BowHeadTransform.localEulerAngles.z
+            );
+        }
     }
 
     public void UpdateBowHeadInclination()
     {
-        
+
         Transform HeadTransform = Head.transform;
         Transform BowHeadTransform = BowHead.transform;
         // Captura la inclinación lateral en Z del Head
@@ -451,7 +498,7 @@ public class GameControllerTiro : MonoBehaviour
         if (headInclinationZ > 180f)
             headInclinationZ -= 360f;
 
-        Debug.Log("El angulo actual de la inclinacion de la cabeza en Z es: " + headInclinationZ);
+
 
         //Parametro
         float inclinationThreshold = headInclination;
@@ -524,5 +571,11 @@ public class GameControllerTiro : MonoBehaviour
     public void IncrementDefeatedEnemies()
     {
         totalEnemiesDefeated++;
+    }
+
+
+    public void changeMaximumPossibleScore(float score)
+    {
+      maximumPossibleScore += score;
     }
 }

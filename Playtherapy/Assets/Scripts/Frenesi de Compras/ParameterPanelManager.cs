@@ -30,7 +30,7 @@ public class Parameters : MonoBehaviour, IParametersManager
     // Elementos en la lista
     public Slider itemCountSlider;
     public Text itemCountText;
-    static private int _itemCount = 8;
+    static private int _itemCount = 6;
 
     // Mostrar lista
     public Toggle showListToggle;
@@ -90,7 +90,7 @@ public class Parameters : MonoBehaviour, IParametersManager
         speedDropdown.value = 1;
 
         itemCountSlider.minValue = 2;
-        itemCountSlider.maxValue = 11;
+        itemCountSlider.maxValue = 8;
         itemCountSlider.value = _itemCount;
         itemCountText.text = _itemCount.ToString();
 

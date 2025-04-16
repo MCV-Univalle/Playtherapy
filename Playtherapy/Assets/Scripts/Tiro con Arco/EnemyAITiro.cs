@@ -82,7 +82,7 @@ public class EnemyAITiro : MonoBehaviour
                     RotateToFaceCamera();
                 }
                 else
-                {
+                {        
                     gameController.updateScore(-200f);
                     Destroy(gameObject);
                     

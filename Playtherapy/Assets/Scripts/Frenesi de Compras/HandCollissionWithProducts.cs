@@ -19,6 +19,7 @@ public class HandCollissionWithProducts : MonoBehaviour
     public Transform spawnPoint; // Punto donde aparecerán los productos en el carrito
     public Text WarningMessage;
     public Text ReducedTime;
+    public Text AlreadyCollectedProductWarningMessage;
     public CanvasGroup reducedTimeCanvasGroup;
 
     public GameObject[] productModels; // Arreglo con los modelos de los productos que caeran en el carrito
@@ -74,7 +75,22 @@ public class HandCollissionWithProducts : MonoBehaviour
                 if (productosRecolectados.ContainsKey(nombreLista))
                 {
                     Debug.Log("entre al ++" + nombreLista);
-                    productosRecolectados[nombreLista]++;
+                    //productosRecolectados[nombreLista]++;
+                    Destroy(other.gameObject);
+
+                    if (audioSource != null && wrongPickupSound != null)
+                    {
+                        audioSource.PlayOneShot(wrongPickupSound);
+                    }
+
+                    if (AlreadyCollectedProductWarningMessage != null)
+                    {
+                        AlreadyCollectedProductWarningMessage.text = $"Ya recolectaste este producto!";
+                        WarningMessage.gameObject.SetActive(false);
+                        AlreadyCollectedProductWarningMessage.gameObject.SetActive(true);
+                        StartCoroutine(HideMessage());
+                    }
+                    return;
                 }
                 else
                 {
@@ -127,6 +143,7 @@ public class HandCollissionWithProducts : MonoBehaviour
                 if (WarningMessage != null)
                 {
                     WarningMessage.text = $"Cuidado, este producto no esta en la lista!";
+                    AlreadyCollectedProductWarningMessage.gameObject.SetActive(false);
                     WarningMessage.gameObject.SetActive(true);
                     StartCoroutine(HideMessage());
                 }
@@ -180,9 +197,17 @@ public class HandCollissionWithProducts : MonoBehaviour
         GameObject productoEnCarrito = Instantiate(modeloEncontrado, spawnPoint.position, Quaternion.identity);
         if (!(nombreProducto.ToLower().Contains("leche")))
         {
+            productoEnCarrito.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            productoEnCarrito.transform.localRotation = Quaternion.Euler(-180, -180, -90);
+        }
+
+        if ((nombreProducto.ToLower().Contains("leche")))
+        {
             productoEnCarrito.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             productoEnCarrito.transform.localRotation = Quaternion.Euler(-180, -180, -90);
         }
+
+
 
         Rigidbody rb = productoEnCarrito.GetComponent<Rigidbody>();
         if (rb == null)
@@ -210,6 +235,13 @@ public class HandCollissionWithProducts : MonoBehaviour
         {
             WarningMessage.gameObject.SetActive(false);
         }
+
+
+        if (AlreadyCollectedProductWarningMessage != null)
+        {
+            AlreadyCollectedProductWarningMessage.gameObject.SetActive(false);
+        }
+        
 
         //if (ReducedTime != null)
         //{

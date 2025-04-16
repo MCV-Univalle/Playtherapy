@@ -13,6 +13,8 @@ public class GeneratingMap : MonoBehaviour
     public GameObject[] canastaProducts;
     public GameObject[] frituraLecheProducts;
     public Vector3 escalaLeche = new Vector3(0.6f, 0.6f, 0.6f);
+    public Vector3 escalaPapitas = new Vector3(1.1f, 1.1f, 1.1f);
+    public Vector3 escalaGaseosas = new Vector3(0.9f, 0.9f, 0.9f);
     public Vector3 escalaProductos = new Vector3(0.6f, 0.6f, 0.6f);
 
     public int cantidadTramos = 5;
@@ -205,17 +207,17 @@ public class GeneratingMap : MonoBehaviour
     void TrySpawnProduct(GameObject shelf, Vector3 localOffset, bool isRightShelf)
     {
 
-        if (shoulderAbductionValue == "Tercer piso (90°)")
+        if (shoulderAbductionValue == "Solo primer piso (30°)")
         {
             // 100% de probabilidad de spawnear un producto
 
         }
-        else if (shoulderAbductionValue == "Tercer y segundo piso (60°)")
+        else if (shoulderAbductionValue == "Primer y segundo piso (60°)")
         {
             // 70% de probabilidad de spawnear un producto
             if (Random.value > 0.7f) return;
         }
-        else if (shoulderAbductionValue == "Todos los pisos (30°)")
+        else if (shoulderAbductionValue == "Todos los pisos (90°)")
         {
             // 50% de probabilidad de spawnear un producto
             if (Random.value > 0.5f) return;
@@ -238,14 +240,21 @@ public class GeneratingMap : MonoBehaviour
 
             collider.isTrigger = true;
             // Se hacen el collider un 50% mas grande de los productos pequeños
-            if (product.name.ToLower().Contains("leche") || product.name.ToLower().Contains("bolsa") || product.name.ToLower().Contains("botella"))
-            {
-                collider.size *= 1.7f;
-            }
+            //if (product.name.ToLower().Contains("leche") || product.name.ToLower().Contains("bolsa") || product.name.ToLower().Contains("botella"))
+            //{
+            //    collider.size *= 1.5f;
+            //}
         }
 
         product.transform.localRotation = Quaternion.Euler(0, -180, -90);
         //bool isFrituraLeche = frituraLecheProducts.Contains(productPrefab);
+        if (product.name.ToLower().Contains("botella"))
+        {
+            
+            product.transform.localScale = escalaGaseosas;
+
+        }
+
         if (product.name.ToLower().Contains("leche"))
         {
             // Hacer algo específico para la leche
@@ -261,10 +270,13 @@ public class GeneratingMap : MonoBehaviour
         {
             // Hacer algo específico para la leche
             product.transform.localRotation = Quaternion.Euler(0, 180, 180);
+            product.transform.localScale = escalaPapitas;
             Vector3 nuevaPosicion = product.transform.position;
             product.transform.position = nuevaPosicion;
 
         }
+
+        
     }
 
     public GameObject GetLastHallway()
