@@ -104,6 +104,7 @@ public class GameControllerTiro : MonoBehaviour
     private int totalEnemiesSpawned = 0; // Contador de enemigos generados
     private int totalEnemiesDefeated = 0; // Contador de enemigos eliminados
     public float maximumPossibleScore = 0;
+    private int performance;
 
     // Start is called before the first frame update
     void Start()
@@ -277,7 +278,14 @@ public class GameControllerTiro : MonoBehaviour
         Debug.Log("Spawnearon " + totalEnemiesSpawned + " enemigos");
         Debug.Log("Acabe con " + totalEnemiesDefeated + " enemigos");
 
-        int performance = Mathf.RoundToInt((totalEnemiesDefeated / (float)totalEnemiesSpawned) * 100);
+        if (maximumPossibleScore == 0)
+        {
+            performance = 0;
+        }
+        else
+        {
+            performance = Mathf.RoundToInt((gameScore / maximumPossibleScore) * 100);
+        }
         Debug.Log("Soy el performance " + performance);
         //GameSessionController gameCtrl = new GameSessionController();
         //gameCtrl.addGameSession(collectedProducts, this.numberRepetitions, this.totalGameTime, performance, idMinigame);
@@ -301,7 +309,17 @@ public class GameControllerTiro : MonoBehaviour
 
     public void updateScore(float score)
     {
-        gameScore += score;
+        if (score < 0 && (gameScore == 0 || (gameScore + score) <= 0))
+        {
+
+          gameScore = 0;
+
+        } else
+        {
+          gameScore += score;
+        }
+        
+        if (score > 0) maximumPossibleScore += score;
         ShowFloatingScore(score);
         Debug.Log("Puntaje actualizado: " + score);
     }

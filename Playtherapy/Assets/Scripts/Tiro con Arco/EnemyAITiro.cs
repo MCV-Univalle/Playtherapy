@@ -83,7 +83,7 @@ public class EnemyAITiro : MonoBehaviour
                 }
                 else
                 {        
-                    gameController.updateScore(-200f);
+                    gameController.updateScore(-100f);
                     Destroy(gameObject);
                     
                 }
