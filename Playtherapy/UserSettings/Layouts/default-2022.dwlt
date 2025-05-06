@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 118
+  controlID: 117
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -841,9 +841,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -8.651551, y: -2.6519468, z: 204.04114}
+    m_Target: {x: 127.07462, y: 216.47073, z: -0.12359619}
     speed: 2
-    m_Value: {x: -8.651551, y: -2.6519468, z: 204.04114}
+    m_Value: {x: 127.07462, y: 216.47073, z: -0.12359619}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -893,9 +893,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 0.8660254
+    m_Target: 159.6621
     speed: 2
-    m_Value: 0.8660254
+    m_Value: 159.6621
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1132,10 +1132,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 2a2b0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 20fbffff
+      scrollPos: {x: 0, y: 26}
+      m_SelectedIDs: 6ebfffff
+      m_LastClickedID: -16530
+      m_ExpandedIDs: bcbaffffbebaffffeacaffff26fbffff5cc8000098c90000e0ca000044cb0000aecb000048cc0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1205,7 +1205,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Tiro con Arco
+    - Assets/Scripts/Frenesi de Compras
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 56ab0000
     m_LastClickedID: 43862
-    m_ExpandedIDs: 0000000086270000c4bc0000c6bc0000c8bc0000cabc0000ccbc0000cebc0000d0bc0000d2bc0000d4bc0000d6bc0000
+    m_ExpandedIDs: 000000006a270000c4bc0000c6bc0000c8bc0000cabc0000ccbc0000cebc0000d0bc0000d2bc0000d4bc0000d6bc0000d8bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1246,24 +1246,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 1622.5001}
+    scrollPos: {x: 0, y: 1087.5955}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000086270000c4bc0000c6bc0000c8bc0000cabc0000ccbc0000cebc0000d0bc0000d2bc0000d4bc0000d6bc000068c70000
+    m_ExpandedIDs: ffffffff000000006a270000c4bc0000c6bc0000c8bc0000ccbc0000cebc0000d0bc0000d2bc0000d6bc0000d8bc0000f0c6000052c70000fcd90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: GameControllerFrenesi
+      m_OriginalName: GameControllerFrenesi
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 6152
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 

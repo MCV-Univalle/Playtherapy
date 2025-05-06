@@ -138,6 +138,7 @@ public class HandCollissionWithProducts : MonoBehaviour
                 if (gameController != null)
                 {
                     gameController.ReduceTime();
+                    gameController.wrongItems += 1;
                 }
 
                 if (WarningMessage != null)

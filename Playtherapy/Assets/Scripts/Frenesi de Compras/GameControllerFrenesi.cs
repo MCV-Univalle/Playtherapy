@@ -15,6 +15,11 @@ public class GameControllerFrenesi : MonoBehaviour
     public GameObject parametersPanel;
     public GameObject memoryPanel;
     public GameObject endGamePanel;
+    public GameObject observationsPanel; // Panel de observaciones
+    public Text goodProducts;
+    public Text wrongProducts;
+    public Button showObservationsButton; // Botón para abrir observaciones
+    public Button backToResultsButton;    // Botón para regresar
     public GameObject list;
     public GameObject timer;
     public GameObject BuyerNPCPrefab;
@@ -62,6 +67,7 @@ public class GameControllerFrenesi : MonoBehaviour
     private bool GameOver = false;
     public float speed = 5f;
     public float itemCount = 8f;
+    public int wrongItems = 0;
     public bool memorizeGamemode = false;
 
     public GameObject FinalHallwayPrefab;
@@ -85,6 +91,16 @@ public class GameControllerFrenesi : MonoBehaviour
         //list.SetActive(false);
         timer.SetActive(false);
         memoryPanel.SetActive(false);
+        observationsPanel.SetActive(false); // Asegúrate de que esté oculto al inicio
+
+        // Asignar eventos a los botones
+        if (showObservationsButton != null)
+            showObservationsButton.onClick.AddListener(ShowObservationsPanel);
+
+        if (backToResultsButton != null)
+            backToResultsButton.onClick.AddListener(ShowEndGamePanel);
+
+        wrongItems = 0;
 
         generatingMap = GenerateHallways.GetComponent<GeneratingMap>();
         if (generatingMap != null)
@@ -549,6 +565,9 @@ public class GameControllerFrenesi : MonoBehaviour
         float totalProducts = itemCount; // Total de productos en la lista de compras
         int collectedProducts = HandCollissionWithProducts.productosRecolectados.Count; // Productos obtenidos
 
+        goodProducts.text = collectedProducts.ToString();
+        wrongProducts.text = wrongItems.ToString();
+
         // Calcular el porcentaje de rendimiento basado en los productos recolectados
         int performance = Mathf.RoundToInt(((float)collectedProducts / totalProducts) * 100);
         Debug.Log("Soy el performance " + performance);
@@ -588,6 +607,18 @@ public class GameControllerFrenesi : MonoBehaviour
         }
 
         Debug.Log("termine mi trabajo, terminaron la corrutinas lolololo");
+    }
+
+    public void ShowObservationsPanel()
+    {
+        endGamePanel.SetActive(false);
+        observationsPanel.SetActive(true);
+    }
+
+    public void ShowEndGamePanel()
+    {
+        observationsPanel.SetActive(false);
+        endGamePanel.SetActive(true);
     }
 
     //public void UpdateTimeFromSlider(float value)
