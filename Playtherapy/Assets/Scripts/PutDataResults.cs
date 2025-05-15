@@ -49,15 +49,14 @@ public class PutDataResults : MonoBehaviour {
 
         if (mostrar_propuesta1==true)
 		{
-			propuesta1.SetActive (true);
-			propuesta2.SetActive (false);
-			searchObjects1 ();
+            if (propuesta1 != null) propuesta1.SetActive(true);
+            if (propuesta2 != null) propuesta2.SetActive(false);
+            if (propuesta1 != null)  searchObjects1 ();
 		} else {
 
-			propuesta2.SetActive (true);
-
-            propuesta1.SetActive (false);
-			searchObjects2 ();
+            if (propuesta1 != null) propuesta1.SetActive(false);
+            if (propuesta2 != null) propuesta2.SetActive(true);
+            if (propuesta2 != null) searchObjects2 ();
 		}
 
 

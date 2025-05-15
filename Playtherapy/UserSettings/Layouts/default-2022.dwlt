@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 117
+  controlID: 118
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -298,8 +298,8 @@ MonoBehaviour:
     y: 0
     width: 326.40002
     height: 716.4
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1132,10 +1132,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 26}
-      m_SelectedIDs: 6ebfffff
-      m_LastClickedID: -16530
-      m_ExpandedIDs: bcbaffffbebaffffeacaffff26fbffff5cc8000098c90000e0ca000044cb0000aecb000048cc0000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: b67b0000
+      m_LastClickedID: 31670
+      m_ExpandedIDs: fcfaffffb67b0000847d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1221,7 +1221,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 56ab0000
     m_LastClickedID: 43862
-    m_ExpandedIDs: 000000006a270000c4bc0000c6bc0000c8bc0000cabc0000ccbc0000cebc0000d0bc0000d2bc0000d4bc0000d6bc0000d8bc0000
+    m_ExpandedIDs: 00000000a0270000629500006495000066950000689500006a9500006c9500006e95000070950000729500007495000076950000789500007a9500007c950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1249,21 +1249,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 1087.5955}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000006a270000c4bc0000c6bc0000c8bc0000ccbc0000cebc0000d0bc0000d2bc0000d6bc0000d8bc0000f0c6000052c70000fcd90000
+    m_ExpandedIDs: ffffffff00000000a0270000629500006495000066950000689500006a9500006c9500006e95000070950000729500007495000076950000789500007a9500007c950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: GameControllerFrenesi
-      m_OriginalName: GameControllerFrenesi
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 6152
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 
