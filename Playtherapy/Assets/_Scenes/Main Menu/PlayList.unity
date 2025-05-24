@@ -2138,7 +2138,7 @@ MonoBehaviour:
   - {fileID: 1195788002339634, guid: 6379b006290d69544984ef4f46977643, type: 3}
   - {fileID: 1654427474597292, guid: 510b83abe4bb45e4fab2fd1b291b663c, type: 3}
   startButton: {fileID: 350249932}
-  startButtonFoot: {fileID: 0}
+  startButtonFoot: {fileID: 350249932}
 --- !u!114 &59691524
 MonoBehaviour:
   m_ObjectHideFlags: 0
