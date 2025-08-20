@@ -179,9 +179,11 @@ public class GeneratingMap : MonoBehaviour
         // Si es "Todos los pisos (90°)", maxLevel se mantiene en 2 (o lo que sea shelfHeights.Length - 1)
 
         // Generar productos en los niveles seleccionados
+        bool shelfMediumHandled = false;
         for (int i = 0; i <= maxLevel; i++)
         {
             float height = shelfHeights[i];
+
             if (shelfName == "ShelfThreeFloorSmall")
             {
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
@@ -196,10 +198,11 @@ public class GeneratingMap : MonoBehaviour
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0, height), isRightShelf);
             }
 
-            if (shelfName == "ShelfMedium" && i >= 1)
+            if (shelfName == "ShelfMedium" && i >= 1 && !shelfMediumHandled)
             {
                 TrySpawnProduct(shelf, new Vector3(-0.7f, -0.7f, 0), isRightShelf);
                 TrySpawnProduct(shelf, new Vector3(-0.7f, 0.7f, 0), isRightShelf);
+                shelfMediumHandled = true;
             }
         }
     }
