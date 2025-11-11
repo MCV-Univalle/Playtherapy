@@ -34,7 +34,7 @@ public class PutDataResults : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        Debug.Log("Soy el Start del PutData");
 		sprites = Resources.LoadAll<Sprite> ("Sprites/medals_flat") ;
 		names_sprites = new string[sprites.Length];
 
@@ -49,15 +49,14 @@ public class PutDataResults : MonoBehaviour {
 
         if (mostrar_propuesta1==true)
 		{
-			propuesta1.SetActive (true);
-			propuesta2.SetActive (false);
-			searchObjects1 ();
+            if (propuesta1 != null) propuesta1.SetActive(true);
+            if (propuesta2 != null) propuesta2.SetActive(false);
+            if (propuesta1 != null)  searchObjects1 ();
 		} else {
 
-			propuesta2.SetActive (true);
-
-            propuesta1.SetActive (false);
-			searchObjects2 ();
+            if (propuesta1 != null) propuesta1.SetActive(false);
+            if (propuesta2 != null) propuesta2.SetActive(true);
+            if (propuesta2 != null) searchObjects2 ();
 		}
 
 
@@ -93,13 +92,12 @@ public class PutDataResults : MonoBehaviour {
 	void searchObjects2()
 	{
 
-		txt_score_results = GameObject.Find ("txt_score_results2").GetComponent<Text>();
+		txt_score_results = GameObject.Find("txt_score_results2").GetComponent<Text>();
+        txt_best_score_results = GameObject.Find("txt_best_score_results2").GetComponent<Text>();
 
-		txt_best_score_results= GameObject.Find ("txt_best_score_results2").GetComponent<Text>();
-
-		star1 = GameObject.Find ("Star1").GetComponent<Image> ();
-		star2 = GameObject.Find ("Star2").GetComponent<Image> ();
-		star3 = GameObject.Find ("Star3").GetComponent<Image> ();
+		star1 = GameObject.Find("Star1").GetComponent<Image> ();
+		star2 = GameObject.Find("Star2").GetComponent<Image> ();
+		star3 = GameObject.Find("Star3").GetComponent<Image> ();
 
 
 		names_stars = new string[2];
@@ -109,11 +107,19 @@ public class PutDataResults : MonoBehaviour {
 	}
 	public Sprite getSpriteFromName(string name="")
 	{
-		int index = System.Array.IndexOf (names_sprites, name);
+        Debug.Log("Sot el name: " + name);
+        //int index = System.Array.IndexOf(names_sprites, name);
 
-		return sprites [index];
+        //return sprites[index];
+        int index = System.Array.IndexOf(names_sprites, name);
+        if (index < 0 || index >= sprites.Length)
+        {
+            Debug.LogError("Sprite no encontrado: " + name);
+            return null;
+        }
+        return sprites[index];
 
-	}
+    }
 	/// <summary>
 	/// Updates the data results
 	/// </summary>
@@ -122,7 +128,14 @@ public class PutDataResults : MonoBehaviour {
 	public void updateData(int percent=0,int best_percent=0)
 	{
 
-
+        if (mostrar_propuesta1 == true)
+        {
+            searchObjects1();
+        }
+        else
+        {
+            searchObjects2();
+        }
 
 		int how_do_it;
 		if (percent <= 25) {
@@ -132,13 +145,13 @@ public class PutDataResults : MonoBehaviour {
 		} else {
 			how_do_it = EXCELENT;
 		}
+        Debug.Log("Lo hizo " + how_do_it);
 
 
         GameSessionDAO gameDao = new GameSessionDAO();
 
         txt_score_results.text = "Desempeño: " + percent+"%";
-		txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
-
+		//txt_best_score_results.text = "Mejor Desempeño: " + gameDao.GetScore(this.Minigame)+"%";
 
 
 

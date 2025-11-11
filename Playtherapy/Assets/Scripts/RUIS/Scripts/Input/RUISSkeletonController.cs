@@ -1,4 +1,4 @@
-/*****************************************************************************
+﻿/*****************************************************************************
 
 Content    :   Functionality to control a skeleton using Kinect
 Authors    :   Mikael Matveinen, Tuukka Takala, Heikki Heiskanen
@@ -68,6 +68,9 @@ public class RUISSkeletonController : MonoBehaviour
 	public bool trackThumbs = false;
 	public bool trackWrist = true;
 	public bool trackAnkle = true;
+	public bool trackLegs = true;
+	public bool personalizatedTrackTiro = false;
+
 	public bool rotateWristFromElbow = true;
 	
 	public RUISSkeletonManager.Skeleton.handState leftHandStatus = RUISSkeletonManager.Skeleton.handState.open;
@@ -126,9 +129,10 @@ public class RUISSkeletonController : MonoBehaviour
 
 	public float minimumConfidenceToUpdate = 0.5f;
 	public float rotationDamping = 360.0f;
+    public float rotationDampingpersonalizatedTrackTiro = 720.0f;
 
-	// Constrained between [0, -180] in Unity Editor script
-	public float handRollAngleMinimum = -180; 
+    // Constrained between [0, -180] in Unity Editor script
+    public float handRollAngleMinimum = -180; 
 
 	// Constrained between [0,  180] in Unity Editor script
 	public float handRollAngleMaximum = 180; 
@@ -272,97 +276,101 @@ public class RUISSkeletonController : MonoBehaviour
 			trackThumbs = false;
 			trackWrist = false;
 			trackAnkle = false;
+			
 			rotateWristFromElbow = false;
 		}
 
-		if(useHierarchicalModel)
+		if (useHierarchicalModel)
 		{
-			//fix all shoulder and hip rotations to match the default kinect rotations
-			rightShoulder.rotation = FindFixingRotation(rightShoulder.position, rightElbow.position, transform.right) * rightShoulder.rotation;
-			leftShoulder.rotation = FindFixingRotation(leftShoulder.position, leftElbow.position, -transform.right) * leftShoulder.rotation;
-			rightHip.rotation = FindFixingRotation(rightHip.position, rightFoot.position, -transform.up) * rightHip.rotation;
-			leftHip.rotation = FindFixingRotation(leftHip.position, leftFoot.position, -transform.up) * leftHip.rotation;
+				//fix all shoulder and hip rotations to match the default kinect rotations
+				rightShoulder.rotation = FindFixingRotation(rightShoulder.position, rightElbow.position, transform.right) * rightShoulder.rotation;
+				leftShoulder.rotation = FindFixingRotation(leftShoulder.position, leftElbow.position, -transform.right) * leftShoulder.rotation;
+				rightHip.rotation = FindFixingRotation(rightHip.position, rightFoot.position, -transform.up) * rightHip.rotation;
+				leftHip.rotation = FindFixingRotation(leftHip.position, leftFoot.position, -transform.up) * leftHip.rotation;
 
-			Vector3 scaler = new Vector3(1 / transform.lossyScale.x, 1 / transform.lossyScale.y, 1 / transform.lossyScale.z);
-			Vector3 assumedRootPos = Vector3.Scale((rightShoulder.position + leftShoulder.position + leftHip.position + rightHip.position) / 4, scaler); 
-															
-			Vector3 realRootPos = Vector3.Scale(torso.position, scaler);
+				Vector3 scaler = new Vector3(1 / transform.lossyScale.x, 1 / transform.lossyScale.y, 1 / transform.lossyScale.z);
+				Vector3 assumedRootPos = Vector3.Scale((rightShoulder.position + leftShoulder.position + leftHip.position + rightHip.position) / 4, scaler);
 
-			Vector3 torsoUp = head.position - torso.position;
-			torsoUp.Normalize();
-			torsoOffset = Vector3.Dot(realRootPos - assumedRootPos, torsoUp);
-			//torsoOffset = (realRootPos - assumedRootPos).y;
+				Vector3 realRootPos = Vector3.Scale(torso.position, scaler);
 
-			if(neck)
-			{
-				neckOriginalLocalPosition = neck.localPosition;
-				if(neck.parent)
+				Vector3 torsoUp = head.position - torso.position;
+				torsoUp.Normalize();
+				torsoOffset = Vector3.Dot(realRootPos - assumedRootPos, torsoUp);
+				//torsoOffset = (realRootPos - assumedRootPos).y;
+
+				if (neck)
 				{
-					chest = neck.parent;
-					if(chest == torso)
+					neckOriginalLocalPosition = neck.localPosition;
+					if (neck.parent)
 					{
-						Debug.Log(typeof(RUISSkeletonController) + ": Hierarchical model stored in GameObject " + this.name
-						+ " does not have enough joints between neck and torso for Hips Vertical Tweaker to work.");
-						chest = null;
+						chest = neck.parent;
+						if (chest == torso)
+						{
+							Debug.Log(typeof(RUISSkeletonController) + ": Hierarchical model stored in GameObject " + this.name
+							+ " does not have enough joints between neck and torso for Hips Vertical Tweaker to work.");
+							chest = null;
+						}
+						chestOriginalLocalPosition = chest.localPosition;
 					}
-					chestOriginalLocalPosition = chest.localPosition;
 				}
 			}
-		}
 
-		SaveInitialRotation(root);
-		SaveInitialRotation(head);
-		SaveInitialRotation(torso);
-		SaveInitialRotation(rightShoulder);
-		SaveInitialRotation(rightElbow);
-		SaveInitialRotation(rightHand);
-		SaveInitialRotation(leftShoulder);
-		SaveInitialRotation(leftElbow);
-		SaveInitialRotation(leftHand);
-		SaveInitialRotation(rightHip);
-		SaveInitialRotation(rightKnee);
-		SaveInitialRotation(rightFoot);
-		SaveInitialRotation(leftHip);
-		SaveInitialRotation(leftKnee);
-		SaveInitialRotation(leftFoot);
+			SaveInitialRotation(root);
+			SaveInitialRotation(head);
+			SaveInitialRotation(torso);
+			SaveInitialRotation(rightShoulder);
+			SaveInitialRotation(rightElbow);
+			SaveInitialRotation(rightHand);
+			SaveInitialRotation(leftShoulder);
+			SaveInitialRotation(leftElbow);
+			SaveInitialRotation(leftHand);
+			SaveInitialRotation(rightHip);
+			SaveInitialRotation(rightKnee);
+			SaveInitialRotation(rightFoot);
+			SaveInitialRotation(leftHip);
+			SaveInitialRotation(leftKnee);
+			SaveInitialRotation(leftFoot);
 
-		SaveInitialRotation(leftThumb);
-		SaveInitialRotation(rightThumb);
+			SaveInitialRotation(leftThumb);
+			SaveInitialRotation(rightThumb);
 
-		saveInitialFingerRotations();
+			saveInitialFingerRotations();
+
+			SaveInitialDistance(rightShoulder, rightElbow);
+			SaveInitialDistance(rightElbow, rightHand);
+			SaveInitialDistance(leftShoulder, leftElbow);
+			SaveInitialDistance(leftElbow, leftHand);
+
+			SaveInitialDistance(rightHip, rightKnee);
+			SaveInitialDistance(rightKnee, rightFoot);
+			SaveInitialDistance(leftHip, leftKnee);
+			SaveInitialDistance(leftKnee, leftFoot);
+
+			SaveInitialDistance(torso, head);
+
+			SaveInitialDistance(rightShoulder, leftShoulder);
+			SaveInitialDistance(rightHip, leftHip);
+
+
+			if (rightElbow)
+				unalteredRightForearmScale = rightElbow.localScale;
+
+			if (leftElbow)
+				unalteredLeftForearmScale = leftElbow.localScale;
+
+			if (rightKnee)
+				unalteredRightShinScale = rightKnee.localScale;
+
+			if (leftKnee)
+				unalteredLeftShinScale = leftKnee.localScale;
+
 		
-		SaveInitialDistance(rightShoulder, rightElbow);
-		SaveInitialDistance(rightElbow, rightHand);
-		SaveInitialDistance(leftShoulder, leftElbow);
-		SaveInitialDistance(leftElbow, leftHand);
+        
 
-		SaveInitialDistance(rightHip, rightKnee);
-		SaveInitialDistance(rightKnee, rightFoot);
-		SaveInitialDistance(leftHip, leftKnee);
-		SaveInitialDistance(leftKnee, leftFoot);
-
-		SaveInitialDistance(torso, head);
-
-		SaveInitialDistance(rightShoulder, leftShoulder);
-		SaveInitialDistance(rightHip, leftHip);
-
-		
-		if(rightElbow)
-			unalteredRightForearmScale = rightElbow.localScale;
-		
-		if(leftElbow)
-			unalteredLeftForearmScale = leftElbow.localScale;
-		
-		if(rightKnee)
-			unalteredRightShinScale = rightKnee.localScale;
-		
-		if(leftKnee)
-			unalteredLeftShinScale = leftKnee.localScale;
-
-		// Finger clench rotations: these depend on your animation rig
-		// Also see method handleFingersCurling() and its clenchedRotationThumbTM_corrected and clenchedRotationThumbIP_corrected
-		// variables, if you are not tracking thumbs with Kinect 2. They also depend on your animation rig.
-		switch(boneLengthAxis)
+        // Finger clench rotations: these depend on your animation rig
+        // Also see method handleFingersCurling() and its clenchedRotationThumbTM_corrected and clenchedRotationThumbIP_corrected
+        // variables, if you are not tracking thumbs with Kinect 2. They also depend on your animation rig.
+        switch (boneLengthAxis)
 		{
 		case RUISAxis.X:
 			// Thumb phalange rotations when hand is clenched to a fist
@@ -448,10 +456,10 @@ public class RUISSkeletonController : MonoBehaviour
 	void LateUpdate()
 	{
 		deltaTime = Time.deltaTime; //1.0f / vr.hmd_DisplayFrequency;
-
-		// If a custom skeleton tracking source is used, save its data into skeletonManager (which is a little 
-		// topsy turvy) so we can utilize same code as we did with Kinect 1 and 2
-		if(bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
+        //Debug.Log("trackLegs está en: " + trackLegs);
+        // If a custom skeleton tracking source is used, save its data into skeletonManager (which is a little 
+        // topsy turvy) so we can utilize same code as we did with Kinect 1 and 2
+        if (bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
 		{
 			skeletonManager.skeletons[bodyTrackingDeviceID, playerId].isTracking = true;
 
@@ -584,27 +592,37 @@ public class RUISSkeletonController : MonoBehaviour
 		}
 
 		// Update skeleton based on data fetched from skeletonManager
-		if(skeletonManager != null && skeletonManager.skeletons[bodyTrackingDeviceID, playerId] != null
-		    && skeletonManager.skeletons[bodyTrackingDeviceID, playerId].isTracking)
+		if (skeletonManager != null && skeletonManager.skeletons[bodyTrackingDeviceID, playerId] != null
+			&& skeletonManager.skeletons[bodyTrackingDeviceID, playerId].isTracking)
 		{
-						
-//			if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID && !skeletonManager.isNewKinect2Frame)
-//				return;
+
+			//			if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID && !skeletonManager.isNewKinect2Frame)
+			//				return;
 
 			float maxAngularVelocity;
-//			if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID)
-//				maxAngularVelocity = skeletonManager.kinect2FrameDeltaT * rotationDamping;
-//			else 
-			maxAngularVelocity = deltaTime * rotationDamping;
-
+			float maxAngularVelocitypersonalizatedTrackTiro;
+            //			if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID)
+            //				maxAngularVelocity = skeletonManager.kinect2FrameDeltaT * rotationDamping;
+            //			else 
+            maxAngularVelocity = deltaTime * rotationDamping;
+			maxAngularVelocitypersonalizatedTrackTiro = deltaTime * rotationDampingpersonalizatedTrackTiro;
 
 			// Obtained new body tracking data. TODO test that Kinect 1 still works
 //			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
 			{
 				UpdateSkeletonPosition();
 
-				UpdateTransform(ref torso, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso, maxAngularVelocity);
-				UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocity);
+				if (!personalizatedTrackTiro)
+				{
+					UpdateTransform(ref torso, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso, maxAngularVelocity);
+					UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocity);
+				}
+				else
+				{
+                   UpdateTransform(ref head, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].head, maxAngularVelocitypersonalizatedTrackTiro);
+                }
+				//rotationDampingpersonalizatedTrackTiro
+				
 			}
 				
 			if(HmdRotatesHead && RUISDisplayManager.IsHmdPresent())
@@ -633,58 +651,68 @@ public class RUISSkeletonController : MonoBehaviour
 						head.localRotation = hmdRotation; //skeletonManager.skeletons [bodyTrackingDeviceID, playerId].head;
 				}
 			}
-			
+
 			// Obtained new body tracking data. TODO test that Kinect 1 still works
-//			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
+			//			if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
 			{
-				UpdateTransform(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, maxAngularVelocity);
-				UpdateTransform(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, maxAngularVelocity);
-
-				if(trackWrist || !useHierarchicalModel)
+				if (!personalizatedTrackTiro)
 				{
-					UpdateTransform(ref leftHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHand, 2 * maxAngularVelocity);
-					UpdateTransform(ref rightHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHand, 2 * maxAngularVelocity);
+
+					if (trackLegs)
+					{
+						UpdateTransform(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, maxAngularVelocity);
+						UpdateTransform(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, maxAngularVelocity);
+						UpdateTransform(ref leftKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftKnee, maxAngularVelocity);
+						// test knee orientation tracking
+						//Debug.Log(leftKnee.transform.rotation.eulerAngles.)
+						UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
+
+
+
+
+						if (trackAnkle || !useHierarchicalModel)
+						{
+							UpdateTransform(ref leftFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftFoot, maxAngularVelocity);
+							UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
+						}
+					}
 				}
 
-				UpdateTransform(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, maxAngularVelocity);
-				UpdateTransform(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, maxAngularVelocity);
-				UpdateTransform(ref leftKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftKnee, maxAngularVelocity);
-                // test knee orientation tracking
-                //Debug.Log(leftKnee.transform.rotation.eulerAngles.)
-				UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
-				
-				UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
-				UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
+                UpdateTransform(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, maxAngularVelocity);
+                UpdateTransform(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, maxAngularVelocity);
 
-				if(trackAnkle || !useHierarchicalModel)
-				{
-					UpdateTransform(ref leftFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftFoot, maxAngularVelocity);
-					UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
-				}
+                if (trackWrist || !useHierarchicalModel)
+                {
+                    UpdateTransform(ref leftHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHand, 2 * maxAngularVelocity);
+                    UpdateTransform(ref rightHand, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHand, 2 * maxAngularVelocity);
+                }
 
-			
-//				// TODO: Restore this when implementation is fixed
-//				if(rotateWristFromElbow && bodyTrackingDevice == bodyTrackingDeviceType.Kinect2)
-//				{
-//					if (useHierarchicalModel)
-//					{
-//						if(leftElbow && leftHand)
-//							leftElbow.rotation  = leftHand.rotation;
-//						if(rightElbow && rightHand)
-//							rightElbow.rotation = rightHand.rotation;
-//					}
-//					else
-//					{
-//						if(leftElbow && leftHand)
-//							leftElbow.localRotation  = leftHand.localRotation;
-//						if(rightElbow && rightHand)
-//							rightElbow.localRotation = rightHand.localRotation;
-//					}
-//					//				UpdateTransform (ref rightElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].rightHand);
-//					//				UpdateTransform (ref leftElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].leftHand);
-//				}
-	
-				if(bodyTrackingDevice == bodyTrackingDeviceType.Kinect2 || bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
+                UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
+                UpdateTransform(ref leftElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftElbow, maxAngularVelocity);
+
+
+                //				// TODO: Restore this when implementation is fixed
+                //				if(rotateWristFromElbow && bodyTrackingDevice == bodyTrackingDeviceType.Kinect2)
+                //				{
+                //					if (useHierarchicalModel)
+                //					{
+                //						if(leftElbow && leftHand)
+                //							leftElbow.rotation  = leftHand.rotation;
+                //						if(rightElbow && rightHand)
+                //							rightElbow.rotation = rightHand.rotation;
+                //					}
+                //					else
+                //					{
+                //						if(leftElbow && leftHand)
+                //							leftElbow.localRotation  = leftHand.localRotation;
+                //						if(rightElbow && rightHand)
+                //							rightElbow.localRotation = rightHand.localRotation;
+                //					}
+                //					//				UpdateTransform (ref rightElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].rightHand);
+                //					//				UpdateTransform (ref leftElbow, skeletonManager.skeletons [bodyTrackingDeviceID, playerId].leftHand);
+                //				}
+
+                if (bodyTrackingDevice == bodyTrackingDeviceType.Kinect2 || bodyTrackingDevice == bodyTrackingDeviceType.GenericMotionTracker)
 				{
 					leftHandStatus = (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHandStatus);
 					rightHandStatus = (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHandStatus);
@@ -704,63 +732,64 @@ public class RUISSkeletonController : MonoBehaviour
 				// There is some other trigger that determines fist curling (e.g. RUISButtonGestureRecognizer)
 				if(externalCurlTrigger)
 					handleFingersCurling(trackThumbs);
-			}
-
-			if(!useHierarchicalModel)
-			{
-				if(leftHand != null)
-				{
-					leftHand.localRotation = leftElbow.localRotation;
 				}
 
-				if(rightHand != null)
+				if (!useHierarchicalModel)
 				{
-					rightHand.localRotation = rightElbow.localRotation;
-				}
-			}
-			else
-			{
-				if(scaleHierarchicalModelBones)
-				{
-					UpdateBoneScalings();
-
-					torsoRotation = Quaternion.Slerp(torsoRotation, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso.rotation, deltaTime * rotationDamping);
-					torsoDirection = torsoRotation * Vector3.down;
-
-					if(torso == root)
-						torso.position = transform.TransformPoint(-torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition));
-					else
-						torso.position = transform.TransformPoint(skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso.position - skeletonPosition
-						- torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition));
-
-					// HACK TODO: in Kinect 1/2 skeletonManager.skeletons[].torso = skeletonManager.skeletons[].root, so lets use filtered version of that (==skeletonPosition)
-					spineDirection = transform.TransformPoint(-torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition - 1));
-//					spineDirection = transform.TransformPoint (skeletonManager.skeletons [bodyTrackingDeviceID, playerId].torso.position - skeletonPosition 
-//					                                           - torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition - 1));
-					                                           
-					// HACK TODO: in Kinect 1/2 skeletonManager.skeletons[].torso = skeletonManager.skeletons[].root, so lets use filtered version of that (==skeletonPosition)
-					spineDirection = skeletonPosition - spineDirection;
-//					spineDirection = torso.position - spineDirection;
-					spineDirection.Normalize();
-
-					// Obtained new body tracking data. TODO test that Kinect 1 still works
-//					if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
+					if (leftHand != null)
 					{
-						float deltaT;
-//						if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID)
-//							deltaT = skeletonManager.kinect2FrameDeltaT;
-//						else
-						deltaT = deltaTime;
-						ForceUpdatePosition(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, 0, deltaT);
-						ForceUpdatePosition(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, 1, deltaT);
-						ForceUpdatePosition(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, 2, deltaT);
-						ForceUpdatePosition(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, 3, deltaT);
+						leftHand.localRotation = leftElbow.localRotation;
 					}
 
+					if (rightHand != null)
+					{
+						rightHand.localRotation = rightElbow.localRotation;
+					}
 				}
-			}
+				else
+				{
+					if (scaleHierarchicalModelBones)
+					{
+						UpdateBoneScalings();
 
-			if(updateRootPosition)
+						torsoRotation = Quaternion.Slerp(torsoRotation, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso.rotation, deltaTime * rotationDamping);
+						torsoDirection = torsoRotation * Vector3.down;
+
+						if (torso == root)
+							torso.position = transform.TransformPoint(-torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition));
+						else
+							torso.position = transform.TransformPoint(skeletonManager.skeletons[bodyTrackingDeviceID, playerId].torso.position - skeletonPosition
+							- torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition));
+
+						// HACK TODO: in Kinect 1/2 skeletonManager.skeletons[].torso = skeletonManager.skeletons[].root, so lets use filtered version of that (==skeletonPosition)
+						spineDirection = transform.TransformPoint(-torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition - 1));
+						//					spineDirection = transform.TransformPoint (skeletonManager.skeletons [bodyTrackingDeviceID, playerId].torso.position - skeletonPosition 
+						//					                                           - torsoDirection * (torsoOffset * torsoScale + adjustVerticalHipsPosition - 1));
+
+						// HACK TODO: in Kinect 1/2 skeletonManager.skeletons[].torso = skeletonManager.skeletons[].root, so lets use filtered version of that (==skeletonPosition)
+						spineDirection = skeletonPosition - spineDirection;
+						//					spineDirection = torso.position - spineDirection;
+						spineDirection.Normalize();
+
+						// Obtained new body tracking data. TODO test that Kinect 1 still works
+						//					if(bodyTrackingDeviceID != RUISSkeletonManager.kinect2SensorID || skeletonManager.isNewKinect2Frame)
+						{
+							float deltaT;
+							//						if(bodyTrackingDeviceID == RUISSkeletonManager.kinect2SensorID)
+							//							deltaT = skeletonManager.kinect2FrameDeltaT;
+							//						else
+							deltaT = deltaTime;
+							ForceUpdatePosition(ref rightShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightShoulder, 0, deltaT);
+							ForceUpdatePosition(ref leftShoulder, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftShoulder, 1, deltaT);
+							ForceUpdatePosition(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, 2, deltaT);
+							ForceUpdatePosition(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, 3, deltaT);
+						}
+
+					}
+				}
+            
+
+            if (updateRootPosition)
 			{
 //				Vector3 newRootPosition = skeletonManager.skeletons [bodyTrackingDeviceID, playerId].root.position;
 //				measuredPos [0] = newRootPosition.x;
@@ -884,23 +913,95 @@ public class RUISSkeletonController : MonoBehaviour
 
 		if(updateJointRotations && jointToGet.rotationConfidence >= minimumConfidenceToUpdate)
 		{
-			if(useHierarchicalModel)
+			if (useHierarchicalModel)
 			{
-				Quaternion newRotation = transform.rotation * jointToGet.rotation *
-				                                     (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
+                Quaternion newRotation = transform.rotation * jointToGet.rotation *
+                                                    (jointInitialRotations.ContainsKey(transformToUpdate) ? jointInitialRotations[transformToUpdate] : Quaternion.identity);
+				if (personalizatedTrackTiro && transformToUpdate.name == "BowHead")
+				{
+                    //Debug.Log("Entre a cambiar la transformacion de la cabeza");
+                    //// Capturar la rotación actual del objeto
+                    Vector3 currentEuler = transformToUpdate.eulerAngles;
+                    //Debug.Log("La transformacion inicial es: " + currentEuler);
+                    //// Convertir la rotación propuesta a ángulos de Euler
+                    Vector3 targetEuler = newRotation.eulerAngles;
 
-				//newRotation.x = newRotation.x * -1f;
-				//newRotation.y = newRotation.y * -1f;
-				//newRotation.z = newRotation.z * -1f;
-				//newRotation.w = newRotation.w * -1f;
+                    //// MAPEAR: Usar la inclinación Z como si fuera la rotación en Y
+                    //float simulatedYRotation = targetEuler.z - 180;
+                    //Debug.Log("La rotacion en Y que entro es: " + simulatedYRotation);
+                    //// Normalizar para evitar saltos bruscos en 360°
+                    ////if (simulatedYRotation < 180f) simulatedYRotation -= 360f;
+
+                    //simulatedYRotation = 360 - simulatedYRotation;
+
+                    //Debug.Log("La anterior la normalize y ahora es: " + simulatedYRotation);
+
+                    //// Mantener el eje Z fijo 
+                    targetEuler.z = currentEuler.z;
+
+                    //// Reemplazar el eje Y por el mapeo desde Z
+                    //targetEuler.y = simulatedYRotation;
+
+                    //// Suavizar transición en X (opcional)
+                    //float rotationSpeedFactor = 10f;
+                    //targetEuler.x = Mathf.LerpAngle(currentEuler.x, targetEuler.x, rotationSpeedFactor * Time.deltaTime);
+
+                    //Debug.Log("Ya cambie el targetEuler, quedo del siguiente modo: X = " + targetEuler.x + "Y: " + targetEuler.y + "Z: " + targetEuler.z);
+
+                    //// Aplicar nueva rotación
+                    Quaternion targetRotation = Quaternion.Euler(targetEuler);
+
+                    transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, targetRotation, maxAngularVelocity);
+                    //Vector3 eulerAngles = transformToUpdate.rotation.eulerAngles;
+                    //Debug.Log("Y la rotacion de la transformupdate es: " + eulerAngles);
+                }
+                else
+                {
+
+
+                    //newRotation.x = newRotation.x * -1f;
+                    //newRotation.y = newRotation.y * -1f;
+                    //newRotation.z = newRotation.z * -1f;
+                    //newRotation.w = newRotation.w * -1f;
+
+                    transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, newRotation, maxAngularVelocity);
+                }
+
+            }
 				
-				transformToUpdate.rotation = Quaternion.RotateTowards(transformToUpdate.rotation, newRotation, maxAngularVelocity);
-			}
-			else
-			{
-				transformToUpdate.localRotation = Quaternion.RotateTowards(transformToUpdate.localRotation, jointToGet.rotation, maxAngularVelocity);
-			}
-		}
+				}
+				else
+				{
+					//Debug.Log("Soy el transform name: " + transformToUpdate.name);
+					//if (personalizatedTrackTiro && transformToUpdate.name == "BowHead")
+					//{
+		   //             // Obtén la rotación actual en el espacio local
+		   //             Quaternion currentRotation = transformToUpdate.localRotation;
+
+		   //             // Extrae los ángulos de la rotación actual en Euler
+		   //             Vector3 currentEulerAngles = currentRotation.eulerAngles;
+
+		   //             // Crea un nuevo ángulo que conserva la rotación en el eje Z
+		   //             Vector3 targetEulerAngles = jointToGet.rotation.eulerAngles;
+					//	targetEulerAngles.z = currentEulerAngles.z;  // Bloquea la rotación en Z
+
+		   //             // Incrementa la rotación en X para aumentar la velocidad
+		   //             // Puedes ajustar el factor para aumentar o disminuir la velocidad en X
+		   //             float rotationSpeedFactor = 100f;  // Ajusta este valor para controlar la velocidad en X
+		   //             targetEulerAngles.x = Mathf.LerpAngle(currentEulerAngles.x, targetEulerAngles.x, rotationSpeedFactor * Time.deltaTime);
+
+		   //             // Convierte los ángulos de vuelta a un Quaternion
+		   //             Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
+
+		   //             // Realiza la rotación con RotateTowards, pero manteniendo el valor de Z fijo
+		   //             transformToUpdate.localRotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxAngularVelocity);
+					////}
+					//else
+					//{
+						transformToUpdate.localRotation = Quaternion.RotateTowards(transformToUpdate.localRotation, jointToGet.rotation, maxAngularVelocity);
+					//}
+				}
+			//}
 	}
 
 	// Here tracked device can mean PS Move or Oculus Rift DK2+
@@ -1310,8 +1411,11 @@ public class RUISSkeletonController : MonoBehaviour
 		
 		lastLeftHandStatus = currentLeftHandStatus;
 		lastRightHandStatus = currentRightHandStatus;
-		
-		for(int i = 0; i < 2; i++)
+
+        //Debug.Log("Left Hand Status: " + currentLeftHandStatus);
+        //Debug.Log("Right Hand Status: " + currentRightHandStatus);
+
+        for (int i = 0; i < 2; i++)
 		{ // Hands
 			if(i == 0)
 			{

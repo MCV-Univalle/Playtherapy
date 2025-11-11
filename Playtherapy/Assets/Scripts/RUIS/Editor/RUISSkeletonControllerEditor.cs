@@ -81,9 +81,12 @@ public class RUISSkeletonControllerEditor : Editor
 	SerializedProperty trackThumbs;
 	SerializedProperty trackWrist;
 	SerializedProperty trackAnkle;
-//	SerializedProperty rotateWristFromElbow;
-	
-	SerializedProperty customRoot;
+	SerializedProperty trackLegs;
+
+	SerializedProperty personalizatedTrackTiro;
+    //	SerializedProperty rotateWristFromElbow;
+
+    SerializedProperty customRoot;
 	SerializedProperty customHead;
 	SerializedProperty customNeck;
 	SerializedProperty customTorso;
@@ -159,11 +162,13 @@ public class RUISSkeletonControllerEditor : Editor
 		leftThumb = serializedObject.FindProperty ("leftThumb");
 		rightThumb = serializedObject.FindProperty ("rightThumb");
 		trackWrist = serializedObject.FindProperty ("trackWrist");
-		trackAnkle = serializedObject.FindProperty ("trackAnkle");
-//		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
-		
-//		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
-		adjustVerticalHipsPosition = serializedObject.FindProperty("adjustVerticalHipsPosition");
+		trackAnkle = serializedObject.FindProperty("trackAnkle");
+		trackLegs = serializedObject.FindProperty("trackLegs");
+		personalizatedTrackTiro = serializedObject.FindProperty("personalizatedTrackTiro");
+        //		rotateWristFromElbow = serializedObject.FindProperty ("rotateWristFromElbow");
+
+        //		adjustVerticalTorsoPosition = serializedObject.FindProperty("adjustVerticalTorsoPosition");
+        adjustVerticalHipsPosition = serializedObject.FindProperty("adjustVerticalHipsPosition");
         maxScaleFactor = serializedObject.FindProperty("maxScaleFactor");
         minimumConfidenceToUpdate = serializedObject.FindProperty("minimumConfidenceToUpdate");
         rotationDamping = serializedObject.FindProperty("rotationDamping");
@@ -378,11 +383,17 @@ public class RUISSkeletonControllerEditor : Editor
 			EditorGUILayout.PropertyField (customRightThumb, new GUIContent ("Right Thumb", "The thumb of the right hand"));
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.EndHorizontal ();
-			
-			
+
+
 		}
 		RUISEditorUtility.HorizontalRuler();
-        EditorGUILayout.LabelField("Torso and Head Joints", EditorStyles.boldLabel);
+
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
+            EditorGUILayout.PropertyField(personalizatedTrackTiro, new GUIContent("Personalizated track for tiro", "Track only the head of the body and the hands, this function was developed for the Tiro con Arco game only"));
+
+		EditorGUILayout.Space();
+
+		EditorGUILayout.LabelField("Torso and Head Joints", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(rootBone, new GUIContent("Root Joint", "The skeleton hierarchy root bone"));
 		EditorGUILayout.Space();
 		EditorGUILayout.PropertyField(torsoBone, new GUIContent("Torso", "The torso bone, has to be parent or grandparent of the hips"));
@@ -430,10 +441,15 @@ public class RUISSkeletonControllerEditor : Editor
 
 		if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
 			EditorGUILayout.PropertyField(trackAnkle, new GUIContent("Track Ankle", "Track the rotation of the ankle bone"));
-		
+
 		EditorGUILayout.Space();
 
-		if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID) 
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID)
+            EditorGUILayout.PropertyField(trackLegs, new GUIContent("Track Legs", "Track the legs of the model, this function was developed for the Frenesi de compras game only"));
+
+        EditorGUILayout.Space();
+
+        if (bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.kinect2SensorID || bodyTrackingDevice.enumValueIndex == RUISSkeletonManager.customSensorID) 
 		{
 				EditorGUILayout.LabelField ("Finger Joints", EditorStyles.boldLabel);
 				EditorGUILayout.BeginHorizontal ();

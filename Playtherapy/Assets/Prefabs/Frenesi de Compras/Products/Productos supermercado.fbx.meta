@@ -1,0 +1,414 @@
+fileFormatVersion: 2
+guid: de321e6de31d2fd489eb242860b55e94
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_White_Descremada
+    second: {fileID: 2100000, guid: 55450d23c4643404f902d2372caa5889, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_White_Entera
+    second: {fileID: 2100000, guid: dfe08802593b84a46a360ac27c85f43c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue
+    second: {fileID: 2100000, guid: 90523b872c7285342bc683c05dcd0145, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue.001
+    second: {fileID: 2100000, guid: 2f41ce41649391f4bb7eace6f3b4bc98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue.002
+    second: {fileID: 2100000, guid: 90523b872c7285342bc683c05dcd0145, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue.003
+    second: {fileID: 2100000, guid: 05e96ed08bb1a9c44a28acb27304fee4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue.004
+    second: {fileID: 2100000, guid: 2f41ce41649391f4bb7eace6f3b4bc98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_blue.005
+    second: {fileID: 2100000, guid: 90523b872c7285342bc683c05dcd0145, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_pink
+    second: {fileID: 2100000, guid: 8d67fab2a6e44c8438e8f6c9494b5810, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_purple
+    second: {fileID: 2100000, guid: 2f41ce41649391f4bb7eace6f3b4bc98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white
+    second: {fileID: 2100000, guid: 8148d0c5be66a7841bb5a0eecf4dff35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white.001
+    second: {fileID: 2100000, guid: ea0073d144058fb4393fcd37c87418c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white.002
+    second: {fileID: 2100000, guid: 3781123afcfd47a478041644a1ea550e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white.003
+    second: {fileID: 2100000, guid: 8148d0c5be66a7841bb5a0eecf4dff35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white.004
+    second: {fileID: 2100000, guid: 8148d0c5be66a7841bb5a0eecf4dff35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white.005
+    second: {fileID: 2100000, guid: 8148d0c5be66a7841bb5a0eecf4dff35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carton_white_deslactosada
+    second: {fileID: 2100000, guid: 7505a75302e0a1741883471be1e3dd02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.001
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.002
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.003
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.004
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.005
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.006
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.007
+    second: {fileID: 2100000, guid: a286dfa034f30cc4195e10bd52635d55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.008
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.009
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.010
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.011
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.012
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.013
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.014
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.015
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.016
+    second: {fileID: 2100000, guid: aff13e713688cf14a81075f4b5ec0e1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.017
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.018
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.019
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.020
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.021
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.022
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.023
+    second: {fileID: 2100000, guid: a286dfa034f30cc4195e10bd52635d55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.024
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.025
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.026
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.028
+    second: {fileID: 2100000, guid: aff13e713688cf14a81075f4b5ec0e1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.029
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.030
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.031
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.032
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.033
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.034
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SUpermarket.035
+    second: {fileID: 2100000, guid: 455e4ae57e9a44540be9f182ec83cbb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: f8571ee6fba303345bee1cf5dd98fd4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: bcdf89969b1d9e043a2312b81018a12b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 1b3eceed095fb8f4189413fc839229dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: f8571ee6fba303345bee1cf5dd98fd4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: f8571ee6fba303345bee1cf5dd98fd4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: f8571ee6fba303345bee1cf5dd98fd4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TextColor
+    second: {fileID: 2100000, guid: faab0de6cd6bc8e499ebdb7cd2aaaee7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TextColor.001
+    second: {fileID: 2100000, guid: e6952735a147913458e9028c1cd37aea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TextColor.002
+    second: {fileID: 2100000, guid: 840ac7c953fd7944f9bcb671711aa217, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

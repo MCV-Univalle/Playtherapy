@@ -71,6 +71,10 @@ TagManager:
   - Floor
   - KinectPlayer
   - IPosition
+  - Leche
+  - Producto
+  - FakeHallway
+  - ShoppingListUI
   layers:
   - Default
   - TransparentFX
@@ -78,10 +82,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Brazos
+  - ParedesCarrito
   - 3D GUI
-  - 
+  - Path
   - 
   - 
   - 

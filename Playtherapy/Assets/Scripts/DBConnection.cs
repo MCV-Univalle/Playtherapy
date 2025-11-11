@@ -8,8 +8,8 @@ public class DBConnection : MonoBehaviour
 {
     public string host = "127.0.0.1";
     public string username = "postgres";
-    public string password = "postgres";
-    public string database = "playtherapy";
+    public string password = "cesar0915";
+    public string database = "postgres";
 
     public Animator cameraAnimator;
 

@@ -331,7 +331,7 @@ namespace GreatArcStudios
             //Enable mask
             mask.SetActive(false);
             //set last texture limit
-            lastTexLimit = QualitySettings.masterTextureLimit;
+            lastTexLimit = QualitySettings.globalTextureMipmapLimit;
             //set last shadow cascade 
             lastShadowCascade = QualitySettings.shadowCascades;
             //saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
@@ -726,7 +726,7 @@ namespace GreatArcStudios
             modelQualSlider.value = QualitySettings.lodBias;
             renderDistSlider.value = mainCam.farClipPlane;
             shadowDistSlider.value = QualitySettings.shadowDistance;
-            masterTexSlider.value = (QualitySettings.masterTextureLimit - 2) * -1; // to change the direction of the slider
+            masterTexSlider.value = (QualitySettings.globalTextureMipmapLimit - 2) * -1; // to change the direction of the slider
             shadowCascadesSlider.value = QualitySettings.shadowCascades;
             fullscreenToggle.isOn = Screen.fullScreen;
             aoToggle.isOn = aoBool;
@@ -795,7 +795,7 @@ namespace GreatArcStudios
                 QualitySettings.antiAliasing = (int)aaQualINI;
                 QualitySettings.antiAliasing = msaaINI;
                 QualitySettings.vSyncCount = vsyncINI;
-                QualitySettings.masterTextureLimit = lastTexLimit;
+                QualitySettings.globalTextureMipmapLimit = lastTexLimit;
                 QualitySettings.shadowCascades = lastShadowCascade;
                 Screen.fullScreen = isFullscreen;
             }
@@ -815,7 +815,7 @@ namespace GreatArcStudios
                 QualitySettings.antiAliasing = (int)aaQualINI;
                 QualitySettings.antiAliasing = msaaINI;
                 QualitySettings.vSyncCount = vsyncINI;
-                QualitySettings.masterTextureLimit = lastTexLimit;
+                QualitySettings.globalTextureMipmapLimit = lastTexLimit;
                 QualitySettings.shadowCascades = lastShadowCascade;
                 //Screen.fullScreen = isFullscreen;
 
@@ -853,7 +853,7 @@ namespace GreatArcStudios
             lastAOBool = aoBool;
             lastDOFBool = dofBool;
             beforeRes = currentRes;
-            lastTexLimit = QualitySettings.masterTextureLimit;
+            lastTexLimit = QualitySettings.globalTextureMipmapLimit;
             lastShadowCascade = QualitySettings.shadowCascades;
             vsyncINI = QualitySettings.vSyncCount;
             isFullscreen = Screen.fullScreen;

@@ -1,23 +1,48 @@
 fileFormatVersion: 2
 guid: 05549fedbbd5839419f2af4d25e218d1
-timeCreated: 1507825077
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: lineV
-    21300002: lineH
-    21300004: lineHV
-    21300006: lineVH
-    21300008: arrowUp
-    21300010: arrowDown
-    21300012: thunder
-    21300014: X
-    21300016: cross
-    21300018: iluminati
-    21300020: y_inverse
-    21300022: chickenFoot
-    21300024: yInverse
-  serializedVersion: 4
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: lineV
+  - first:
+      213: 21300002
+    second: lineH
+  - first:
+      213: 21300004
+    second: lineHV
+  - first:
+      213: 21300006
+    second: lineVH
+  - first:
+      213: 21300008
+    second: arrowUp
+  - first:
+      213: 21300010
+    second: arrowDown
+  - first:
+      213: 21300012
+    second: thunder
+  - first:
+      213: 21300014
+    second: X
+  - first:
+      213: 21300016
+    second: cross
+  - first:
+      213: 21300018
+    second: iluminati
+  - first:
+      213: 21300020
+    second: y_inverse
+  - first:
+      213: 21300022
+    second: chickenFoot
+  - first:
+      213: 21300024
+    second: yInverse
+  externalObjects: {}
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -34,7 +59,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -43,12 +73,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: 1
-    mipBias: -1
+    mipBias: 0
     wrapU: 1
-    wrapV: -1
-    wrapW: -1
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -57,33 +87,51 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 9
   spritePivot: {x: 0, y: 0}
-  spriteBorder: {x: 0, y: 69, z: 236, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 69, z: 236, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -101,6 +149,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: lineH
       rect:
@@ -115,6 +170,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: lineHV
       rect:
@@ -129,6 +191,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: lineVH
       rect:
@@ -143,6 +212,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: arrowUp
       rect:
@@ -157,6 +233,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: arrowDown
       rect:
@@ -171,6 +254,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: thunder
       rect:
@@ -185,6 +275,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: X
       rect:
@@ -199,6 +296,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: cross
       rect:
@@ -213,6 +317,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 03305410000000000800000000000000
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: iluminati
       rect:
@@ -227,6 +338,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: yInverse
       rect:
@@ -241,6 +359,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: chickenFoot
       rect:
@@ -255,6 +380,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline:
     - - {x: -63.5, y: -52.5}
       - {x: -63.5, y: -53.5}
@@ -469,7 +601,29 @@ TextureImporter:
       - {x: -59.5, y: 34.5}
       - {x: -59.5, y: 37.5}
       - {x: -61.5, y: 39.5}
-  spritePackingTag: 
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      X: 21300014
+      arrowDown: 21300010
+      arrowUp: 21300008
+      chickenFoot: 21300022
+      cross: 21300016
+      iluminati: 21300018
+      lineH: 21300002
+      lineHV: 21300004
+      lineV: 21300000
+      lineVH: 21300006
+      thunder: 21300012
+      yInverse: 21300024
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
